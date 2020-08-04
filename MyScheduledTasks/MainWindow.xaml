@@ -131,7 +131,7 @@
                 </MenuItem>
 
                 <MenuItem Header="_View">
-                    <MenuItem Header="Refresh" Click="MenuItem_Click">
+                    <MenuItem Header="Refresh" Click="Refresh_Click">
                         <MenuItem.Icon>
                             <Image Source="Icons/arrow-circle-double.png" />
                         </MenuItem.Icon>

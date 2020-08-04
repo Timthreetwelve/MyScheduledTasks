@@ -391,6 +391,21 @@ namespace MyScheduledTasks
         }
         #endregion Get updated tasks from TaskList
 
+        #region Refresh
+        private void RefreshData()
+        {
+            if (MyTasks.IsDirty)
+            {
+                UpdateMyTasksCollection();
+                WriteTasks2Json(true);
+                ReadMyTasks();
+            }
+            ScheduledTask.TaskList.Clear();
+            LoadData();
+            DataGridTasks.ItemsSource = ScheduledTask.TaskList;
+        }
+        #endregion
+
         #region Show Add window
         private void ShowAddWindow()
         {
@@ -614,6 +629,11 @@ namespace MyScheduledTasks
             TextFileViewer.ViewTextFile(tasksFile);
         }
 
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshData();
+        }
+
         private void Sort_Click(object sender, RoutedEventArgs e)
         {
             var result = TKMessageBox.Show("This cannot be undone.\n\nProceed with sort?",
@@ -818,17 +838,6 @@ namespace MyScheduledTasks
         }
         #endregion Unhandled Exception Handler
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            if (MyTasks.IsDirty)
-            {
-                UpdateMyTasksCollection();
-                WriteTasks2Json(true);
-                ReadMyTasks();
-            }
-            ScheduledTask.TaskList.Clear();
-            LoadData();
-            DataGridTasks.ItemsSource = ScheduledTask.TaskList;
-        }
+
     }
 }
