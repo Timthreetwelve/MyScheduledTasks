@@ -1,0 +1,469 @@
+﻿<Window x:Class="MyScheduledTasks.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MyScheduledTasks"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p="clr-namespace:MyScheduledTasks.Properties"
+    mc:Ignorable="d"
+    Title="Task Scheduler Info"
+    Width="600"
+    MinWidth="300"
+    MinHeight="250"
+    Closing="Window_Closing"
+    ContentRendered="Window_ContentRendered"
+    KeyDown="Window_Keydown"
+    SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <!--#region Styles-->
+        <!--  Style to change the result text to red if value is not "OK"  -->
+        <Style x:Key="RedCell" TargetType="DataGridCell">
+            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding TaskResultShort}" Value="OK">
+                    <Setter Property="Foreground" Value="Black" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--  Style to set tooltip colors & font size  -->
+        <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
+            <Setter Property="Background" Value="LemonChiffon" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+
+        <!--  Style to center align text in a data grid column  -->
+        <Style x:Key="alignCenter" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <!--  Style to right align text in a data grid column  -->
+        <Style x:Key="alignRight" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0,0,5,0" />
+        </Style>
+
+        <!--  Style to "pad" text in cells in the data grid  -->
+        <Style x:Key="ColumnMargin5" TargetType="TextBlock">
+            <Setter Property="Margin" Value="5,0,5,0" />
+        </Style>
+        <!--#endregion-->
+    </Window.Resources>
+
+    <Grid>
+        <!--#region Grid Column & Row definitions-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition />
+
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+        <!--#endregion-->
+
+        <!--#region Menu-->
+        <DockPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Height="24"
+            LastChildFill="False">
+            <Menu x:Name="mnuMain"
+                Height="24"
+                DockPanel.Dock="Top"
+                FontSize="14">
+                <MenuItem Header="_File">
+                    <MenuItem x:Name="mnuSave"
+                        Click="Save_Click"
+                        Header="_Save Task List File"
+                        InputGestureText="Ctrl+S">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\disk.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Click="Sort_Click" Header="So_rt Task List File by Task Name">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\sort-alphabet.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                    <Separator />
+                    <MenuItem Name="mnuExit"
+                        Click="MnuExit_Click"
+                        Header="E_xit"
+                        InputGestureText="Alt+F4">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\door-open-out.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="_Tasks" SubmenuOpened="Tasks_SubmenuOpened">
+                    <MenuItem x:Name="mnuAdd"
+                        Click="Add_Click"
+                        Header="_Add Tasks"
+                        InputGestureText="Ctrl+N">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\plus.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnuDelete"
+                        Click="Delete_Click"
+                        Header="_Delete Selected"
+                        InputGestureText="Ctrl+D">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\cross.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Click="OpenTaskSched_Click" Header="_Open Windows Task Scheduler">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\application-plus.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem Header="_View">
+                    <MenuItem Click="Collapse_Click" Header="_Collapse All">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\minus-small.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="_Zoom">
+                        <MenuItem
+                            Click="GridSmaller_Click"
+                            Header="_Smaller"
+                            StaysOpenOnClick="True">
+                            <MenuItem.Icon>
+                                <Image Source="Icons/magnifier-minus.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                            Click="GridLarger_Click"
+                            Header="_Larger"
+                            StaysOpenOnClick="True">
+                            <MenuItem.Icon>
+                                <Image Source="Icons/magnifier-plus.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem.Icon>
+                            <Image Source="Icons/magnifier.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem x:Name="mnuOptions" Header="_Options">
+                    <MenuItem Click="ResetCols_Click" Header="_Reset Column Sort">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/arrow-circle-double.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        Header="Save Task List on Exit"
+                        IsCheckable="True"
+                        IsChecked="{Binding SaveOnExit, Source={x:Static p:Settings.Default}}" />
+                    <Separator />
+                    <MenuItem
+                        Header="Suppress File Saved Notifications"
+                        IsCheckable="True"
+                        IsChecked="{Binding SuppressFileSaveNotify, Source={x:Static p:Settings.Default}}" />
+                    <MenuItem
+                        Header="Shade alternate rows"
+                        IsCheckable="True"
+                        IsChecked="{Binding ShadeAltRows, Source={x:Static p:Settings.Default}, Mode=TwoWay}"
+                        StaysOpenOnClick="False" />
+                </MenuItem>
+
+                <MenuItem x:Name="mnuHelp" Header="_Help">
+                    <MenuItem Name="mnuAbout"
+                        Click="MnuAbout_Click"
+                        Header="_About">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/information.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Name="mnuViewReadMe"
+                        Click="MnuViewReadMe_Click"
+                        Header="View _ReadMe File">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/document-list.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="mnuViewJson"
+                        Click="ViewJson_Click"
+                        Header="View _Data File">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/document-attribute-j.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <!--#endregion-->
+
+        <DataGrid x:Name="DataGridTasks"
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            AutoGenerateColumns="False"
+            BorderBrush="#E2E2E2"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            FontSize="14"
+            HeadersVisibility="Column"
+            HorizontalGridLinesBrush="#E2E2E2"
+            IsReadOnly="False"
+            ItemsSource="{Binding TaskList}"
+            PreviewKeyDown="DataGridTasks_PreviewKeyDown"
+            PreviewMouseWheel="DataGridTasks_PreviewMouseWheel"
+            RowDetailsVisibilityMode="Collapsed"
+            Sorting="DataGridTasks_Sorting"
+            VerticalGridLinesBrush="#E2E2E2">
+
+            <!--#region Datagrid row styles-->
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="RowDoubleClick" />
+                    <Setter Property="Foreground" Value="Black" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding TaskStatus}" Value="Disabled">
+                            <Setter Property="Foreground" Value="LightSlateGray" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding TaskStatus}" Value="Running">
+                            <Setter Property="Foreground" Value="MediumSeaGreen" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <!--#endregion-->
+
+            <!--#region Datagrid Columns-->
+            <DataGrid.Columns>
+                <DataGridTemplateColumn
+                    CanUserSort="True"
+                    DisplayIndex="0"
+                    Header="⚠"
+                    SortMemberPath="IsChecked">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn
+                    MinWidth="240"
+                    Binding="{Binding TaskName}"
+                    DisplayIndex="1"
+                    Header="Task Name"
+                    IsReadOnly="True" />
+
+                <DataGridTextColumn
+                    Binding="{Binding TaskStatus}"
+                    DisplayIndex="2"
+                    Header="Status"
+                    IsReadOnly="True" />
+
+                <DataGridTemplateColumn
+                    CanUserSort="True"
+                    CellStyle="{StaticResource RedCell}"
+                    DisplayIndex="3"
+                    Header="Result"
+                    IsReadOnly="True"
+                    SortMemberPath="TaskResultShort">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TaskResultShort}">
+                                <TextBlock.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding TaskResultHex, StringFormat=Last Result: {0}}" />
+                                    </StackPanel>
+                                </TextBlock.ToolTip>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn
+                    MinWidth="170"
+                    Binding="{Binding LastRun}"
+                    DisplayIndex="4"
+                    Header="Last Run"
+                    IsReadOnly="True" />
+            </DataGrid.Columns>
+            <!--#endregion-->
+
+            <!--#region Datagrid row details-->
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Border
+                        Padding="10,5"
+                        Background="LightYellow"
+                        BorderThickness="0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Name:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskName}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Account:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskAccount}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Author:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskAuthor}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Status:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskStatus}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Last Result:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    HorizontalAlignment="Left"
+                                    Foreground="Black">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} / {1}">
+                                            <Binding Path="TaskResult" />
+                                            <Binding Path="TaskResultHex" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Last Run:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding LastRun}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Next Run:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding NextRun}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Missed Runs:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskMissedRuns}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Task Path:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskPath}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Description:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskDescription}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            <!--#endregion-->
+
+            <!--#region Grid context menu-->
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Click="Add_Click" Header="Add Tasks" />
+                    <Separator />
+                    <MenuItem Click="Delete_Click" Header="Delete Selected" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <!--#endregion-->
+
+        </DataGrid>
+
+        <!--#region Status bar-->
+        <StatusBar
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Background="{Binding ElementName=mnuMain, Path=Background}"
+            DockPanel.Dock="Bottom"
+            FontSize="{Binding ElementName=mnuMain, Path=FontSize}">
+            <StatusBarItem x:Name="sb1"
+                Padding="8,0,0,4"
+                Content="{Binding TaskList.Count}"
+                ContentStringFormat="{}{0} Tasks" />
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="sbRight" Margin="0,0,8,0" />
+            </StatusBarItem>
+        </StatusBar>
+        <!--#endregion-->
+    </Grid>
+</Window>
