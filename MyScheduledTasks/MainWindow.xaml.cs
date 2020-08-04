@@ -145,10 +145,14 @@ namespace MyScheduledTasks
             foreach (MyTasks item in MyTasks.MyTasksCollection)
             {
                 Task task = GetTaskInfo(item.TaskPath);
+
                 if (task != null)
                 {
+                    // **************************************************************************
                     // if changes are made to the following, change the corresponding code in the
                     // AddSelectWindow.AddSelected items method.
+                    // **************************************************************************
+                    string folder = item.TaskPath.Replace(task.Name, "");
                     ScheduledTask schedTask = new ScheduledTask
                     {
                         TaskName = task.Name,
@@ -157,6 +161,7 @@ namespace MyScheduledTasks
                         LastRun = task.LastRunTime,
                         NextRun = task.NextRunTime,
                         TaskPath = task.Path,
+                        TaskFolder = folder,
                         TaskMissedRuns = task.NumberOfMissedRuns,
                         TaskAccount = task.Definition.Principal.Account,
                         TaskDescription = task.Definition.RegistrationInfo.Description,
@@ -242,7 +247,6 @@ namespace MyScheduledTasks
         }
         #endregion Command line arguments
 
-        #region Set datagrid column sort
         #region Write the tasks JSON file
         private void WriteTasks2Json(bool suppress)
         {
@@ -274,6 +278,8 @@ namespace MyScheduledTasks
             }
         }
         #endregion Write the tasks JSON file
+
+        #region Set datagrid column sort
         public void SetDGColumnSort()
         {
             if (File.Exists(colsFile))
@@ -362,9 +368,11 @@ namespace MyScheduledTasks
             using (TaskService ts = new TaskService())
             {
                 Task task = ts.GetTask(name);
+
                 return task;
             }
         }
+
         #endregion Get scheduled task info for one task
 
         #region Get updated tasks from TaskList
@@ -552,10 +560,6 @@ namespace MyScheduledTasks
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            foreach (ScheduledTask item in ScheduledTask.TaskList)
-            {
-                Debug.WriteLine($"- {item.TaskName}");
-            }
             UpdateMyTasksCollection();
             WriteTasks2Json(false);
         }
@@ -813,5 +817,18 @@ namespace MyScheduledTasks
             WriteLog.WriteTempFile(e.StackTrace);
         }
         #endregion Unhandled Exception Handler
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (MyTasks.IsDirty)
+            {
+                UpdateMyTasksCollection();
+                WriteTasks2Json(true);
+                ReadMyTasks();
+            }
+            ScheduledTask.TaskList.Clear();
+            LoadData();
+            DataGridTasks.ItemsSource = ScheduledTask.TaskList;
+        }
     }
 }

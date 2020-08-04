@@ -91,6 +91,7 @@ namespace MyScheduledTasks
                     // if changes are made to the following, change the
                     // corresponding code in the MainWindow.LoadData method.
                     // *****************************************************
+                    string folder = task.Path.Replace(task.Name, "");
                     ScheduledTask schedTask = new ScheduledTask
                     {
                         TaskName = task.Name,
@@ -99,6 +100,7 @@ namespace MyScheduledTasks
                         LastRun = task.LastRunTime,
                         NextRun = task.NextRunTime,
                         TaskPath = task.Path,
+                        TaskFolder = folder,
                         TaskMissedRuns = task.NumberOfMissedRuns,
                         TaskAccount = task.Definition.Principal.Account,
                         TaskDescription = task.Definition.RegistrationInfo.Description,

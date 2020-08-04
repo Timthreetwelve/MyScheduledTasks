@@ -131,6 +131,11 @@
                 </MenuItem>
 
                 <MenuItem Header="_View">
+                    <MenuItem Header="Refresh" Click="MenuItem_Click">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/arrow-circle-double.png" />
+                        </MenuItem.Icon>
+                    </MenuItem> 
                     <MenuItem Click="Collapse_Click" Header="_Collapse All">
                         <MenuItem.Icon>
                             <Image Source="Icons\minus-small.png" />
@@ -162,7 +167,7 @@
                 <MenuItem x:Name="mnuOptions" Header="_Options">
                     <MenuItem Click="ResetCols_Click" Header="_Reset Column Sort">
                         <MenuItem.Icon>
-                            <Image Source="Icons/arrow-circle-double.png" />
+                            <Image Source="Icons/arrow-circle-left.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
@@ -175,8 +180,9 @@
                         Header="Suppress File Saved Notifications"
                         IsCheckable="True"
                         IsChecked="{Binding SuppressFileSaveNotify, Source={x:Static p:Settings.Default}}" />
+                    <Separator />
                     <MenuItem
-                        Header="Shade alternate rows"
+                        Header="Shade Alternate Grid Rows"
                         IsCheckable="True"
                         IsChecked="{Binding ShadeAltRows, Source={x:Static p:Settings.Default}, Mode=TwoWay}"
                         StaysOpenOnClick="False" />
@@ -267,19 +273,14 @@
                     MinWidth="240"
                     Binding="{Binding TaskName}"
                     DisplayIndex="1"
+                    ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Task Name"
-                    IsReadOnly="True" />
-
-                <DataGridTextColumn
-                    Binding="{Binding TaskStatus}"
-                    DisplayIndex="2"
-                    Header="Status"
                     IsReadOnly="True" />
 
                 <DataGridTemplateColumn
                     CanUserSort="True"
                     CellStyle="{StaticResource RedCell}"
-                    DisplayIndex="3"
+                    DisplayIndex="2"
                     Header="Result"
                     IsReadOnly="True"
                     SortMemberPath="TaskResultShort">
@@ -297,10 +298,25 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn
-                    MinWidth="170"
+                    Binding="{Binding TaskStatus}"
+                    DisplayIndex="3"
+                    ElementStyle="{StaticResource ColumnMargin5}"
+                    Header="Status"
+                    IsReadOnly="True" />
+
+                <DataGridTextColumn
                     Binding="{Binding LastRun}"
                     DisplayIndex="4"
+                    ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Last Run"
+                    IsReadOnly="True" />
+
+                <DataGridTextColumn
+                    MinWidth="50"
+                    Binding="{Binding TaskFolder}"
+                    DisplayIndex="5"
+                    ElementStyle="{StaticResource ColumnMargin5}"
+                    Header="Folder"
                     IsReadOnly="True" />
             </DataGrid.Columns>
             <!--#endregion-->
@@ -323,6 +339,17 @@
                                     Margin="0,1"
                                     Foreground="Black"
                                     Text="{Binding TaskName}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Folder:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskFolder}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock

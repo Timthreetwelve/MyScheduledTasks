@@ -142,6 +142,8 @@ namespace MyScheduledTasks
             }
         }
 
+        public string TaskFolder { get; set; }
+
         public string TaskPath { get; set; }
 
         public int TaskMissedRuns { get; set; }

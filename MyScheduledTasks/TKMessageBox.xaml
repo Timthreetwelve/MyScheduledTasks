@@ -47,7 +47,7 @@
         CornerRadius="1">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="28" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="42" />
             </Grid.RowDefinitions>
@@ -90,7 +90,7 @@
             <Grid
                 Grid.Row="0"
                 Grid.ColumnSpan="2"
-                MinHeight="40">
+                >
                 <TextBlock Name="MessageTitle"
                     Margin="5,1,0,1"
                     HorizontalAlignment="Center"
@@ -98,7 +98,7 @@
                     FontSize="16"
                     FontWeight="SemiBold"
                     Foreground="White"
-                    LineHeight="22"
+
                     Text="Test"
                     TextTrimming="CharacterEllipsis" />
             </Grid>
