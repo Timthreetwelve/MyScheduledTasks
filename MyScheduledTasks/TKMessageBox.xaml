@@ -110,7 +110,7 @@
                     Width="60"
                     Height="60"
                     Margin="15,10,25,10"
-                    Stretch="UniformToFill" />
+                    Stretch="Uniform" />
             </Grid>
             <ScrollViewer
                 Grid.Row="1"

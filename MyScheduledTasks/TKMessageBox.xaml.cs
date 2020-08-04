@@ -145,8 +145,8 @@ namespace TKUtils
                     _messageBox.SetImage("Check.png");
                     break;
 
-                case MessageBoxImage.RedX:
-                    _messageBox.SetImage("RedX.png");
+                case MessageBoxImage.FileSave:
+                    _messageBox.SetImage("FileSave.png");
                     break;
 
                 default:
@@ -223,7 +223,7 @@ namespace TKUtils
         Error,
         Check,
         ArrowCircle,
-        RedX,
+        FileSave,
         None
     }
     #endregion

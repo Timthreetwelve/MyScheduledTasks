@@ -262,7 +262,7 @@ namespace MyScheduledTasks
                     _ = TKMessageBox.Show($"Saved to {tasksFile}",
                                 "File Saved",
                                 MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                                MessageBoxImage.FileSave);
                 }
                 MyTasks.IsDirty = false;
                 sbRight.Text = string.Empty;
