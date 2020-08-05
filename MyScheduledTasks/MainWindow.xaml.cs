@@ -188,6 +188,7 @@ namespace MyScheduledTasks
             ScheduledTask.TaskList = taskList;
             ScheduledTask.TaskList.CollectionChanged += TaskList_CollectionChanged;
             bindingList.ListChanged += Binding_ListChanged;
+            sbLeft.Content = ScheduledTask.TaskList.Count;
         }
         #endregion Load the Datagrid
 
@@ -403,6 +404,13 @@ namespace MyScheduledTasks
             ScheduledTask.TaskList.Clear();
             LoadData();
             DataGridTasks.ItemsSource = ScheduledTask.TaskList;
+
+            // MyTasks.MyTasksCollection isn't really dirty, it's been reloaded with the same data
+            // so we reset the dirty flag and turn off the warning message in the status bar.
+            MyTasks.IsDirty = false;
+            sbRight.Text = string.Empty;
+
+
         }
         #endregion
 
@@ -655,6 +663,12 @@ namespace MyScheduledTasks
                 mnuHelp.IsSubmenuOpen = true;
             }
 
+            // F5 = Refresh
+            if (e.Key == Key.F5)
+            {
+                mnuRefresh.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+            }
+
             // Ctrl + N = Add
             if (e.Key == Key.N && (e.KeyboardDevice.Modifiers == ModifierKeys.Control))
             {
@@ -728,6 +742,7 @@ namespace MyScheduledTasks
             Debug.WriteLine($"Collection Changed Action was: {e.Action}");
             MyTasks.IsDirty = true;
             sbRight.Text = "Unsaved changes";
+            sbLeft.Content = ScheduledTask.TaskList.Count;
         }
         #endregion List changes
         #endregion Enumerate Datagrid rows

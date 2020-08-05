@@ -6,7 +6,7 @@ namespace TKUtils
 {
     // Based on https://www.codeproject.com/tips/1081930/custom-message-box-in-wpf-xaml
     //
-    // Remember to copy the 6 png images to the Images folder
+    // Remember to copy the 8 png images to the Images folder
 
     public partial class TKMessageBox : Window
     {

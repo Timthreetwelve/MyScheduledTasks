@@ -64,7 +64,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>clock.ico</ApplicationIcon>
+    <ApplicationIcon>clockY2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -164,7 +164,6 @@
     <Resource Include="Icons\arrow-circle-double.png" />
     <Resource Include="Icons\cross.png" />
     <Resource Include="Icons\application-plus.png" />
-    <Resource Include="Icons\document-attribute-j.png" />
     <Resource Include="Icons\document-code.png" />
     <Resource Include="Images\ArrowCircle.png" />
     <Resource Include="Images\Check.png" />
@@ -175,6 +174,11 @@
     <Resource Include="Images\Warning.png" />
     <Resource Include="Icons\sort-alphabet.png" />
     <Resource Include="Images\FileSave.png" />
+    <Resource Include="Icons\arrow-return-left.png" />
+    <Resource Include="Icons\json.png" />
+    <Resource Include="Icons\document-text.png" />
+    <Resource Include="Icons\information-white.png" />
+    <Resource Include="clockY2.ico" />
     <Content Include="ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -196,7 +200,6 @@
     <Resource Include="Icons\magnifier-minus.png" />
     <Resource Include="Icons\magnifier-plus.png" />
     <Resource Include="Icons\magnifier.png" />
-    <Resource Include="clock.ico" />
     <Resource Include="Icons\clock.png" />
     <Content Include="MyTasks.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

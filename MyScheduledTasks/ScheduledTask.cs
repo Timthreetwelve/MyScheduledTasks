@@ -29,7 +29,6 @@ namespace MyScheduledTasks
             {
                 isChecked = value;
                 OnPropertyChanged();
-                Debug.WriteLine($"Checkbox value has changed to {value}");
             }
         }
 
@@ -42,7 +41,6 @@ namespace MyScheduledTasks
                 {
                     taskName = value;
                     OnPropertyChanged();
-                    Debug.WriteLine($"TaskName has changed to {value}");
                 }
             }
         }

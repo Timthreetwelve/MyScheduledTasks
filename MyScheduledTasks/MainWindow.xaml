@@ -131,11 +131,14 @@
                 </MenuItem>
 
                 <MenuItem Header="_View">
-                    <MenuItem Header="Refresh" Click="Refresh_Click">
+                    <MenuItem x:Name="mnuRefresh"
+                        Click="Refresh_Click"
+                        Header="_Refresh"
+                        InputGestureText="F5">
                         <MenuItem.Icon>
                             <Image Source="Icons/arrow-circle-double.png" />
                         </MenuItem.Icon>
-                    </MenuItem> 
+                    </MenuItem>
                     <MenuItem Click="Collapse_Click" Header="_Collapse All">
                         <MenuItem.Icon>
                             <Image Source="Icons\minus-small.png" />
@@ -145,6 +148,7 @@
                         <MenuItem
                             Click="GridSmaller_Click"
                             Header="_Smaller"
+                            InputGestureText="Ctrl+MouseWheel"
                             StaysOpenOnClick="True">
                             <MenuItem.Icon>
                                 <Image Source="Icons/magnifier-minus.png" />
@@ -153,6 +157,7 @@
                         <MenuItem
                             Click="GridLarger_Click"
                             Header="_Larger"
+                            InputGestureText="Ctrl+MouseWheel"
                             StaysOpenOnClick="True">
                             <MenuItem.Icon>
                                 <Image Source="Icons/magnifier-plus.png" />
@@ -167,7 +172,7 @@
                 <MenuItem x:Name="mnuOptions" Header="_Options">
                     <MenuItem Click="ResetCols_Click" Header="_Reset Column Sort">
                         <MenuItem.Icon>
-                            <Image Source="Icons/arrow-circle-left.png" />
+                            <Image Source="Icons/arrow-return-left.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
@@ -193,7 +198,7 @@
                         Click="MnuAbout_Click"
                         Header="_About">
                         <MenuItem.Icon>
-                            <Image Source="Icons/information.png" />
+                            <Image Source="Icons/information-white.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
@@ -201,14 +206,14 @@
                         Click="MnuViewReadMe_Click"
                         Header="View _ReadMe File">
                         <MenuItem.Icon>
-                            <Image Source="Icons/document-list.png" />
+                            <Image Source="Icons/document-text.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Name="mnuViewJson"
                         Click="ViewJson_Click"
                         Header="View _Data File">
                         <MenuItem.Icon>
-                            <Image Source="Icons/document-attribute-j.png" />
+                            <Image Source="Icons/json.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
@@ -483,9 +488,8 @@
             Background="{Binding ElementName=mnuMain, Path=Background}"
             DockPanel.Dock="Bottom"
             FontSize="{Binding ElementName=mnuMain, Path=FontSize}">
-            <StatusBarItem x:Name="sb1"
+            <StatusBarItem x:Name="sbLeft"
                 Padding="8,0,0,4"
-                Content="{Binding TaskList.Count}"
                 ContentStringFormat="{}{0} Tasks" />
             <StatusBarItem HorizontalAlignment="Right">
                 <TextBlock x:Name="sbRight" Margin="0,0,8,0" />

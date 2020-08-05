@@ -34,7 +34,6 @@ namespace MyScheduledTasks
                 {
                     taskPath = value;
                     OnPropertyChanged();
-                    Debug.WriteLine($"TaskPath has changed to {value}");
                 }
             }
         }
@@ -46,7 +45,6 @@ namespace MyScheduledTasks
             {
                 alert = value;
                 OnPropertyChanged();
-                Debug.WriteLine($"Alert has changed to {value}");
             }
         }
 

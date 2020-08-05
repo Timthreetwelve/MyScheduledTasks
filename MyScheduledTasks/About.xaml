@@ -40,7 +40,7 @@
             Height="69"
             Margin="12,0,0,5"
             HorizontalAlignment="Left"
-            Source="clock.ico"
+            Source="clocky.ico"
             Stretch="UniformToFill"
             ToolTip="Built with ❤ in Texas" />
         <!--#endregion-->
