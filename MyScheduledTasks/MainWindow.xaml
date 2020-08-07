@@ -15,6 +15,7 @@
     KeyDown="Window_Keydown"
     SizeToContent="WidthAndHeight">
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolVisConverter" />
         <!--#region Styles-->
         <!--  Style to change the result text to red if value is not "OK"  -->
         <Style x:Key="RedCell" TargetType="DataGridCell">
@@ -88,13 +89,6 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Click="Sort_Click" Header="So_rt Task List File by Task Name">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\sort-alphabet.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-
-                    <Separator />
                     <MenuItem Name="mnuExit"
                         Click="MnuExit_Click"
                         Header="E_xit"
@@ -167,6 +161,26 @@
                             <Image Source="Icons/magnifier.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem
+                        Header="Show Alert Column"
+                        IsCheckable="True"
+                        IsChecked="{Binding ShowAlertCol, Source={x:Static p:Settings.Default}}" />
+                    <MenuItem
+                        Header="Show Result Column"
+                        IsCheckable="True"
+                        IsChecked="{Binding ShowResultCol, Source={x:Static p:Settings.Default}}" />
+                    <MenuItem
+                        Header="Show Status Column"
+                        IsCheckable="True"
+                        IsChecked="{Binding ShowStatusCol, Source={x:Static p:Settings.Default}}" />
+                    <MenuItem
+                        Header="Show Last Run Column"
+                        IsCheckable="True"
+                        IsChecked="{Binding ShowLastRunCol, Source={x:Static p:Settings.Default}}" />
+                    <MenuItem
+                        Header="Show Folder Column"
+                        IsCheckable="True"
+                        IsChecked="{Binding ShowFolderCol, Source={x:Static p:Settings.Default}}" />
                 </MenuItem>
 
                 <MenuItem x:Name="mnuOptions" Header="_Options">
@@ -263,7 +277,8 @@
                     CanUserSort="True"
                     DisplayIndex="0"
                     Header="⚠"
-                    SortMemberPath="IsChecked">
+                    SortMemberPath="IsChecked"
+                    Visibility="{Binding ShowAlertCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox
@@ -288,7 +303,8 @@
                     DisplayIndex="2"
                     Header="Result"
                     IsReadOnly="True"
-                    SortMemberPath="TaskResultShort">
+                    SortMemberPath="TaskResultShort"
+                    Visibility="{Binding ShowResultCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding TaskResultShort}">
@@ -307,14 +323,16 @@
                     DisplayIndex="3"
                     ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Status"
-                    IsReadOnly="True" />
+                    IsReadOnly="True"
+                    Visibility="{Binding ShowStatusCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}" />
 
                 <DataGridTextColumn
                     Binding="{Binding LastRun}"
                     DisplayIndex="4"
                     ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Last Run"
-                    IsReadOnly="True" />
+                    IsReadOnly="True"
+                    Visibility="{Binding ShowLastRunCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}" />
 
                 <DataGridTextColumn
                     MinWidth="50"
@@ -322,7 +340,8 @@
                     DisplayIndex="5"
                     ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Folder"
-                    IsReadOnly="True" />
+                    IsReadOnly="True"
+                    Visibility="{Binding ShowFolderCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}" />
             </DataGrid.Columns>
             <!--#endregion-->
 

@@ -87,10 +87,7 @@
                 </Rectangle.Triggers>
             </Rectangle>
 
-            <Grid
-                Grid.Row="0"
-                Grid.ColumnSpan="2"
-                >
+            <Grid Grid.Row="0" Grid.ColumnSpan="2">
                 <TextBlock Name="MessageTitle"
                     Margin="5,1,0,1"
                     HorizontalAlignment="Center"
@@ -98,7 +95,6 @@
                     FontSize="16"
                     FontWeight="SemiBold"
                     Foreground="White"
-
                     Text="Test"
                     TextTrimming="CharacterEllipsis" />
             </Grid>

@@ -130,5 +130,65 @@ namespace MyScheduledTasks.Properties {
                 this["SuppressFileSaveNotify"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowAlertCol {
+            get {
+                return ((bool)(this["ShowAlertCol"]));
+            }
+            set {
+                this["ShowAlertCol"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowResultCol {
+            get {
+                return ((bool)(this["ShowResultCol"]));
+            }
+            set {
+                this["ShowResultCol"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowStatusCol {
+            get {
+                return ((bool)(this["ShowStatusCol"]));
+            }
+            set {
+                this["ShowStatusCol"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowLastRunCol {
+            get {
+                return ((bool)(this["ShowLastRunCol"]));
+            }
+            set {
+                this["ShowLastRunCol"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowFolderCol {
+            get {
+                return ((bool)(this["ShowFolderCol"]));
+            }
+            set {
+                this["ShowFolderCol"] = value;
+            }
+        }
     }
 }

@@ -108,7 +108,6 @@
     </Compile>
     <Compile Include="AppInfo.cs" />
     <Compile Include="ColumnSort.cs" />
-    <Compile Include="ObservableCollection.cs" />
     <Compile Include="SpecialFolders.cs" />
     <Compile Include="TextFileViewer.cs" />
     <Compile Include="TKMessageBox.xaml.cs">

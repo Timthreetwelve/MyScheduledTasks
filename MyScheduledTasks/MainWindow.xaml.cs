@@ -62,8 +62,7 @@ namespace MyScheduledTasks
             stopwatch.Start();
 
             // Unhandled exception handler
-            AppDomain.CurrentDomain.UnhandledException +=
-                new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             // Settings upgrade
             if (Properties.Settings.Default.SettingsUpgradeRequired)
@@ -105,7 +104,7 @@ namespace MyScheduledTasks
             // If the file doesn't exist, create a minimal JSON file instead of blowing up
             if (!File.Exists(tasksFile))
             {
-                string x = "[\n  {\n    \"TaskPath\": \"\\\\\",\n    \"Alert\": false\n  }  \n]";
+                const string x = "[\n  {\n    \"TaskPath\": \"\\\\\",\n    \"Alert\": false\n  }  \n]";
                 File.WriteAllText(tasksFile, x);
             }
 
@@ -176,7 +175,7 @@ namespace MyScheduledTasks
                 {
                     if (item.TaskPath == null)
                     {
-                        WriteLog.WriteTempFile($"Null item found while reading");
+                        WriteLog.WriteTempFile("Null item found while reading");
                     }
                     else
                     {
@@ -232,7 +231,7 @@ namespace MyScheduledTasks
                     // If showMainWindow is false, then shut down
                     if (!showMainWindow)
                     {
-                        WriteLog.WriteTempFile($"No scheduled tasks with a non-zero results were found.");
+                        WriteLog.WriteTempFile("No scheduled tasks with a non-zero results were found.");
 
                         Application.Current.Shutdown();
                     }
@@ -409,8 +408,6 @@ namespace MyScheduledTasks
             // so we reset the dirty flag and turn off the warning message in the status bar.
             MyTasks.IsDirty = false;
             sbRight.Text = string.Empty;
-
-
         }
         #endregion
 
@@ -589,14 +586,7 @@ namespace MyScheduledTasks
 
         private void Tasks_SubmenuOpened(object sender, RoutedEventArgs e)
         {
-            if (DataGridTasks.SelectedIndex == -1)
-            {
-                mnuDelete.IsEnabled = false;
-            }
-            else
-            {
-                mnuDelete.IsEnabled = true;
-            }
+            mnuDelete.IsEnabled = DataGridTasks.SelectedIndex != -1;
         }
 
         private void ResetCols_Click(object sender, RoutedEventArgs e)
@@ -640,17 +630,6 @@ namespace MyScheduledTasks
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             RefreshData();
-        }
-
-        private void Sort_Click(object sender, RoutedEventArgs e)
-        {
-            var result = TKMessageBox.Show("This cannot be undone.\n\nProceed with sort?",
-                                           "Confirm Sort",
-                                           MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                ScheduledTask.TaskList.Sort(x => x.TaskName);
-            }
         }
         #endregion Menu events
 
@@ -708,7 +687,7 @@ namespace MyScheduledTasks
         public IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)
         {
             var itemsSource = grid.ItemsSource;
-            if (null == itemsSource)
+            if (itemsSource == null)
             {
                 yield return null;
             }
@@ -845,14 +824,15 @@ namespace MyScheduledTasks
         #region Unhandled Exception Handler
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs args)
         {
-            WriteLog.WriteTempFile($"Unhandled Exception");
+            WriteLog.WriteTempFile("Unhandled Exception");
             Exception e = (Exception)args.ExceptionObject;
             WriteLog.WriteTempFile(e.Message);
-            WriteLog.WriteTempFile(e.InnerException.ToString());
+            if (e.InnerException != null)
+            {
+                WriteLog.WriteTempFile(e.InnerException.ToString());
+            }
             WriteLog.WriteTempFile(e.StackTrace);
         }
         #endregion Unhandled Exception Handler
-
-
     }
 }
