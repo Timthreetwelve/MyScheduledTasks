@@ -369,6 +369,17 @@
                                     Width="90"
                                     Margin="0,1,0,0"
                                     Foreground="Black"
+                                    Text="Triggers:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskTriggers}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
                                     Text="Folder:" />
                                 <TextBlock
                                     Margin="0,1"
@@ -385,6 +396,17 @@
                                     Margin="0,1"
                                     Foreground="Black"
                                     Text="{Binding TaskAccount}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Privileges:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskRunLevel}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock

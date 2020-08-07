@@ -103,14 +103,14 @@ namespace MyScheduledTasks
                         TaskFolder = folder,
                         TaskMissedRuns = task.NumberOfMissedRuns,
                         TaskAccount = task.Definition.Principal.Account,
+                        TaskRunLevel = task.Definition.Principal.RunLevel.ToString(),
                         TaskDescription = task.Definition.RegistrationInfo.Description,
                         TaskAuthor = task.Definition.RegistrationInfo.Author,
+                        TaskTriggers = task.Definition.Triggers.ToString(),
                         IsChecked = false
                     };
 
-
                     ScheduledTask.TaskList.Add(schedTask);
-
 
                     MyTasks my = new MyTasks(task.Path, false);
                     MyTasks.MyTasksCollection.Add(my);
@@ -138,7 +138,6 @@ namespace MyScheduledTasks
             Properties.Settings.Default.AddWindowHeight = Height;
             Properties.Settings.Default.AddWindowWidth = Width;
             Properties.Settings.Default.Save();
-
         }
         #endregion
     }

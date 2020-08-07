@@ -13,9 +13,11 @@ namespace MyScheduledTasks
     {
         #region private backing fields
         private bool isChecked;
+        private int taskResult;
         private string taskName;
         private string taskStatus;
-        private int taskResult;
+        private string taskRunLevel;
+        private string taskTriggers;
         private DateTime? lastRun;
         private DateTime? nextRun;
         #endregion
@@ -99,8 +101,7 @@ namespace MyScheduledTasks
                 }
                 else
                 {
-                    string hex = $"0x{TaskResult:X}";
-                    return hex;
+                    return $"0x{TaskResult:X}";
                 }
             }
         }
@@ -150,6 +151,47 @@ namespace MyScheduledTasks
         public string TaskDescription { get; set; }
 
         public string TaskAuthor { get; set; }
+
+        public string TaskRunLevel
+        {
+            get => taskRunLevel;
+
+            set
+            {
+                if (value == null)
+                {
+                    taskRunLevel = string.Empty;
+                }
+                else if (value == "LUA")
+                {
+                    taskRunLevel = "Lowest";
+                }
+                else if (value == "Highest")
+                {
+                    taskRunLevel = value;
+                }
+                else
+                {
+                    taskRunLevel = value;
+                }
+            }
+        }
+
+        public string TaskTriggers
+        {
+            get { return taskTriggers; }
+            set
+            {
+                if (value == null)
+                {
+                    taskRunLevel = string.Empty;
+                }
+                else
+                {
+                    taskTriggers = value;
+                }
+            }
+        }
 
         #endregion
 

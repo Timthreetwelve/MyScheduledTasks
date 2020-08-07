@@ -163,8 +163,10 @@ namespace MyScheduledTasks
                         TaskFolder = folder,
                         TaskMissedRuns = task.NumberOfMissedRuns,
                         TaskAccount = task.Definition.Principal.Account,
+                        TaskRunLevel = task.Definition.Principal.RunLevel.ToString(),
                         TaskDescription = task.Definition.RegistrationInfo.Description,
                         TaskAuthor = task.Definition.RegistrationInfo.Author,
+                        TaskTriggers = task.Definition.Triggers.ToString(),
                         IsChecked = item.Alert
                     };
                     taskList.Add(schedTask);
