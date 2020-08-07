@@ -541,6 +541,28 @@ namespace MyScheduledTasks
             Application.Current.Shutdown();
         }
 
+        private void Restart_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult reply = TKMessageBox.Show("Restart with Elevated Permissions?",
+                                                       "Restart?",
+                                                        MessageBoxButton.OKCancel,
+                                                        MessageBoxImage.Question);
+
+            if (reply == MessageBoxResult.OK)
+            {
+                WriteLog.WriteTempFile($"{AppInfo.AppName} is restarting with Elevated Permissions");
+                using (Process p = new Process())
+                {
+                    p.StartInfo.FileName = Application.ResourceAssembly.Location;
+                    p.StartInfo.UseShellExecute = true;
+                    p.StartInfo.Verb = "runas";
+                    p.Start();
+
+                    Application.Current.Shutdown();
+                }
+            }
+        }
+
         private void Collapse_Click(object sender, RoutedEventArgs e)
         {
             IEnumerable<DataGridRow> rows = GetDataGridRows(DataGridTasks);
@@ -836,5 +858,6 @@ namespace MyScheduledTasks
             WriteLog.WriteTempFile(e.StackTrace);
         }
         #endregion Unhandled Exception Handler
+
     }
 }
