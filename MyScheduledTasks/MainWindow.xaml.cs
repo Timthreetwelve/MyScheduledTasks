@@ -3,6 +3,8 @@
 #region Using directives
 using Microsoft.Win32.TaskScheduler;
 using Newtonsoft.Json;
+using NLog;
+using NLog.Targets;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,6 +35,10 @@ namespace MyScheduledTasks
         private readonly Stopwatch stopwatch = new Stopwatch();
         #endregion Stopwatch
 
+        #region NLog
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        #endregion NLog
+
         #region MainWindow constructor
         public MainWindow()
         {
@@ -52,10 +58,11 @@ namespace MyScheduledTasks
         private void ReadSettings()
         {
             // Startup message in the temp file
-            WriteLog.WriteTempFile($"{AppInfo.AppName} {AppInfo.TitleVersion} is starting up");
+            log.Info($"{AppInfo.AppName} {AppInfo.TitleVersion} is starting up");
+
             if (IsAdministrator())
             {
-                WriteLog.WriteTempFile($"{AppInfo.AppPath} is running as Administrator");
+                log.Info($"{AppInfo.AppPath} is running as Administrator");
             }
 
             // Start the elapsed time timer
@@ -113,13 +120,13 @@ namespace MyScheduledTasks
             {
                 string json = File.ReadAllText(tasksFile);
                 MyTasks.MyTasksCollection = JsonConvert.DeserializeObject<ObservableCollection<MyTasks>>(json);
-                WriteLog.WriteTempFile($"Read {MyTasks.MyTasksCollection.Count} items from {tasksFile} ");
+                log.Info($"Read {MyTasks.MyTasksCollection.Count} items from {tasksFile} ");
             }
             // Can't really do much if the file is not readable
             catch (Exception ex)
             {
-                WriteLog.WriteTempFile($"Error reading {tasksFile}");
-                WriteLog.WriteTempFile(ex.Message);
+                log.Error($"Error reading {tasksFile}");
+                log.Fatal(ex.Message);
                 _ = TKMessageBox.Show($"Error reading {tasksFile}\n\n{ex.Message}",
                                     "Error!",
                                     MessageBoxButton.OK,
@@ -171,17 +178,17 @@ namespace MyScheduledTasks
                     };
                     taskList.Add(schedTask);
                     bindingList.Add(schedTask);
-                    WriteLog.WriteTempFile($"Read \"{item.TaskPath}\"");
+                    log.Info($"Read \"{item.TaskPath}\"");
                 }
                 else
                 {
                     if (item.TaskPath == null)
                     {
-                        WriteLog.WriteTempFile("Null item found while reading");
+                        log.Warn("Null item found while reading");
                     }
                     else
                     {
-                        WriteLog.WriteTempFile($"No information found for \"{item.TaskPath}\"");
+                        log.Warn($"No information found for \"{item.TaskPath}\"");
                     }
                 }
             }
@@ -210,7 +217,7 @@ namespace MyScheduledTasks
 
                 if (arg == "hide")
                 {
-                    WriteLog.WriteTempFile($"Command line argument \"{item}\" found.");
+                    log.Info($"Command line argument \"{item}\" found.");
 
                     // hide the window
                     Visibility = Visibility.Hidden;
@@ -225,7 +232,7 @@ namespace MyScheduledTasks
                         {
                             Visibility = Visibility.Visible;
                             showMainWindow = true;
-                            WriteLog.WriteTempFile($"Last result for {task.TaskName} was {task.TaskResult}, showing window");
+                            log.Info($"Last result for {task.TaskName} was {task.TaskResult}, showing window");
                             break;
                         }
                     }
@@ -233,7 +240,7 @@ namespace MyScheduledTasks
                     // If showMainWindow is false, then shut down
                     if (!showMainWindow)
                     {
-                        WriteLog.WriteTempFile("No scheduled tasks with a non-zero results were found.");
+                        log.Info("No scheduled tasks with a non-zero results were found.");
 
                         Application.Current.Shutdown();
                     }
@@ -242,7 +249,7 @@ namespace MyScheduledTasks
                 {
                     if (item != args[0])
                     {
-                        WriteLog.WriteTempFile($"Unknown command line argument  \"{item}\" found.");
+                        log.Warn($"Unknown command line argument  \"{item}\" found.");
                     }
                 }
             }
@@ -257,7 +264,7 @@ namespace MyScheduledTasks
             {
                 string x = JsonConvert.SerializeObject(MyTasks.MyTasksCollection, Formatting.Indented);
                 File.WriteAllText(tasksFile, x);
-                WriteLog.WriteTempFile($"Writing {MyTasks.MyTasksCollection.Count} items to {tasksFile} ");
+                log.Info($"Writing {MyTasks.MyTasksCollection.Count} items to {tasksFile} ");
 
                 if (!suppress)
                 {
@@ -271,8 +278,8 @@ namespace MyScheduledTasks
             }
             catch (Exception ex)
             {
-                WriteLog.WriteTempFile($"Error saving {tasksFile}");
-                WriteLog.WriteTempFile(ex.Message);
+                log.Error($"Error saving {tasksFile}");
+                log.Error(ex.Message);
                 _ = TKMessageBox.Show($"Error saving {tasksFile}\n\n{ex.Message}",
                                     "Error!",
                                     MessageBoxButton.OK,
@@ -297,14 +304,14 @@ namespace MyScheduledTasks
                         DataGridTasks.Items.SortDescriptions.Add(new SortDescription(
                             column.SortMemberPath, ListSortDirection.Ascending));
                         column.SortDirection = ListSortDirection.Ascending;
-                        WriteLog.WriteTempFile($"Column \"{column.Header}\" sort is Ascending");
+                        log.Info($"Column \"{column.Header}\" sort is Ascending");
                     }
                     else if (item.SortDirection == "Descending")
                     {
                         DataGridTasks.Items.SortDescriptions.Add(new SortDescription(
                             column.SortMemberPath, ListSortDirection.Descending));
                         column.SortDirection = ListSortDirection.Descending;
-                        WriteLog.WriteTempFile($"Column \"{column.Header}\" sort is Descending");
+                        log.Info($"Column \"{column.Header}\" sort is Descending");
                     }
                     else
                     {
@@ -328,7 +335,7 @@ namespace MyScheduledTasks
 
                 if (col.SortDirection != null)
                 {
-                    WriteLog.WriteTempFile($"Saving column \"{col.Header}\" sort ({col.SortDirection})");
+                    log.Info($"Saving column \"{col.Header}\" sort ({col.SortDirection})");
                     csList.Add(new ColumnSort
                     {
                         Header = col.Header.ToString(),
@@ -354,8 +361,8 @@ namespace MyScheduledTasks
             }
             catch (Exception ex)
             {
-                WriteLog.WriteTempFile($"Error saving {colsFile}");
-                WriteLog.WriteTempFile(ex.Message);
+                log.Error($"Error saving {colsFile}");
+                log.Error(ex.Message);
                 _ = TKMessageBox.Show($"Error reading {colsFile}\n\n{ex.Message}",
                                     "Error!",
                                     MessageBoxButton.OK,
@@ -472,7 +479,7 @@ namespace MyScheduledTasks
 
             stopwatch.Stop();
             string line = string.Format("{0} is shutting down.  {1:g} elapsed time.", AppInfo.AppName, stopwatch.Elapsed);
-            WriteLog.WriteTempFile(line);
+            log.Info(line);
 
             // save the property settings
             Properties.Settings.Default.WindowLeft = Left;
@@ -550,7 +557,7 @@ namespace MyScheduledTasks
 
             if (reply == MessageBoxResult.OK)
             {
-                WriteLog.WriteTempFile($"{AppInfo.AppName} is restarting with Elevated Permissions");
+                log.Info($"{AppInfo.AppName} is restarting with Elevated Permissions");
                 using (Process p = new Process())
                 {
                     p.StartInfo.FileName = Application.ResourceAssembly.Location;
@@ -631,7 +638,7 @@ namespace MyScheduledTasks
                 {
                     var row = (ScheduledTask)DataGridTasks.SelectedItems[i];
                     ScheduledTask.TaskList.Remove(row);
-                    WriteLog.WriteTempFile($"Removed \"{row.TaskPath}\"");
+                    log.Info($"Removed \"{row.TaskPath}\"");
                 }
             }
         }
@@ -651,10 +658,26 @@ namespace MyScheduledTasks
             TextFileViewer.ViewTextFile(tasksFile);
         }
 
+        private void ViewTemp_Click(object sender, RoutedEventArgs e)
+        {
+            FileTarget targ = (FileTarget)LogManager.Configuration.FindTargetByName("tempfile");
+            LogEventInfo logEventInfo = new LogEventInfo { TimeStamp = DateTime.Now };
+            string fileName = targ.FileName.Render(logEventInfo);
+            TextFileViewer.ViewTextFile(fileName);
+        }
+
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             RefreshData();
         }
+
+        private void Copy2Clipboard_Click(object sender, RoutedEventArgs e)
+        {
+            string fullName = AppInfo.AppPath;
+            Clipboard.SetText(fullName);
+            log.Debug($"{fullName} copied to clipboard");
+        }
+
         #endregion Menu events
 
         #region Keyboard events
@@ -779,6 +802,7 @@ namespace MyScheduledTasks
             row.DetailsVisibility = row.DetailsVisibility == Visibility.Collapsed ?
                 Visibility.Visible : Visibility.Collapsed;
         }
+        #endregion Datagrid row double-click handler
 
         #region Grid Size
         private void GridSmaller()
@@ -805,7 +829,6 @@ namespace MyScheduledTasks
             DataGridTasks.LayoutTransform = new ScaleTransform(curZoom, curZoom);
         }
         #endregion Grid Size
-        #endregion Datagrid row double-click handler
 
         #region Alternate row shading
         private void AltRowShadingOff()
@@ -848,16 +871,15 @@ namespace MyScheduledTasks
         #region Unhandled Exception Handler
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs args)
         {
-            WriteLog.WriteTempFile("Unhandled Exception");
+            log.Error("Unhandled Exception");
             Exception e = (Exception)args.ExceptionObject;
-            WriteLog.WriteTempFile(e.Message);
+            log.Error(e.Message);
             if (e.InnerException != null)
             {
-                WriteLog.WriteTempFile(e.InnerException.ToString());
+                log.Error(e.InnerException.ToString());
             }
-            WriteLog.WriteTempFile(e.StackTrace);
+            log.Error(e.StackTrace);
         }
         #endregion Unhandled Exception Handler
-
     }
 }

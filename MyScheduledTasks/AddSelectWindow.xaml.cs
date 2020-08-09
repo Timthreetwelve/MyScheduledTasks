@@ -2,6 +2,7 @@
 
 #region Using directives
 using Microsoft.Win32.TaskScheduler;
+using NLog;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -14,6 +15,8 @@ namespace MyScheduledTasks
 {
     public partial class AddSelectWindow : Window
     {
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+
         #region Constructor
         public AddSelectWindow()
         {
@@ -75,6 +78,7 @@ namespace MyScheduledTasks
 
                     if (task == null)
                     {
+                        log.Error($"The Scheduled Task \"{item}\" was not found.");
                         _ = TKMessageBox.Show($"The Scheduled Task \"{item}\" was not found.",
                             "Error",
                             MessageBoxButton.OK,
@@ -83,6 +87,7 @@ namespace MyScheduledTasks
                     }
                     else if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
                     {
+                        log.Warn($"{task.Path} has already been added");
                         Debug.WriteLine($"{task.Path} is already in the list");
                         continue;
                     }
@@ -115,7 +120,7 @@ namespace MyScheduledTasks
                     MyTasks my = new MyTasks(task.Path, false);
                     MyTasks.MyTasksCollection.Add(my);
 
-                    WriteLog.WriteTempFile($"Added {task.Path}");
+                    log.Info($"Added {task.Path}");
                 }
                 listBox.UnselectAll();
             }

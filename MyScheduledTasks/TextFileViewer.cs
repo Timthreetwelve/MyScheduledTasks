@@ -4,13 +4,13 @@
 #define messagebox
 
 #region using directives
+using NLog;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 #endregion
-
 
 namespace TKUtils
 {
@@ -25,6 +25,8 @@ namespace TKUtils
         /// Opens specified text file
         /// </summary>
         /// <param name="txtfile">Full path for text file</param>
+        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+
         public static void ViewTextFile(string txtfile)
         {
             if (File.Exists(txtfile))
@@ -37,7 +39,6 @@ namespace TKUtils
                         p.StartInfo.UseShellExecute = true;
                         p.StartInfo.ErrorDialog = false;
                         _ = p.Start();
-                        WriteLog.WriteTempFile($"  Opening {txtfile} in default application");
                     }
                 }
                 catch (Win32Exception ex)
@@ -51,7 +52,6 @@ namespace TKUtils
                             p.StartInfo.UseShellExecute = true;
                             p.StartInfo.ErrorDialog = false;
                             _ = p.Start();
-                            WriteLog.WriteTempFile($"  Opening {txtfile} in Notepad.exe");
                         }
                     }
                     else
@@ -60,18 +60,21 @@ namespace TKUtils
                         _ = TKMessageBox.Show($"Error reading file {txtfile}\n{ex.Message}", "Watcher Error",
                             MessageBoxButton.OK, MessageBoxImage.Error);
 #endif
-                        WriteLog.WriteTempFile($"* Unable to open {txtfile}");
-                        WriteLog.WriteTempFile($"* {ex.Message}");
+                        log.Error($"* Unable to open {txtfile}");
+                        log.Error($"* {ex.Message}");
                     }
                 }
                 catch (Exception ex)
                 {
 #if messagebox
-                    _ = TKMessageBox.Show($"Unable to start default application used to open" +
-                $" {txtfile}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _ = TKMessageBox.Show("Unable to start default application used to open" +
+                                          $" {txtfile}",
+                                          "Error",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Error);
 #endif
-                    WriteLog.WriteTempFile($"* Unable to open {txtfile}");
-                    WriteLog.WriteTempFile($"* {ex.Message}");
+                    log.Error($"* Unable to open {txtfile}");
+                    log.Error($"* {ex.Message}");
                 }
             }
             else

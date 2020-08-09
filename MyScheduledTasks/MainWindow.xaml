@@ -89,11 +89,12 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="Restart as Administrator" Click="Restart_Click">
+                    <MenuItem Click="Restart_Click" Header="Restart as Administrator">
                         <MenuItem.Icon>
                             <Image Source="Icons\arrow-circle-left.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <Separator />
                     <MenuItem Name="mnuExit"
                         Click="MnuExit_Click"
                         Header="E_xit"
@@ -169,6 +170,7 @@
                             <Image Source="Icons/magnifier.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <Separator />
                     <MenuItem
                         Header="Show Alert Column"
                         IsCheckable="True"
@@ -202,12 +204,10 @@
                         Header="Save Task List on Exit"
                         IsCheckable="True"
                         IsChecked="{Binding SaveOnExit, Source={x:Static p:Settings.Default}}" />
-                    <Separator />
                     <MenuItem
                         Header="Suppress File Saved Notifications"
                         IsCheckable="True"
                         IsChecked="{Binding SuppressFileSaveNotify, Source={x:Static p:Settings.Default}}" />
-                    <Separator />
                     <MenuItem
                         Header="Shade Alternate Grid Rows"
                         IsCheckable="True"
@@ -231,6 +231,13 @@
                             <Image Source="Icons/document-text.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Name="mnuViewTemp"
+                        Click="ViewTemp_Click"
+                        Header="View _Temp File">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/document-list.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Name="mnuViewJson"
                         Click="ViewJson_Click"
                         Header="View _Data File">
@@ -238,6 +245,8 @@
                             <Image Source="Icons/json.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <Separator />
+                    <MenuItem Click="Copy2Clipboard_Click" Header="Copy Location to Clipboard" />
                 </MenuItem>
             </Menu>
         </DockPanel>
