@@ -2,7 +2,7 @@
 
 namespace MyScheduledTasks
 {
-    class ColumnSort
+    internal class ColumnSort
     {
         public string Header { get; set; }
 
