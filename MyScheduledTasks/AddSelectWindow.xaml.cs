@@ -88,7 +88,7 @@ namespace MyScheduledTasks
                     else if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
                     {
                         log.Warn($"{task.Path} has already been added");
-                        Debug.WriteLine($"{task.Path} is already in the list");
+                        log.Debug($"{task.Path} is already in the list");
                         continue;
                     }
 

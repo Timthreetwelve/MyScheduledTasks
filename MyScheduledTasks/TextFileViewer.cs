@@ -79,7 +79,7 @@ namespace TKUtils
             }
             else
             {
-                Debug.WriteLine($">>> File not found: {txtfile}");
+                log.Debug($">>> File not found: {txtfile}");
             }
         }
         #endregion

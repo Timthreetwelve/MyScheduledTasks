@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,6 +58,9 @@ namespace MyScheduledTasks
         #region Read Settings
         private void ReadSettings()
         {
+            // Change filename of temp file used by NLog
+            LogManager.Configuration.Variables["tempFileName"] = GetTempFile();
+
             // Startup message in the temp file
             log.Info($"{AppInfo.AppName} {AppInfo.TitleVersion} is starting up");
 
@@ -102,6 +106,7 @@ namespace MyScheduledTasks
             {
                 AltRowShadingOn();
             }
+            log.Debug($"Read settings complete {stopwatch.Elapsed} elapsed time");
         }
         #endregion Read Settings
 
@@ -125,8 +130,7 @@ namespace MyScheduledTasks
             // Can't really do much if the file is not readable
             catch (Exception ex)
             {
-                log.Error($"Error reading {tasksFile}");
-                log.Fatal(ex.Message);
+                log.Fatal(ex, $"Error reading {tasksFile}");
                 _ = TKMessageBox.Show($"Error reading {tasksFile}\n\n{ex.Message}",
                                     "Error!",
                                     MessageBoxButton.OK,
@@ -178,7 +182,7 @@ namespace MyScheduledTasks
                     };
                     taskList.Add(schedTask);
                     bindingList.Add(schedTask);
-                    log.Info($"Read \"{item.TaskPath}\"");
+                    log.Debug($"Read \"{item.TaskPath}\"");
                 }
                 else
                 {
@@ -206,9 +210,7 @@ namespace MyScheduledTasks
             // If count is less that two, bail out
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length < 2)
-            {
                 return;
-            }
 
             foreach (string item in args)
             {
@@ -227,12 +229,12 @@ namespace MyScheduledTasks
                     // Only write so log file when the window is hidden
                     foreach (var task in ScheduledTask.TaskList)
                     {
-                        Debug.WriteLine($"{task.TaskName} checked = {task.IsChecked} result = {task.TaskResultShort}");
+                        log.Debug($"{task.TaskName} checked = {task.IsChecked} result = {task.TaskResultShort}");
                         if (task.IsChecked && task.TaskResultShort == "NZ")
                         {
                             Visibility = Visibility.Visible;
                             showMainWindow = true;
-                            log.Info($"Last result for {task.TaskName} was {task.TaskResult}, showing window");
+                            log.Info($"Last result for {task.TaskName} was {task.TaskResult}, showing {AppInfo.AppName} window");
                             break;
                         }
                     }
@@ -241,7 +243,6 @@ namespace MyScheduledTasks
                     if (!showMainWindow)
                     {
                         log.Info("No scheduled tasks with a non-zero results were found.");
-
                         Application.Current.Shutdown();
                     }
                 }
@@ -278,8 +279,7 @@ namespace MyScheduledTasks
             }
             catch (Exception ex)
             {
-                log.Error($"Error saving {tasksFile}");
-                log.Error(ex.Message);
+                log.Error(ex, $"Error saving {tasksFile}");
                 _ = TKMessageBox.Show($"Error saving {tasksFile}\n\n{ex.Message}",
                                     "Error!",
                                     MessageBoxButton.OK,
@@ -327,15 +327,11 @@ namespace MyScheduledTasks
         public void SaveDGColumnSort()
         {
             List<ColumnSort> csList = new List<ColumnSort>();
-            ObservableCollection<DataGridColumn> cols = DataGridTasks.Columns;
-
-            foreach (var col in cols)
+            foreach (DataGridColumn col in DataGridTasks.Columns)
             {
-                Debug.Write($"{col.Header} {col.DisplayIndex} ");
-
                 if (col.SortDirection != null)
                 {
-                    log.Info($"Saving column \"{col.Header}\" sort ({col.SortDirection})");
+                    log.Debug($"Saving column \"{col.Header}\" sort ({col.SortDirection})");
                     csList.Add(new ColumnSort
                     {
                         Header = col.Header.ToString(),
@@ -361,9 +357,8 @@ namespace MyScheduledTasks
             }
             catch (Exception ex)
             {
-                log.Error($"Error saving {colsFile}");
-                log.Error(ex.Message);
-                _ = TKMessageBox.Show($"Error reading {colsFile}\n\n{ex.Message}",
+                log.Error(ex, $"Error saving {colsFile}");
+                _ = TKMessageBox.Show($"Error saving {colsFile}\n\n{ex.Message}",
                                     "Error!",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Error);
@@ -387,7 +382,7 @@ namespace MyScheduledTasks
         #region Get updated tasks from TaskList
         private void UpdateMyTasksCollection()
         {
-            Debug.WriteLine($"MyTasksCollection before: {MyTasks.MyTasksCollection.Count}");
+            log.Debug($"MyTasksCollection before update: {MyTasks.MyTasksCollection.Count}");
             MyTasks.MyTasksCollection.Clear();
             foreach (ScheduledTask item in ScheduledTask.TaskList)
             {
@@ -396,7 +391,7 @@ namespace MyScheduledTasks
                     MyTasks.MyTasksCollection.Add(new MyTasks(item.TaskPath, item.IsChecked));
                 }
             }
-            Debug.WriteLine($"MyTasksCollection after: {MyTasks.MyTasksCollection.Count}");
+            log.Debug($"MyTasksCollection after update: {MyTasks.MyTasksCollection.Count}");
         }
         #endregion Get updated tasks from TaskList
 
@@ -481,6 +476,8 @@ namespace MyScheduledTasks
             string line = string.Format("{0} is shutting down.  {1:g} elapsed time.", AppInfo.AppName, stopwatch.Elapsed);
             log.Info(line);
 
+            LogManager.Shutdown();
+
             // save the property settings
             Properties.Settings.Default.WindowLeft = Left;
             Properties.Settings.Default.WindowTop = Top;
@@ -491,7 +488,7 @@ namespace MyScheduledTasks
         #region Datagrid events
         private void DataGridTasks_Sorting(object sender, DataGridSortingEventArgs e)
         {
-            Debug.WriteLine($"DataGrid sorting event: {e.Column.DisplayIndex} {e.Column.SortDirection} {e.Column.SortMemberPath}");
+            log.Debug($"DataGrid sorting event: {e.Column.DisplayIndex} {e.Column.SortDirection} {e.Column.SortMemberPath}");
 
             MyTasks.SortIsDirty = true;
         }
@@ -660,10 +657,7 @@ namespace MyScheduledTasks
 
         private void ViewTemp_Click(object sender, RoutedEventArgs e)
         {
-            FileTarget targ = (FileTarget)LogManager.Configuration.FindTargetByName("tempfile");
-            LogEventInfo logEventInfo = new LogEventInfo { TimeStamp = DateTime.Now };
-            string fileName = targ.FileName.Render(logEventInfo);
-            TextFileViewer.ViewTextFile(fileName);
+            TextFileViewer.ViewTextFile(GetTempFile());
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
@@ -749,6 +743,7 @@ namespace MyScheduledTasks
                 }
             }
         }
+        #endregion Enumerate Datagrid rows
 
         #region List changes
         // The BindingList can notify when the checkbox changes
@@ -756,7 +751,7 @@ namespace MyScheduledTasks
         {
             if (e != null)
             {
-                Debug.WriteLine($"List Changed Type was: {e.ListChangedType}");
+                log.Debug($"List Changed Type was: {e.ListChangedType}");
                 MyTasks.IsDirty = true;
                 sbRight.Text = "Unsaved changes";
             }
@@ -765,13 +760,12 @@ namespace MyScheduledTasks
         // The collection change will notify when a list item is added or deleted
         private void TaskList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            Debug.WriteLine($"Collection Changed Action was: {e.Action}");
+            log.Debug($"Collection Changed Action was: {e.Action}");
             MyTasks.IsDirty = true;
             sbRight.Text = "Unsaved changes";
             sbLeft.Content = ScheduledTask.TaskList.Count;
         }
         #endregion List changes
-        #endregion Enumerate Datagrid rows
 
         #region Setting change
         private void SettingChanging(object sender, SettingChangingEventArgs e)
@@ -791,7 +785,7 @@ namespace MyScheduledTasks
                         break;
                     }
             }
-            Debug.WriteLine($"Setting: {e.SettingName} New Value: {e.NewValue}");
+            log.Debug($"Setting: {e.SettingName} New Value: {e.NewValue}");
         }
         #endregion Setting change
 
@@ -867,6 +861,28 @@ namespace MyScheduledTasks
             return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         }
         #endregion Window Title
+
+        #region Get temp file name
+        public static string GetTempFile(string filename = "default")
+        {
+            string myExe = Assembly.GetExecutingAssembly().GetName().Name;
+            string tStamp = string.Format("{0:yyyyMMdd}", DateTime.Now);
+            string path = Path.GetTempPath();
+            if (filename == "default")
+            {
+                // Change filename depending on debug mode or not
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    filename = myExe + ".debug." + tStamp + ".log";
+                }
+                else
+                {
+                    filename = myExe + ".temp." + tStamp + ".log";
+                }
+            }
+            return Path.Combine(path, filename);
+        }
+        #endregion
 
         #region Unhandled Exception Handler
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs args)
