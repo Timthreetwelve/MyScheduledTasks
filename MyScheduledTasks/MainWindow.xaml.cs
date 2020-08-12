@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Media;
 using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
@@ -234,6 +235,7 @@ namespace MyScheduledTasks
                         {
                             Visibility = Visibility.Visible;
                             showMainWindow = true;
+                            SystemSounds.Beep.Play();
                             log.Info($"Last result for {task.TaskName} was {task.TaskResult}, showing {AppInfo.AppName} window");
                             break;
                         }

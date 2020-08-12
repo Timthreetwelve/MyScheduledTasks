@@ -1,46 +1,6 @@
 ﻿[
   {
-    "TaskPath": "\\My Tasks\\Check Path",
-    "Alert": true
-  },
-  {
-    "TaskPath": "\\My Tasks\\Defrag D Drive",
-    "Alert": false
-  },
-  {
-    "TaskPath": "\\My Tasks\\Defraggler Volume D Task",
-    "Alert": false
-  },
-  {
-    "TaskPath": "\\My Tasks\\Check Download Folder",
-    "Alert": false
-  },
-  {
-    "TaskPath": "\\My Tasks\\Log Archiver",
-    "Alert": true
-  },
-  {
-    "TaskPath": "\\My Tasks\\Log Disk Space",
-    "Alert": false
-  },
-  {
-    "TaskPath": "\\My Tasks\\Log External IP Address",
-    "Alert": false
-  },
-  {
-    "TaskPath": "\\My Tasks\\Log Reboot",
-    "Alert": false
-  },
-  {
-    "TaskPath": "\\2BrightSparks\\SyncBackFree\\ASUS-DESKTOP-Tim\\SyncBackFree $Grp_Documents",
-    "Alert": false
-  },
-  {
-    "TaskPath": "\\Macrium-Backup-{2374B4C7-2AA4-44D1-B365-D7834C590C01}",
-    "Alert": false
-  },
-  {
-    "TaskPath": "\\HWINFO",
-    "Alert": true
+    "Alert": false,
+    "TaskPath": "\\Demo Task"
   }
 ]

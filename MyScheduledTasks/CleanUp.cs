@@ -49,7 +49,7 @@ namespace TKUtils
                     if (dir.Name != GetVersion() && match.Success)
                     {
                         dir.Delete(true);
-                        Debug.WriteLine($"+++ Delete {dir.FullName}");
+                        Debug.WriteLine($">>> Delete {dir.FullName}");
                     }
                 }
             }

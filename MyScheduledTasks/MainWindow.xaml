@@ -231,22 +231,32 @@
                             <Image Source="Icons/document-text.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Name="mnuViewTemp"
-                        Click="ViewTemp_Click"
-                        Header="View _Temp File">
+
+                    <MenuItem Header="Debug">
                         <MenuItem.Icon>
-                            <Image Source="Icons/document-list.png" />
+                            <Image Source="Icons/bug.png" />
                         </MenuItem.Icon>
+                        <MenuItem Name="mnuViewTemp"
+                            Click="ViewTemp_Click"
+                            Header="View _Log File">
+                            <MenuItem.Icon>
+                                <Image Source="Icons/document-list.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Name="mnuViewJson"
+                            Click="ViewJson_Click"
+                            Header="View _Data File">
+                            <MenuItem.Icon>
+                                <Image Source="Icons/json.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Click="Copy2Clipboard_Click" Header="Copy Path to Clipboard">
+                            <MenuItem.Icon>
+                                <Image Source="Icons/clipboard-plus.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </MenuItem>
-                    <MenuItem Name="mnuViewJson"
-                        Click="ViewJson_Click"
-                        Header="View _Data File">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/json.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Click="Copy2Clipboard_Click" Header="Copy Location to Clipboard" />
                 </MenuItem>
             </Menu>
         </DockPanel>
@@ -529,9 +539,17 @@
             <!--#region Grid context menu-->
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Click="Add_Click" Header="Add Tasks" />
+                    <MenuItem Click="Add_Click" Header="Add Tasks">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\plus.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
-                    <MenuItem Click="Delete_Click" Header="Delete Selected" />
+                    <MenuItem Click="Delete_Click" Header="Delete Selected">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\cross.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <!--#endregion-->

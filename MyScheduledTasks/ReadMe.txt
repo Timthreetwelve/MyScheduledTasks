@@ -101,7 +101,7 @@ specifying the path to the MyScheduledTasks executable in the Program field and 
 Arguments field.
 
 For your convenience, there is a menu selection to start Windows Task Scheduler on the Tasks menu
-and an option on the Help menu to copy the executable path to the clipboard.
+and an option on the Help/Debug menu to copy the executable path to the clipboard.
 
 When set up this way, MyScheduledTasks will only show its window if there is a task that has a
 check in the Alert column and the last result was non-zero. Otherwise, it will shut down without
