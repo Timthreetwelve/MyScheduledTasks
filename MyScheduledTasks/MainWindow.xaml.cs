@@ -59,7 +59,7 @@ namespace MyScheduledTasks
         #region Read Settings
         private void ReadSettings()
         {
-            // Change filename of temp file used by NLog
+            // Override the filename of the log file specified in NLog.config
             LogManager.Configuration.Variables["tempFileName"] = GetTempFile();
 
             // Startup message in the temp file
