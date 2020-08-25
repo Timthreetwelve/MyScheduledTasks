@@ -538,16 +538,36 @@
 
             <!--#region Grid context menu-->
             <DataGrid.ContextMenu>
-                <ContextMenu>
+                <ContextMenu Opened="ContextMenu_Opened" FontSize="14">
                     <MenuItem Click="Add_Click" Header="Add Tasks">
                         <MenuItem.Icon>
                             <Image Source="Icons\plus.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Click="Delete_Click" Header="Delete Selected">
+                    <MenuItem Click="Delete_Click" Header="Remove Selected">
                         <MenuItem.Icon>
                             <Image Source="Icons\cross.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem x:Name="mnuEnable"
+                        Click="EnableTask_Click"
+                        Header="Enable Selected" >
+                        <MenuItem.Icon>
+                            <Image Source="Icons/tick-circle.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="mnuDisable"
+                        Click="DisableTask_Click"
+                        Header="Disable Selected" >
+                        <MenuItem.Icon>
+                            <Image Source="Icons/cross-octagon.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="mnuRunTask" Click="MnuRunTask_Click" Header="Run Now">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\traffic-light-green.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </ContextMenu>

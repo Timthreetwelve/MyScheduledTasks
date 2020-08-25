@@ -1,10 +1,6 @@
 ﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 #region Using directives
-using Microsoft.Win32.TaskScheduler;
-using Newtonsoft.Json;
-using NLog;
-using NLog.Targets;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +16,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Win32.TaskScheduler;
+using MyScheduledTasks.Properties;
+using Newtonsoft.Json;
+using NLog;
 using TKUtils;
 using MessageBoxImage = TKUtils.MessageBoxImage;
 #endregion Using directives
@@ -77,33 +77,33 @@ namespace MyScheduledTasks
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             // Settings upgrade
-            if (Properties.Settings.Default.SettingsUpgradeRequired)
+            if (Settings.Default.SettingsUpgradeRequired)
             {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.SettingsUpgradeRequired = false;
-                Properties.Settings.Default.Save();
+                Settings.Default.Upgrade();
+                Settings.Default.SettingsUpgradeRequired = false;
+                Settings.Default.Save();
                 CleanUp.CleanupPrevSettings();
             }
 
             // Settings change event
-            Properties.Settings.Default.SettingChanging += SettingChanging;
+            Settings.Default.SettingChanging += SettingChanging;
 
             // Max screen height slightly smaller than screen
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 20;
 
             // Window position
-            Top = Properties.Settings.Default.WindowTop;
-            Left = Properties.Settings.Default.WindowLeft;
+            Top = Settings.Default.WindowTop;
+            Left = Settings.Default.WindowLeft;
 
             // Put version number in window title
             WindowTitleVersionAdmin();
 
             // Set Datagrid zoom
-            double curZoom = Properties.Settings.Default.GridZoom;
+            double curZoom = Settings.Default.GridZoom;
             DataGridTasks.LayoutTransform = new ScaleTransform(curZoom, curZoom);
 
             // Alternate row shading
-            if (Properties.Settings.Default.ShadeAltRows)
+            if (Settings.Default.ShadeAltRows)
             {
                 AltRowShadingOn();
             }
@@ -441,10 +441,10 @@ namespace MyScheduledTasks
         {
             if (MyTasks.IsDirty)
             {
-                if (Properties.Settings.Default.SaveOnExit)
+                if (Settings.Default.SaveOnExit)
                 {
                     UpdateMyTasksCollection();
-                    WriteTasks2Json(Properties.Settings.Default.SuppressFileSaveNotify);
+                    WriteTasks2Json(Settings.Default.SuppressFileSaveNotify);
                 }
                 else
                 {
@@ -464,7 +464,7 @@ namespace MyScheduledTasks
                     else if (result == MessageBoxResult.Yes)
                     {
                         UpdateMyTasksCollection();
-                        WriteTasks2Json(Properties.Settings.Default.SuppressFileSaveNotify);
+                        WriteTasks2Json(Settings.Default.SuppressFileSaveNotify);
                     }
                 }
             }
@@ -481,9 +481,9 @@ namespace MyScheduledTasks
             LogManager.Shutdown();
 
             // save the property settings
-            Properties.Settings.Default.WindowLeft = Left;
-            Properties.Settings.Default.WindowTop = Top;
-            Properties.Settings.Default.Save();
+            Settings.Default.WindowLeft = Left;
+            Settings.Default.WindowTop = Top;
+            Settings.Default.Save();
         }
         #endregion Window events
 
@@ -518,10 +518,10 @@ namespace MyScheduledTasks
         {
             if (MyTasks.IsDirty)
             {
-                if (Properties.Settings.Default.SaveOnExit)
+                if (Settings.Default.SaveOnExit)
                 {
                     UpdateMyTasksCollection();
-                    WriteTasks2Json(Properties.Settings.Default.SuppressFileSaveNotify);
+                    WriteTasks2Json(Settings.Default.SuppressFileSaveNotify);
                 }
                 else
                 {
@@ -540,7 +540,7 @@ namespace MyScheduledTasks
                     else if (result == MessageBoxResult.Yes)
                     {
                         UpdateMyTasksCollection();
-                        WriteTasks2Json(Properties.Settings.Default.SuppressFileSaveNotify);
+                        WriteTasks2Json(Settings.Default.SuppressFileSaveNotify);
                     }
                 }
             }
@@ -617,6 +617,8 @@ namespace MyScheduledTasks
         private void Tasks_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             mnuDelete.IsEnabled = DataGridTasks.SelectedIndex != -1;
+
+
         }
 
         private void ResetCols_Click(object sender, RoutedEventArgs e)
@@ -803,11 +805,11 @@ namespace MyScheduledTasks
         #region Grid Size
         private void GridSmaller()
         {
-            double curZoom = Properties.Settings.Default.GridZoom;
+            double curZoom = Settings.Default.GridZoom;
             if (curZoom > 0.8)
             {
                 curZoom -= .05;
-                Properties.Settings.Default.GridZoom = curZoom;
+                Settings.Default.GridZoom = curZoom;
             }
 
             DataGridTasks.LayoutTransform = new ScaleTransform(curZoom, curZoom);
@@ -815,11 +817,11 @@ namespace MyScheduledTasks
 
         private void GridLarger()
         {
-            double curZoom = Properties.Settings.Default.GridZoom;
+            double curZoom = Settings.Default.GridZoom;
             if (curZoom < 1.5)
             {
                 curZoom += .05;
-                Properties.Settings.Default.GridZoom = curZoom;
+                Settings.Default.GridZoom = curZoom;
             }
 
             DataGridTasks.LayoutTransform = new ScaleTransform(curZoom, curZoom);
@@ -873,7 +875,7 @@ namespace MyScheduledTasks
             if (filename == "default")
             {
                 // Change filename depending on debug mode or not
-                if (System.Diagnostics.Debugger.IsAttached)
+                if (Debugger.IsAttached)
                 {
                     filename = myExe + ".debug." + tStamp + ".log";
                 }
@@ -899,5 +901,116 @@ namespace MyScheduledTasks
             log.Error(e.StackTrace);
         }
         #endregion Unhandled Exception Handler
+
+        private void DisableTask(string taskName)
+        {
+            using (TaskService ts = new TaskService())
+            {
+                Task task = ts.GetTask(taskName);
+                if (task == null)
+                    return;
+                try
+                {
+                    task.Enabled = false;
+                    RefreshData();
+                    sbRight.Text = $"Disabled: {task.Name}";
+                    log.Info("Disabled {0}", task.Path);
+                }
+                catch (Exception ex)
+                {
+                    SystemSounds.Beep.Play();
+                    sbRight.Text = ex.Message;
+                    log.Error(ex, "Error attempting to disable {0}", task.Name);
+                }
+            }
+        }
+
+        private void EnableTask(string taskName)
+        {
+            using (TaskService ts = new TaskService())
+            {
+                Task task = ts.GetTask(taskName);
+                if (task == null)
+                    return;
+                try
+                {
+                    task.Enabled = true;
+                    RefreshData();
+                    sbRight.Text = $"Enabled: {task.Name}";
+                    log.Info("Enabled {0}", task.Path);
+                }
+                catch (Exception ex)
+                {
+                    SystemSounds.Beep.Play();
+                    sbRight.Text = ex.Message;
+                    log.Error(ex, "Error attempting to enable {0}", task.Name);
+                }
+            }
+        }
+
+        private void RunTask(string taskName)
+        {
+            using (TaskService ts = new TaskService())
+            {
+                Task task = ts.GetTask(taskName);
+
+                if (task == null)
+                    return;
+
+                try
+                {
+                    task.Run();
+                    RefreshData();
+                    sbRight.Text = $"Running: {task.Name}";
+                    log.Info("Running {0}", task.Path);
+                }
+                catch (Exception ex)
+                {
+                    SystemSounds.Beep.Play();
+                    sbRight.Text = ex.Message;
+                    log.Error(ex, "Error attempting to run {0}", task.Name);
+                }
+            }
+        }
+
+        private void DisableTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridTasks.SelectedItems.Count == 1)
+            {
+                var row = DataGridTasks.SelectedItem as ScheduledTask;
+                string taskPath = row.TaskPath;
+                DisableTask(taskPath);
+            }
+        }
+
+        private void EnableTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridTasks.SelectedItems.Count == 1)
+            {
+                var row = DataGridTasks.SelectedItem as ScheduledTask;
+                string taskPath = row.TaskPath;
+                EnableTask(taskPath);
+            }
+        }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (DataGridTasks.SelectedItems.Count != 1 || !IsAdministrator())
+            {
+                mnuDisable.IsEnabled = false;
+                mnuEnable.IsEnabled = false;
+                mnuRunTask.IsEnabled = false;
+            }
+        }
+
+        private void MnuRunTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridTasks.SelectedItems.Count == 1)
+            {
+                var row = DataGridTasks.SelectedItem as ScheduledTask;
+                string taskPath = row.TaskPath;
+                RunTask(taskPath);
+            }
+        }
     }
 }

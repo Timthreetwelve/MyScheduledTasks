@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="AppInfo.cs" />
     <Compile Include="ColumnSort.cs" />
+    <Compile Include="MySettings.cs" />
     <Compile Include="TextFileViewer.cs" />
     <Compile Include="TKMessageBox.xaml.cs">
       <DependentUpon>TKMessageBox.xaml</DependentUpon>
@@ -179,6 +180,9 @@
     <Resource Include="Icons\information-white.png" />
     <Resource Include="clockY2.ico" />
     <Resource Include="Icons\bug.png" />
+    <Resource Include="Icons\cross-octagon.png" />
+    <Resource Include="Icons\tick-circle.png" />
+    <Resource Include="Icons\traffic-light-green.png" />
     <Content Include="ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
