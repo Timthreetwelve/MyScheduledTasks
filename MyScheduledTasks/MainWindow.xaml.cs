@@ -10,7 +10,6 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Media;
-using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +19,7 @@ using Microsoft.Win32.TaskScheduler;
 using MyScheduledTasks.Properties;
 using Newtonsoft.Json;
 using NLog;
+using NLog.Targets;
 using TKUtils;
 using MessageBoxImage = TKUtils.MessageBoxImage;
 #endregion Using directives
@@ -59,8 +59,11 @@ namespace MyScheduledTasks
         #region Read Settings
         private void ReadSettings()
         {
-            // Override the filename of the log file specified in NLog.config
-            LogManager.Configuration.Variables["tempFileName"] = GetTempFile();
+            // Change the log file filename when debugging
+            if (Debugger.IsAttached)
+                GlobalDiagnosticsContext.Set("TempOrDebug", "debug");
+            else
+                GlobalDiagnosticsContext.Set("TempOrDebug", "temp");
 
             // Startup message in the temp file
             log.Info($"{AppInfo.AppName} {AppInfo.TitleVersion} is starting up");
@@ -164,6 +167,10 @@ namespace MyScheduledTasks
                     // AddSelectWindow.AddSelected items method.
                     // **************************************************************************
                     string folder = item.TaskPath.Replace(task.Name, "");
+                    if (folder == "\\")
+                    {
+                        folder = "\\  (root)";
+                    }
                     ScheduledTask schedTask = new ScheduledTask
                     {
                         TaskName = task.Name,
@@ -179,7 +186,8 @@ namespace MyScheduledTasks
                         TaskDescription = task.Definition.RegistrationInfo.Description,
                         TaskAuthor = task.Definition.RegistrationInfo.Author,
                         TaskTriggers = task.Definition.Triggers.ToString(),
-                        IsChecked = item.Alert
+                        IsChecked = item.Alert,
+                        TaskNote = item.TaskNote
                     };
                     taskList.Add(schedTask);
                     bindingList.Add(schedTask);
@@ -390,7 +398,7 @@ namespace MyScheduledTasks
             {
                 if (item.TaskPath != null)
                 {
-                    MyTasks.MyTasksCollection.Add(new MyTasks(item.TaskPath, item.IsChecked));
+                    MyTasks.MyTasksCollection.Add(new MyTasks(item.TaskPath, item.IsChecked, item.TaskNote));
                 }
             }
             log.Debug($"MyTasksCollection after update: {MyTasks.MyTasksCollection.Count}");
@@ -617,8 +625,6 @@ namespace MyScheduledTasks
         private void Tasks_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             mnuDelete.IsEnabled = DataGridTasks.SelectedIndex != -1;
-
-
         }
 
         private void ResetCols_Click(object sender, RoutedEventArgs e)
@@ -674,6 +680,46 @@ namespace MyScheduledTasks
             string fullName = AppInfo.AppPath;
             Clipboard.SetText(fullName);
             log.Debug($"{fullName} copied to clipboard");
+        }
+
+        private void DisableTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridTasks.SelectedItems.Count == 1)
+            {
+                var row = DataGridTasks.SelectedItem as ScheduledTask;
+                string taskPath = row.TaskPath;
+                DisableTask(taskPath);
+            }
+        }
+
+        private void EnableTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridTasks.SelectedItems.Count == 1)
+            {
+                var row = DataGridTasks.SelectedItem as ScheduledTask;
+                string taskPath = row.TaskPath;
+                EnableTask(taskPath);
+            }
+        }
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (DataGridTasks.SelectedItems.Count != 1 || !IsAdministrator())
+            {
+                mnuDisable.IsEnabled = false;
+                mnuEnable.IsEnabled = false;
+                mnuRunTask.IsEnabled = false;
+            }
+        }
+
+        private void MnuRunTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridTasks.SelectedItems.Count == 1)
+            {
+                var row = DataGridTasks.SelectedItem as ScheduledTask;
+                string taskPath = row.TaskPath;
+                RunTask(taskPath);
+            }
         }
 
         #endregion Menu events
@@ -867,24 +913,13 @@ namespace MyScheduledTasks
         #endregion Window Title
 
         #region Get temp file name
-        public static string GetTempFile(string filename = "default")
+        public static string GetTempFile()
         {
-            string myExe = Assembly.GetExecutingAssembly().GetName().Name;
-            string tStamp = string.Format("{0:yyyyMMdd}", DateTime.Now);
-            string path = Path.GetTempPath();
-            if (filename == "default")
-            {
-                // Change filename depending on debug mode or not
-                if (Debugger.IsAttached)
-                {
-                    filename = myExe + ".debug." + tStamp + ".log";
-                }
-                else
-                {
-                    filename = myExe + ".temp." + tStamp + ".log";
-                }
-            }
-            return Path.Combine(path, filename);
+            // Ask NLog what the file name is
+            var target = LogManager.Configuration.FindTargetByName("logFile") as FileTarget;
+            var logEventInfo = new LogEventInfo { TimeStamp = DateTime.Now };
+            string fileName = target.FileName.Render(logEventInfo);
+            return fileName;
         }
         #endregion
 
@@ -902,6 +937,7 @@ namespace MyScheduledTasks
         }
         #endregion Unhandled Exception Handler
 
+        #region Disable, Enable and Run tasks
         private void DisableTask(string taskName)
         {
             using (TaskService ts = new TaskService())
@@ -972,45 +1008,6 @@ namespace MyScheduledTasks
                 }
             }
         }
-
-        private void DisableTask_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataGridTasks.SelectedItems.Count == 1)
-            {
-                var row = DataGridTasks.SelectedItem as ScheduledTask;
-                string taskPath = row.TaskPath;
-                DisableTask(taskPath);
-            }
-        }
-
-        private void EnableTask_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataGridTasks.SelectedItems.Count == 1)
-            {
-                var row = DataGridTasks.SelectedItem as ScheduledTask;
-                string taskPath = row.TaskPath;
-                EnableTask(taskPath);
-            }
-        }
-
-        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
-        {
-            if (DataGridTasks.SelectedItems.Count != 1 || !IsAdministrator())
-            {
-                mnuDisable.IsEnabled = false;
-                mnuEnable.IsEnabled = false;
-                mnuRunTask.IsEnabled = false;
-            }
-        }
-
-        private void MnuRunTask_Click(object sender, RoutedEventArgs e)
-        {
-            if (DataGridTasks.SelectedItems.Count == 1)
-            {
-                var row = DataGridTasks.SelectedItem as ScheduledTask;
-                string taskPath = row.TaskPath;
-                RunTask(taskPath);
-            }
-        }
+        #endregion Disable, Enable and Run tasks
     }
 }

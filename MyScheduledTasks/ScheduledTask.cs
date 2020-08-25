@@ -20,6 +20,7 @@ namespace MyScheduledTasks
         private string taskTriggers;
         private DateTime? lastRun;
         private DateTime? nextRun;
+        private string taskNote;
         #endregion
 
         #region Properties
@@ -29,6 +30,16 @@ namespace MyScheduledTasks
             set
             {
                 isChecked = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string TaskNote
+        {
+            get { return taskNote; }
+            set
+            {
+                taskNote = value;
                 OnPropertyChanged();
             }
         }

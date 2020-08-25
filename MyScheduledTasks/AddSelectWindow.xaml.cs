@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 #region Using directives
-using Microsoft.Win32.TaskScheduler;
-using NLog;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using Microsoft.Win32.TaskScheduler;
+using MyScheduledTasks.Properties;
+using NLog;
 using TKUtils;
 using MessageBoxImage = TKUtils.MessageBoxImage;
-#endregion
+#endregion Using directives
 
 namespace MyScheduledTasks
 {
@@ -34,14 +34,17 @@ namespace MyScheduledTasks
             // Set screen metrics
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 20;
             MaxWidth = SystemParameters.PrimaryScreenWidth - 20;
-            Height = Properties.Settings.Default.AddWindowHeight;
-            Width = Properties.Settings.Default.AddWindowWidth;
+            Height = Settings.Default.AddWindowHeight;
+            Width = Settings.Default.AddWindowWidth;
 
             // Set listbox zoom
-            double curZoom = Properties.Settings.Default.GridZoom;
+            double curZoom = Settings.Default.GridZoom;
             listBox.LayoutTransform = new ScaleTransform(curZoom, curZoom);
+
+            // Hide Microsoft
+            cbxHideMicroSoft.IsChecked = Settings.Default.HideMicrosoftFolder;
         }
-        #endregion
+        #endregion Read Settings
 
         #region Get list of tasks
         private void GetTaskList()
@@ -50,11 +53,22 @@ namespace MyScheduledTasks
             {
                 foreach (Task task in ts.AllTasks)
                 {
-                    _ = listBox.Items.Add(task.Path);
+                    if (cbxHideMicroSoft.IsChecked == true)
+                    {
+                        if (!task.Path.StartsWith(@"\Microsoft"))
+                        {
+                            _ = listBox.Items.Add(task.Path);
+                        }
+                    }
+                    else
+                    {
+                        _ = listBox.Items.Add(task.Path);
+                    }
                 }
             }
+            tbCounter.Text = $"{listBox.Items.Count} Tasks";
         }
-        #endregion
+        #endregion Get list of tasks
 
         #region Get info for a task
         public static Task GetTaskInfo(string name)
@@ -65,7 +79,7 @@ namespace MyScheduledTasks
                 return task;
             }
         }
-        #endregion
+        #endregion Get info for a task
 
         #region Add selected items to TaskList
         private void AddSelectedItems()
@@ -97,6 +111,10 @@ namespace MyScheduledTasks
                     // corresponding code in the MainWindow.LoadData method.
                     // *****************************************************
                     string folder = task.Path.Replace(task.Name, "");
+                    if (folder == "\\")
+                    {
+                        folder = "\\  (root)";
+                    }
                     ScheduledTask schedTask = new ScheduledTask
                     {
                         TaskName = task.Name,
@@ -117,7 +135,7 @@ namespace MyScheduledTasks
 
                     ScheduledTask.TaskList.Add(schedTask);
 
-                    MyTasks my = new MyTasks(task.Path, false);
+                    MyTasks my = new MyTasks(task.Path, false, string.Empty);
                     MyTasks.MyTasksCollection.Add(my);
 
                     log.Info($"Added {task.Path}");
@@ -125,7 +143,7 @@ namespace MyScheduledTasks
                 listBox.UnselectAll();
             }
         }
-        #endregion
+        #endregion Add selected items to TaskList
 
         #region Button & window events
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -140,10 +158,22 @@ namespace MyScheduledTasks
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Properties.Settings.Default.AddWindowHeight = Height;
-            Properties.Settings.Default.AddWindowWidth = Width;
-            Properties.Settings.Default.Save();
+            Settings.Default.AddWindowHeight = Height;
+            Settings.Default.AddWindowWidth = Width;
+            Settings.Default.Save();
         }
-        #endregion
+
+        private void CbxHideMicroSoft_Checked(object sender, RoutedEventArgs e)
+        {
+            if (IsVisible)
+            {
+                listBox.Items.Clear();
+                GetTaskList();
+                listBox.InvalidateArrange();
+                listBox.UpdateLayout();
+                Settings.Default.HideMicrosoftFolder = (bool)cbxHideMicroSoft.IsChecked;
+            }
+        }
+        #endregion Button & window events
     }
 }

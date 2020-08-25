@@ -11,16 +11,18 @@ namespace MyScheduledTasks
     public class MyTasks : INotifyPropertyChanged
     {
         #region Constructor
-        public MyTasks(string taskPath, bool alert)
+        public MyTasks(string taskPath, bool alert, string taskNote)
         {
             TaskPath = taskPath;
             Alert = alert;
+            TaskNote = taskNote;
         }
         #endregion
 
         #region Private backing fields
         private string taskPath;
         private bool alert;
+        private string taskNote;
         #endregion
 
         #region Properties
@@ -43,6 +45,16 @@ namespace MyScheduledTasks
             set
             {
                 alert = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string TaskNote
+        {
+            get { return taskNote; }
+            set
+            {
+                taskNote = value;
                 OnPropertyChanged();
             }
         }

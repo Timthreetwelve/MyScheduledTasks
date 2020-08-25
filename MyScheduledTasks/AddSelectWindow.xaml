@@ -1,16 +1,17 @@
-﻿<Window x:Class="MyScheduledTasks.AddSelectWindow"
+﻿<Window
+    x:Class="MyScheduledTasks.AddSelectWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MyScheduledTasks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
     Title="Select Tasks to Add"
     Width="800"
     Height="450"
     MinWidth="500"
     MinHeight="260"
-    Closing="Window_Closing">
+    Closing="Window_Closing"
+    mc:Ignorable="d">
     <Grid Background="White">
 
         <!--#region Row & Column definitions-->
@@ -35,11 +36,20 @@
             HorizontalAlignment="Center"
             FontSize="18"
             FontWeight="Thin"
-            Text="Select Tasks to Add" />
+            Text="Select Tasks to Add">
+            <TextBlock.ToolTip>
+                <TextBlock>
+                    Select one or more tasks to add.<LineBreak />
+                    Use shift-click or ctrl-click to select more than one at a time.<LineBreak />
+                    When done selecting click Add.<LineBreak />
+                    When done adding click Done.</TextBlock>
+            </TextBlock.ToolTip>
+        </TextBlock>
         <!--#endregion-->
 
         <!--#region ListBox-->
-        <ListBox x:Name="listBox"
+        <ListBox
+            x:Name="listBox"
             Grid.Row="2"
             Grid.Column="1"
             HorizontalContentAlignment="Stretch"
@@ -52,22 +62,45 @@
         <StackPanel
             Grid.Row="3"
             Grid.Column="1"
+            Orientation="Horizontal">
+            <CheckBox
+                x:Name="cbxHideMicroSoft"
+                Margin="0,15,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Checked="CbxHideMicroSoft_Checked"
+                Content="Hide Microsoft Folder"
+                ToolTip="Check to hide all entries in the \Microsoft folder"
+                Unchecked="CbxHideMicroSoft_Checked" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="1"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-            <Button x:Name="AddButton"
+            <Button
+                x:Name="AddButton"
                 Width="80"
                 Margin="15,15,15,5"
                 Click="AddButton_Click"
                 Content="Add"
                 FontSize="14"
                 IsDefault="True" />
-            <Button x:Name="ExitButton"
+            <Button
+                x:Name="ExitButton"
                 Width="80"
                 Margin="15,15,15,5"
                 Click="ExitButton_Click"
                 Content="Done"
                 FontSize="14" />
         </StackPanel>
+        <TextBlock
+            x:Name="tbCounter"
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="0,15,0,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center" />
         <!--#endregion-->
 
     </Grid>
