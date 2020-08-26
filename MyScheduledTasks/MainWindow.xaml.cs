@@ -71,6 +71,7 @@ namespace MyScheduledTasks
             if (IsAdministrator())
             {
                 log.Info($"{AppInfo.AppPath} is running as Administrator");
+                mnuRestart.IsEnabled = false;
             }
 
             // Start the elapsed time timer
@@ -186,6 +187,7 @@ namespace MyScheduledTasks
                         TaskDescription = task.Definition.RegistrationInfo.Description,
                         TaskAuthor = task.Definition.RegistrationInfo.Author,
                         TaskTriggers = task.Definition.Triggers.ToString(),
+                        TaskActions = task.Definition.Actions.ToString(),
                         IsChecked = item.Alert,
                         TaskNote = item.TaskNote
                     };
@@ -625,6 +627,7 @@ namespace MyScheduledTasks
         private void Tasks_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             mnuDelete.IsEnabled = DataGridTasks.SelectedIndex != -1;
+            mnuExport.IsEnabled = DataGridTasks.SelectedIndex != -1;
         }
 
         private void ResetCols_Click(object sender, RoutedEventArgs e)
@@ -722,6 +725,16 @@ namespace MyScheduledTasks
             }
         }
 
+        private void MnuExport_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridTasks.SelectedItems.Count == 1)
+            {
+                var row = DataGridTasks.SelectedItem as ScheduledTask;
+                string taskPath = row.TaskPath;
+                ExportTask(taskPath);
+            }
+        }
+
         #endregion Menu events
 
         #region Keyboard events
@@ -749,6 +762,12 @@ namespace MyScheduledTasks
             if (e.Key == Key.D && (e.KeyboardDevice.Modifiers == ModifierKeys.Control))
             {
                 mnuDelete.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+            }
+
+            // Ctrl + E = Export
+            if (e.Key == Key.E && (e.KeyboardDevice.Modifiers == ModifierKeys.Control))
+            {
+                mnuExport.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
             }
 
             // Ctrl + S = Save
@@ -1005,6 +1024,39 @@ namespace MyScheduledTasks
                     SystemSounds.Beep.Play();
                     sbRight.Text = ex.Message;
                     log.Error(ex, "Error attempting to run {0}", task.Name);
+                }
+            }
+        }
+
+        private void ExportTask(string taskName)
+        {
+            using (TaskService ts = new TaskService())
+            {
+                Task task = ts.GetTask(taskName);
+                if (task == null)
+                    return;
+                try
+                {
+                    Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog
+                    {
+                        Title = "Export Task",
+                        Filter = "XML File|*.xml",
+                        InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                        FileName = task.Name + ".xml"
+                    };
+                    var result = dialog.ShowDialog();
+                    if (result == true)
+                    {
+                        task.Export(dialog.FileName);
+                        sbRight.Text = $"Exported: {task.Name}";
+                        log.Info("Exported {0}", task.Path);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    SystemSounds.Beep.Play();
+                    sbRight.Text = ex.Message;
+                    log.Error(ex, "Error attempting to export {0}", task.Name);
                 }
             }
         }

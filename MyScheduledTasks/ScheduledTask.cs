@@ -195,11 +195,29 @@ namespace MyScheduledTasks
             {
                 if (value == null)
                 {
-                    taskRunLevel = string.Empty;
+                    taskTriggers = string.Empty;
                 }
                 else
                 {
                     taskTriggers = value;
+                }
+            }
+        }
+
+        private string taskActions;
+
+        public string TaskActions
+        {
+            get { return taskActions; }
+            set
+            {
+                if (value == null)
+                {
+                    taskActions = string.Empty;
+                }
+                else
+                {
+                    taskActions = value;
                 }
             }
         }

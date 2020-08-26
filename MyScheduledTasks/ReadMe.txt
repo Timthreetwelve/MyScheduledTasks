@@ -6,8 +6,8 @@ Introduction
 MyScheduledTasks is an application that lets you keep track of the tasks in Windows Task Scheduler that
 you care about. MyScheduledTasks can be automated to let you know if any of the tasks completed with
 a non-zero exit code. It's important to note that MyScheduledTasks allows you an simple way to check
-on scheduled tasks, it doesn't allow you to add, delete, change or execute them. For those tasks,
-you will need to use Windows Task Scheduler.
+on scheduled tasks, it doesn't allow you to add, delete, or change them. For those activities you
+will need to use Windows Task Scheduler.
 
 
 Getting Started
@@ -16,13 +16,13 @@ When you first start MyScheduledTasks you will see a window that has a menu and 
 The first thing to do is to add some tasks from Windows Task Scheduler.  Click on the Tasks menu and
 then on Add Tasks, or press Ctrl and N. A window will pop up with a list of tasks. Select desired
 tasks and then click the Add button. Standard Windows selection rules apply, hold the Ctrl key down
-to select more than one, hold the shift key down to select a range. When you are finished adding,
-click the Done button.
+to select more than one, hold the shift key down to select a range. When you have selected the tasks
+that you want, click the Add button. When you are finished adding, click the Done button.
 
 
 Using MyScheduledTasks
 ======================
-After adding some tasks, you will notice that there are several columns in the grid. The first column,
+After adding tasks, you will notice that there are several columns in the grid. The first column,
 the one with the ⚠ (warning emoji), has a checkbox. Check the checkbox if you are going to automate
 MyScheduledTasks and you want to be alerted if the task in this row had a non-zero result from it's
 last scheduled run.
@@ -37,7 +37,9 @@ in green text. If the task is disabled, the row will be shown in gray text.
 
 The next column shows the date and time of the last run.
 
-The last column shows the folder in Windows Task Scheduler where the task is located.
+The next column shows the folder in Windows Task Scheduler where the task is located.
+
+The last column is the Notes column. You may enter a note directly into this field.
 
 With the exception of the Task Name column, any of the columns may be hidden by un-checking them in
 the View menu.
@@ -52,9 +54,17 @@ all of them by selecting Collapse All from the View menu.
 
 Removing Tasks
 ==============
-You can remove tasks by right-clicking the appropriate row and selecting Delete Selected or by using
-the Delete Selected item on the Tasks menu. Multiple rows can be deleted if needed. Note that this
+You can remove tasks by right-clicking the appropriate row and selecting Remove Selected or by using
+the Remove Selected item on the Tasks menu. Multiple rows can be deleted if needed. Note that this
 does not remove any tasks from Windows Task Scheduler.
+
+
+Exporting Tasks
+===============
+
+You can export a task by right-clicking the appropriate row and selecting Export Selected or by using
+the Export Selected item on the Tasks menu. Tasks are exported in XML format. Only one task at a time
+may be exported.
 
 
 Saving your Task List
@@ -92,6 +102,13 @@ Check the option that says Run the program as an administrator.
 
 Remember, you only need to run MyScheduledTasks as an administrator if you do not see the tasks that
 you desire when running it normally. Whichever way you choose to run it, do so consistently.
+
+
+Enable, Disable or Run Tasks
+============================
+
+If MyScheduledTasks is running as administrator, the options to enable, disable and run the selected
+task on the context (right-click) menu.
 
 
 Automating MyScheduledTasks

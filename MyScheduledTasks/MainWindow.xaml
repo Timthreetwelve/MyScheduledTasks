@@ -92,7 +92,10 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Click="Restart_Click" Header="Restart as Administrator">
+                    <MenuItem
+                        x:Name="mnuRestart"
+                        Click="Restart_Click"
+                        Header="Restart as Administrator">
                         <MenuItem.Icon>
                             <Image Source="Icons\arrow-circle-left.png" />
                         </MenuItem.Icon>
@@ -122,10 +125,20 @@
                     <MenuItem
                         x:Name="mnuDelete"
                         Click="Delete_Click"
-                        Header="_Delete Selected"
+                        Header="_Remove Selected"
                         InputGestureText="Ctrl+D">
                         <MenuItem.Icon>
                             <Image Source="Icons\cross.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        x:Name="mnuExport"
+                        Click="MnuExport_Click"
+                        Header="_Export Selected"
+                        InputGestureText="Ctrl+E">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/external.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
@@ -390,7 +403,7 @@
                     DisplayIndex="6"
                     ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Notes"
-                    Visibility="{Binding ShowNoteCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}"/>
+                    Visibility="{Binding ShowNoteCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}" />
             </DataGrid.Columns>
             <!--#endregion-->
 
@@ -423,6 +436,17 @@
                                     Margin="0,1"
                                     Foreground="Black"
                                     Text="{Binding TaskTriggers}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="90"
+                                    Margin="0,1,0,0"
+                                    Foreground="Black"
+                                    Text="Actions:" />
+                                <TextBlock
+                                    Margin="0,1"
+                                    Foreground="Black"
+                                    Text="{Binding TaskActions}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
@@ -585,29 +609,37 @@
                     </MenuItem>
                     <Separator />
                     <MenuItem
-                        x:Name="mnuEnable"
-                        Click="EnableTask_Click"
-                        Header="Enable Selected">
+                        Click="MnuExport_Click"
+                        Header="Export Selected">
                         <MenuItem.Icon>
-                            <Image Source="Icons/tick-circle.png" />
+                            <Image Source="Icons/external.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem
-                        x:Name="mnuDisable"
-                        Click="DisableTask_Click"
-                        Header="Disable Selected">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/cross-octagon.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem
-                        Name="mnuRunTask"
-                        Click="MnuRunTask_Click"
-                        Header="Run Now">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\traffic-light-green.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
+                    <Separator />
+                        <MenuItem
+                            x:Name="mnuEnable"
+                            Click="EnableTask_Click"
+                            Header="Enable Selected">
+                            <MenuItem.Icon>
+                                <Image Source="Icons/tick-circle.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                            x:Name="mnuDisable"
+                            Click="DisableTask_Click"
+                            Header="Disable Selected">
+                            <MenuItem.Icon>
+                                <Image Source="Icons/cross-octagon.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                            Name="mnuRunTask"
+                            Click="MnuRunTask_Click"
+                            Header="Run Now">
+                            <MenuItem.Icon>
+                                <Image Source="Icons\traffic-light-green.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <!--#endregion-->

@@ -182,6 +182,8 @@
     <Resource Include="Icons\cross-octagon.png" />
     <Resource Include="Icons\tick-circle.png" />
     <Resource Include="Icons\traffic-light-green.png" />
+    <Resource Include="Icons\external.png" />
+    <Resource Include="Icons\document-export.png" />
     <Content Include="ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
