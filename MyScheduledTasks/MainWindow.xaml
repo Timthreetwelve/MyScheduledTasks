@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MyScheduledTasks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:p="clr-namespace:MyScheduledTasks.Properties"
     Title="Task Scheduler Info"
     Width="600"
@@ -292,6 +293,8 @@
 
         <DataGrid
             x:Name="DataGridTasks"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="3"
