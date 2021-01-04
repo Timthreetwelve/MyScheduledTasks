@@ -30,5 +30,4 @@ you care about.
 
 <br/>
 
-
-![](\Images\MyScheduledTasks.png)
+![MyScheduledTasks screenshot](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/Images/MyScheduledTasks.png?raw=true)
