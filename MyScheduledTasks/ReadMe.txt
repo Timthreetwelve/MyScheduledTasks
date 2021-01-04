@@ -61,7 +61,6 @@ does not remove any tasks from Windows Task Scheduler.
 
 Exporting Tasks
 ===============
-
 You can export a task by right-clicking the appropriate row and selecting Export Selected or by using
 the Export Selected item on the Tasks menu. Tasks are exported in XML format. Only one task at a time
 may be exported.
@@ -131,18 +130,21 @@ non-zero result while they are running.
 
 Notices and License
 ===================
-
 MyScheduledTasks was written in C# by Tim Kennedy.
 
 MyScheduledTasks uses the following icons & packages:
 
-Fugue Icons set https://p.yusukekamiyamane.com/
+• Fugue Icons set https://p.yusukekamiyamane.com/
 
-Json.net v12.0.3 from Newtonsoft https://www.newtonsoft.com/json
+• Json.net v12.0.3 from Newtonsoft https://www.newtonsoft.com/json
 
-TaskScheduler v2.8.20 https://github.com/dahall/taskscheduler
+• TaskScheduler v2.9.0 https://github.com/dahall/taskscheduler
 
-NLog v4.7.3 https://nlog-project.org/
+• NLog v4.7.6 https://nlog-project.org/
+
+• GongSolutions.WPF.DragDrop v2.3.2 https://github.com/punker76/gong-wpf-dragdrop
+
+• Inno Setup was used to create the installer. https://jrsoftware.org/isinfo.php
 
 
 MIT License
