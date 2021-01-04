@@ -483,11 +483,6 @@ namespace MyScheduledTasks
             string line = string.Format("{0} is shutting down.  {1:g} elapsed time.", AppInfo.AppName, stopwatch.Elapsed);
             log.Info(line);
 
-            foreach (var item in UserSettings.ListSettings())
-            {
-                log.Debug($"{item.Key} {item.Value}");
-            }
-
             LogManager.Shutdown();
 
             // save settings

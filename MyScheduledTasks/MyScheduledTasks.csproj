@@ -147,6 +147,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <Resource Include="Icons\plus.png" />
     <Resource Include="Icons\disk.png" />
     <Resource Include="Icons\minus-small.png" />
