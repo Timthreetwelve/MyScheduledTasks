@@ -104,10 +104,12 @@
     <Compile Include="AppInfo.cs" />
     <Compile Include="ColumnSort.cs" />
     <Compile Include="DragDrop.cs" />
+    <Compile Include="SettingsManager.cs" />
     <Compile Include="TextFileViewer.cs" />
     <Compile Include="TKMessageBox.xaml.cs">
       <DependentUpon>TKMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserSettings.cs" />
     <Page Include="About.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,11 +146,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="Icons\plus.png" />
     <Resource Include="Icons\disk.png" />
@@ -188,10 +185,6 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Resource Include="Icons\arrow-circle.png" />
     <Resource Include="Icons\clipboard-plus.png" />
     <Resource Include="Icons\document-list.png" />
@@ -201,9 +194,6 @@
     <Resource Include="Icons\magnifier-plus.png" />
     <Resource Include="Icons\magnifier.png" />
     <Content Include="MyTasks.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

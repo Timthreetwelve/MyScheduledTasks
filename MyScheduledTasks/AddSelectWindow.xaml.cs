@@ -34,15 +34,15 @@ namespace MyScheduledTasks
             // Set screen metrics
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 20;
             MaxWidth = SystemParameters.PrimaryScreenWidth - 20;
-            Height = Settings.Default.AddWindowHeight;
-            Width = Settings.Default.AddWindowWidth;
+            Height = UserSettings.Setting.AddWindowHeight;
+            Width = UserSettings.Setting.AddWindowWidth;
 
-            // Set listbox zoom
-            double curZoom = Settings.Default.GridZoom;
+            // Set ListBox zoom
+            double curZoom = UserSettings.Setting.GridZoom;
             listBox.LayoutTransform = new ScaleTransform(curZoom, curZoom);
 
             // Hide Microsoft
-            cbxHideMicroSoft.IsChecked = Settings.Default.HideMicrosoftFolder;
+            cbxHideMicroSoft.IsChecked = UserSettings.Setting.HideMicrosoftFolder;
         }
         #endregion Read Settings
 
@@ -75,8 +75,7 @@ namespace MyScheduledTasks
         {
             using (TaskService ts = new TaskService())
             {
-                Task task = ts.GetTask(name);
-                return task;
+                return ts.GetTask(name);
             }
         }
         #endregion Get info for a task
@@ -158,9 +157,9 @@ namespace MyScheduledTasks
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Settings.Default.AddWindowHeight = Height;
-            Settings.Default.AddWindowWidth = Width;
-            Settings.Default.Save();
+            UserSettings.Setting.AddWindowHeight = Height;
+            UserSettings.Setting.AddWindowWidth = Width;
+            UserSettings.SaveSettings();
         }
 
         private void CbxHideMicroSoft_Checked(object sender, RoutedEventArgs e)
@@ -171,7 +170,7 @@ namespace MyScheduledTasks
                 GetTaskList();
                 listBox.InvalidateArrange();
                 listBox.UpdateLayout();
-                Settings.Default.HideMicrosoftFolder = (bool)cbxHideMicroSoft.IsChecked;
+                UserSettings.Setting.HideMicrosoftFolder = (bool)cbxHideMicroSoft.IsChecked;
             }
         }
         #endregion Button & window events

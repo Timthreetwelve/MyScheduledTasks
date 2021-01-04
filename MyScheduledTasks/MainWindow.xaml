@@ -3,10 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:local="clr-namespace:MyScheduledTasks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-    xmlns:p="clr-namespace:MyScheduledTasks.Properties"
     Title="Task Scheduler Info"
     Width="600"
     MinWidth="300"
@@ -195,27 +194,27 @@
                     <MenuItem
                         Header="Show Alert Column"
                         IsCheckable="True"
-                        IsChecked="{Binding ShowAlertCol, Source={x:Static p:Settings.Default}}" />
+                        IsChecked="{Binding ShowAlertCol, Source={x:Static local:UserSettings.Setting}}" />
                     <MenuItem
                         Header="Show Result Column"
                         IsCheckable="True"
-                        IsChecked="{Binding ShowResultCol, Source={x:Static p:Settings.Default}}" />
+                        IsChecked="{Binding ShowResultCol, Source={x:Static local:UserSettings.Setting}}" />
                     <MenuItem
                         Header="Show Status Column"
                         IsCheckable="True"
-                        IsChecked="{Binding ShowStatusCol, Source={x:Static p:Settings.Default}}" />
+                        IsChecked="{Binding ShowStatusCol, Source={x:Static local:UserSettings.Setting}}" />
                     <MenuItem
                         Header="Show Last Run Column"
                         IsCheckable="True"
-                        IsChecked="{Binding ShowLastRunCol, Source={x:Static p:Settings.Default}}" />
+                        IsChecked="{Binding ShowLastRunCol, Source={x:Static local:UserSettings.Setting}}" />
                     <MenuItem
                         Header="Show Folder Column"
                         IsCheckable="True"
-                        IsChecked="{Binding ShowFolderCol, Source={x:Static p:Settings.Default}}" />
+                        IsChecked="{Binding ShowFolderCol, Source={x:Static local:UserSettings.Setting}}" />
                     <MenuItem
                         Header="Show Note Column"
                         IsCheckable="True"
-                        IsChecked="{Binding ShowNoteCol, Source={x:Static p:Settings.Default}}" />
+                        IsChecked="{Binding ShowNoteCol, Source={x:Static local:UserSettings.Setting}}" />
                 </MenuItem>
 
                 <MenuItem x:Name="mnuOptions" Header="_Options">
@@ -228,15 +227,15 @@
                     <MenuItem
                         Header="Save Task List on Exit"
                         IsCheckable="True"
-                        IsChecked="{Binding SaveOnExit, Source={x:Static p:Settings.Default}}" />
+                        IsChecked="{Binding SaveOnExit, Source={x:Static local:UserSettings.Setting}}" />
                     <MenuItem
                         Header="Suppress File Saved Notifications"
                         IsCheckable="True"
-                        IsChecked="{Binding SuppressFileSaveNotify, Source={x:Static p:Settings.Default}}" />
+                        IsChecked="{Binding SuppressFileSaveNotify, Source={x:Static local:UserSettings.Setting}}" />
                     <MenuItem
                         Header="Shade Alternate Grid Rows"
                         IsCheckable="True"
-                        IsChecked="{Binding ShadeAltRows, Source={x:Static p:Settings.Default}, Mode=TwoWay}"
+                        IsChecked="{Binding ShadeAltRows, Source={x:Static local:UserSettings.Setting}}"
                         StaysOpenOnClick="False" />
                 </MenuItem>
 
@@ -293,11 +292,11 @@
 
         <DataGrid
             x:Name="DataGridTasks"
-            dd:DragDrop.IsDragSource="True"
-            dd:DragDrop.IsDropTarget="True"
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="3"
+            dd:DragDrop.IsDragSource="True"
+            dd:DragDrop.IsDropTarget="True"
             AutoGenerateColumns="False"
             BorderBrush="#E2E2E2"
             CanUserAddRows="False"
@@ -337,7 +336,8 @@
                     DisplayIndex="0"
                     Header="⚠"
                     SortMemberPath="IsChecked"
-                    Visibility="{Binding ShowAlertCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}">
+                    Visibility="{Binding ShowAlertCol, Source={x:Static local:UserSettings.Setting},
+                    Converter={StaticResource BoolVisConverter}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox
@@ -363,7 +363,8 @@
                     Header="Result"
                     IsReadOnly="True"
                     SortMemberPath="TaskResultShort"
-                    Visibility="{Binding ShowResultCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}">
+                    Visibility="{Binding ShowResultCol, Source={x:Static local:UserSettings.Setting},
+                    Converter={StaticResource BoolVisConverter}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding TaskResultShort}">
@@ -383,7 +384,8 @@
                     ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Status"
                     IsReadOnly="True"
-                    Visibility="{Binding ShowStatusCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}" />
+                    Visibility="{Binding ShowStatusCol, Source={x:Static local:UserSettings.Setting}, 
+                    Converter={StaticResource BoolVisConverter}}" />
 
                 <DataGridTextColumn
                     Binding="{Binding LastRun}"
@@ -391,7 +393,7 @@
                     ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Last Run"
                     IsReadOnly="True"
-                    Visibility="{Binding ShowLastRunCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}" />
+                    Visibility="{Binding ShowLastRunCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
 
                 <DataGridTextColumn
                     MinWidth="50"
@@ -400,13 +402,13 @@
                     ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Folder"
                     IsReadOnly="True"
-                    Visibility="{Binding ShowFolderCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}" />
+                    Visibility="{Binding ShowFolderCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
                 <DataGridTextColumn
                     Binding="{Binding TaskNote}"
                     DisplayIndex="6"
                     ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Notes"
-                    Visibility="{Binding ShowNoteCol, Source={x:Static p:Settings.Default}, Converter={StaticResource BoolVisConverter}}" />
+                    Visibility="{Binding ShowNoteCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
             </DataGrid.Columns>
             <!--#endregion-->
 
@@ -611,38 +613,36 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem
-                        Click="MnuExport_Click"
-                        Header="Export Selected">
+                    <MenuItem Click="MnuExport_Click" Header="Export Selected">
                         <MenuItem.Icon>
                             <Image Source="Icons/external.png" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                        <MenuItem
-                            x:Name="mnuEnable"
-                            Click="EnableTask_Click"
-                            Header="Enable Selected">
-                            <MenuItem.Icon>
-                                <Image Source="Icons/tick-circle.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <MenuItem
-                            x:Name="mnuDisable"
-                            Click="DisableTask_Click"
-                            Header="Disable Selected">
-                            <MenuItem.Icon>
-                                <Image Source="Icons/cross-octagon.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <MenuItem
-                            Name="mnuRunTask"
-                            Click="MnuRunTask_Click"
-                            Header="Run Now">
-                            <MenuItem.Icon>
-                                <Image Source="Icons\traffic-light-green.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
+                    <MenuItem
+                        x:Name="mnuEnable"
+                        Click="EnableTask_Click"
+                        Header="Enable Selected">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/tick-circle.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        x:Name="mnuDisable"
+                        Click="DisableTask_Click"
+                        Header="Disable Selected">
+                        <MenuItem.Icon>
+                            <Image Source="Icons/cross-octagon.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Name="mnuRunTask"
+                        Click="MnuRunTask_Click"
+                        Header="Run Now">
+                        <MenuItem.Icon>
+                            <Image Source="Icons\traffic-light-green.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <!--#endregion-->

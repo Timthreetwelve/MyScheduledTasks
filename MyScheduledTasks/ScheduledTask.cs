@@ -193,14 +193,7 @@ namespace MyScheduledTasks
             get { return taskTriggers; }
             set
             {
-                if (value == null)
-                {
-                    taskTriggers = string.Empty;
-                }
-                else
-                {
-                    taskTriggers = value;
-                }
+                taskTriggers = value ?? string.Empty;
             }
         }
 
@@ -211,14 +204,7 @@ namespace MyScheduledTasks
             get { return taskActions; }
             set
             {
-                if (value == null)
-                {
-                    taskActions = string.Empty;
-                }
-                else
-                {
-                    taskActions = value;
-                }
+                taskActions = value ?? string.Empty;
             }
         }
 

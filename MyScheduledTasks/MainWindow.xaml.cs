@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Media;
+using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Controls;
@@ -44,6 +45,8 @@ namespace MyScheduledTasks
         #region MainWindow constructor
         public MainWindow()
         {
+            UserSettings.Init(UserSettings.AppFolder, UserSettings.DefaultFilename, true);
+
             InitializeComponent();
 
             ReadSettings();
@@ -61,7 +64,7 @@ namespace MyScheduledTasks
         {
             // Change the log file filename when debugging
             if (Debugger.IsAttached)
-                GlobalDiagnosticsContext.Set("TempOrDebug", "debug");
+            GlobalDiagnosticsContext.Set("TempOrDebug", "debug");
             else
                 GlobalDiagnosticsContext.Set("TempOrDebug", "temp");
 
@@ -80,37 +83,29 @@ namespace MyScheduledTasks
             // Unhandled exception handler
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            // Settings upgrade
-            if (Settings.Default.SettingsUpgradeRequired)
-            {
-                Settings.Default.Upgrade();
-                Settings.Default.SettingsUpgradeRequired = false;
-                Settings.Default.Save();
-                CleanUp.CleanupPrevSettings();
-            }
-
             // Settings change event
-            Settings.Default.SettingChanging += SettingChanging;
+            UserSettings.Setting.PropertyChanged += UserSettingChanged;
 
             // Max screen height slightly smaller than screen
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight - 20;
 
             // Window position
-            Top = Settings.Default.WindowTop;
-            Left = Settings.Default.WindowLeft;
+            Top = UserSettings.Setting.WindowTop;
+            Left = UserSettings.Setting.WindowLeft;
 
             // Put version number in window title
             WindowTitleVersionAdmin();
 
             // Set Datagrid zoom
-            double curZoom = Settings.Default.GridZoom;
+            double curZoom = UserSettings.Setting.GridZoom;
             DataGridTasks.LayoutTransform = new ScaleTransform(curZoom, curZoom);
 
             // Alternate row shading
-            if (Settings.Default.ShadeAltRows)
+            if (UserSettings.Setting.ShadeAltRows)
             {
                 AltRowShadingOn();
             }
+
             log.Debug($"Read settings complete {stopwatch.Elapsed} elapsed time");
         }
         #endregion Read Settings
@@ -451,10 +446,10 @@ namespace MyScheduledTasks
         {
             if (MyTasks.IsDirty)
             {
-                if (Settings.Default.SaveOnExit)
+                if (UserSettings.Setting.SaveOnExit)
                 {
                     UpdateMyTasksCollection();
-                    WriteTasks2Json(Settings.Default.SuppressFileSaveNotify);
+                    WriteTasks2Json(UserSettings.Setting.SuppressFileSaveNotify);
                 }
                 else
                 {
@@ -474,7 +469,7 @@ namespace MyScheduledTasks
                     else if (result == MessageBoxResult.Yes)
                     {
                         UpdateMyTasksCollection();
-                        WriteTasks2Json(Settings.Default.SuppressFileSaveNotify);
+                        WriteTasks2Json(UserSettings.Setting.SuppressFileSaveNotify);
                     }
                 }
             }
@@ -488,12 +483,18 @@ namespace MyScheduledTasks
             string line = string.Format("{0} is shutting down.  {1:g} elapsed time.", AppInfo.AppName, stopwatch.Elapsed);
             log.Info(line);
 
+            foreach (var item in UserSettings.ListSettings())
+            {
+                log.Debug($"{item.Key} {item.Value}");
+            }
+
             LogManager.Shutdown();
 
-            // save the property settings
-            Settings.Default.WindowLeft = Left;
-            Settings.Default.WindowTop = Top;
-            Settings.Default.Save();
+            // save settings
+            UserSettings.Setting.WindowLeft = Left;
+            UserSettings.Setting.WindowTop = Top;
+
+            UserSettings.SaveSettings();
         }
         #endregion Window events
 
@@ -528,10 +529,10 @@ namespace MyScheduledTasks
         {
             if (MyTasks.IsDirty)
             {
-                if (Settings.Default.SaveOnExit)
+                if (UserSettings.Setting.SaveOnExit)
                 {
                     UpdateMyTasksCollection();
-                    WriteTasks2Json(Settings.Default.SuppressFileSaveNotify);
+                    WriteTasks2Json(UserSettings.Setting.SuppressFileSaveNotify);
                 }
                 else
                 {
@@ -550,7 +551,7 @@ namespace MyScheduledTasks
                     else if (result == MessageBoxResult.Yes)
                     {
                         UpdateMyTasksCollection();
-                        WriteTasks2Json(Settings.Default.SuppressFileSaveNotify);
+                        WriteTasks2Json(UserSettings.Setting.SuppressFileSaveNotify);
                     }
                 }
             }
@@ -837,24 +838,24 @@ namespace MyScheduledTasks
         #endregion List changes
 
         #region Setting change
-        private void SettingChanging(object sender, SettingChangingEventArgs e)
+        private void UserSettingChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch (e.SettingName)
+            PropertyInfo prop = sender.GetType().GetProperty(e.PropertyName);
+            var newValue = prop?.GetValue(sender, null);
+            switch (e.PropertyName)
             {
                 case "ShadeAltRows":
+                    if ((bool)newValue)
                     {
-                        if ((bool)e.NewValue)
-                        {
-                            AltRowShadingOn();
-                        }
-                        else
-                        {
-                            AltRowShadingOff();
-                        }
-                        break;
+                        AltRowShadingOn();
                     }
+                    else
+                    {
+                        AltRowShadingOff();
+                    }
+                    break;
             }
-            log.Debug($"Setting: {e.SettingName} New Value: {e.NewValue}");
+            log.Debug($"Setting change: {e.PropertyName}  New Value: {newValue}");
         }
         #endregion Setting change
 
@@ -870,11 +871,11 @@ namespace MyScheduledTasks
         #region Grid Size
         private void GridSmaller()
         {
-            double curZoom = Settings.Default.GridZoom;
+            double curZoom = UserSettings.Setting.GridZoom;
             if (curZoom > 0.8)
             {
                 curZoom -= .05;
-                Settings.Default.GridZoom = curZoom;
+                UserSettings.Setting.GridZoom = curZoom;
             }
 
             DataGridTasks.LayoutTransform = new ScaleTransform(curZoom, curZoom);
@@ -882,11 +883,11 @@ namespace MyScheduledTasks
 
         private void GridLarger()
         {
-            double curZoom = Settings.Default.GridZoom;
+            double curZoom = UserSettings.Setting.GridZoom;
             if (curZoom < 1.5)
             {
                 curZoom += .05;
-                Settings.Default.GridZoom = curZoom;
+                UserSettings.Setting.GridZoom = curZoom;
             }
 
             DataGridTasks.LayoutTransform = new ScaleTransform(curZoom, curZoom);
