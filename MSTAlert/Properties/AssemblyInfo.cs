@@ -5,12 +5,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MyScheduledTasks")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("MSTAlert")]
+[assembly: AssemblyDescription("Alert window forMyScheduledTasks")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("T_K")]
-[assembly: AssemblyProduct("MyScheduledTasks")]
-[assembly: AssemblyCopyright("Copyright ©  2021 Tim Kennedy")]
+[assembly: AssemblyProduct("MSTAlert")]
+[assembly: AssemblyCopyright("Copyright © 2021 Tim Kennedy")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

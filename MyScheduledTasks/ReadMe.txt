@@ -119,13 +119,13 @@ Arguments field.
 For your convenience, there is a menu selection to start Windows Task Scheduler on the Tasks menu
 and an option on the Help/Debug menu to copy the executable path to the clipboard.
 
-When set up this way, MyScheduledTasks will only show its window if there is a task that has a
+When set up this way, MyScheduledTasks will only show an alert window if there is a task that has a
 check in the Alert column and the last result was non-zero. Otherwise, it will shut down without
-showing its window.
+showing any windows.
 
 If you choose to add MyScheduledTasks to Windows Task Scheduler, don't check the Alert checkbox
-next to MyScheduledTasks. If you do, it will always show its window because tasks always have a
-non-zero result while they are running.
+next to MyScheduledTasks. If you do, it will always show an alert window because tasks always have
+a non-zero result while they are running.
 
 
 Notices and License
@@ -138,9 +138,9 @@ MyScheduledTasks uses the following icons & packages:
 
 • Json.net v12.0.3 from Newtonsoft https://www.newtonsoft.com/json
 
-• TaskScheduler v2.9.0 https://github.com/dahall/taskscheduler
+• TaskScheduler v2.9.1 https://github.com/dahall/taskscheduler
 
-• NLog v4.7.6 https://nlog-project.org/
+• NLog v4.7.7 https://nlog-project.org/
 
 • GongSolutions.WPF.DragDrop v2.3.2 https://github.com/punker76/gong-wpf-dragdrop
 

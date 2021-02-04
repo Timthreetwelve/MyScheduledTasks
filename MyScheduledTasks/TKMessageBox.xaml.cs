@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+
+using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -8,7 +10,7 @@ namespace TKUtils
     //
     // Remember to copy the 8 png images to the Images folder
 
-    public partial class TKMessageBox : Window
+    public sealed partial class TKMessageBox : Window
     {
         private TKMessageBox()
         {
@@ -51,7 +53,6 @@ namespace TKUtils
 
         public static MessageBoxResult Show(string msg, MessageBoxType type)
         {
-
             return Show(msg, string.Empty, type);
         }
 
@@ -161,29 +162,19 @@ namespace TKUtils
         #endregion
 
         #region Button Click Event
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Critical Code Smell", "S2696:Instance members should not write to \"static\" fields", Justification = "<Pending>")]
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (sender == btnOk)
                 _result = MessageBoxResult.OK;
-
             else if (sender == btnYes)
                 _result = MessageBoxResult.Yes;
-
             else if (sender == btnNo)
                 _result = MessageBoxResult.No;
-
             else if (sender == btnCancel)
                 _result = MessageBoxResult.Cancel;
-
             else
                 _result = MessageBoxResult.None;
-
-            if (_messageBox == null)
-            {
-                _messageBox = this;
-            }
-            _messageBox.Close();
+            (_messageBox ?? (_messageBox = this)).Close();
             _messageBox = null;
         }
         #endregion

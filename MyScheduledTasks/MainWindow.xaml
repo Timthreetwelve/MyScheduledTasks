@@ -237,6 +237,11 @@
                         IsCheckable="True"
                         IsChecked="{Binding ShadeAltRows, Source={x:Static local:UserSettings.Setting}}"
                         StaysOpenOnClick="False" />
+                    <MenuItem
+                        Header="Alert Sounds"
+                        IsCheckable="True"
+                        IsChecked="{Binding Sound, Source={x:Static local:UserSettings.Setting}}"
+                        StaysOpenOnClick="False" />
                 </MenuItem>
 
                 <MenuItem x:Name="mnuHelp" Header="_Help">
@@ -336,8 +341,7 @@
                     DisplayIndex="0"
                     Header="⚠"
                     SortMemberPath="IsChecked"
-                    Visibility="{Binding ShowAlertCol, Source={x:Static local:UserSettings.Setting},
-                    Converter={StaticResource BoolVisConverter}}">
+                    Visibility="{Binding ShowAlertCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox
@@ -363,8 +367,7 @@
                     Header="Result"
                     IsReadOnly="True"
                     SortMemberPath="TaskResultShort"
-                    Visibility="{Binding ShowResultCol, Source={x:Static local:UserSettings.Setting},
-                    Converter={StaticResource BoolVisConverter}}">
+                    Visibility="{Binding ShowResultCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding TaskResultShort}">
@@ -384,8 +387,7 @@
                     ElementStyle="{StaticResource ColumnMargin5}"
                     Header="Status"
                     IsReadOnly="True"
-                    Visibility="{Binding ShowStatusCol, Source={x:Static local:UserSettings.Setting}, 
-                    Converter={StaticResource BoolVisConverter}}" />
+                    Visibility="{Binding ShowStatusCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
 
                 <DataGridTextColumn
                     Binding="{Binding LastRun}"

@@ -16,6 +16,7 @@ namespace MyScheduledTasks
             // Set defaults
             AddWindowHeight = 450;
             AddWindowWidth = 800;
+            AlertTimer = 0;
             GridZoom = 1;
             HideMicrosoftFolder = true;
             SaveOnExit = true;
@@ -26,6 +27,7 @@ namespace MyScheduledTasks
             ShowNoteCol = true;
             ShowResultCol = true;
             ShowStatusCol = true;
+            Sound = true;
             SuppressFileSaveNotify = true;
             WindowLeft = 100;
             WindowTop = 100;
@@ -37,6 +39,30 @@ namespace MyScheduledTasks
         public double AddWindowHeight { get; set; }
 
         public double AddWindowWidth { get; set; }
+
+        public double AlertTimer
+        {
+            get
+            {
+                if (alertTimer < 0)
+                {
+                    return 0;
+                }
+                else if (alertTimer > 1440)
+                {
+                    return 1440;
+                }
+                else
+                {
+                    return alertTimer;
+                }
+            }
+            set
+            {
+                alertTimer = value;
+                OnPropertyChanged();
+            }
+        }
 
         public double GridZoom
         {
@@ -145,6 +171,16 @@ namespace MyScheduledTasks
             }
         }
 
+        public bool Sound
+        {
+            get { return sound; }
+            set
+            {
+                sound = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool SuppressFileSaveNotify
         {
             get { return suppressFileSaveNotify; }
@@ -183,6 +219,7 @@ namespace MyScheduledTasks
         #endregion Properties
 
         #region Private backing fields
+        private double alertTimer;
         private bool hideMicrosoftFolder;
         private bool saveOnExit;
         private bool shadeAltRows;
@@ -192,6 +229,7 @@ namespace MyScheduledTasks
         private bool showNoteCol;
         private bool showResultCol;
         private bool showStatusCol;
+        private bool sound;
         private bool suppressFileSaveNotify;
         private double gridZoom;
         private double windowLeft;

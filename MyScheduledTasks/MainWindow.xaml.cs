@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Media;
@@ -17,7 +16,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32.TaskScheduler;
-using MyScheduledTasks.Properties;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Targets;
@@ -64,7 +62,7 @@ namespace MyScheduledTasks
         {
             // Change the log file filename when debugging
             if (Debugger.IsAttached)
-            GlobalDiagnosticsContext.Set("TempOrDebug", "debug");
+                GlobalDiagnosticsContext.Set("TempOrDebug", "debug");
             else
                 GlobalDiagnosticsContext.Set("TempOrDebug", "temp");
 
@@ -231,6 +229,7 @@ namespace MyScheduledTasks
                     Visibility = Visibility.Hidden;
 
                     bool showMainWindow = false;
+                    int counter = 0;
 
                     // Only write so log file when the window is hidden
                     foreach (var task in ScheduledTask.TaskList)
@@ -238,16 +237,35 @@ namespace MyScheduledTasks
                         log.Debug($"{task.TaskName} checked = {task.IsChecked} result = {task.TaskResultShort}");
                         if (task.IsChecked && task.TaskResultShort == "NZ")
                         {
-                            Visibility = Visibility.Visible;
+                            //Visibility = Visibility.Visible;
                             showMainWindow = true;
-                            SystemSounds.Beep.Play();
-                            log.Info($"Last result for {task.TaskName} was {task.TaskResult}, showing {AppInfo.AppName} window");
-                            break;
+                            counter++;
+                            //SystemSounds.Beep.Play();
+                            log.Info($"Last result for {task.TaskName} was {task.TaskResult}, will show alert window");
+                            //break;
                         }
                     }
 
                     // If showMainWindow is false, then shut down
-                    if (!showMainWindow)
+                    if (showMainWindow)
+                    {
+                        string tk = counter == 1 ? "task" : "tasks";
+                        Process pta = new Process();
+                        pta.StartInfo.FileName = @".\MSTAlert.exe";
+                        pta.StartInfo.Arguments = $"\"{counter} scheduled {tk} ended with a non-zero result code.\"";
+                        try
+                        {
+                            _ = pta.Start();
+                            Application.Current.Shutdown();
+                        }
+                        catch (Exception ex)
+                        {
+                            log.Error(ex, "Unable to start MSTAlert.exe");
+                            Visibility = Visibility.Visible;
+                            WindowState = WindowState.Normal;
+                        }
+                    }
+                    else
                     {
                         log.Info("No scheduled tasks with a non-zero results were found.");
                         Application.Current.Shutdown();
@@ -870,7 +888,7 @@ namespace MyScheduledTasks
             if (curZoom > 0.8)
             {
                 curZoom -= .05;
-                UserSettings.Setting.GridZoom = curZoom;
+                UserSettings.Setting.GridZoom = Math.Round(curZoom,2);
             }
 
             DataGridTasks.LayoutTransform = new ScaleTransform(curZoom, curZoom);
@@ -882,7 +900,7 @@ namespace MyScheduledTasks
             if (curZoom < 1.5)
             {
                 curZoom += .05;
-                UserSettings.Setting.GridZoom = curZoom;
+                UserSettings.Setting.GridZoom = Math.Round(curZoom, 2);
             }
 
             DataGridTasks.LayoutTransform = new ScaleTransform(curZoom, curZoom);
