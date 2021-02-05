@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:MSTAlert"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="370"
-    Height="170"
+    Height="180"
     AllowsTransparency="True"
     Background="#ff3b3b3b"
     BorderBrush="Black"
@@ -14,38 +14,40 @@
     Closing="Window_Closing"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
     Opacity=".96"
+    Loaded="Window_Loaded"
     ResizeMode="NoResize"
     SizeToContent="Height"
+    Title="MSTAlert"
     WindowStyle="None"
     mc:Ignorable="d">
 
     <!--#region Styles-->
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#ff3b3b3b" />
+            <Setter Property="Background" Value="#565656" />
             <Setter Property="Foreground" Value="LightGray" />
             <Setter Property="FontSize" Value="13" />
             <Setter Property="Height" Value="28" />
-            <Setter Property="Width" Value="110" />
-            <Setter Property="Margin" Value="10,0" />
+            <Setter Property="Width" Value="165" />
+            <Setter Property="Margin" Value="5,0" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border
                             x:Name="Border"
                             Padding="0,0,0,2"
-                            Background="#3b3b3b"
-                            BorderBrush="Gray"
+                            Background="#565656"
+                            BorderBrush="#565656"
                             BorderThickness="1.5"
                             CornerRadius="0">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="DeepSkyBlue" />
+                                <Setter TargetName="Border" Property="Background" Value="Gray" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="DeepSkyBlue" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#ffffff80" />
                                 <Setter TargetName="Border" Property="BorderThickness" Value="2" />
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -55,15 +57,16 @@
         </Style>
     </Window.Resources>
     <!--#endregion-->
+
     <Grid Background="Transparent">
         <!--#region Row definitions-->
         <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="28" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="28" />
+            <RowDefinition Height="35" />
             <RowDefinition Height="15" />
-            <RowDefinition Height="33" />
-            <RowDefinition Height="37" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="32" />
-            <RowDefinition Height="14" />
         </Grid.RowDefinitions>
         <!--#endregion-->
 
@@ -76,25 +79,39 @@
             FontWeight="SemiBold"
             Foreground="#ffffff80"
             Text="MyScheduledTasks" />
+        <!-- The MaxHeight, TextTrimming, TextWrapping and FontSize all play together to show three lines maximum-->
         <TextBlock
             x:Name="tbMessage"
             Grid.Row="2"
-            MaxHeight="80"
-            Margin="10,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="top"
-            FontSize="14"
+            MaxHeight="65"
+            Margin="12,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="16"
             FontWeight="Regular"
             Foreground="WhiteSmoke"
-            Text="Single line of text"
-            TextTrimming="WordEllipsis"
+            Text="placeholder text"
+            TextTrimming="CharacterEllipsis"
             TextWrapping="Wrap" />
+        <!--#endregion-->
+
+        <!--#region TimeStamp-->
+        <TextBlock
+            x:Name="tbTimeStamp"
+            Grid.Row="3"
+            Margin="12,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            FontSize="14"
+            Foreground="Gray"
+            Text="TimeStamp" />
         <!--#endregion-->
 
         <!--#region Buttons-->
         <StackPanel
-            Grid.Row="3"
+            Grid.Row="4"
             HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
             Orientation="Horizontal">
             <Button
                 Click="Show_Click"
@@ -105,18 +122,6 @@
                 Content="Dismiss"
                 Style="{DynamicResource ButtonStyle}" />
         </StackPanel>
-        <!--#endregion-->
-
-        <!--#region Status-->
-        <TextBlock
-            x:Name="tbStatus"
-            Grid.Row="4"
-            Margin="10,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
-            FontSize="13"
-            Foreground="Gray"
-            Text="Hello" />
         <!--#endregion-->
     </Grid>
 </Window>

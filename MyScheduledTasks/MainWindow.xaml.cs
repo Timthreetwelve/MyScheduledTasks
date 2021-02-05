@@ -237,22 +237,19 @@ namespace MyScheduledTasks
                         log.Debug($"{task.TaskName} checked = {task.IsChecked} result = {task.TaskResultShort}");
                         if (task.IsChecked && task.TaskResultShort == "NZ")
                         {
-                            //Visibility = Visibility.Visible;
                             showMainWindow = true;
                             counter++;
-                            //SystemSounds.Beep.Play();
                             log.Info($"Last result for {task.TaskName} was {task.TaskResult}, will show alert window");
-                            //break;
                         }
                     }
 
                     // If showMainWindow is false, then shut down
                     if (showMainWindow)
                     {
-                        string tk = counter == 1 ? "task" : "tasks";
+                        string tsk = counter == 1 ? "task" : "tasks";
                         Process pta = new Process();
                         pta.StartInfo.FileName = @".\MSTAlert.exe";
-                        pta.StartInfo.Arguments = $"\"{counter} scheduled {tk} ended with a non-zero result code.\"";
+                        pta.StartInfo.Arguments = $"\"{counter} scheduled {tsk} ended with a non-zero result code.\"";
                         try
                         {
                             _ = pta.Start();

@@ -43,19 +43,17 @@ namespace MSTAlert
 
             logTemp.Info($"{AppInfo.AppName} version {AppInfo.TitleVersion} is starting up with argument" +
                          $" \"{GetMessageText()}\"");
-
-            PositionWindow();
             tbMessage.Text = GetMessageText();
-            tbStatus.Text = DateTime.Now.ToString("d/M/yyyy • h:mm tt");
+            tbTimeStamp.Text = DateTime.Now.ToString("d/M/yyyy • h:mm tt");
         }
         #endregion Setup
 
         #region Move Window to Bottom Right Corner
         private void PositionWindow()
         {
-            var r = SystemParameters.WorkArea;
-            Left = r.Right - Width - 5;
-            Top = r.Bottom - Height;
+            var workarea = SystemParameters.WorkArea;
+            Left = workarea.Right - Width - 5;
+            Top = workarea.Bottom - Height - 4;
         }
         #endregion Move Window to Bottom Right Corner
 
@@ -67,7 +65,7 @@ namespace MSTAlert
             if (args.Length < 2)
             {
                 logTemp.Error("Argument count < 2.");
-                return "Test Text";
+                return "Placeholder Text";
             }
             if (UserSettings.Setting.Sound)
             {
@@ -144,5 +142,12 @@ namespace MSTAlert
             Close();
         }
         #endregion Timer Related Methods
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Positioning the window after it has been loaded gives a consistent distance above the taskbar
+            PositionWindow();
+            Debug.WriteLine($"Actual Height {ActualHeight}");
+        }
     }
 }
