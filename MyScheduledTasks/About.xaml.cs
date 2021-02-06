@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Navigation;
+using TKUtils;
 #endregion
 
 namespace MyScheduledTasks
@@ -43,16 +44,49 @@ namespace MyScheduledTasks
         #region Link events
         private void ReadMeLink_Click(object sender, RoutedEventArgs e)
         {
-            Topmost = false;
-            Close();
-            _ = Process.Start(".\\ReadMe.txt");
+            try
+            {
+                Topmost = false;
+                using (Process ps = new Process())
+                {
+                    ps.StartInfo.FileName = ".\\ReadMe.txt";
+                    ps.StartInfo.UseShellExecute = true;
+                    _ = ps.Start();
+                }
+                e.Handled = true;
+                Close();
+            }
+            catch (System.Exception ex)
+            {
+                _ = TKMessageBox.Show($"Error opening ReadMe.txt\n{ex}",
+                                      "PathTools Error",
+                                      MessageBoxButton.OK,
+                                      TKUtils.MessageBoxImage.Error);
+            }
         }
 
         private void OnNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Process.Start(e.Uri.AbsoluteUri);
-            e.Handled = true;
+            Debug.WriteLine($"Opening {e.Uri.AbsoluteUri}");
+            try
+            {
+                using (Process ps = new Process())
+                {
+                    ps.StartInfo.FileName = e.Uri.AbsoluteUri;
+                    ps.StartInfo.UseShellExecute = true;
+                    _ = ps.Start();
+                }
+                e.Handled = true;
+                Close();
+            }
+            catch (System.Exception ex)
+            {
+                _ = TKMessageBox.Show($"Error opening the link\n{ex}",
+                                      "PathTools Error",
+                                      MessageBoxButton.OK,
+                                      TKUtils.MessageBoxImage.Error);
+            }
         }
-        #endregion
+        #endregion Link events
     }
 }
