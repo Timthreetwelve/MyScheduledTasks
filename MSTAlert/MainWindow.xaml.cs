@@ -20,12 +20,15 @@ namespace MSTAlert
         private static readonly Logger logTemp = LogManager.GetLogger("logTemp");
         #endregion NLog
 
+        private DispatcherTimer closeTimer;
+        private bool timerRunning;
+
         public MainWindow()
         {
             UserSettings.Init(UserSettings.AppFolder, UserSettings.DefaultFilename, true);
             InitializeComponent();
             Setup();
-            CloseTimer();
+            SetTimer();
         }
 
         #region Setup
@@ -40,11 +43,11 @@ namespace MSTAlert
             {
                 GlobalDiagnosticsContext.Set("TempOrDebug", "temp");
             }
-
-            logTemp.Info($"{AppInfo.AppName} version {AppInfo.TitleVersion} is starting up with argument" +
-                         $" \"{GetMessageText()}\"");
-            tbMessage.Text = GetMessageText();
+            string msgText = GetMessageText();
+            logTemp.Info($"{AppInfo.AppName} version {AppInfo.TitleVersion} is starting up with argument {msgText}");
+            tbMessage.Text = msgText;
             tbTimeStamp.Text = DateTime.Now.ToString("d/M/yyyy • h:mm tt");
+            btnClose.Visibility = Visibility.Hidden;
         }
         #endregion Setup
 
@@ -107,47 +110,58 @@ namespace MSTAlert
         #region Window Events
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (timerRunning)
+            {
+                closeTimer.Stop();
+            }
             logTemp.Info($"{AppInfo.AppName} is shutting down.");
             LogManager.Shutdown();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Positioning the window after it loads gives a consistent distance above the taskbar
+            PositionWindow();
+            Debug.WriteLine($"Actual Height {ActualHeight}");
+        }
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnClose.Visibility = Visibility.Visible;
+        }
+
+        private void Window_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnClose.Visibility = Visibility.Hidden;
         }
         #endregion Window Events
 
         #region Timer Related Methods
-        private void CloseTimer()
+        private void SetTimer()
         {
             if (UserSettings.Setting.AlertTimer > 0)
             {
-                StartCloseTimer(UserSettings.Setting.AlertTimer);
+                CloseTimer(UserSettings.Setting.AlertTimer * 60);
+                timerRunning = true;
                 logTemp.Info($"{AppInfo.AppName} will close after {UserSettings.Setting.AlertTimer} minutes.");
             }
         }
 
-        private void StartCloseTimer(double minutes)
+        private void CloseTimer(double t)
         {
-            DispatcherTimer timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMinutes(minutes)
-            };
-            timer.Tick += TimerElapsed;
-            timer.Start();
-        }
+            TimeSpan timeInSeconds = TimeSpan.FromSeconds(t);
 
-        private void TimerElapsed(object sender, EventArgs e)
-        {
-            Debug.WriteLine("In TimerElapsed");
-            DispatcherTimer timer = (DispatcherTimer)sender;
-            timer.Stop();
-            timer.Tick -= TimerElapsed;
-            logTemp.Info($"{AppInfo.AppName} timer has expired.");
-            Close();
+            closeTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                tbCountdown.Text = timeInSeconds.ToString("h\\:mm\\:ss");
+                if (timeInSeconds == TimeSpan.Zero)
+                {
+                    logTemp.Info($"{AppInfo.AppName} is being closed by the timer.");
+                    closeTimer.Stop();
+                    Close();
+                }
+                timeInSeconds = timeInSeconds.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
+            closeTimer.Start();
         }
         #endregion Timer Related Methods
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Positioning the window after it has been loaded gives a consistent distance above the taskbar
-            PositionWindow();
-            Debug.WriteLine($"Actual Height {ActualHeight}");
-        }
     }
 }
