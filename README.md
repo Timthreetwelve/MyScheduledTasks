@@ -1,4 +1,9 @@
 ## MyScheduledTasks
+
+[![GitHub](https://img.shields.io/github/license/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/LICENSE)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest) 
+[![GitHub all releases](https://img.shields.io/github/downloads/Timthreetwelve/MyScheduledTasks/total?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases) 
+
 MyScheduledTasks is an application that lets you keep track of the tasks in Windows Task Scheduler that
 you care about.
 
