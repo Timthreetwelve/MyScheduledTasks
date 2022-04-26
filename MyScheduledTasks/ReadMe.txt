@@ -5,8 +5,8 @@ Introduction
 ============
 MyScheduledTasks is an application that lets you keep track of the tasks in Windows Task Scheduler that
 you care about. MyScheduledTasks can be automated to let you know if any of the tasks completed with
-a non-zero exit code. It's important to note that MyScheduledTasks allows you an simple way to check
-on scheduled tasks, it doesn't allow you to add, delete, or change them. For those activities you
+a non-zero exit code. It's important to note that while MyScheduledTasks allows you an simple way to
+check on scheduled tasks, it doesn't allow you to add, delete, or change them. For those activities you
 will need to use Windows Task Scheduler.
 
 
@@ -14,9 +14,9 @@ Getting Started
 ===============
 When you first start MyScheduledTasks you will see a window that has a menu and some column headers.
 The first thing to do is to add some tasks from Windows Task Scheduler.  Click on the Tasks menu and
-then on Add Tasks, or press Ctrl and N. A window will pop up with a list of tasks. Select desired
-tasks and then click the Add button. Standard Windows selection rules apply, hold the Ctrl key down
-to select more than one, hold the shift key down to select a range. When you have selected the tasks
+then on Add Tasks, or press Ctrl+N. A window will pop up with a list of tasks. Select desired tasks
+and then click the Add button. Standard Windows selection rules apply, hold the Ctrl key down to
+select more than one, hold the shift key down to select a range. When you have selected the tasks
 that you want, click the Add button. When you are finished adding, click the Done button.
 
 
@@ -30,10 +30,10 @@ last scheduled run.
 The next column is the task name as seen in Windows Task Scheduler.
 
 The next column shows the last result. It shows "OK" is the last result was zero or "NZ" in red for a
-non-zero result. Hovering over the result will show a tooltip with the actual last result in hex.
+non-zero result.
 
-The next column shows the status of the task. If the task is currently running, the row will be shown
-in green text. If the task is disabled, the row will be shown in gray text.
+The next column shows the status of the task. If the task is currently running, the text will be green.
+If the task is disabled, the text will be gray.
 
 The next column shows the date and time of the last run.
 
@@ -41,8 +41,8 @@ The next column shows the folder in Windows Task Scheduler where the task is loc
 
 The last column is the Notes column. You may enter a note directly into this field.
 
-With the exception of the Task Name column, any of the columns may be hidden by un-checking them in
-the View menu.
+With the exception of the Task Name and Result columns, any of the columns may be hidden by un-checking
+them in the Settings dialog.
 
 
 Additional Details
@@ -62,8 +62,8 @@ does not remove any tasks from Windows Task Scheduler.
 Exporting Tasks
 ===============
 You can export a task by right-clicking the appropriate row and selecting Export Selected or by using
-the Export Selected item on the Tasks menu. Tasks are exported in XML format. Only one task at a time
-may be exported.
+the Export Selected item on the Tasks menu. Tasks are exported in XML format. Multiple tasks may be
+exported by selecting more than one before selecting Export Selected.
 
 
 Saving your Task List
@@ -74,15 +74,14 @@ also save your changes by pressing Ctrl and S. Your selections are saved in a fi
 in the application's folder.
 
 You can opt to have your changes automatically saved when exiting by checking the Save Task List on
-Exit item on the Options Menu. You can also choose to suppress some of the file saved notifications
-if those dialog boxes get to be too much.
+Exit item in the Settings dialog.
 
 
 Sorting the Grid
 ================
 You can sort the grid by clicking any of the column headers. Click again to sort in the opposite
 order. Your sort will be saved and will be applied next time you start MyScheduledTasks. To reset
-the column sort, use Reset Column Sort on the Options menu.
+the column sort, use Reset Column Sort on the View menu.
 
 
 Run as Administrator
@@ -127,19 +126,24 @@ next to MyScheduledTasks. If you do, it will always show an alert window because
 a non-zero result while they are running.
 
 
+Uninstalling MyScheduledTasks
+=============================
+To uninstall, use the regular Windows add/remove programs feature.
+
+
 Notices and License
 ===================
 MyScheduledTasks was written in C# by Tim Kennedy.
 
 MyScheduledTasks uses the following icons & packages:
 
-• Fugue Icons set https://p.yusukekamiyamane.com/
+• Material Design in XAML Toolkit https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit
 
-• TaskScheduler v2.9.1 https://github.com/dahall/taskscheduler
+• TaskScheduler https://github.com/dahall/taskscheduler
 
-• NLog v4.7.7 https://nlog-project.org/
+• NLog https://nlog-project.org/
 
-• GongSolutions.WPF.DragDrop v2.3.2 https://github.com/punker76/gong-wpf-dragdrop
+• GongSolutions.WPF.DragDrop https://github.com/punker76/gong-wpf-dragdrop
 
 • Inno Setup was used to create the installer. https://jrsoftware.org/isinfo.php
 
