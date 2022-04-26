@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "MyScheduledTasks": {
-      "commandName": "Project",
-      "commandLineArgs": "-hide"
-    }
-  }
-}
