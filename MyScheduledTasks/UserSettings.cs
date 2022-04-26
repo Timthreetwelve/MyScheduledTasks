@@ -1,248 +1,253 @@
 ﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
-#region Using directives
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using TKUtils;
-#endregion Using directives
+namespace MyScheduledTasks;
 
-namespace MyScheduledTasks
+public class UserSettings : SettingsManager<UserSettings>, INotifyPropertyChanged
 {
-    public class UserSettings : SettingsManager<UserSettings>, INotifyPropertyChanged
+    #region Properties
+
+    public int DarkMode
     {
-        #region Constructor
-        public UserSettings()
+        get => darkmode;
+        set
         {
-            // Set defaults
-            AddWindowHeight = 450;
-            AddWindowWidth = 800;
-            AlertTimer = 0;
-            GridZoom = 1;
-            HideMicrosoftFolder = true;
-            SaveOnExit = true;
-            ShadeAltRows = true;
-            ShowAlertCol = true;
-            ShowFolderCol = true;
-            ShowLastRunCol = true;
-            ShowNoteCol = true;
-            ShowResultCol = true;
-            ShowStatusCol = true;
-            Sound = true;
-            SuppressFileSaveNotify = true;
-            WindowLeft = 100;
-            WindowTop = 100;
+            darkmode = value;
+            OnPropertyChanged();
         }
-        #endregion Constructor
-
-        #region Properties
-
-        public double AddWindowHeight { get; set; }
-
-        public double AddWindowWidth { get; set; }
-
-        public double AlertTimer
-        {
-            get
-            {
-                if (alertTimer < 0)
-                {
-                    return 0;
-                }
-                else if (alertTimer > 1440)
-                {
-                    return 1440;
-                }
-                else
-                {
-                    return alertTimer;
-                }
-            }
-            set
-            {
-                alertTimer = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double GridZoom
-        {
-            get
-            {
-                if (gridZoom <= 0)
-                {
-                    gridZoom = 1;
-                }
-                return gridZoom;
-            }
-            set
-            {
-                gridZoom = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool HideMicrosoftFolder
-        {
-            get { return hideMicrosoftFolder; }
-            set
-            {
-                hideMicrosoftFolder = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool SaveOnExit
-        {
-            get { return saveOnExit; }
-            set
-            {
-                saveOnExit = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShadeAltRows
-        {
-            get => shadeAltRows;
-            set
-            {
-                shadeAltRows = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowAlertCol
-        {
-            get { return showAlertCol; }
-            set
-            {
-                showAlertCol = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowFolderCol
-        {
-            get { return showFolderCol; }
-            set
-            {
-                showFolderCol = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowLastRunCol
-        {
-            get { return showLastRunCol; }
-            set
-            {
-                showLastRunCol = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowNoteCol
-        {
-            get { return showNoteCol; }
-            set
-            {
-                showNoteCol = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowResultCol
-        {
-            get { return showResultCol; }
-            set
-            {
-                showResultCol = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowStatusCol
-        {
-            get { return showStatusCol; }
-            set
-            {
-                showStatusCol = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool Sound
-        {
-            get { return sound; }
-            set
-            {
-                sound = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool SuppressFileSaveNotify
-        {
-            get { return suppressFileSaveNotify; }
-            set
-            {
-                suppressFileSaveNotify = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double WindowLeft
-        {
-            get
-            {
-                if (windowLeft < 0)
-                {
-                    windowLeft = 100;
-                }
-                return windowLeft;
-            }
-            set => windowLeft = value;
-        }
-
-        public double WindowTop
-        {
-            get
-            {
-                if (windowTop < 0)
-                {
-                    windowTop = 100;
-                }
-                return windowTop;
-            }
-            set => windowTop = value;
-        }
-        #endregion Properties
-
-        #region Private backing fields
-        private double alertTimer;
-        private bool hideMicrosoftFolder;
-        private bool saveOnExit;
-        private bool shadeAltRows;
-        private bool showAlertCol;
-        private bool showFolderCol;
-        private bool showLastRunCol;
-        private bool showNoteCol;
-        private bool showResultCol;
-        private bool showStatusCol;
-        private bool sound;
-        private bool suppressFileSaveNotify;
-        private double gridZoom;
-        private double windowLeft;
-        private double windowTop;
-        #endregion Private backing fields
-
-        #region Handle property change event
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion Handle property change event
     }
+
+    public bool HideMicrosoftFolder
+    {
+        get { return hideMicrosoftFolder; }
+        set
+        {
+            hideMicrosoftFolder = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IncludeDebug
+    {
+        get => includeDebug;
+        set
+        {
+            includeDebug = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool KeepOnTop
+    {
+        get => keepOnTop;
+        set
+        {
+            keepOnTop = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool NewLog
+    {
+        get => newLog;
+        set
+        {
+            newLog = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int PrimaryColor
+    {
+        get => primaryColor;
+        set
+        {
+            primaryColor = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int RowSpacing
+    {
+        get => rowSpacing;
+        set
+        {
+            rowSpacing = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool SaveOnExit
+    {
+        get { return saveOnExit; }
+        set
+        {
+            saveOnExit = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool ShowAlertCol
+    {
+        get { return showAlertCol; }
+        set
+        {
+            showAlertCol = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool ShowFolderCol
+    {
+        get { return showFolderCol; }
+        set
+        {
+            showFolderCol = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool ShowLastRunCol
+    {
+        get { return showLastRunCol; }
+        set
+        {
+            showLastRunCol = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool ShowNoteCol
+    {
+        get { return showNoteCol; }
+        set
+        {
+            showNoteCol = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool ShowResultCol
+    {
+        get { return showResultCol; }
+        set
+        {
+            showResultCol = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool ShowStatusCol
+    {
+        get { return showStatusCol; }
+        set
+        {
+            showStatusCol = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool Sound
+    {
+        get { return sound; }
+        set
+        {
+            sound = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int UISize
+    {
+        get => uiSize;
+        set
+        {
+            uiSize = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public double WindowHeight
+    {
+        get
+        {
+            if (windowHeight < 100)
+            {
+                windowHeight = 100;
+            }
+            return windowHeight;
+        }
+        set => windowHeight = value;
+    }
+
+    public double WindowLeft
+    {
+        get
+        {
+            if (windowLeft < 0 || windowLeft >= SystemParameters.VirtualScreenWidth)
+            {
+                windowLeft = 0;
+            }
+            return windowLeft;
+        }
+        set => windowLeft = value;
+    }
+
+    public double WindowTop
+    {
+        get
+        {
+            if (windowTop < 0 || windowTop >= SystemParameters.VirtualScreenHeight)
+            {
+                windowTop = 0;
+            }
+            return windowTop;
+        }
+        set => windowTop = value;
+    }
+
+    public double WindowWidth
+    {
+        get
+        {
+            if (windowWidth < 100)
+            {
+                windowWidth = 100;
+            }
+            return windowWidth;
+        }
+        set => windowWidth = value;
+    }
+    #endregion Properties
+
+    #region Private backing fields
+    private int darkmode = (int)ThemeType.Light;
+    private bool hideMicrosoftFolder = true;
+    private bool includeDebug = true;
+    private bool keepOnTop;
+    private bool newLog = true;
+    private int primaryColor = (int)AccentColor.Blue;
+    private int rowSpacing = (int)Spacing.Comfortable;
+    private bool saveOnExit = true;
+    private bool showAlertCol = true;
+    private bool showFolderCol = true;
+    private bool showLastRunCol = true;
+    private bool showNoteCol = true;
+    private bool showResultCol = true;
+    private bool showStatusCol = true;
+    private bool sound = true;
+    private int uiSize = (int)MySize.Default;
+    private double windowHeight = 500;
+    private double windowLeft = 100;
+    private double windowTop = 100;
+    private double windowWidth = 700;
+    #endregion Private backing fields
+
+    #region Handle property change event
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    #endregion Handle property change event
 }

@@ -1,19 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30320.27
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyScheduledTasks", "MyScheduledTasks\MyScheduledTasks.csproj", "{DE9D4AFE-4F37-42F0-A527-F64FB9C1D3A0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D142F99B-D0CE-4F1E-BD78-80C2663D0F96}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		LICENSE = LICENSE
-		D:\InnoSetup\MyScheduledTasks.iss = D:\InnoSetup\MyScheduledTasks.iss
-		README.md = README.md
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSTAlert", "MSTAlert\MSTAlert.csproj", "{8579FA23-035C-4B96-84A5-B55730B58A59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyScheduledTasks", "MyScheduledTasks\MyScheduledTasks.csproj", "{A6785345-1687-4C21-81AA-D0B3626B71AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,19 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DE9D4AFE-4F37-42F0-A527-F64FB9C1D3A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE9D4AFE-4F37-42F0-A527-F64FB9C1D3A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE9D4AFE-4F37-42F0-A527-F64FB9C1D3A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE9D4AFE-4F37-42F0-A527-F64FB9C1D3A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8579FA23-035C-4B96-84A5-B55730B58A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8579FA23-035C-4B96-84A5-B55730B58A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8579FA23-035C-4B96-84A5-B55730B58A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8579FA23-035C-4B96-84A5-B55730B58A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6785345-1687-4C21-81AA-D0B3626B71AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6785345-1687-4C21-81AA-D0B3626B71AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6785345-1687-4C21-81AA-D0B3626B71AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6785345-1687-4C21-81AA-D0B3626B71AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F83C1B79-572A-42FE-BC1B-BF960970040A}
+		SolutionGuid = {E47F7C54-2EED-4181-A4BC-7FBE5EC22B42}
 	EndGlobalSection
 EndGlobal

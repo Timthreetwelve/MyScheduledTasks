@@ -1,51 +1,47 @@
 ﻿// Copyright(c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
-using NLog;
-using System;
-using System.Diagnostics;
-using System.Windows;
+namespace MyScheduledTasks;
 
-namespace MyScheduledTasks
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public Mutex Mutex;
+
+    public App()
     {
-        private static readonly Logger log = LogManager.GetCurrentClassLogger();
+        SingleInstanceCheck();
+    }
 
-        protected override void OnStartup(StartupEventArgs e)
+    public void SingleInstanceCheck()
+    {
+        // If running in debug configuration add "-debug" to Mutex name
+        string name = Debugger.IsAttached ? $"{AppInfo.AppName}-debug" : AppInfo.AppName;
+
+        Mutex = new Mutex(true, name, out bool isOnlyInstance);
+        if (!isOnlyInstance)
         {
-            OneInstance();
-
-            base.OnStartup(e);
-        }
-
-        #region Only One Instance
-        private static void OneInstance()
-        {
-            // Ensure only one instance of the process running
-            Process currentProcess = Process.GetCurrentProcess();
-
-            foreach (var AllProcesses in Process.GetProcesses())
+            // get our process info and then loop the other processes
+            Process curProcess = Process.GetCurrentProcess();
+            foreach (Process process in Process.GetProcessesByName(curProcess.ProcessName))
             {
-                if (AllProcesses.Id != currentProcess.Id && AllProcesses.ProcessName == currentProcess.ProcessName)
+                // if the process id is not the same and the executable has the same path
+                if (!process.Id.Equals(curProcess.Id)
+                    && process.MainModule.FileName.Equals(curProcess.MainModule.FileName))
                 {
-                    log.Error($"This is  {currentProcess.ProcessName} {currentProcess.Id}. " +
-                              $"- {AllProcesses.ProcessName} {AllProcesses.Id} is also running.");
-                    log.Error($"Another instance of {currentProcess.ProcessName} is already running!  Shutting this one down.");
+                    // get the handle of the other process
+                    IntPtr windowHandle = process.MainWindowHandle;
 
-                    _ = MessageBox.Show($"An instance of {currentProcess.ProcessName} is already running",
-                                        currentProcess.ProcessName,
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Exclamation,
-                                        MessageBoxResult.OK,
-                                        MessageBoxOptions.DefaultDesktopOnly);
-                    Environment.Exit(1);
-                    break;
+                    // if the app is minimized restore it
+                    if (NativeMethods.IsIconic(windowHandle))
+                    {
+                        _ = NativeMethods.ShowWindow(windowHandle,
+                            NativeMethods.ShowWindowCommand.Restore);
+                    }
+
+                    // move the app to the foreground
+                    _ = NativeMethods.SetForegroundWindow(windowHandle);
                 }
             }
+            Environment.Exit(0);
         }
-        #endregion Only One Instance
     }
 }

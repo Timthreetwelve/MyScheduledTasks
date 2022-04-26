@@ -3,6 +3,154 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:MyScheduledTasks"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     StartupUri="MainWindow.xaml">
-    <Application.Resources />
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <!--  Following lines are required by MDIX  -->
+                <materialDesign:BundledTheme
+                    BaseTheme="Dark"
+                    ColorAdjustment="{materialDesign:ColorAdjustment}"
+                    PrimaryColor="Blue"
+                    SecondaryColor="Red" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--  Style for the page headers  -->
+            <Style
+                x:Key="PageHeader"
+                TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontWeight" Value="DemiBold" />
+                <Setter Property="Padding" Value="10,2" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <!--  Style to make datagrid cells non-focusable  -->
+            <Style
+                x:Key="notFocusable"
+                BasedOn="{StaticResource {x:Type DataGridCell}}"
+                TargetType="DataGridCell">
+                <Setter Property="Focusable" Value="False" />
+            </Style>
+
+            <!--  Style to center datagrid column headers  -->
+            <Style
+                x:Key="headerCenter"
+                BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
+                TargetType="DataGridColumnHeader">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+
+            <!--  Style to center align text in a data grid column  -->
+            <Style
+                x:Key="alignCenter"
+                BasedOn="{StaticResource {x:Type TextBlock}}"
+                TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+
+            <!--  Style to right align text in a data grid column  -->
+            <Style
+                x:Key="alignRight"
+                BasedOn="{StaticResource {x:Type TextBlock}}"
+                TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="Margin" Value="0,0,5,0" />
+            </Style>
+
+            <!--  Style to "pad" text in cells in the data grid  -->
+            <Style
+                x:Key="ColumnMargin5"
+                BasedOn="{StaticResource {x:Type TextBlock}}"
+                TargetType="TextBlock">
+                <Setter Property="Margin" Value="0,0,5,0" />
+            </Style>
+
+            <!--  Style to change the result text to red if value is "NZ"  -->
+            <Style
+                x:Key="ResultCell"
+                BasedOn="{StaticResource MaterialDesignDataGridCell}"
+                TargetType="DataGridCell">
+                <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="Margin" Value="1,0,0,0" />
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding TaskResultShort}"
+                        Value="NZ">
+                        <Setter Property="Foreground" Value="Crimson" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <!--  Style to change the text to green if value is "Running" or gray if "Disabled"  -->
+            <Style
+                x:Key="StatusCell"
+                BasedOn="{StaticResource MaterialDesignDataGridCell}"
+                TargetType="DataGridCell">
+                <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="Margin" Value="1,0,0,0" />
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding TaskStatus}"
+                        Value="Running">
+                        <Setter Property="Foreground" Value="LimeGreen" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TaskStatus}"
+                        Value="Disabled">
+                        <Setter Property="Foreground" Value="Gray" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                        <Setter Property="FontStyle" Value="Italic" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <!--  Styles used to change row height in the AddTasks listbox  -->
+            <Style
+                x:Key="ListBoxSpacious"
+                BasedOn="{StaticResource {x:Type ListBoxItem}}"
+                TargetType="ListBoxItem">
+                <Setter Property="Height" Value="35" />
+                <Setter Property="Padding" Value="5" />
+            </Style>
+            <Style
+                x:Key="ListBoxComfortable"
+                BasedOn="{StaticResource {x:Type ListBoxItem}}"
+                TargetType="ListBoxItem">
+                <Setter Property="Height" Value="28" />
+                <Setter Property="Padding" Value="3" />
+            </Style>
+            <Style
+                x:Key="ListBoxCompact"
+                BasedOn="{StaticResource {x:Type ListBoxItem}}"
+                TargetType="ListBoxItem">
+                <Setter Property="Height" Value="22" />
+                <Setter Property="Padding" Value="2" />
+            </Style>
+
+            <!--  Style to change the height of the items in the navigation panel  -->
+            <Style
+                x:Key="NavPaneListBoxItem"
+                BasedOn="{StaticResource {x:Type ListBoxItem}}"
+                TargetType="ListBoxItem">
+                <Setter Property="Height" Value="36" />
+            </Style>
+
+            <!--  Style to align text in the Snackbar Message  -->
+            <Style
+                BasedOn="{StaticResource {x:Type materialDesign:SnackbarMessage}}"
+                TargetType="{x:Type materialDesign:SnackbarMessage}">
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

@@ -5,668 +5,699 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:local="clr-namespace:MyScheduledTasks"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Task Scheduler Info"
-    Width="600"
+    xmlns:set="clr-namespace:MyScheduledTasks"
+    Title="MainWindow"
     MinWidth="300"
     MinHeight="250"
+    d:DataContext="{d:DesignInstance Type=local:MyTasks}"
+    Background="{DynamicResource MaterialDesignPaper}"
     Closing="Window_Closing"
     ContentRendered="Window_ContentRendered"
     KeyDown="Window_Keydown"
-    SizeToContent="WidthAndHeight"
+    PreviewMouseWheel="Window_MouseWheel"
+    Style="{StaticResource MaterialDesignWindow}"
+    TextElement.FontSize="14"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    UseLayoutRounding="True"
     mc:Ignorable="d">
+
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolVisConverter" />
-        <!--#region Styles-->
-        <!--  Style to change the result text to red if value is not "OK"  -->
-        <Style x:Key="RedCell" TargetType="DataGridCell">
-            <Setter Property="Foreground" Value="Red" />
-            <Setter Property="TextBlock.TextAlignment" Value="Center" />
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding TaskResultShort}" Value="OK">
-                    <Setter Property="Foreground" Value="Black" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-
-        <!--  Style to set tooltip colors & font size  -->
-        <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
-            <Setter Property="Background" Value="LemonChiffon" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="FontSize" Value="15" />
-        </Style>
-
-        <!--  Style to center align text in a data grid column  -->
-        <Style x:Key="alignCenter" TargetType="TextBlock">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-        </Style>
-
-        <!--  Style to right align text in a data grid column  -->
-        <Style x:Key="alignRight" TargetType="TextBlock">
-            <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="Margin" Value="0,0,5,0" />
-        </Style>
-
-        <!--  Style to "pad" text in cells in the data grid  -->
-        <Style x:Key="ColumnMargin5" TargetType="TextBlock">
-            <Setter Property="Margin" Value="5,0,5,0" />
-        </Style>
-        <!--#endregion-->
     </Window.Resources>
 
     <Grid>
-        <!--#region Grid Column & Row definitions-->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10" />
-            <ColumnDefinition />
-            <ColumnDefinition Width="10" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="24" />
-            <RowDefinition />
+        <materialDesign:DialogHost
+            x:Name="MainDH"
+            CloseOnClickAway="False"
+            DialogTheme="Inherit"
+            Identifier="MainDialogHost">
 
-            <RowDefinition Height="24" />
-        </Grid.RowDefinitions>
-        <!--#endregion-->
+            <Grid x:Name="OuterGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-        <!--#region Menu-->
-        <DockPanel
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Height="24"
-            LastChildFill="False">
-            <Menu
-                x:Name="mnuMain"
-                Height="24"
-                DockPanel.Dock="Top"
-                FontSize="14">
-                <MenuItem Header="_File">
-                    <MenuItem
-                        x:Name="mnuSave"
-                        Click="Save_Click"
-                        Header="_Save Task List File"
-                        InputGestureText="Ctrl+S">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\disk.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
-                        x:Name="mnuRestart"
-                        Click="Restart_Click"
-                        Header="Restart as Administrator">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\arrow-circle-left.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
-                        Name="mnuExit"
-                        Click="MnuExit_Click"
-                        Header="E_xit"
-                        InputGestureText="Alt+F4">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\door-open-out.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
+                <!--#region ColorZone-->
+                <DockPanel
+                    Grid.Row="0"
+                    LastChildFill="True">
+                    <materialDesign:ColorZone
+                        Height="33"
+                        Margin="10"
+                        Padding="0,0,0,3"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        CornerRadius="4"
+                        Mode="PrimaryMid">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <ToggleButton
+                                    Width="30"
+                                    Height="30"
+                                    Margin="5,2"
+                                    IsChecked="{Binding IsLeftDrawerOpen, ElementName=NavDrawer}"
+                                    Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
+                                    ToolTip="Click to navigate" />
+                                <TextBlock
+                                    x:Name="PageTitle"
+                                    Margin="6,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    FontWeight="DemiBold"
+                                    Text="My Scheduled Tasks" />
+                            </StackPanel>
 
-                <MenuItem Header="_Tasks" SubmenuOpened="Tasks_SubmenuOpened">
-                    <MenuItem
-                        x:Name="mnuAdd"
-                        Click="Add_Click"
-                        Header="_Add Tasks"
-                        InputGestureText="Ctrl+N">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\plus.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem
-                        x:Name="mnuDelete"
-                        Click="Delete_Click"
-                        Header="_Remove Selected"
-                        InputGestureText="Ctrl+D">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\cross.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
-                        x:Name="mnuExport"
-                        Click="MnuExport_Click"
-                        Header="_Export Selected"
-                        InputGestureText="Ctrl+E">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/external.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Click="OpenTaskSched_Click" Header="_Open Windows Task Scheduler">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\application-plus.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-
-                <MenuItem Header="_View">
-                    <MenuItem
-                        x:Name="mnuRefresh"
-                        Click="Refresh_Click"
-                        Header="_Refresh"
-                        InputGestureText="F5">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/arrow-circle-double.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Click="Collapse_Click" Header="_Collapse All">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\minus-small.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Header="_Zoom">
-                        <MenuItem
-                            Click="GridSmaller_Click"
-                            Header="_Smaller"
-                            InputGestureText="Ctrl+MouseWheel"
-                            StaysOpenOnClick="True">
-                            <MenuItem.Icon>
-                                <Image Source="Icons/magnifier-minus.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <Separator />
-                        <MenuItem
-                            Click="GridLarger_Click"
-                            Header="_Larger"
-                            InputGestureText="Ctrl+MouseWheel"
-                            StaysOpenOnClick="True">
-                            <MenuItem.Icon>
-                                <Image Source="Icons/magnifier-plus.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <MenuItem.Icon>
-                            <Image Source="Icons/magnifier.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
-                        Header="Show Alert Column"
-                        IsCheckable="True"
-                        IsChecked="{Binding ShowAlertCol, Source={x:Static local:UserSettings.Setting}}" />
-                    <MenuItem
-                        Header="Show Result Column"
-                        IsCheckable="True"
-                        IsChecked="{Binding ShowResultCol, Source={x:Static local:UserSettings.Setting}}" />
-                    <MenuItem
-                        Header="Show Status Column"
-                        IsCheckable="True"
-                        IsChecked="{Binding ShowStatusCol, Source={x:Static local:UserSettings.Setting}}" />
-                    <MenuItem
-                        Header="Show Last Run Column"
-                        IsCheckable="True"
-                        IsChecked="{Binding ShowLastRunCol, Source={x:Static local:UserSettings.Setting}}" />
-                    <MenuItem
-                        Header="Show Folder Column"
-                        IsCheckable="True"
-                        IsChecked="{Binding ShowFolderCol, Source={x:Static local:UserSettings.Setting}}" />
-                    <MenuItem
-                        Header="Show Note Column"
-                        IsCheckable="True"
-                        IsChecked="{Binding ShowNoteCol, Source={x:Static local:UserSettings.Setting}}" />
-                </MenuItem>
-
-                <MenuItem x:Name="mnuOptions" Header="_Options">
-                    <MenuItem Click="ResetCols_Click" Header="_Reset Column Sort">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/arrow-return-left.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
-                        Header="Save Task List on Exit"
-                        IsCheckable="True"
-                        IsChecked="{Binding SaveOnExit, Source={x:Static local:UserSettings.Setting}}" />
-                    <MenuItem
-                        Header="Suppress File Saved Notifications"
-                        IsCheckable="True"
-                        IsChecked="{Binding SuppressFileSaveNotify, Source={x:Static local:UserSettings.Setting}}" />
-                    <MenuItem
-                        Header="Shade Alternate Grid Rows"
-                        IsCheckable="True"
-                        IsChecked="{Binding ShadeAltRows, Source={x:Static local:UserSettings.Setting}}"
-                        StaysOpenOnClick="False" />
-                    <MenuItem
-                        Header="Alert Sounds"
-                        IsCheckable="True"
-                        IsChecked="{Binding Sound, Source={x:Static local:UserSettings.Setting}}"
-                        StaysOpenOnClick="False" />
-                </MenuItem>
-
-                <MenuItem x:Name="mnuHelp" Header="_Help">
-                    <MenuItem
-                        Name="mnuAbout"
-                        Click="MnuAbout_Click"
-                        Header="_About">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/information-white.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
-                        Name="mnuViewReadMe"
-                        Click="MnuViewReadMe_Click"
-                        Header="View _ReadMe File">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/document-text.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-
-                    <MenuItem Header="Debug">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/bug.png" />
-                        </MenuItem.Icon>
-                        <MenuItem
-                            Name="mnuViewTemp"
-                            Click="ViewTemp_Click"
-                            Header="View _Log File">
-                            <MenuItem.Icon>
-                                <Image Source="Icons/document-list.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <MenuItem
-                            Name="mnuViewJson"
-                            Click="ViewJson_Click"
-                            Header="View _Task List File">
-                            <MenuItem.Icon>
-                                <Image Source="Icons/json.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <Separator />
-                        <MenuItem Click="Copy2Clipboard_Click" Header="Copy MyScheduledTasks Path to Clipboard">
-                            <MenuItem.Icon>
-                                <Image Source="Icons/clipboard-plus.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
-        </DockPanel>
-        <!--#endregion-->
-
-        <DataGrid
-            x:Name="DataGridTasks"
-            Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            dd:DragDrop.IsDragSource="True"
-            dd:DragDrop.IsDropTarget="True"
-            AutoGenerateColumns="False"
-            BorderBrush="#E2E2E2"
-            CanUserAddRows="False"
-            CanUserDeleteRows="False"
-            FontSize="14"
-            HeadersVisibility="Column"
-            HorizontalGridLinesBrush="#E2E2E2"
-            IsReadOnly="False"
-            ItemsSource="{Binding TaskList}"
-            PreviewKeyDown="DataGridTasks_PreviewKeyDown"
-            PreviewMouseWheel="DataGridTasks_PreviewMouseWheel"
-            RowDetailsVisibilityMode="Collapsed"
-            Sorting="DataGridTasks_Sorting"
-            VerticalGridLinesBrush="#E2E2E2">
-
-            <!--#region Datagrid row styles-->
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <EventSetter Event="MouseDoubleClick" Handler="RowDoubleClick" />
-                    <Setter Property="Foreground" Value="Black" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding TaskStatus}" Value="Disabled">
-                            <Setter Property="Foreground" Value="LightSlateGray" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding TaskStatus}" Value="Running">
-                            <Setter Property="Foreground" Value="MediumSeaGreen" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.RowStyle>
-            <!--#endregion-->
-
-            <!--#region Datagrid Columns-->
-            <DataGrid.Columns>
-                <DataGridTemplateColumn
-                    CanUserSort="True"
-                    DisplayIndex="0"
-                    Header="⚠"
-                    SortMemberPath="IsChecked"
-                    Visibility="{Binding ShowAlertCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTextColumn
-                    MinWidth="240"
-                    Binding="{Binding TaskName}"
-                    DisplayIndex="1"
-                    ElementStyle="{StaticResource ColumnMargin5}"
-                    Header="Task Name"
-                    IsReadOnly="True" />
-
-                <DataGridTemplateColumn
-                    CanUserSort="True"
-                    CellStyle="{StaticResource RedCell}"
-                    DisplayIndex="2"
-                    Header="Result"
-                    IsReadOnly="True"
-                    SortMemberPath="TaskResultShort"
-                    Visibility="{Binding ShowResultCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding TaskResultShort}">
-                                <TextBlock.ToolTip>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding TaskResultHex, StringFormat=Last Result: {0}}" />
+                            <materialDesign:PopupBox
+                                Margin="10,4,0,0"
+                                HorizontalAlignment="Right"
+                                PlacementMode="LeftAndAlignTopEdges"
+                                PopupMode="Click">
+                                <Grid
+                                    Width="150"
+                                    Margin="0">
+                                    <StackPanel Orientation="Vertical">
+                                        <Button
+                                            Click="BtnViewTasksFile_Click"
+                                            Content="View Tasks File"
+                                            Style="{StaticResource MaterialDesignFlatLightButton}" />
+                                        <Separator />
+                                        <Button
+                                            Click="BtnViewLog_Click"
+                                            Content="View Log File"
+                                            Style="{StaticResource MaterialDesignFlatLightButton}" />
+                                        <Button
+                                            Click="BtnReadme_Click"
+                                            Content="View ReadMe"
+                                            Style="{StaticResource MaterialDesignFlatLightButton}" />
                                     </StackPanel>
-                                </TextBlock.ToolTip>
-                            </TextBlock>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                                </Grid>
+                            </materialDesign:PopupBox>
 
-                <DataGridTextColumn
-                    Binding="{Binding TaskStatus}"
-                    DisplayIndex="3"
-                    ElementStyle="{StaticResource ColumnMargin5}"
-                    Header="Status"
-                    IsReadOnly="True"
-                    Visibility="{Binding ShowStatusCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
+                        </Grid>
+                    </materialDesign:ColorZone>
+                </DockPanel>
+                <!--#endregion-->
 
-                <DataGridTextColumn
-                    Binding="{Binding LastRun}"
-                    DisplayIndex="4"
-                    ElementStyle="{StaticResource ColumnMargin5}"
-                    Header="Last Run"
-                    IsReadOnly="True"
-                    Visibility="{Binding ShowLastRunCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
+                <materialDesign:DrawerHost
+                    x:Name="NavDrawer"
+                    Grid.Row="1"
+                    VerticalAlignment="Stretch"
+                    LeftDrawerCloseOnClickAway="True"
+                    LeftDrawerCornerRadius="0">
 
-                <DataGridTextColumn
-                    MinWidth="50"
-                    Binding="{Binding TaskFolder}"
-                    DisplayIndex="5"
-                    ElementStyle="{StaticResource ColumnMargin5}"
-                    Header="Folder"
-                    IsReadOnly="True"
-                    Visibility="{Binding ShowFolderCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
-                <DataGridTextColumn
-                    Binding="{Binding TaskNote}"
-                    DisplayIndex="6"
-                    ElementStyle="{StaticResource ColumnMargin5}"
-                    Header="Notes"
-                    Visibility="{Binding ShowNoteCol, Source={x:Static local:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
-            </DataGrid.Columns>
-            <!--#endregion-->
+                    <!--#region Navigation Drawer Content-->
+                    <materialDesign:DrawerHost.LeftDrawerContent>
+                        <ListBox
+                            x:Name="NavListBox"
+                            Width="auto"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Left"
+                            FontFamily="Segue UI"
+                            FontSize="14"
+                            MouseUp="NavListBox_MouseUp"
+                            SelectionChanged="NavListBox_SelectionChanged"
+                            Style="{StaticResource MaterialDesignNavigationPrimaryListBox}">
 
-            <!--#region Datagrid row details-->
-            <DataGrid.RowDetailsTemplate>
-                <DataTemplate>
-                    <Border
-                        Padding="10,5"
-                        Background="LightYellow"
-                        BorderThickness="0">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Name:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskName}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Triggers:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskTriggers}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Actions:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskActions}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Folder:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskFolder}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Account:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskAccount}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Privileges:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskRunLevel}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Author:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskAuthor}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Status:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskStatus}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Last Result:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    HorizontalAlignment="Left"
-                                    Foreground="Black">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} / {1}">
-                                            <Binding Path="TaskResult" />
-                                            <Binding Path="TaskResultHex" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Last Run:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding LastRun}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Next Run:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding NextRun}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Missed Runs:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskMissedRuns}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Task Path:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskPath}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Description:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskDescription}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Width="90"
-                                    Margin="0,1,0,0"
-                                    Foreground="Black"
-                                    Text="Notes:" />
-                                <TextBlock
-                                    Margin="0,1"
-                                    Foreground="Black"
-                                    Text="{Binding TaskNote}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </DataGrid.RowDetailsTemplate>
-            <!--#endregion-->
+                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
+                                <ListBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center"
+                                            Kind="EyeOutline" />
+                                        <TextBlock
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Text="View Tasks" />
+                                    </StackPanel>
+                                </ListBoxItem.Content>
+                            </ListBoxItem>
+                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
+                                <ListBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center"
+                                            Kind="PlusBold" />
+                                        <TextBlock
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Text="Add Tasks" />
+                                    </StackPanel>
+                                </ListBoxItem.Content>
+                            </ListBoxItem>
 
-            <!--#region Grid context menu-->
-            <DataGrid.ContextMenu>
-                <ContextMenu FontSize="14" Opened="ContextMenu_Opened">
-                    <MenuItem Click="Add_Click" Header="Add Tasks">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\plus.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Click="Delete_Click" Header="Remove Selected">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\cross.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Click="MnuExport_Click" Header="Export Selected">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/external.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
-                        x:Name="mnuEnable"
-                        Click="EnableTask_Click"
-                        Header="Enable Selected">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/tick-circle.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem
-                        x:Name="mnuDisable"
-                        Click="DisableTask_Click"
-                        Header="Disable Selected">
-                        <MenuItem.Icon>
-                            <Image Source="Icons/cross-octagon.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem
-                        Name="mnuRunTask"
-                        Click="MnuRunTask_Click"
-                        Header="Run Now">
-                        <MenuItem.Icon>
-                            <Image Source="Icons\traffic-light-green.png" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-            <!--#endregion-->
+                            <Separator
+                                Margin="0"
+                                Background="{DynamicResource PrimaryHueMidBrush}" />
+                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
+                                <ListBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center"
+                                            Kind="GearOutline" />
+                                        <TextBlock
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Text="Settings" />
+                                    </StackPanel>
+                                </ListBoxItem.Content>
+                            </ListBoxItem>
+                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
+                                <ListBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center"
+                                            Kind="AboutOutline" />
+                                        <TextBlock
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Text="About" />
+                                    </StackPanel>
+                                </ListBoxItem.Content>
+                            </ListBoxItem>
 
-        </DataGrid>
+                            <Separator
+                                Margin="0"
+                                Background="{DynamicResource PrimaryHueMidBrush}" />
+                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
+                                <ListBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center"
+                                            Kind="ClockOutline" />
+                                        <TextBlock
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Text="Task Scheduler" />
+                                    </StackPanel>
+                                </ListBoxItem.Content>
+                            </ListBoxItem>
+                            <Separator
+                                Margin="0"
+                                Background="{DynamicResource PrimaryHueMidBrush}" />
+                            <ListBoxItem
+                                x:Name="mnuRestart"
+                                Style="{StaticResource NavPaneListBoxItem}">
+                                <ListBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center"
+                                            Kind="RestartAlert" />
+                                        <TextBlock
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Text="Restart as Admin" />
+                                    </StackPanel>
+                                </ListBoxItem.Content>
+                            </ListBoxItem>
+                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
+                                <ListBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center"
+                                            Kind="ExitRun" />
+                                        <TextBlock
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Text="Exit" />
+                                    </StackPanel>
+                                </ListBoxItem.Content>
+                            </ListBoxItem>
+                            <ListBox.Resources>
+                                <Style
+                                    BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"
+                                    TargetType="ScrollBar" />
+                            </ListBox.Resources>
+                        </ListBox>
+                    </materialDesign:DrawerHost.LeftDrawerContent>
+                    <!--#endregion-->
 
-        <!--#region Status bar-->
-        <StatusBar
-            Grid.Row="2"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Background="{Binding ElementName=mnuMain, Path=Background}"
-            DockPanel.Dock="Bottom"
-            FontSize="{Binding ElementName=mnuMain, Path=FontSize}">
-            <StatusBarItem
-                x:Name="sbLeft"
-                Padding="8,0,0,4"
-                ContentStringFormat="{}{0} Tasks" />
-            <StatusBarItem HorizontalAlignment="Right">
-                <TextBlock x:Name="sbRight" Margin="0,0,8,0" />
-            </StatusBarItem>
-        </StatusBar>
-        <!--#endregion-->
+                    <Grid>
+                        <!--#region Row & Column Definitions-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="35" />
+                        </Grid.RowDefinitions>
+                        <!--#endregion-->
+
+                        <!--#region Menu in Card-->
+                        <Grid
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="0,0,0,10">
+                            <materialDesign:Card
+                                Height="28"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                materialDesign:ShadowAssist.ShadowEdges="All">
+                                <Menu FontSize="{Binding ElementName=DataGridTasks, Path=FontSize}">
+                                    <MenuItem Header="_File">
+                                        <MenuItem
+                                            x:Name="mnuSave"
+                                            Click="Save_Click"
+                                            Header="_Save Task List File"
+                                            InputGestureText="Ctrl+S" />
+                                        <Separator />
+                                        <MenuItem
+                                            Name="mnuExit"
+                                            Click="MnuExit_Click"
+                                            Header="E_xit"
+                                            InputGestureText="Alt+F4" />
+                                    </MenuItem>
+
+                                    <MenuItem
+                                        Header="_Tasks"
+                                        SubmenuOpened="Tasks_SubmenuOpened">
+                                        <MenuItem
+                                            x:Name="mnuAdd"
+                                            Click="Add_Click"
+                                            Header="_Add Tasks"
+                                            InputGestureText="Ctrl+N" />
+                                        <MenuItem
+                                            x:Name="mnuDelete"
+                                            Click="Delete_Click"
+                                            Header="_Remove Selected"
+                                            InputGestureText="Ctrl+D" />
+                                        <Separator />
+                                        <MenuItem
+                                            x:Name="mnuExport"
+                                            Click="MnuExport_Click"
+                                            Header="_Export Selected"
+                                            InputGestureText="Ctrl+E" />
+                                    </MenuItem>
+
+                                    <MenuItem Header="_View">
+                                        <MenuItem
+                                            x:Name="mnuRefresh"
+                                            Click="Refresh_Click"
+                                            Header="_Refresh"
+                                            InputGestureText="F5" />
+                                        <Separator />
+                                        <MenuItem
+                                            Click="Collapse_Click"
+                                            Header="_Collapse All" />
+                                        <MenuItem
+                                            Click="Expand_Click"
+                                            Header="_Expand All" />
+                                        <Separator />
+                                        <MenuItem
+                                            Click="ResetCols_Click"
+                                            Header="_Reset Column Sort" />
+                                    </MenuItem>
+                                </Menu>
+                            </materialDesign:Card>
+                        </Grid>
+                        <!--#endregion-->
+
+                        <!--#region Datagrid & Snackbar -->
+                        <Grid
+                            Grid.Row="1"
+                            Grid.Column="1">
+                            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                                <Grid>
+                                    <DataGrid
+                                        x:Name="DataGridTasks"
+                                        d:ItemsSource="{d:SampleData ItemCount=5}"
+                                        dd:DragDrop.DropTargetAdornerBrush="{DynamicResource PrimaryHueDarkBrush}"
+                                        dd:DragDrop.IsDragSource="True"
+                                        dd:DragDrop.IsDropTarget="True"
+                                        dd:DragDrop.UseDefaultDragAdorner="False"
+                                        materialDesign:ThemeAssist.Theme="Inherit"
+                                        AutoGenerateColumns="False"
+                                        CanUserAddRows="False"
+                                        CanUserDeleteRows="False"
+                                        CellStyle="{StaticResource notFocusable}"
+                                        Drop="DataGridTasks_Drop"
+                                        FontFamily="Segoe UI"
+                                        FontSize="14"
+                                        HeadersVisibility="Column"
+                                        IsReadOnly="False"
+                                        ItemsSource="{Binding TaskList}"
+                                        RowDetailsVisibilityMode="Collapsed"
+                                        ScrollViewer.CanContentScroll="False"
+                                        Sorting="DataGridTasks_Sorting">
+
+                                        <!--#region Datagrid styles-->
+                                        <DataGrid.Resources>
+                                            <Style
+                                                BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"
+                                                TargetType="ScrollBar" />
+                                            <Style
+                                                BasedOn="{StaticResource {x:Type DataGridRow}}"
+                                                TargetType="DataGridRow">
+                                                <EventSetter
+                                                    Event="MouseDoubleClick"
+                                                    Handler="RowDoubleClick" />
+                                            </Style>
+                                        </DataGrid.Resources>
+                                        <!--#endregion-->
+
+                                        <!--#region Datagrid Columns-->
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn
+                                                CanUserSort="True"
+                                                DisplayIndex="0"
+                                                Header="&#x26A0;"
+                                                HeaderStyle="{StaticResource headerCenter}"
+                                                SortMemberPath="IsChecked"
+                                                Visibility="{Binding ShowAlertCol, Source={x:Static set:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox
+                                                            Margin="1,0,0,0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+
+                                            </DataGridTemplateColumn>
+
+                                            <DataGridTextColumn
+                                                MinWidth="200"
+                                                Binding="{Binding TaskName}"
+                                                DisplayIndex="1"
+                                                ElementStyle="{StaticResource ColumnMargin5}"
+                                                Header="Task Name"
+                                                IsReadOnly="True" />
+
+                                            <DataGridTemplateColumn
+                                                MinWidth="75"
+                                                CanUserSort="True"
+                                                CellStyle="{StaticResource ResultCell}"
+                                                DisplayIndex="2"
+                                                Header="Result"
+                                                IsReadOnly="True"
+                                                SortMemberPath="TaskResultShort"
+                                                Visibility="{Binding ShowResultCol, Source={x:Static set:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding TaskResultShort}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <DataGridTextColumn
+                                                MinWidth="75"
+                                                Binding="{Binding TaskStatus}"
+                                                CellStyle="{StaticResource StatusCell}"
+                                                DisplayIndex="3"
+                                                ElementStyle="{StaticResource ColumnMargin5}"
+                                                Header="Status"
+                                                IsReadOnly="True"
+                                                Visibility="{Binding ShowStatusCol, Source={x:Static set:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
+
+                                            <DataGridTextColumn
+                                                MinWidth="90"
+                                                Binding="{Binding LastRun}"
+                                                DisplayIndex="4"
+                                                ElementStyle="{StaticResource ColumnMargin5}"
+                                                Header="Last Run"
+                                                IsReadOnly="True"
+                                                Visibility="{Binding ShowLastRunCol, Source={x:Static set:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
+
+                                            <DataGridTextColumn
+                                                MinWidth="50"
+                                                Binding="{Binding TaskFolder}"
+                                                DisplayIndex="5"
+                                                ElementStyle="{StaticResource ColumnMargin5}"
+                                                Header="Folder"
+                                                IsReadOnly="True"
+                                                Visibility="{Binding ShowFolderCol, Source={x:Static set:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}" />
+
+                                            <DataGridTextColumn
+                                                MinWidth="70"
+                                                Binding="{Binding TaskNote}"
+                                                DisplayIndex="6"
+                                                ElementStyle="{StaticResource ColumnMargin5}"
+                                                Header="Notes"
+                                                Visibility="{Binding ShowNoteCol, Source={x:Static set:UserSettings.Setting}, Converter={StaticResource BoolVisConverter}}">
+                                                <DataGridTextColumn.CellStyle>
+                                                    <Style
+                                                        BasedOn="{StaticResource MaterialDesignDataGridCell}"
+                                                        TargetType="DataGridCell">
+                                                        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+                                                        <Setter Property="Focusable" Value="False" />
+                                                        <Setter Property="IsHitTestVisible" Value="True" />
+                                                    </Style>
+                                                </DataGridTextColumn.CellStyle>
+                                            </DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                        <!--#endregion-->
+
+                                        <!--#region Datagrid context menu-->
+                                        <DataGrid.ContextMenu>
+                                            <ContextMenu
+                                                Background="{DynamicResource MaterialDesignPaper}"
+                                                Opened="ContextMenu_Opened">
+                                                <MenuItem
+                                                    x:Name="mnuEditNote"
+                                                    Click="Note_Click"
+                                                    Header="Edit Task Note" />
+                                                <Separator />
+                                                <MenuItem
+                                                    Click="Add_Click"
+                                                    Header="Add Tasks" />
+                                                <MenuItem
+                                                    Click="Delete_Click"
+                                                    Header="Remove Selected" />
+                                                <Separator />
+                                                <MenuItem
+                                                    x:Name="mnuCExport"
+                                                    Click="MnuExport_Click"
+                                                    Header="Export Selected" />
+                                                <Separator />
+                                                <MenuItem
+                                                    x:Name="mnuEnable"
+                                                    Click="EnableTask_Click"
+                                                    Header="Enable Selected" />
+                                                <MenuItem
+                                                    x:Name="mnuDisable"
+                                                    Click="DisableTask_Click"
+                                                    Header="Disable Selected" />
+                                                <MenuItem
+                                                    Name="mnuRunTask"
+                                                    Click="MnuRunTask_Click"
+                                                    Header="Run Now" />
+                                            </ContextMenu>
+                                        </DataGrid.ContextMenu>
+                                        <!--#endregion-->
+
+                                        <!--#region Datagrid row details-->
+                                        <DataGrid.RowDetailsTemplate>
+                                            <DataTemplate>
+                                                <Border
+                                                    Padding="10,5"
+                                                    BorderThickness="0">
+                                                    <StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Name:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskName}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Triggers:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskTriggers}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Actions:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskActions}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Folder:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskFolder}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Account:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskAccount}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Privileges:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskRunLevel}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Author:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskAuthor}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Status:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskStatus}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Last Result:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                HorizontalAlignment="Left">
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}{0} / {1}">
+                                                                        <Binding Path="TaskResult" />
+                                                                        <Binding Path="TaskResultHex" />
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Last Run:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding LastRun}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Next Run:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding NextRun}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Missed Runs:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskMissedRuns}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Task Path:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskPath}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Description:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskDescription}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Width="90"
+                                                                Margin="0,1,0,0"
+                                                                Text="Notes:" />
+                                                            <TextBlock
+                                                                Margin="0,1"
+                                                                Text="{Binding TaskNote}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </DataGrid.RowDetailsTemplate>
+
+                                        <!--#endregion-->
+                                    </DataGrid>
+
+                                    <!--#region SnackBar-->
+                                    <materialDesign:Snackbar
+                                        x:Name="SnackBar1"
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Background="Gray"
+                                        Foreground="White"
+                                        MessageQueue="{materialDesign:MessageQueue}" />
+                                    <!--#endregion-->
+                                </Grid>
+                            </materialDesign:Card>
+                        </Grid>
+                        <!--#endregion-->
+
+                        <!--#region StatusBar-->
+                        <StatusBar
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="0,5"
+                            Padding="10,0"
+                            Background="{DynamicResource MaterialDesignPaper}"
+                            Foreground="{DynamicResource MaterialDesignBody}">
+                            <StatusBarItem
+                                x:Name="sbLeft"
+                                ContentStringFormat="{}{0} Tasks" />
+                            <StatusBarItem
+                                x:Name="sbRight"
+                                HorizontalAlignment="Right" />
+                        </StatusBar>
+                        <!--#endregion-->
+
+                    </Grid>
+                </materialDesign:DrawerHost>
+            </Grid>
+        </materialDesign:DialogHost>
     </Grid>
 </Window>

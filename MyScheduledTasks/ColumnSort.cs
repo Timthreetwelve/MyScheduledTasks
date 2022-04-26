@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
-namespace MyScheduledTasks
+namespace MyScheduledTasks;
+
+internal class ColumnSort
 {
-    internal class ColumnSort
-    {
-        public string Header { get; set; }
+    public string Header { get; set; }
 
-        public int DisplayIndex { get; set; }
+    public string Path { get; set; }
 
-        public string SortDirection { get; set; }
-    }
+    public string SortDirection { get; set; }
 }

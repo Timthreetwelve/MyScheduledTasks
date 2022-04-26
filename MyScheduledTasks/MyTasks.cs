@@ -1,11 +1,5 @@
 ﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
-#region Using directives
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-#endregion
-
 namespace MyScheduledTasks
 {
     public class MyTasks : INotifyPropertyChanged

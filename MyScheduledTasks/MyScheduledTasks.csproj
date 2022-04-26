@@ -1,234 +1,48 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DE9D4AFE-4F37-42F0-A527-F64FB9C1D3A0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MyScheduledTasks</RootNamespace>
-    <AssemblyName>MyScheduledTasks</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+	<AssemblyVersion>0.5.0.0</AssemblyVersion>
+	<FileVersion>0.5.0</FileVersion>
+	<Version>$(AssemblyVersion)</Version>
+	<Description>Information about the scheduled tasks that you care about</Description>
+	<Copyright>Copyright © $([System.DateTime]::UtcNow.Year) Tim Kennedy</Copyright>
+	<Authors>Tim Kennedy</Authors>
+	<Company>T_K</Company>
+	<Product>My Scheduled Tasks</Product>
+	<ApplicationIcon>Images\MST.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet />
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>None.None.None.None</AssemblyVersionSettings>
-    <UpdatePackageVersion>False</UpdatePackageVersion>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-    <AssemblyFileVersionSettings>None.None.None.None</AssemblyFileVersionSettings>
-    <AssemblyInfoVersionSettings>None.None.None.None</AssemblyInfoVersionSettings>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup>
-    <ApplicationIcon>clockY2.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup />
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	<Exec Command="powershell -NoProfile -File &quot;$(ProjectDir)Powershell\GenBuildInfo.ps1&quot; -assemblyName $(AssemblyName) -assemblyVersion $(AssemblyVersion)" />
+  </Target>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <Compile Remove="Dialogs\AddTasks.xaml.cs" />
+    <Compile Remove="DragDrop.cs" />
   </ItemGroup>
+
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="About.xaml.cs">
-      <DependentUpon>About.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AddSelectWindow.xaml.cs">
-      <DependentUpon>AddSelectWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AppInfo.cs" />
-    <Compile Include="ColumnSort.cs" />
-    <Compile Include="DragDrop.cs" />
-    <Compile Include="SettingsManager.cs" />
-    <Compile Include="TextFileViewer.cs" />
-    <Compile Include="TKMessageBox.xaml.cs">
-      <DependentUpon>TKMessageBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserSettings.cs" />
-    <Page Include="About.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AddSelectWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CleanUp.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="TKMessageBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Page Remove="Dialogs\AddTasks.xaml" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="MyTasks.cs" />
-    <Compile Include="ScheduledTask.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="NLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <Resource Include="Icons\plus.png" />
-    <Resource Include="Icons\disk.png" />
-    <Resource Include="Icons\minus-small.png" />
-    <Resource Include="Icons\arrow-circle-left.png" />
-    <Resource Include="Icons\arrow-circle-double.png" />
-    <Resource Include="Icons\cross.png" />
-    <Resource Include="Icons\application-plus.png" />
-    <Resource Include="Images\ArrowCircle.png" />
-    <Resource Include="Images\Check.png" />
-    <Resource Include="Images\Error.png" />
-    <Resource Include="Images\information.png" />
-    <Resource Include="Images\Question.png" />
-    <Resource Include="Images\RedX.png" />
-    <Resource Include="Images\Warning.png" />
-    <Resource Include="Images\FileSave.png" />
-    <Resource Include="Icons\arrow-return-left.png" />
-    <Resource Include="Icons\json.png" />
-    <Resource Include="Icons\document-text.png" />
-    <Resource Include="Icons\information-white.png" />
-    <Resource Include="clockY2.ico" />
-    <Resource Include="Icons\bug.png" />
-    <Resource Include="Icons\cross-octagon.png" />
-    <Resource Include="Icons\tick-circle.png" />
-    <Resource Include="Icons\traffic-light-green.png" />
-    <Resource Include="Icons\external.png" />
-    <Resource Include="Icons\document-export.png" />
-    <Content Include="ReadMe.txt">
+    <PackageReference Include="gong-wpf-dragdrop" Version="3.1.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
+    <PackageReference Include="NLog" Version="4.7.15" />
+    <PackageReference Include="TaskScheduler" Version="2.10.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="app.manifest" />
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Icons\arrow-circle.png" />
-    <Resource Include="Icons\clipboard-plus.png" />
-    <Resource Include="Icons\document-list.png" />
-    <Resource Include="Icons\door-open-out.png" />
-    <Resource Include="Icons\information.png" />
-    <Resource Include="Icons\magnifier-minus.png" />
-    <Resource Include="Icons\magnifier-plus.png" />
-    <Resource Include="Icons\magnifier.png" />
-    <Content Include="MyTasks.json" />
+    </None>
+    <None Update="ReadMe.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="gong-wpf-dragdrop">
-      <Version>2.3.2</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.7.7</Version>
-    </PackageReference>
-    <PackageReference Include="NLog.Config">
-      <Version>4.7.7</Version>
-    </PackageReference>
-    <PackageReference Include="NLog.Schema">
-      <Version>4.7.7</Version>
-    </PackageReference>
-    <PackageReference Include="TaskScheduler">
-      <Version>2.9.1</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

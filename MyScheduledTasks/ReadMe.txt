@@ -105,7 +105,6 @@ you desire when running it normally. Whichever way you choose to run it, do so c
 
 Enable, Disable or Run Tasks
 ============================
-
 If MyScheduledTasks is running as administrator, the options to enable, disable and run the selected
 task on the context (right-click) menu.
 
@@ -136,8 +135,6 @@ MyScheduledTasks uses the following icons & packages:
 
 • Fugue Icons set https://p.yusukekamiyamane.com/
 
-• Json.net v12.0.3 from Newtonsoft https://www.newtonsoft.com/json
-
 • TaskScheduler v2.9.1 https://github.com/dahall/taskscheduler
 
 • NLog v4.7.7 https://nlog-project.org/
@@ -148,7 +145,7 @@ MyScheduledTasks uses the following icons & packages:
 
 
 MIT License
-Copyright (c) 2020 Tim Kennedy
+Copyright (c) 2020 - 2022 Tim Kennedy
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction, including
