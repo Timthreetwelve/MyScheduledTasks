@@ -6,8 +6,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
-    MaxWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type materialDesign:DialogHost}, Mode=FindAncestor}}"
-    MaxHeight="1000"
+    d:DesignWidth="600"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Regular"
@@ -22,7 +21,7 @@
         <Grid>
             <!--#region Row & Column definitions-->
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="70" />
             </Grid.RowDefinitions>
@@ -129,7 +128,7 @@
                     Margin="10"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Text="stuff" />
+                    Text="count" />
                 <!--#endregion-->
             </Grid>
         </Grid>

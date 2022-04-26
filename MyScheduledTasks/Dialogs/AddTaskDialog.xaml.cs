@@ -23,6 +23,12 @@ public partial class AddTaskDialog : UserControl
     #region Read Settings
     private void ReadSettings()
     {
+        // Set height and width
+        Width = MainWindow.Instance.Width - 150;
+        Height = MainWindow.Instance.ActualHeight - 150;
+        MinWidth = 600;
+        MinHeight = 300;
+
         // Hide Microsoft
         cbxHideMicroSoft.IsChecked = UserSettings.Setting.HideMicrosoftFolder;
 
