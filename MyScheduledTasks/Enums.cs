@@ -8,12 +8,11 @@ namespace MyScheduledTasks;
 internal enum NavPage
 {
     TasksView = 0,
-    AddTasks = 1,
-    Settings = 3,
-    About = 4,
-    TaskScheduler = 6,
-    Restart = 8,
-    Exit = 9
+    Settings = 2,
+    About = 3,
+    TaskScheduler = 5,
+    Restart = 7,
+    Exit = 8
 }
 
 /// <summary>

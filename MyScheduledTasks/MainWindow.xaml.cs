@@ -154,10 +154,8 @@ public partial class MainWindow : Window
 
         foreach (string item in args)
         {
-            string arg = item.Replace("-", "").Replace("/", "").ToLower();
-
             // If command line argument "hide" is found, execute without showing window.
-            if (arg == "hide")
+            if (string.Equals(item.Replace("-", "").Replace("/", ""), "hide", StringComparison.CurrentCultureIgnoreCase))
             {
                 log.Info($"Command line argument \"{item}\" found.");
 
@@ -187,7 +185,7 @@ public partial class MainWindow : Window
                 }
                 else
                 {
-                    log.Info("No scheduled tasks with a non-zero results were found.");
+                    log.Info("No checked scheduled tasks with a non-zero results were found.");
                     Application.Current.Shutdown();
                 }
             }
@@ -213,11 +211,6 @@ public partial class MainWindow : Window
         {
             case NavPage.TasksView:
                 NavDrawer.IsLeftDrawerOpen = false;
-                break;
-
-            case NavPage.AddTasks:
-                NavDrawer.IsLeftDrawerOpen = false;
-                DialogHelpers.ShowAddTasksDialog();
                 break;
 
             case NavPage.Settings:
@@ -336,33 +329,29 @@ public partial class MainWindow : Window
         // CTRL key combos
         if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
         {
-            if (e.Key == Key.M)
+            if (e.Key == Key.D)
             {
-                switch (UserSettings.Setting.DarkMode)
+                RemoveTasks();
+            }
+            if (e.Key == Key.E)
+            {
+                foreach (var item in DataGridTasks.SelectedItems)
                 {
-                    case (int)ThemeType.Light:
-                        UserSettings.Setting.DarkMode = (int)ThemeType.Dark;
-                        break;
-                    case (int)ThemeType.Dark:
-                        UserSettings.Setting.DarkMode = (int)ThemeType.System;
-                        break;
-                    case (int)ThemeType.System:
-                        UserSettings.Setting.DarkMode = (int)ThemeType.Light;
-                        break;
+                    string taskPath = (item as ScheduledTask)?.TaskPath;
+                    ExportTask(taskPath);
                 }
-                SnackbarMsg.ClearAndQueueMessage($"Theme set to {(ThemeType)UserSettings.Setting.DarkMode}");
             }
             if (e.Key == Key.N)
             {
-                if (UserSettings.Setting.PrimaryColor >= (int)AccentColor.BlueGray)
+                if (!DialogHost.IsDialogOpen("MainDialogHost"))
                 {
-                    UserSettings.Setting.PrimaryColor = 0;
+                    DialogHelpers.ShowAddTasksDialog();
                 }
                 else
                 {
-                    UserSettings.Setting.PrimaryColor++;
+                    DialogHost.Close("MainDialogHost");
+                    DialogHelpers.ShowAddTasksDialog();
                 }
-                SnackbarMsg.ClearAndQueueMessage($"Accent color set to {(AccentColor)UserSettings.Setting.PrimaryColor}");
             }
             if (e.Key == Key.S)
             {
@@ -394,6 +383,34 @@ public partial class MainWindow : Window
         // Ctrl and Shift
         if (e.KeyboardDevice.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
         {
+            if (e.Key == Key.M)
+            {
+                switch (UserSettings.Setting.DarkMode)
+                {
+                    case (int)ThemeType.Light:
+                        UserSettings.Setting.DarkMode = (int)ThemeType.Dark;
+                        break;
+                    case (int)ThemeType.Dark:
+                        UserSettings.Setting.DarkMode = (int)ThemeType.System;
+                        break;
+                    case (int)ThemeType.System:
+                        UserSettings.Setting.DarkMode = (int)ThemeType.Light;
+                        break;
+                }
+                SnackbarMsg.ClearAndQueueMessage($"Theme set to {(ThemeType)UserSettings.Setting.DarkMode}");
+            }
+            if (e.Key == Key.N)
+            {
+                if (UserSettings.Setting.PrimaryColor >= (int)AccentColor.BlueGray)
+                {
+                    UserSettings.Setting.PrimaryColor = 0;
+                }
+                else
+                {
+                    UserSettings.Setting.PrimaryColor++;
+                }
+                SnackbarMsg.ClearAndQueueMessage($"Accent color set to {(AccentColor)UserSettings.Setting.PrimaryColor}");
+            }
             if (e.Key == Key.R)
             {
                 string readme = Path.Combine(AppInfo.AppDirectory, "ReadMe.txt");
@@ -413,6 +430,14 @@ public partial class MainWindow : Window
                 DialogHost.Close("MainDialogHost");
                 DialogHelpers.ShowAboutDialog();
             }
+        }
+        if (e.Key == Key.F5)
+        {
+            RefreshData();
+        }
+        if (e.Key == Key.Escape)
+        {
+            DataGridTasks.SelectedValue = null;
         }
     }
     #endregion Keyboard Events
@@ -591,7 +616,7 @@ public partial class MainWindow : Window
         DialogHelpers.ShowAddTasksDialog();
     }
 
-    private void Delete_Click(object sender, RoutedEventArgs e)
+    private void Remove_Click(object sender, RoutedEventArgs e)
     {
         RemoveTasks();
     }
@@ -600,8 +625,7 @@ public partial class MainWindow : Window
     {
         foreach (var item in DataGridTasks.SelectedItems)
         {
-            var row = item as ScheduledTask;
-            string taskPath = row.TaskPath;
+            string taskPath = (item as ScheduledTask)?.TaskPath;
             ExportTask(taskPath);
         }
     }
@@ -766,6 +790,62 @@ public partial class MainWindow : Window
         }
     }
     #endregion Disable, Enable and Run tasks
+
+    #region Menu open events
+    private void MenuOpened(object sender, RoutedEventArgs e)
+    {
+        ctxEnable.IsEnabled = true;
+        ctxDisable.IsEnabled = true;
+        ctxRunTask.IsEnabled = true;
+        ctxExport.IsEnabled = true;
+        ctxEditNote.IsEnabled = true;
+        ctxRemove.IsEnabled = true;
+        mnuRemove.IsEnabled = true;
+        mnuExport.IsEnabled = true;
+        mnuEnable.IsEnabled = true;
+        mnuDisable.IsEnabled = true;
+        mnuCollapse.IsEnabled = true;
+        mnuExpand.IsEnabled = true;
+
+        if (!IsAdministrator())
+        {
+            ctxEnable.IsEnabled = false;
+            ctxDisable.IsEnabled = false;
+            ctxRunTask.IsEnabled = false;
+            mnuEnable.IsEnabled = false;
+            mnuDisable.IsEnabled = false;
+            mnuRunTask.IsEnabled = false;
+        }
+        if (DataGridTasks.Items.Count == 0)
+        {
+            mnuExpand.IsEnabled = false;
+            mnuCollapse.IsEnabled = false;
+        }
+        if (DataGridTasks.SelectedItems.Count == 0)
+        {
+            ctxEnable.IsEnabled = false;
+            ctxDisable.IsEnabled = false;
+            ctxRunTask.IsEnabled = false;
+            ctxExport.IsEnabled = false;
+            ctxEditNote.IsEnabled = false;
+            ctxRemove.IsEnabled = false;
+            mnuRemove.IsEnabled = false;
+            mnuExport.IsEnabled = false;
+            mnuEnable.IsEnabled = false;
+            mnuDisable.IsEnabled = false;
+        }
+        if (DataGridTasks.SelectedItems.Count > 1)
+        {
+            ctxEditNote.IsEnabled = false;
+            ctxEnable.IsEnabled = false;
+            ctxDisable.IsEnabled = false;
+            ctxRunTask.IsEnabled = false;
+            mnuEnable.IsEnabled = false;
+            mnuDisable.IsEnabled = false;
+            mnuRunTask.IsEnabled = false;
+        }
+    }
+    #endregion Menu open events
 
     #region Refresh data
     internal void RefreshData()
@@ -1099,40 +1179,6 @@ public partial class MainWindow : Window
     }
     #endregion Datagrid drop complete
 
-    #region Menu open events
-    private void Tasks_SubmenuOpened(object sender, RoutedEventArgs e)
-    {
-        if (DataGridTasks.SelectedItems.Count != 1)
-        {
-            mnuDelete.IsEnabled = false;
-            //mnuExport.IsEnabled = false;
-        }
-        else
-        {
-            mnuDelete.IsEnabled = true;
-            mnuExport.IsEnabled = true;
-        }
-    }
-
-    private void ContextMenu_Opened(object sender, RoutedEventArgs e)
-    {
-        if (!IsAdministrator())
-        {
-            mnuDisable.IsEnabled = false;
-            mnuEnable.IsEnabled = false;
-            mnuRunTask.IsEnabled = false;
-        }
-        if (DataGridTasks.SelectedItems.Count != 1)
-        {
-            mnuDisable.IsEnabled = false;
-            mnuEnable.IsEnabled = false;
-            mnuRunTask.IsEnabled = false;
-            mnuEditNote.IsEnabled = false;
-           // mnuCExport.IsEnabled = false;
-        }
-    }
-    #endregion Menu open events
-
     #region Set the row spacing
     /// <summary>
     /// Sets the padding around the rows in the datagrid
@@ -1156,7 +1202,7 @@ public partial class MainWindow : Window
     #endregion Set the row spacing
 
     #region Check for empty task list (first run)
-    private void CheckEmptyList()
+    private static void CheckEmptyList()
     {
         if (ScheduledTask.TaskList.Count == 0)
         {
@@ -1165,9 +1211,23 @@ public partial class MainWindow : Window
 
             if (MDCustMsgBox.CustResult == CustResultType.Yes)
             {
-                NavigateToPage(NavPage.AddTasks);
+                DialogHelpers.ShowAddTasksDialog();
             }
         }
     }
     #endregion Check for empty task list (first run)
+
+    #region Datagrid selection changed event
+    private void DataGridTasks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (DataGridTasks.SelectedItems.Count == 0)
+        {
+            sbSelected.Content = string.Empty;
+        }
+        else
+        {
+            sbSelected.Content = $"{DataGridTasks.SelectedItems.Count} selected";
+        }
+    }
+    #endregion Datagrid selection changed event
 }

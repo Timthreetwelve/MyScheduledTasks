@@ -138,21 +138,6 @@
                                     </StackPanel>
                                 </ListBoxItem.Content>
                             </ListBoxItem>
-                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
-                                <ListBoxItem.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon
-                                            Width="24"
-                                            Height="24"
-                                            VerticalAlignment="Center"
-                                            Kind="PlusBold" />
-                                        <TextBlock
-                                            Margin="10,0"
-                                            VerticalAlignment="Center"
-                                            Text="Add Tasks" />
-                                    </StackPanel>
-                                </ListBoxItem.Content>
-                            </ListBoxItem>
 
                             <Separator
                                 Margin="0"
@@ -202,7 +187,7 @@
                                         <TextBlock
                                             Margin="10,0"
                                             VerticalAlignment="Center"
-                                            Text="Task Scheduler" />
+                                            Text="Open Task Scheduler" />
                                     </StackPanel>
                                 </ListBoxItem.Content>
                             </ListBoxItem>
@@ -290,26 +275,41 @@
 
                                     <MenuItem
                                         Header="_Tasks"
-                                        SubmenuOpened="Tasks_SubmenuOpened">
+                                        SubmenuOpened="MenuOpened">
                                         <MenuItem
                                             x:Name="mnuAdd"
                                             Click="Add_Click"
                                             Header="_Add Tasks"
                                             InputGestureText="Ctrl+N" />
+                                        <Separator />
                                         <MenuItem
-                                            x:Name="mnuDelete"
-                                            Click="Delete_Click"
+                                            x:Name="mnuRemove"
+                                            Click="Remove_Click"
                                             Header="_Remove Selected"
                                             InputGestureText="Ctrl+D" />
-                                        <Separator />
                                         <MenuItem
                                             x:Name="mnuExport"
                                             Click="MnuExport_Click"
                                             Header="_Export Selected"
                                             InputGestureText="Ctrl+E" />
+                                        <Separator />
+                                        <MenuItem
+                                            x:Name="mnuEnable"
+                                            Click="EnableTask_Click"
+                                            Header="Enable Selected" />
+                                        <MenuItem
+                                            x:Name="mnuDisable"
+                                            Click="DisableTask_Click"
+                                            Header="Disable Selected" />
+                                        <MenuItem
+                                            x:Name="mnuRunTask"
+                                            Click="MnuRunTask_Click"
+                                            Header="Run Selected" />
                                     </MenuItem>
 
-                                    <MenuItem Header="_View">
+                                    <MenuItem
+                                        Header="_View"
+                                        SubmenuOpened="MenuOpened">
                                         <MenuItem
                                             x:Name="mnuRefresh"
                                             Click="Refresh_Click"
@@ -317,9 +317,11 @@
                                             InputGestureText="F5" />
                                         <Separator />
                                         <MenuItem
+                                            x:Name="mnuCollapse"
                                             Click="Collapse_Click"
                                             Header="_Collapse All" />
                                         <MenuItem
+                                            x:Name="mnuExpand"
                                             Click="Expand_Click"
                                             Header="_Expand All" />
                                         <Separator />
@@ -332,7 +334,7 @@
                         </Grid>
                         <!--#endregion-->
 
-                        <!--#region Datagrid & Snackbar -->
+                        <!--#region Datagrid & Snackbar-->
                         <Grid
                             Grid.Row="1"
                             Grid.Column="1">
@@ -358,6 +360,7 @@
                                         ItemsSource="{Binding TaskList}"
                                         RowDetailsVisibilityMode="Collapsed"
                                         ScrollViewer.CanContentScroll="False"
+                                        SelectionChanged="DataGridTasks_SelectionChanged"
                                         Sorting="DataGridTasks_Sorting">
 
                                         <!--#region Datagrid styles-->
@@ -472,36 +475,38 @@
                                         <DataGrid.ContextMenu>
                                             <ContextMenu
                                                 Background="{DynamicResource MaterialDesignPaper}"
-                                                Opened="ContextMenu_Opened">
+                                                Opened="MenuOpened">
                                                 <MenuItem
-                                                    x:Name="mnuEditNote"
+                                                    x:Name="ctxEditNote"
                                                     Click="Note_Click"
                                                     Header="Edit Task Note" />
                                                 <Separator />
                                                 <MenuItem
+                                                    x:Name="ctxAdd"
                                                     Click="Add_Click"
                                                     Header="Add Tasks" />
                                                 <MenuItem
-                                                    Click="Delete_Click"
+                                                    x:Name="ctxRemove"
+                                                    Click="Remove_Click"
                                                     Header="Remove Selected" />
                                                 <Separator />
                                                 <MenuItem
-                                                    x:Name="mnuCExport"
+                                                    x:Name="ctxExport"
                                                     Click="MnuExport_Click"
                                                     Header="Export Selected" />
                                                 <Separator />
                                                 <MenuItem
-                                                    x:Name="mnuEnable"
+                                                    x:Name="ctxEnable"
                                                     Click="EnableTask_Click"
                                                     Header="Enable Selected" />
                                                 <MenuItem
-                                                    x:Name="mnuDisable"
+                                                    x:Name="ctxDisable"
                                                     Click="DisableTask_Click"
                                                     Header="Disable Selected" />
                                                 <MenuItem
-                                                    Name="mnuRunTask"
+                                                    Name="ctxRunTask"
                                                     Click="MnuRunTask_Click"
-                                                    Header="Run Now" />
+                                                    Header="Run Selected" />
                                             </ContextMenu>
                                         </DataGrid.ContextMenu>
                                         <!--#endregion-->
@@ -689,6 +694,9 @@
                             <StatusBarItem
                                 x:Name="sbLeft"
                                 ContentStringFormat="{}{0} Tasks" />
+                            <StatusBarItem
+                                x:Name="sbSelected"
+                                Margin="5,0" />
                             <StatusBarItem
                                 x:Name="sbRight"
                                 HorizontalAlignment="Right" />
