@@ -1,5 +1,7 @@
 ﻿// Copyright(c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
+using System.Windows.Data;
+
 namespace MyScheduledTasks.Dialogs;
 
 /// <summary>
@@ -36,6 +38,8 @@ public partial class AddTaskDialog : UserControl
 
         // Settings change event
         UserSettings.Setting.PropertyChanged += UserSettingChanged;
+
+        //listBox.Focus();
     }
     #endregion Read Settings
 
@@ -59,6 +63,8 @@ public partial class AddTaskDialog : UserControl
     #region Get list of tasks
     private void GetTaskList()
     {
+        List<string> taskList = new List<string>();
+
         using (TaskService ts = new())
         {
             foreach (Task task in ts.AllTasks)
@@ -67,15 +73,16 @@ public partial class AddTaskDialog : UserControl
                 {
                     if (!task.Path.StartsWith(@"\Microsoft"))
                     {
-                        _ = listBox.Items.Add(task.Path);
+                        taskList.Add(task.Path);
                     }
                 }
                 else
                 {
-                    _ = listBox.Items.Add(task.Path);
+                    taskList.Add(task.Path);
                 }
             }
         }
+        listBox.ItemsSource = taskList;
         tbCounter.Text = $"{listBox.Items.Count} Tasks";
     }
     #endregion Get list of tasks
@@ -127,10 +134,11 @@ public partial class AddTaskDialog : UserControl
     {
         if (IsVisible)
         {
-            listBox.Items.Clear();
+            //listBox.Items.Clear();
             GetTaskList();
             listBox.InvalidateArrange();
             listBox.UpdateLayout();
+            FilterTheList();
             UserSettings.Setting.HideMicrosoftFolder = (bool)cbxHideMicroSoft.IsChecked;
         }
     }
@@ -181,4 +189,30 @@ public partial class AddTaskDialog : UserControl
         }
     }
     #endregion Set the row spacing
+
+    private void TbxSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        FilterTheList();
+    }
+
+    private void FilterTheList()
+    {
+        //string filter = tbxSearch.Text;
+
+        if (string.IsNullOrEmpty(tbxSearch.Text))
+        {
+            CollectionViewSource.GetDefaultView(listBox.ItemsSource).Filter = null;
+            return;
+        }
+
+        if (listBox.ItemsSource != null)
+        {
+            CollectionViewSource.GetDefaultView(listBox.ItemsSource).Filter = MyFilter;
+        }
+    }
+
+    private bool MyFilter(object obj)
+    {
+        return obj.ToString().Contains(tbxSearch.Text, StringComparison.OrdinalIgnoreCase);
+    }
 }
