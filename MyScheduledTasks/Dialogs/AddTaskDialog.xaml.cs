@@ -1,7 +1,5 @@
 ﻿// Copyright(c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
-using System.Windows.Data;
-
 namespace MyScheduledTasks.Dialogs;
 
 /// <summary>
@@ -38,8 +36,6 @@ public partial class AddTaskDialog : UserControl
 
         // Settings change event
         UserSettings.Setting.PropertyChanged += UserSettingChanged;
-
-        //listBox.Focus();
     }
     #endregion Read Settings
 
@@ -63,7 +59,7 @@ public partial class AddTaskDialog : UserControl
     #region Get list of tasks
     private void GetTaskList()
     {
-        List<string> taskList = new List<string>();
+        List<string> taskList = new();
 
         using (TaskService ts = new())
         {
@@ -190,6 +186,7 @@ public partial class AddTaskDialog : UserControl
     }
     #endregion Set the row spacing
 
+    #region Filter the list
     private void TbxSearch_TextChanged(object sender, TextChangedEventArgs e)
     {
         FilterTheList();
@@ -215,4 +212,5 @@ public partial class AddTaskDialog : UserControl
     {
         return obj.ToString().Contains(tbxSearch.Text, StringComparison.OrdinalIgnoreCase);
     }
+    #endregion Filter the list
 }
