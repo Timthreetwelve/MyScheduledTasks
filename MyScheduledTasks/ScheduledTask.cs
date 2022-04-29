@@ -23,6 +23,7 @@ public class ScheduledTask : INotifyPropertyChanged
                 NextRun = task.NextRunTime,
                 TaskPath = task.Path,
                 TaskFolder = folder,
+                TaskActions = task.Definition.Actions.ToString(),
                 TaskMissedRuns = task.NumberOfMissedRuns,
                 TaskAccount = task.Definition.Principal.Account,
                 TaskRunLevel = task.Definition.Principal.RunLevel.ToString(),
