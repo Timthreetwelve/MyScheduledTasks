@@ -88,6 +88,7 @@ public partial class AddTaskDialog : UserControl
     {
         if (listBox.SelectedItems.Count > 0)
         {
+            int itemsAdded = 0;
             foreach (var item in listBox.SelectedItems)
             {
                 Task task = GetTaskInfo(item.ToString());
@@ -99,8 +100,8 @@ public partial class AddTaskDialog : UserControl
                 }
                 else if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
                 {
-                    log.Warn($"{task.Path} has already been added");
-                    log.Debug($"{task.Path} is already in the list");
+                    int pos = ScheduledTask.TaskList.IndexOf(ScheduledTask.TaskList.FirstOrDefault(x => x.TaskPath == task.Path));
+                    log.Warn($"{task.Path} is already present in the list in position {pos + 1}");
                     continue;
                 }
                 ScheduledTask schedTask = ScheduledTask.BuildSchedTask(task, null);
@@ -109,9 +110,15 @@ public partial class AddTaskDialog : UserControl
                 MyTasks my = new(task.Path, false, string.Empty);
                 MyTasks.MyTasksCollection.Add(my);
 
+                itemsAdded++;
                 log.Info($"Added {task.Path}");
             }
-            MainWindow.Instance.RefreshData();
+            if (itemsAdded > 0)
+            {
+                MainWindow.Instance.RefreshData();
+                log.Info($"{itemsAdded} task(s) added");
+            }
+
             listBox.UnselectAll();
         }
     }
