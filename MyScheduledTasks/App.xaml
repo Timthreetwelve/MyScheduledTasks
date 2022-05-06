@@ -85,6 +85,24 @@
                         <Setter Property="Foreground" Value="Crimson" />
                         <Setter Property="FontWeight" Value="SemiBold" />
                     </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TaskResultShort}"
+                        Value="FNF">
+                        <Setter Property="Foreground" Value="OrangeRed" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TaskResultShort}"
+                        Value="NYR">
+                        <Setter Property="Foreground" Value="DodgerBlue" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                    </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding TaskResultShort}"
+                        Value="RUN">
+                        <Setter Property="Foreground" Value="LimeGreen" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                    </DataTrigger>
                 </Style.Triggers>
             </Style>
 

@@ -20,6 +20,7 @@
         BorderThickness="1"
         CornerRadius="0">
         <Grid>
+            <!--#region Row definitions-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -27,6 +28,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="3" />
             </Grid.RowDefinitions>
+            <!--#endregion-->
 
             <!--#region ColorZone with close button-->
             <materialDesign:ColorZone
@@ -76,6 +78,7 @@
                 MouseLeave="Card_MouseLeave"
                 UniformCornerRadius="4">
                 <Grid>
+                    <!--#region Row & Column definitions-->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="35" />
                         <RowDefinition Height="35" />
@@ -84,6 +87,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
+                    <!--#endregion-->
 
                     <!--  Theme  -->
                     <StackPanel
@@ -201,6 +205,7 @@
             </materialDesign:Card>
             <!--#endregion-->
 
+            <!--#region Middle Card (CheckBoxes)-->
             <materialDesign:Card
                 Grid.Row="2"
                 Width="500"
@@ -212,6 +217,7 @@
                 MouseLeave="Card_MouseLeave"
                 UniformCornerRadius="7">
                 <Grid>
+                    <!--#region Row & Column definitions-->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="31" />
                         <RowDefinition Height="31" />
@@ -222,11 +228,10 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-
+                    <!--#endregion-->
                     <Label
                         Margin="0,0"
                         Content="Select grid columns:" />
-
                     <CheckBox
                         Grid.Row="1"
                         Content="Alert Column"
@@ -236,27 +241,24 @@
                         Grid.Column="1"
                         Content="Status Column"
                         IsChecked="{Binding ShowStatusCol, Source={x:Static local:UserSettings.Setting}}" />
-
                     <CheckBox
                         Grid.Row="1"
                         Grid.Column="2"
                         Content="Last Run Column"
                         IsChecked="{Binding ShowLastRunCol, Source={x:Static local:UserSettings.Setting}}" />
-
                     <CheckBox
                         Grid.Row="2"
                         Grid.Column="0"
                         Content="Folder Column"
                         IsChecked="{Binding ShowFolderCol, Source={x:Static local:UserSettings.Setting}}" />
-
                     <CheckBox
                         Grid.Row="2"
                         Grid.Column="1"
                         Content="Note Column"
                         IsChecked="{Binding ShowNoteCol, Source={x:Static local:UserSettings.Setting}}" />
-
                 </Grid>
             </materialDesign:Card>
+            <!--#endregion-->
 
             <!--#region Bottom Card (Toggle buttons)-->
             <materialDesign:Card
@@ -270,16 +272,33 @@
                 MouseLeave="Card_MouseLeave"
                 UniformCornerRadius="7">
                 <Grid>
+                    <!--#region Row definitions-->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="31" />
                         <RowDefinition Height="31" />
                         <RowDefinition Height="31" />
                         <RowDefinition Height="31" />
+                        <RowDefinition Height="31" />
                     </Grid.RowDefinitions>
+                    <!--#endregion-->
+
+                    <!--  Details panel  -->
+                    <StackPanel
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Orientation="Horizontal">
+                        <ToggleButton
+                            HorizontalAlignment="Left"
+                            IsChecked="{Binding ShowDetails, Source={x:Static local:UserSettings.Setting}}"
+                            Style="{StaticResource MaterialDesignSwitchToggleButton}" />
+                        <Label
+                            Margin="10,-1,0,0"
+                            Content="Show Details Panel " />
+                    </StackPanel>
 
                     <!--  Save on exit  -->
                     <StackPanel
-                        Grid.Row="0"
+                        Grid.Row="1"
                         Grid.Column="1"
                         Orientation="Horizontal">
                         <ToggleButton
@@ -293,7 +312,7 @@
 
                     <!--  Save on exit  -->
                     <StackPanel
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Grid.Column="1"
                         Orientation="Horizontal">
                         <ToggleButton
@@ -307,7 +326,7 @@
 
                     <!--  Topmost  -->
                     <StackPanel
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Grid.Column="1"
                         Orientation="Horizontal">
                         <ToggleButton
@@ -321,7 +340,7 @@
 
                     <!--  Log verbosity  -->
                     <StackPanel
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Grid.Column="1"
                         Orientation="Horizontal">
                         <ToggleButton

@@ -79,10 +79,7 @@ public partial class MainWindow : Window
         log.Debug(AppInfo.OsPlatform);
 
         // Window position
-        Top = UserSettings.Setting.WindowTop;
-        Left = UserSettings.Setting.WindowLeft;
-        Height = UserSettings.Setting.WindowHeight;
-        Width = UserSettings.Setting.WindowWidth;
+        UserSettings.Setting.SetWindowPos();
         Topmost = UserSettings.Setting.KeepOnTop;
 
         // Light or dark
@@ -97,6 +94,11 @@ public partial class MainWindow : Window
 
         //Grid row height
         SetRowSpacing((Spacing)UserSettings.Setting.RowSpacing);
+
+        // Details pane
+        detailsRow.Height = !UserSettings.Setting.ShowDetails
+            ? new GridLength(1)
+            : new GridLength(UserSettings.Setting.DetailsHeight);
 
         // Settings change event
         UserSettings.Setting.PropertyChanged += UserSettingChanged;
@@ -139,6 +141,19 @@ public partial class MainWindow : Window
 
             case nameof(UserSettings.Setting.RowSpacing):
                 SetRowSpacing((Spacing)newValue);
+                break;
+
+            case nameof(UserSettings.Setting.ShowDetails):
+                if ((bool)newValue)
+                {
+                    detailsRow.Height = new GridLength(UserSettings.Setting.DetailsHeight);
+                    splitter.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    detailsRow.Height = new GridLength(1);
+                    splitter.Visibility = Visibility.Collapsed;
+                }
                 break;
         }
     }
@@ -312,10 +327,7 @@ public partial class MainWindow : Window
         LogManager.Shutdown();
 
         // Save settings
-        UserSettings.Setting.WindowLeft = Math.Floor(Left);
-        UserSettings.Setting.WindowTop = Math.Floor(Top);
-        UserSettings.Setting.WindowWidth = Math.Floor(Width);
-        UserSettings.Setting.WindowHeight = Math.Floor(Height);
+        UserSettings.Setting.SaveWindowPos();
         UserSettings.SaveSettings();
     }
     #endregion Window Events
@@ -353,10 +365,18 @@ public partial class MainWindow : Window
                     DialogHelpers.ShowAddTasksDialog();
                 }
             }
+            if (e.Key == Key.R)
+            {
+                ResetCols();
+            }
             if (e.Key == Key.S)
             {
                 UpdateMyTasksCollection();
                 WriteTasks2Json();
+            }
+            if (e.Key == Key.T)
+            {
+                ToggleDetails();
             }
             if (e.Key == Key.Add)
             {
@@ -596,16 +616,6 @@ public partial class MainWindow : Window
         RefreshData();
     }
 
-    private void Collapse_Click(object sender, RoutedEventArgs e)
-    {
-        CollapseAllRows();
-    }
-
-    private void Expand_Click(object sender, RoutedEventArgs e)
-    {
-        ExpandAllRows();
-    }
-
     private void ResetCols_Click(object sender, RoutedEventArgs e)
     {
         ResetCols();
@@ -679,6 +689,22 @@ public partial class MainWindow : Window
             RunTask(taskPath);
         }
     }
+
+    private void OpenReadme_Click(object sender, RoutedEventArgs e)
+    {
+        string readme = Path.Combine(AppInfo.AppDirectory, "ReadMe.txt");
+        TextFileViewer.ViewTextFile(readme);
+    }
+
+    private void OpenAbout_Click(object sender, RoutedEventArgs e)
+    {
+        DialogHelpers.ShowAboutDialog();
+    }
+
+    private void ToggleDetails_Click(object sender, RoutedEventArgs e)
+    {
+        ToggleDetails();
+    }
     #endregion Menu selection events
 
     #region Disable, Enable, Run and Remove tasks
@@ -740,7 +766,7 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             SystemSounds.Beep.Play();
-            SnackbarMsg.ClearAndQueueMessage($"Error attempting to run {task.Name}", 5000);
+            SnackbarMsg.ClearAndQueueMessage($"Error attempting to run {task.Name}. See the log file for details.", 5000);
             log.Error(ex, $"Error attempting to run {task.Name}");
         }
     }
@@ -778,7 +804,12 @@ public partial class MainWindow : Window
 
     private void RemoveTasks()
     {
-        if (DataGridTasks.SelectedItems.Count > 0)
+        if (DataGridTasks.SelectedItems.Count == 0)
+        {
+            return;
+        }
+
+        if (DataGridTasks.SelectedItems.Count <= 5)
         {
             for (int i = DataGridTasks.SelectedItems.Count - 1; i >= 0; i--)
             {
@@ -787,6 +818,17 @@ public partial class MainWindow : Window
                 log.Info($"Removed \"{row.TaskPath}\"");
                 SnackbarMsg.QueueMessage($"Removed {row.TaskName}", 1000);
             }
+        }
+        else if (DataGridTasks.SelectedItems.Count > 5)
+        {
+            int count = DataGridTasks.SelectedItems.Count;
+            for (int i = count - 1; i >= 0; i--)
+            {
+                var row = (ScheduledTask)DataGridTasks.SelectedItems[i];
+                ScheduledTask.TaskList.Remove(row);
+                log.Info($"Removed \"{row.TaskPath}\"");
+            }
+            SnackbarMsg.QueueMessage($"Removed {count} tasks", 2000);
         }
     }
     #endregion Disable, Enable and Run tasks
@@ -804,8 +846,6 @@ public partial class MainWindow : Window
         mnuExport.IsEnabled = true;
         mnuEnable.IsEnabled = true;
         mnuDisable.IsEnabled = true;
-        mnuCollapse.IsEnabled = true;
-        mnuExpand.IsEnabled = true;
 
         if (!IsAdministrator())
         {
@@ -815,11 +855,6 @@ public partial class MainWindow : Window
             mnuEnable.IsEnabled = false;
             mnuDisable.IsEnabled = false;
             mnuRunTask.IsEnabled = false;
-        }
-        if (DataGridTasks.Items.Count == 0)
-        {
-            mnuExpand.IsEnabled = false;
-            mnuCollapse.IsEnabled = false;
         }
         if (DataGridTasks.SelectedItems.Count == 0)
         {
@@ -1117,7 +1152,6 @@ public partial class MainWindow : Window
     {
         if (e != null)
         {
-            log.Debug($"List Changed Type was: {e.ListChangedType}");
             MyTasks.IsDirty = true;
             sbRight.Content = "Unsaved changes";
         }
@@ -1127,7 +1161,6 @@ public partial class MainWindow : Window
     /// </summary>
     private void TaskList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
-        log.Debug($"Collection Changed Action was: {e.Action}");
         MyTasks.IsDirty = true;
         sbRight.Content = "Unsaved changes";
         sbLeft.Content = ScheduledTask.TaskList.Count;
@@ -1149,26 +1182,6 @@ public partial class MainWindow : Window
     }
     #endregion Reset datagrid column sort
 
-    #region Collapse and Expand all rows
-    /// <summary>
-    /// Collapse all datagrid detail rows
-    /// </summary>
-    internal void CollapseAllRows()
-    {
-        DataGridTasks.RowDetailsVisibilityMode = DataGridRowDetailsVisibilityMode.Collapsed;
-        DataGridTasks.Items.Refresh();
-    }
-
-    /// <summary>
-    /// Expand all datagrid detail rows
-    /// </summary>
-    internal void ExpandAllRows()
-    {
-        DataGridTasks.RowDetailsVisibilityMode = DataGridRowDetailsVisibilityMode.Visible;
-        DataGridTasks.Items.Refresh();
-    }
-    #endregion Collapse and Expand all rows
-
     #region Datagrid drop complete
     /// <summary>
     /// Drag & drop in datagrid sets MyTasks.IsDirty true
@@ -1178,6 +1191,13 @@ public partial class MainWindow : Window
         MyTasks.IsDirty = true;
     }
     #endregion Datagrid drop complete
+
+    #region Splitter drag complete
+    private void GridSplitter_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+    {
+        UserSettings.Setting.DetailsHeight = Math.Floor(detailsRow.Height.Value);
+    }
+    #endregion Splitter drag complete
 
     #region Set the row spacing
     /// <summary>
@@ -1230,4 +1250,11 @@ public partial class MainWindow : Window
         }
     }
     #endregion Datagrid selection changed event
+
+    #region Toggle details
+    private static void ToggleDetails()
+    {
+        UserSettings.Setting.ShowDetails = !UserSettings.Setting.ShowDetails;
+    }
+    #endregion Toggle details
 }

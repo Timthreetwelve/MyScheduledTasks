@@ -4,14 +4,41 @@ namespace MyScheduledTasks;
 
 public class UserSettings : SettingsManager<UserSettings>, INotifyPropertyChanged
 {
-    #region Properties
+    public void SaveWindowPos()
+    {
+        Window mainWindow = Application.Current.MainWindow;
+        WindowHeight = Math.Floor(mainWindow.Height);
+        WindowLeft = Math.Floor(mainWindow.Left);
+        WindowTop = Math.Floor(mainWindow.Top);
+        WindowWidth = Math.Floor(mainWindow.Width);
+    }
 
-    public int DarkMode
+    public void SetWindowPos()
+    {
+        Window mainWindow = Application.Current.MainWindow;
+        mainWindow.Height = WindowHeight;
+        mainWindow.Left = WindowLeft;
+        mainWindow.Top = WindowTop;
+        mainWindow.Width = WindowWidth;
+    }
+
+    #region Properties
+        public int DarkMode
     {
         get => darkmode;
         set
         {
             darkmode = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public double DetailsHeight
+    {
+        get { return detailsHeight; }
+        set
+        {
+            detailsHeight = value;
             OnPropertyChanged();
         }
     }
@@ -96,6 +123,15 @@ public class UserSettings : SettingsManager<UserSettings>, INotifyPropertyChange
         }
     }
 
+    public bool ShowDetails
+    {
+        get { return showDetails; }
+        set
+        {
+            showDetails = value;
+            OnPropertyChanged();
+        }
+    }
     public bool ShowFolderCol
     {
         get { return showFolderCol; }
@@ -221,6 +257,7 @@ public class UserSettings : SettingsManager<UserSettings>, INotifyPropertyChange
 
     #region Private backing fields
     private int darkmode = (int)ThemeType.Light;
+    private double detailsHeight = 300;
     private bool hideMicrosoftFolder = true;
     private bool includeDebug = true;
     private bool keepOnTop;
@@ -229,6 +266,7 @@ public class UserSettings : SettingsManager<UserSettings>, INotifyPropertyChange
     private int rowSpacing = (int)Spacing.Comfortable;
     private bool saveOnExit = true;
     private bool showAlertCol = true;
+    private bool showDetails = true;
     private bool showFolderCol = true;
     private bool showLastRunCol = true;
     private bool showNoteCol = true;
