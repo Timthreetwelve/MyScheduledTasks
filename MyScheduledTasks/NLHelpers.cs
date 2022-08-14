@@ -18,33 +18,38 @@ internal static class NLHelpers
 
         #region Log file in temp folder
         // create log file Target for NLog
-        FileTarget logtemp = new("logTemp");
+        FileTarget logtemp = new("logTemp")
+        {
+            // new file on startup
+            DeleteOldFileOnStartup = newfile,
 
-        // new file on startup
-        logtemp.DeleteOldFileOnStartup = newfile;
+            // create the file if needed
+            FileName = CreateFilename(),
 
-        // create the file if needed
-        logtemp.FileName = CreateFilename();
-
-        // message and footer layouts
-        logtemp.Footer = "${date:format=yyyy/MM/dd HH\\:mm\\:ss}";
-        logtemp.Layout = "${date:format=yyyy/MM/dd HH\\:mm\\:ss} " +
+            // message and footer layouts
+            Footer = "${date:format=yyyy/MM/dd HH\\:mm\\:ss}",
+            Layout = "${date:format=yyyy/MM/dd HH\\:mm\\:ss} " +
                          "${pad:padding=-5:inner=${level:uppercase=true}}  " +
-                         "${message}${onexception:${newline}${exception:format=tostring}}";
+                         "${message}${onexception:${newline}${exception:format=tostring}}"
+        };
 
         // add the log file target
         config.AddTarget(logtemp);
 
         // add the rule for the log file
-        LoggingRule file = new("logTemp", LogLevel.Debug, logtemp);
-        file.RuleName = "LogToFile";
+        LoggingRule file = new("logTemp", LogLevel.Debug, logtemp)
+        {
+            RuleName = "LogToFile"
+        };
         config.LoggingRules.Add(file);
         #endregion Log file in temp folder
 
         #region Debugger
         // create debugger target
-        DebuggerTarget debugger = new("debugger");
-        debugger.Layout = "${processtime} >>> ${message} ";
+        DebuggerTarget debugger = new("debugger")
+        {
+            Layout = "${processtime} >>> ${message} "
+        };
 
         // add the target
         config.AddTarget(debugger);
@@ -77,7 +82,7 @@ internal static class NLHelpers
 
         // combine temp folder with filename
         string tempdir = Path.GetTempPath();
-        return Path.Combine(tempdir, filename);
+        return Path.Combine(tempdir, "T_K", filename);
     }
     #endregion Create a filename in the temp folder
 
