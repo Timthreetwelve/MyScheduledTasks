@@ -336,14 +336,15 @@ public partial class MainWindow : Window
     /// <summary>
     /// Keyboard events
     /// </summary>
-    private void Window_Keydown(object sender, KeyEventArgs e)
+    private void Window_PreviewKeydown(object sender, KeyEventArgs e)
     {
+        Debug.WriteLine(e.Key);
         // CTRL key combos
         if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
         {
             if (e.Key == Key.D)
             {
-                RemoveTasks();
+                ToggleDetails();
             }
             if (e.Key == Key.E)
             {
@@ -373,10 +374,6 @@ public partial class MainWindow : Window
             {
                 UpdateMyTasksCollection();
                 WriteTasks2Json();
-            }
-            if (e.Key == Key.T)
-            {
-                ToggleDetails();
             }
             if (e.Key == Key.Add)
             {
@@ -454,6 +451,10 @@ public partial class MainWindow : Window
         if (e.Key == Key.F5)
         {
             RefreshData();
+        }
+        if (e.Key == Key.Delete)
+        {
+            RemoveTasks();
         }
         if (e.Key == Key.Escape)
         {
@@ -704,6 +705,16 @@ public partial class MainWindow : Window
     private void ToggleDetails_Click(object sender, RoutedEventArgs e)
     {
         ToggleDetails();
+    }
+
+    private void MnuLarger_Click(object sender, RoutedEventArgs e)
+    {
+        EverythingLarger();
+    }
+
+    private void MnuSmaller_Click(object sender, RoutedEventArgs e)
+    {
+        EverythingSmaller();
     }
     #endregion Menu selection events
 

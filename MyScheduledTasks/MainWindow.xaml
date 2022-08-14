@@ -15,7 +15,7 @@
     Background="{DynamicResource MaterialDesignPaper}"
     Closing="Window_Closing"
     ContentRendered="Window_ContentRendered"
-    KeyDown="Window_Keydown"
+    PreviewKeyDown="Window_PreviewKeydown"
     PreviewMouseWheel="Window_MouseWheel"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"
@@ -272,13 +272,13 @@
                                             x:Name="mnuSave"
                                             Click="Save_Click"
                                             Header="_Save Task List File"
-                                            InputGestureText="Ctrl+S" />
+                                            InputGestureText="Ctrl + S" />
                                         <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
                                         <MenuItem
                                             Name="mnuExit"
                                             Click="MnuExit_Click"
                                             Header="E_xit"
-                                            InputGestureText="Alt+F4" />
+                                            InputGestureText="Alt + F4" />
                                     </MenuItem>
 
                                     <MenuItem
@@ -288,18 +288,18 @@
                                             x:Name="mnuAdd"
                                             Click="Add_Click"
                                             Header="_Add Tasks"
-                                            InputGestureText="Ctrl+N" />
+                                            InputGestureText="Ctrl + N" />
                                         <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
                                         <MenuItem
                                             x:Name="mnuRemove"
                                             Click="Remove_Click"
                                             Header="_Remove Selected"
-                                            InputGestureText="Ctrl+D" />
+                                            InputGestureText="Delete" />
                                         <MenuItem
                                             x:Name="mnuExport"
                                             Click="MnuExport_Click"
                                             Header="_Export Selected"
-                                            InputGestureText="Ctrl+E" />
+                                            InputGestureText="Ctrl + E" />
                                         <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
                                         <MenuItem
                                             x:Name="mnuEnable"
@@ -319,6 +319,17 @@
                                         Header="_View"
                                         SubmenuOpened="MenuOpened">
                                         <MenuItem
+                                            x:Name="mnuLarger"
+                                            Click="MnuLarger_Click"
+                                            Header="UI Larger"
+                                            InputGestureText="Ctrl + Numpad Plus" />
+                                        <MenuItem
+                                            x:Name="mnuSmaller"
+                                            Click="MnuSmaller_Click"
+                                            Header="UI Smaller"
+                                            InputGestureText="Ctrl + Numpad Minus" />
+                                        <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
+                                        <MenuItem
                                             x:Name="mnuRefresh"
                                             Click="Refresh_Click"
                                             Header="_Refresh"
@@ -327,12 +338,12 @@
                                         <MenuItem
                                             Click="ToggleDetails_Click"
                                             Header="_Toggle Details Pane"
-                                            InputGestureText="Ctrl+T" />
+                                            InputGestureText="Ctrl + D" />
                                         <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
                                         <MenuItem
                                             Click="ResetCols_Click"
                                             Header="Reset Column _Sort"
-                                            InputGestureText="Ctrl+R" />
+                                            InputGestureText="Ctrl + R" />
                                     </MenuItem>
                                     <MenuItem Header="Help">
                                         <MenuItem
@@ -341,8 +352,7 @@
                                             InputGestureText="F1" />
                                         <MenuItem
                                             Click="OpenReadme_Click"
-                                            Header="Open ReadMe"
-                                            InputGestureText="Ctrl+Shift+R" />
+                                            Header="Open ReadMe" />
                                     </MenuItem>
                                 </Menu>
                             </materialDesign:Card>
@@ -373,7 +383,6 @@
                                         HeadersVisibility="Column"
                                         IsReadOnly="False"
                                         ItemsSource="{Binding TaskList}"
-                                        RowDetailsVisibilityMode="Collapsed"
                                         ScrollViewer.CanContentScroll="False"
                                         SelectionChanged="DataGridTasks_SelectionChanged"
                                         Sorting="DataGridTasks_Sorting">
