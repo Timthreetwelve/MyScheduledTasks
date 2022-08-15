@@ -4,6 +4,7 @@ namespace MyScheduledTasks;
 
 public class UserSettings : SettingsManager<UserSettings>, INotifyPropertyChanged
 {
+    #region Methods
     public void SaveWindowPos()
     {
         Window mainWindow = Application.Current.MainWindow;
@@ -21,9 +22,10 @@ public class UserSettings : SettingsManager<UserSettings>, INotifyPropertyChange
         mainWindow.Top = WindowTop;
         mainWindow.Width = WindowWidth;
     }
+    #endregion Methods
 
     #region Properties
-        public int DarkMode
+    public int DarkMode
     {
         get => darkmode;
         set

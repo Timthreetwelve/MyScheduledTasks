@@ -56,8 +56,8 @@ public class ScheduledTask : INotifyPropertyChanged
     private string taskNote;
 
     #endregion Private backing fields
-    #region Properties
 
+    #region Properties
     public string TimeLimit { get; set; }
 
     public bool AllowDemandStart { get; set; }
