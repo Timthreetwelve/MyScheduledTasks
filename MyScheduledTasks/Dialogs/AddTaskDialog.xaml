@@ -102,7 +102,7 @@
             <materialDesign:Card
                 Grid.Row="2"
                 Margin="10"
-                materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                materialDesign:ElevationAssist.Elevation="Dp2">
                 <ListBox
                     x:Name="listBox"
                     Height="auto"

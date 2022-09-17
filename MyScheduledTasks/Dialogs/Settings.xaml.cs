@@ -16,13 +16,13 @@ public partial class Settings : UserControl
     private void Card_MouseEnter(object sender, MouseEventArgs e)
     {
         Card card = sender as Card;
-        ShadowAssist.SetShadowDepth(card, ShadowDepth.Depth4);
+        ElevationAssist.SetElevation(card, Elevation.Dp4);
     }
 
     private void Card_MouseLeave(object sender, MouseEventArgs e)
     {
         Card card = sender as Card;
-        ShadowAssist.SetShadowDepth(card, ShadowDepth.Depth2);
+        ElevationAssist.SetElevation(card, Elevation.Dp2);
     }
     #endregion Toggle an increased shadow effect when mouse is over Card
 }

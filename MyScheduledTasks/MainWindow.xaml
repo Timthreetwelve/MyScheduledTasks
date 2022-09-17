@@ -44,7 +44,7 @@
                            LastChildFill="True">
                     <materialDesign:ColorZone Height="33"
                                               Margin="10" Padding="0,0,0,3"
-                                              materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                              materialDesign:ElevationAssist.Elevation="Dp2"
                                               CornerRadius="4" Mode="PrimaryMid">
                         <Grid>
                             <StackPanel Orientation="Horizontal">
@@ -212,8 +212,7 @@
                         <Grid Grid.Row="0" Grid.Column="1"
                               Margin="0,0,0,10">
                             <materialDesign:Card Height="30"
-                                                 materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                                 materialDesign:ShadowAssist.ShadowEdges="All">
+                                                 materialDesign:ElevationAssist.Elevation="Dp2">
                                 <Menu materialDesign:MenuAssist.TopLevelMenuItemHeight="28"
                                       FontSize="{Binding ElementName=DataGridTasks,
                                                          Path=FontSize}"
@@ -292,7 +291,7 @@
 
                         <!--#region Datagrid & Snackbar-->
                         <Grid Grid.Row="1" Grid.Column="1">
-                            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                            <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2">
                                 <Grid>
                                     <DataGrid x:Name="DataGridTasks"
                                               d:ItemsSource="{d:SampleData ItemCount=5}"
@@ -483,7 +482,7 @@
                         <!--#region Details area-->
                         <Grid x:Name="bottomGrid"
                               Grid.Row="3" Grid.Column="1">
-                            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                            <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2">
                                 <ScrollViewer x:Name="scvDetails"
                                               VerticalAlignment="Top"
                                               DataContext="{Binding SelectedItem,

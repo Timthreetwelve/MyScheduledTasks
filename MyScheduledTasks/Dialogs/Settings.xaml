@@ -212,7 +212,7 @@
                 Margin="5,10"
                 Padding="10"
                 HorizontalAlignment="Left"
-                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                materialDesign:ElevationAssist.Elevation="Dp2"
                 MouseEnter="Card_MouseEnter"
                 MouseLeave="Card_MouseLeave"
                 UniformCornerRadius="7">
@@ -267,7 +267,7 @@
                 Margin="5,10"
                 Padding="10"
                 HorizontalAlignment="Left"
-                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                materialDesign:ElevationAssist.Elevation="Dp2"
                 MouseEnter="Card_MouseEnter"
                 MouseLeave="Card_MouseLeave"
                 UniformCornerRadius="7">
