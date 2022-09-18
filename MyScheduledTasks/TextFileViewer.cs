@@ -65,16 +65,20 @@ internal static class TextFileViewer
         if (!DialogHost.IsDialogOpen("MainDialogHost"))
         {
             SystemSounds.Exclamation.Play();
-            ErrorDialog error = new();
-            error.Message = msg;
+            ErrorDialog error = new()
+            {
+                Message = msg
+            };
             _ = await DialogHost.Show(error, "MainDialogHost");
         }
         else
         {
             DialogHost.Close("MainDialogHost");
             SystemSounds.Exclamation.Play();
-            ErrorDialog error = new();
-            error.Message = msg;
+            ErrorDialog error = new()
+            {
+                Message = msg
+            };
             _ = await DialogHost.Show(error, "MainDialogHost");
         }
     }

@@ -48,8 +48,10 @@ internal static class DialogHelpers
     internal static async void ShowErrorDialog(string msg)
     {
         SystemSounds.Exclamation.Play();
-        ErrorDialog error = new();
-        error.Message = msg;
+        ErrorDialog error = new()
+        {
+            Message = msg
+        };
         _ = await DialogHost.Show(error, "MainDialogHost");
     }
 }

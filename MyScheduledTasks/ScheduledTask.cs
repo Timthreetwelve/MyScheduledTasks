@@ -14,7 +14,7 @@ public class ScheduledTask : INotifyPropertyChanged
             {
                 folder = "\\  (root)";
             }
-            ScheduledTask schedTask = new()
+            return new()
             {
                 TaskName = task.Name,
                 TaskStatus = task.State.ToString(),
@@ -34,11 +34,10 @@ public class ScheduledTask : INotifyPropertyChanged
                 Priority = task.Definition.Settings.Priority.ToString(),
                 AllowDemandStart = task.Definition.Settings.AllowDemandStart,
                 TimeLimit = task.Definition.Settings.ExecutionTimeLimit.ToString(),
-                WakeToRun = task.Definition.Settings.WakeToRun
+                WakeToRun = task.Definition.Settings.WakeToRun,
+                TaskNote = item != null ? item.TaskNote : string.Empty,
+                IsChecked = item?.Alert == true
             };
-            schedTask.TaskNote = item != null ? item.TaskNote : string.Empty;
-            schedTask.IsChecked = item != null ? item.Alert : false;
-            return schedTask;
         }
         return null;
     }
