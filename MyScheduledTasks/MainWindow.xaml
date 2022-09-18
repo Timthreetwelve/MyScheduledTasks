@@ -7,10 +7,9 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:set="clr-namespace:MyScheduledTasks"
-        mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=local:MyTasks}"
-        Title="MainWindow"
+        mc:Ignorable="d" Title="MainWindow"
         MinWidth="300" MinHeight="300"
+        d:DataContext="{d:DesignInstance Type=local:MyTasks}"
         Background="{DynamicResource MaterialDesignPaper}"
         Closing="Window_Closing"
         ContentRendered="Window_ContentRendered"
@@ -40,10 +39,9 @@
                 </Grid.RowDefinitions>
 
                 <!--#region ColorZone-->
-                <DockPanel Grid.Row="0"
-                           LastChildFill="True">
-                    <materialDesign:ColorZone Height="33"
-                                              Margin="10" Padding="0,0,0,3"
+                <DockPanel Grid.Row="0" LastChildFill="True">
+                    <materialDesign:ColorZone Height="33" Margin="10"
+                                              Padding="0,0,0,3"
                                               materialDesign:ElevationAssist.Elevation="Dp2"
                                               CornerRadius="4" Mode="PrimaryMid">
                         <Grid>
@@ -57,17 +55,28 @@
                                 <TextBlock x:Name="PageTitle"
                                            Margin="6,0,0,0"
                                            HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontSize="20" FontWeight="DemiBold"
+                                           VerticalAlignment="Center" FontSize="20"
+                                           FontWeight="DemiBold"
                                            Text="My Scheduled Tasks" />
                             </StackPanel>
+
+                            <Button x:Name="BtnRefresh"
+                                    Margin="0,-7,30,0"
+                                    HorizontalAlignment="Right"
+                                    Click="BtnRefresh_Click"
+                                    Style="{StaticResource MaterialDesignIconButton}">
+                                <materialDesign:PackIcon Width="24" Height="24"
+                                                         Margin="0"
+                                                         Foreground="{Binding ElementName=PageTitle,
+                                                                              Path=Foreground}"
+                                                         Kind="Refresh" />
+                            </Button>
 
                             <materialDesign:PopupBox Margin="10,4,0,0"
                                                      HorizontalAlignment="Right"
                                                      PlacementMode="LeftAndAlignTopEdges"
                                                      PopupMode="Click">
-                                <Grid Width="150"
-                                      Margin="0">
+                                <Grid Width="150" Margin="0">
                                     <StackPanel Orientation="Vertical">
                                         <Button Click="BtnViewTasksFile_Click"
                                                 Content="View Tasks File"
@@ -89,16 +98,14 @@
                 <!--#endregion-->
 
                 <materialDesign:DrawerHost x:Name="NavDrawer"
-                                           Grid.Row="1"
-                                           VerticalAlignment="Stretch"
+                                           Grid.Row="1" VerticalAlignment="Stretch"
                                            LeftDrawerCloseOnClickAway="True"
                                            LeftDrawerCornerRadius="0">
 
                     <!--#region Navigation Drawer Content-->
                     <materialDesign:DrawerHost.LeftDrawerContent>
                         <ListBox x:Name="NavListBox"
-                                 Width="auto"
-                                 Margin="0,10,0,0"
+                                 Width="auto" Margin="0,10,0,0"
                                  HorizontalAlignment="Left"
                                  FontFamily="Segue UI" FontSize="14"
                                  MouseUp="NavListBox_MouseUp"
@@ -213,10 +220,10 @@
                               Margin="0,0,0,10">
                             <materialDesign:Card Height="30"
                                                  materialDesign:ElevationAssist.Elevation="Dp2">
-                                <Menu materialDesign:MenuAssist.TopLevelMenuItemHeight="28"
+                                <Menu Margin="0,1"
+                                      materialDesign:MenuAssist.TopLevelMenuItemHeight="28"
                                       FontSize="{Binding ElementName=DataGridTasks,
                                                          Path=FontSize}"
-                                      Margin="0,1"
                                       Style="{StaticResource MaterialDesignMenu}">
                                     <MenuItem Header="_File">
                                         <MenuItem x:Name="mnuSave"
@@ -224,8 +231,8 @@
                                                   Header="_Save Task List File"
                                                   InputGestureText="Ctrl + S" />
                                         <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
-                                        <MenuItem Name="mnuExit"
-                                                  Click="MnuExit_Click" Header="E_xit"
+                                        <MenuItem Name="mnuExit" Click="MnuExit_Click"
+                                                  Header="E_xit"
                                                   InputGestureText="Alt + F4" />
                                     </MenuItem>
 
@@ -342,13 +349,11 @@
                                             </DataGridTemplateColumn>
 
                                             <DataGridTextColumn Binding="{Binding TaskName}"
-                                                                MinWidth="200"
-                                                                DisplayIndex="1"
+                                                                MinWidth="200" DisplayIndex="1"
                                                                 ElementStyle="{StaticResource ColumnMargin5}"
                                                                 Header="Task Name" IsReadOnly="True" />
 
-                                            <DataGridTemplateColumn MinWidth="75"
-                                                                    CanUserSort="True"
+                                            <DataGridTemplateColumn MinWidth="75" CanUserSort="True"
                                                                     CellStyle="{StaticResource ResultCell}"
                                                                     DisplayIndex="2" Header="Result"
                                                                     IsReadOnly="True"
@@ -380,8 +385,7 @@
                                                                                      Converter={StaticResource BoolVisConverter}}" />
 
                                             <DataGridTextColumn Binding="{Binding LastRun}"
-                                                                MinWidth="90"
-                                                                DisplayIndex="4"
+                                                                MinWidth="90" DisplayIndex="4"
                                                                 ElementStyle="{StaticResource ColumnMargin5}"
                                                                 Header="Last Run" IsReadOnly="True"
                                                                 Visibility="{Binding ShowLastRunCol,
@@ -389,8 +393,7 @@
                                                                                      Converter={StaticResource BoolVisConverter}}" />
 
                                             <DataGridTextColumn Binding="{Binding TaskFolder}"
-                                                                MinWidth="50"
-                                                                DisplayIndex="5"
+                                                                MinWidth="50" DisplayIndex="5"
                                                                 ElementStyle="{StaticResource ColumnMargin5}"
                                                                 Header="Folder" IsReadOnly="True"
                                                                 Visibility="{Binding ShowFolderCol,
@@ -398,8 +401,7 @@
                                                                                      Converter={StaticResource BoolVisConverter}}" />
 
                                             <DataGridTextColumn Binding="{Binding TaskNote}"
-                                                                MinWidth="70"
-                                                                DisplayIndex="6"
+                                                                MinWidth="70" DisplayIndex="6"
                                                                 ElementStyle="{StaticResource ColumnMargin5}"
                                                                 Header="Notes"
                                                                 Visibility="{Binding ShowNoteCol,
@@ -408,12 +410,9 @@
                                                 <DataGridTextColumn.CellStyle>
                                                     <Style TargetType="DataGridCell"
                                                            BasedOn="{StaticResource MaterialDesignDataGridCell}">
-                                                        <Setter Property="Focusable"
-                                                                Value="False" />
-                                                        <Setter Property="Foreground"
-                                                                Value="{DynamicResource MaterialDesignBody}" />
-                                                        <Setter Property="IsHitTestVisible"
-                                                                Value="True" />
+                                                        <Setter Property="Focusable" Value="False" />
+                                                        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+                                                        <Setter Property="IsHitTestVisible" Value="True" />
                                                     </Style>
                                                 </DataGridTextColumn.CellStyle>
                                             </DataGridTextColumn>
@@ -469,8 +468,7 @@
                         <!--#region GridSplitter-->
                         <GridSplitter x:Name="splitter"
                                       Grid.Row="2" Grid.Column="1"
-                                      Height="3"
-                                      Margin="0,3"
+                                      Height="3" Margin="0,3"
                                       HorizontalAlignment="Stretch"
                                       Background="{DynamicResource PrimaryHueMidBrush}"
                                       DragCompleted="GridSplitter_DragCompleted"
@@ -524,33 +522,28 @@
                                         </Grid.RowDefinitions>
                                         <!--#endregion-->
                                         <TextBlock Grid.Row="1" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Name:" />
+                                                   Margin="0,2" Text="Name:" />
                                         <TextBlock Grid.Row="1" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskName,
                                                                   FallbackValue='Select a task in the grid above to view its details here'}" />
                                         <TextBlock Grid.Row="2" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Description:" />
+                                                   Margin="0,2" Text="Description:" />
                                         <TextBlock Grid.Row="2" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskDescription}" />
                                         <TextBlock Grid.Row="3" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Triggers:" />
+                                                   Margin="0,2" Text="Triggers:" />
                                         <TextBlock Grid.Row="3" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskTriggers}" />
                                         <TextBlock Grid.Row="4" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Actions:" />
+                                                   Margin="0,2" Text="Actions:" />
                                         <TextBlock Grid.Row="4" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskActions}" />
                                         <TextBlock Grid.Row="5" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Last Result:" />
+                                                   Margin="0,2" Text="Last Result:" />
                                         <TextBlock Grid.Row="5" Grid.Column="2"
                                                    Margin="0,2">
                                             <TextBlock.Text>
@@ -561,80 +554,67 @@
                                             </TextBlock.Text>
                                         </TextBlock>
                                         <TextBlock Grid.Row="6" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Last Run:" />
+                                                   Margin="0,2" Text="Last Run:" />
                                         <TextBlock Grid.Row="6" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding LastRun}" />
                                         <TextBlock Grid.Row="7" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Next Run:" />
+                                                   Margin="0,2" Text="Next Run:" />
                                         <TextBlock Grid.Row="7" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding NextRun}" />
                                         <TextBlock Grid.Row="8" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Status:" />
+                                                   Margin="0,2" Text="Status:" />
                                         <TextBlock Grid.Row="8" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskStatus}" />
                                         <TextBlock Grid.Row="9" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Enabled:" />
+                                                   Margin="0,2" Text="Enabled:" />
                                         <TextBlock Grid.Row="9" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding Enabled}" />
                                         <TextBlock Grid.Row="10" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Wake to Run:" />
+                                                   Margin="0,2" Text="Wake to Run:" />
                                         <TextBlock Grid.Row="10" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding WakeToRun}" />
                                         <TextBlock Grid.Row="11" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Priority:" />
+                                                   Margin="0,2" Text="Priority:" />
                                         <TextBlock Grid.Row="11" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding Priority}" />
                                         <TextBlock Grid.Row="12" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Start on Demand:" />
+                                                   Margin="0,2" Text="Start on Demand:" />
                                         <TextBlock Grid.Row="12" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding AllowDemandStart}" />
                                         <TextBlock Grid.Row="13" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Time Limit:" />
+                                                   Margin="0,2" Text="Time Limit:" />
                                         <TextBlock Grid.Row="13" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TimeLimit}" />
                                         <TextBlock Grid.Row="14" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Privileges:" />
+                                                   Margin="0,2" Text="Privileges:" />
                                         <TextBlock Grid.Row="14" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskRunLevel}" />
                                         <TextBlock Grid.Row="15" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Folder" />
+                                                   Margin="0,2" Text="Folder" />
                                         <TextBlock Grid.Row="15" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskFolder}" />
                                         <TextBlock Grid.Row="16" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Account:" />
+                                                   Margin="0,2" Text="Account:" />
                                         <TextBlock Grid.Row="16" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskAccount}" />
                                         <TextBlock Grid.Row="17" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Author:" />
+                                                   Margin="0,2" Text="Author:" />
                                         <TextBlock Grid.Row="17" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskAuthor}" />
                                         <TextBlock Grid.Row="18" Grid.Column="1"
-                                                   Margin="0,2"
-                                                   Text="Notes:" />
+                                                   Margin="0,2" Text="Notes:" />
                                         <TextBlock Grid.Row="18" Grid.Column="2"
                                                    Margin="0,2"
                                                    Text="{Binding TaskNote}" />

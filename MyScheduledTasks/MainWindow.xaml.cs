@@ -1268,4 +1268,9 @@ public partial class MainWindow : Window
         UserSettings.Setting.ShowDetails = !UserSettings.Setting.ShowDetails;
     }
     #endregion Toggle details
+
+    private void BtnRefresh_Click(object sender, RoutedEventArgs e)
+    {
+        RefreshData();
+    }
 }
