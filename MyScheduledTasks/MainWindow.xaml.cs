@@ -187,10 +187,10 @@ public partial class MainWindow : Window
             foreach (var task in ScheduledTask.TaskList)
             {
                 log.Debug($"{task.TaskName} result = {task.TaskResultShort}");
-                if (task.IsChecked && task.TaskResultShort == "NZ")
+                if (task.IsChecked && (task.TaskResultShort == "NZ" || task.TaskResultShort == "FNF"))
                 {
                     showMainWindow = true;
-                    log.Info($"Last result for {task.TaskName} was {task.TaskResult}, will show alert window");
+                    log.Info($"Last result for {task.TaskName} was {task.TaskResultHex}, will show window");
                 }
             }
             // If showMainWindow is false, then shut down
