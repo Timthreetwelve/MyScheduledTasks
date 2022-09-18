@@ -43,7 +43,8 @@
                     <materialDesign:ColorZone Height="33" Margin="10"
                                               Padding="0,0,0,3"
                                               materialDesign:ElevationAssist.Elevation="Dp2"
-                                              CornerRadius="4" Mode="PrimaryMid">
+                                              CornerRadius="4" Mode="PrimaryMid"
+                                              MouseDoubleClick="ColorZone_MouseDoubleClick">
                         <Grid>
                             <StackPanel Orientation="Horizontal">
                                 <ToggleButton Width="30" Height="30"
