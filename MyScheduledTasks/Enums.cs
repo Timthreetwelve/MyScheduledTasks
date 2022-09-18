@@ -22,7 +22,8 @@ internal enum ThemeType
 {
     Light = 0,
     Dark = 1,
-    System = 2
+    Darker = 2,
+    System = 3
 }
 
 /// <summary>

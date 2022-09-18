@@ -408,6 +408,9 @@ public partial class MainWindow : Window
                         UserSettings.Setting.DarkMode = (int)ThemeType.Dark;
                         break;
                     case (int)ThemeType.Dark:
+                        UserSettings.Setting.DarkMode = (int)ThemeType.Darker;
+                        break;
+                    case (int)ThemeType.Darker:
                         UserSettings.Setting.DarkMode = (int)ThemeType.System;
                         break;
                     case (int)ThemeType.System:
@@ -478,6 +481,11 @@ public partial class MainWindow : Window
     {
         string dir = AppInfo.AppDirectory;
         TextFileViewer.ViewTextFile(Path.Combine(dir, "ReadMe.txt"));
+    }
+
+    private void BtnRefresh_Click(object sender, RoutedEventArgs e)
+    {
+        RefreshData();
     }
     #endregion Buttons in the PopupBox menu
 
@@ -1268,11 +1276,6 @@ public partial class MainWindow : Window
         UserSettings.Setting.ShowDetails = !UserSettings.Setting.ShowDetails;
     }
     #endregion Toggle details
-
-    private void BtnRefresh_Click(object sender, RoutedEventArgs e)
-    {
-        RefreshData();
-    }
 
     #region Double click ColorZone
     /// <summary>

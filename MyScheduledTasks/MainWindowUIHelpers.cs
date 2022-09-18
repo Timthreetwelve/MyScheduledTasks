@@ -17,30 +17,32 @@ internal static class MainWindowUIHelpers
     /// <summary>
     /// Sets the theme
     /// </summary>
-    /// <param name="mode">Light, Dark or System</param>
+    /// <param name="mode">Light, Dark, Darker or System</param>
     internal static void SetBaseTheme(ThemeType mode)
     {
         //Retrieve the app's existing theme
         PaletteHelper paletteHelper = new();
         ITheme theme = paletteHelper.GetTheme();
 
+        if (mode == ThemeType.System)
+        {
+            mode = GetSystemTheme().Equals("light") ? ThemeType.Light : ThemeType.Dark;
+        }
+
         switch (mode)
         {
             case ThemeType.Light:
                 theme.SetBaseTheme(Theme.Light);
+                theme.Paper = Colors.WhiteSmoke;
                 break;
             case ThemeType.Dark:
                 theme.SetBaseTheme(Theme.Dark);
                 break;
-            case ThemeType.System:
-                if (GetSystemTheme().Equals("light", StringComparison.OrdinalIgnoreCase))
-                {
-                    theme.SetBaseTheme(Theme.Light);
-                }
-                else
-                {
-                    theme.SetBaseTheme(Theme.Dark);
-                }
+            case ThemeType.Darker:
+                // Set card and paper background colors a bit darker
+                theme.SetBaseTheme(Theme.Dark);
+                theme.CardBackground = (Color)ColorConverter.ConvertFromString("#FF141414");
+                theme.Paper = (Color)ColorConverter.ConvertFromString("#FF202020");
                 break;
             default:
                 theme.SetBaseTheme(Theme.Light);

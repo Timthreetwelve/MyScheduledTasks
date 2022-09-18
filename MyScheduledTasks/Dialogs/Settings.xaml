@@ -108,6 +108,7 @@
                             <ComboBox.Items>
                                 <ComboBoxItem Content="{x:Static local:ThemeType.Light}" />
                                 <ComboBoxItem Content="{x:Static local:ThemeType.Dark}" />
+                                <ComboBoxItem Content="{x:Static local:ThemeType.Darker}" />
                                 <ComboBoxItem Content="{x:Static local:ThemeType.System}" />
                             </ComboBox.Items>
                         </ComboBox>
