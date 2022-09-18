@@ -19,8 +19,6 @@ $class =
 // This file is generated during the pre-build event by GenBuildInfo.ps1.
 // Any edits to this file will be overwritten during the next build!
 
-using System;
-
 namespace $assemblyName
 {
     public static class BuildInfo

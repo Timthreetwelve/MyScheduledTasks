@@ -64,7 +64,8 @@
                                     Margin="0,-7,30,0"
                                     HorizontalAlignment="Right"
                                     Click="BtnRefresh_Click"
-                                    Style="{StaticResource MaterialDesignIconButton}">
+                                    Style="{StaticResource MaterialDesignIconButton}"
+                                    ToolTip="Refresh">
                                 <materialDesign:PackIcon Width="24" Height="24"
                                                          Margin="0"
                                                          Foreground="{Binding ElementName=PageTitle,
@@ -72,24 +73,30 @@
                                                          Kind="Refresh" />
                             </Button>
 
-                            <materialDesign:PopupBox Margin="10,4,0,0"
+                            <materialDesign:PopupBox Margin="10,4,0,0" Padding="0"
                                                      HorizontalAlignment="Right"
                                                      PlacementMode="LeftAndAlignTopEdges"
-                                                     PopupMode="Click">
-                                <Grid Width="150" Margin="0">
-                                    <StackPanel Orientation="Vertical">
-                                        <Button Click="BtnViewTasksFile_Click"
-                                                Content="View Tasks File"
-                                                Style="{StaticResource MaterialDesignFlatLightButton}" />
-                                        <Separator />
-                                        <Button Click="BtnViewLog_Click"
-                                                Content="View Log File"
-                                                Style="{StaticResource MaterialDesignFlatLightButton}" />
-                                        <Button Click="BtnReadme_Click"
-                                                Content="View ReadMe"
-                                                Style="{StaticResource MaterialDesignFlatLightButton}" />
-                                    </StackPanel>
-                                </Grid>
+                                                     PopupMode="Click" ToolTip="View Files">
+                                <Border Padding="3"
+                                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                                        BorderThickness="2">
+                                    <Grid Width="150" Margin="0">
+                                        <StackPanel Orientation="Vertical">
+                                            <Button Click="BtnViewTasksFile_Click"
+                                                    Content="View Tasks File" />
+                                            <Separator Margin="0" Padding="1"
+                                                       Background="{DynamicResource PrimaryHueMidBrush}" />
+                                            <Button Click="BtnViewLog_Click"
+                                                    Content="View Log File" />
+                                            <Button Click="BtnReadme_Click"
+                                                    Content="View ReadMe" />
+                                            <Separator Margin="0" Padding="1"
+                                                       Background="{DynamicResource PrimaryHueMidBrush}" />
+                                            <Button HorizontalContentAlignment="Left"
+                                                    Content="Cancel" FontSize="14" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
                             </materialDesign:PopupBox>
 
                         </Grid>
