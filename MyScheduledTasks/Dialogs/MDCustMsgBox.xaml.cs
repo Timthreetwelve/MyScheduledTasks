@@ -16,8 +16,17 @@ public partial class MDCustMsgBox : Window
     /// <param name="Message">Text of the message</param>
     /// <param name="Title">Text that goes in the title bar</param>
     /// <param name="Buttons">OK, OKCancel, YesNoCancel or YesNo</param>
-    /// <param name="HideClose">True to hide red close button</param>
-    public MDCustMsgBox(string Message, string Title, ButtonType Buttons, bool HideClose = false, bool OnTop = true)
+    /// <param name="HideClose">True to hide close button</param>
+    /// <param name="OnTop">True to make window topmost</param>
+    /// <param name="MsgBoxOwner">Owner of the window</param>
+    /// <param name="IsError">True will set accent color to red</param>
+    public MDCustMsgBox(string Message,
+                        string Title,
+                        ButtonType Buttons,
+                        bool HideClose = false,
+                        bool OnTop = true,
+                        Window MsgBoxOwner = null,
+                        bool IsError = false)
     {
         InitializeComponent();
 
@@ -77,16 +86,34 @@ public partial class MDCustMsgBox : Window
         #endregion Button visibility
 
         #region Window position
-        if (Application.Current.MainWindow.IsVisible)
+        if (MsgBoxOwner != null)
         {
-            Owner = GetWindow(Application.Current.MainWindow);
-            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            Owner = MsgBoxOwner;
+            if (Owner.IsVisible)
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            }
+            else
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
         }
         else
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
         #endregion Window position
+
+        #region Error message
+        if (IsError)
+        {
+            BorderBrush = System.Windows.Media.Brushes.OrangeRed;
+            BorderThickness = new Thickness(2);
+            cardHeader.Background = BorderBrush;
+            cardHeader.FontWeight = FontWeights.Bold;
+        }
+        #endregion Error message
+
     }
 
     #region Button and mouse events
@@ -104,7 +131,7 @@ public partial class MDCustMsgBox : Window
     private void Btn_Click_No(object sender, RoutedEventArgs e)
     {
         Close();
-       CustResult = CustResultType.No;
+        CustResult = CustResultType.No;
     }
 
     private void Btn_Click_Cancel(object sender, RoutedEventArgs e)

@@ -162,55 +162,56 @@ public partial class MainWindow : Window
     #region Command line arguments
     private void ProcessCommandLine()
     {
-        // If count is less that two, bail out
+        // Since this is not a console app, get the command line args
         string[] args = Environment.GetCommandLineArgs();
-        if (args.Length < 2)
-            return;
 
-        foreach (string item in args)
+        // Parser settings
+        Parser parser = new(s =>
         {
-            // If command line argument "hide" is found, execute without showing window.
-            if (string.Equals(item.Replace("-", "").Replace("/", ""), "hide", StringComparison.CurrentCultureIgnoreCase))
+            s.CaseSensitive = false;
+            s.IgnoreUnknownArguments = true;
+        });
+
+        // parses the command line. result object will hold the arguments
+        ParserResult<CmdLineOptions> result = parser.ParseArguments<CmdLineOptions>(args);
+
+        // Check options
+        if (result?.Value.Hide == true)
+        {
+            log.Debug("Argument \"hide\" specified. Scheduled tasks will be checked but window will only be shown if needed.");
+            // hide the window
+            Visibility = Visibility.Hidden;
+            bool showMainWindow = false;
+
+            // Only write so log file when the window is hidden
+            foreach (var task in ScheduledTask.TaskList)
             {
-                log.Info($"Command line argument \"{item}\" found.");
-
-                // hide the window
-                Visibility = Visibility.Hidden;
-                bool showMainWindow = false;
-
-                // Only write so log file when the window is hidden
-                foreach (var task in ScheduledTask.TaskList)
+                log.Debug($"{task.TaskName} result = {task.TaskResultShort}");
+                if (task.IsChecked && task.TaskResultShort == "NZ")
                 {
-                    log.Debug($"{task.TaskName} result = {task.TaskResultShort}");
-                    if (task.IsChecked && task.TaskResultShort == "NZ")
-                    {
-                        showMainWindow = true;
-                        log.Info($"Last result for {task.TaskName} was {task.TaskResult}, will show alert window");
-                    }
+                    showMainWindow = true;
+                    log.Info($"Last result for {task.TaskName} was {task.TaskResult}, will show alert window");
                 }
-
-                // If showMainWindow is false, then shut down
-                if (showMainWindow)
+            }
+            // If showMainWindow is false, then shut down
+            if (showMainWindow)
+            {
+                Visibility = Visibility.Visible;
+                if (UserSettings.Setting.Sound)
                 {
-                    Visibility = Visibility.Visible;
-                    if (UserSettings.Setting.Sound)
-                    {
-                        SystemSounds.Beep.Play();
-                    }
-                }
-                else
-                {
-                    log.Info("No checked scheduled tasks with a non-zero results were found.");
-                    Application.Current.Shutdown();
+                    SystemSounds.Beep.Play();
                 }
             }
             else
             {
-                if (item != args[0])
-                {
-                    log.Warn($"Unexpected command line argument  \"{item}\" found.");
-                }
+                log.Info("No checked scheduled tasks with a non-zero results were found.");
+                Application.Current.Shutdown();
             }
+        }
+        else if (result?.Value.Administrator == true)
+        {
+            log.Debug("Argument \"administrator\" specified. Restarting as administrator.");
+            RestartAsAdmin();
         }
     }
     #endregion Command line arguments
@@ -251,7 +252,7 @@ public partial class MainWindow : Window
 
             case NavPage.Restart:
                 NavDrawer.IsLeftDrawerOpen = false;
-                RestartAsAdmin();
+                QueryRestartAsAdmin();
                 break;
 
             case NavPage.Exit:
@@ -591,21 +592,34 @@ public partial class MainWindow : Window
     /// <summary>
     /// Restart as Administrator
     /// </summary>
-    private void RestartAsAdmin()
+    private static void RestartAsAdmin()
     {
-        _ = new MDCustMsgBox("Restart with Elevated Permissions?",
-                                       "RESTART?", ButtonType.YesNo).ShowDialog();
+        using Process p = new();
+        p.StartInfo.FileName = AppInfo.AppPath;
+        p.StartInfo.UseShellExecute = true;
+        p.StartInfo.Verb = "runas";
+        p.Start();
+        Application.Current.Shutdown();
+    }
+
+    /// <summary>
+    /// Confirm restart
+    /// </summary>
+    private void QueryRestartAsAdmin()
+    {
+        MDCustMsgBox mbox = new("Restart with Elevated Permissions?",
+                            "Restart as Administrator?",
+                            ButtonType.YesNo,
+                            false,
+                            true,
+                            this,
+                            false);
+        _ = mbox.ShowDialog();
 
         if (MDCustMsgBox.CustResult == CustResultType.Yes)
         {
-            log.Info($"{AppInfo.AppName} is restarting with Elevated Permissions");
-            using Process p = new();
-            p.StartInfo.FileName = AppInfo.AppPath;
-            p.StartInfo.UseShellExecute = true;
-            p.StartInfo.Verb = "runas";
-            p.Start();
-
-            Close();
+            log.Info($"{AppInfo.AppName} is restarting as Administrator");
+            RestartAsAdmin();
         }
     }
     #endregion Restart as Administrator

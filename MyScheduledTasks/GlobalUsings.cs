@@ -27,6 +27,8 @@ global using System.Windows.Input;
 global using System.Windows.Media;
 global using System.Windows.Navigation;
 
+global using CommandLine;
+
 global using MyScheduledTasks.Dialogs;
 
 global using MaterialDesignColors;
