@@ -8,8 +8,6 @@
 [![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/timthreetwelve/MyScheduledTasks/latest?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
 [![GitHub last commit](https://img.shields.io/github/last-commit/timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
 
-
-
 MyScheduledTasks is an application that lets you keep track of the tasks in Windows Task Scheduler that
 you care about.
 
@@ -37,3 +35,5 @@ you care about.
 
 * Easily adjust zoom level of the data grid.
 
+#### Screenshot
+![Screenshot](/Images/MyScheduledTasks.png)
