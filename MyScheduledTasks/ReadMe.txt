@@ -30,7 +30,16 @@ last scheduled run.
 The next column is the task name as seen in Windows Task Scheduler.
 
 The next column shows the last result. It shows "OK" is the last result was zero or "NZ" in red for a
-non-zero result.
+non-zero result. Other possible results are:
+
+    RDY - Task is ready to run at its next scheduled time
+    RUN - The task is currently running
+    DIS - The task has been disabled
+    NYR - The task has not yet run
+    NMR - There are no more runs scheduled for this task
+    TRM - The last run of the task was terminated by the user
+    AR  - An instance of this task is already running
+    FNF - File not found
 
 The next column shows the status of the task. If the task is currently running, the text will be green.
 If the task is disabled, the text will be gray.
@@ -47,9 +56,7 @@ them in the Settings dialog.
 
 Additional Details
 ==================
-For additional details on any task, simply double-click the corresponding row to show an expanded
-view. To collapse the details, double-click again. If you have expanded several rows, you can collapse
-all of them by selecting Collapse All from the View menu.
+For additional details on any task, select Toggle Details Pane or press CTRL+D to show the details pane.
 
 
 Removing Tasks
@@ -111,19 +118,53 @@ task on the context (right-click) menu.
 Automating MyScheduledTasks
 ===========================
 You can run MyScheduledTasks on a regular schedule by adding a task to Windows Task Scheduler,
-specifying the path to the MyScheduledTasks executable in the Program field and /hide in the
-Arguments field.
+specifying the path to the MyScheduledTasks executable in the Program field and "-h" or "--hide"
+in the Arguments field.
 
 For your convenience, there is a menu selection to start Windows Task Scheduler on the Tasks menu
 and an option on the Help/Debug menu to copy the executable path to the clipboard.
 
 When set up this way, MyScheduledTasks will only show an alert window if there is a task that has a
-check in the Alert column and the last result was non-zero. Otherwise, it will shut down without
-showing any windows.
+check in the Alert column and the last result was non-zero or file not found. Otherwise, it will
+shut down without showing any windows.
 
 If you choose to add MyScheduledTasks to Windows Task Scheduler, don't check the Alert checkbox
 next to MyScheduledTasks. If you do, it will always show an alert window because tasks always have
 a non-zero result while they are running.
+
+
+Command Line Options
+====================
+There are command line options that determine how Path Tools starts. Specifying "-h" or "--hide" was
+discussed in the previous paragraph. Specifying "-a" or "--administrator" will start MyScheduledTasks
+as administrator.
+
+Don't use the quote characters. They are used in the previous paragraphs for clarity. These options
+work regardless of case, however the dash "-" character must be used. The slash "/" character will not work.
+
+
+Keys
+====
+These keyboard shortcuts are available in the main window:
+
+	Ctrl + Comma = Shows the Settings dialog.
+	Ctrl + D = Toggles the details pane.
+	Ctrl + N = Opens the Add Tasks dialog.
+	Ctrl + R = Resets column sort.
+	Ctrl + S = Saves the Task List file.
+	Ctrl + Numpad Plus = Increases size.
+	Ctrl + Numpad Minus = Decreases size.
+	Ctrl + Shift + M = Changes the theme.
+	Ctrl + Shift + P = Changes the primary accent color.
+    Delete = Removes the selected task(s).
+	Escape = Clears the selection.
+	F1 = Shows the About dialog.
+	F5 = Refreshes the displayed items.
+
+
+Known Issues
+============
+There are no known issues at the time this document was written.
 
 
 Uninstalling MyScheduledTasks
@@ -144,6 +185,8 @@ MyScheduledTasks uses the following icons & packages:
 • NLog https://nlog-project.org/
 
 • GongSolutions.WPF.DragDrop https://github.com/punker76/gong-wpf-dragdrop
+
+• Command Line Parser https://github.com/commandlineparser/commandline
 
 • Inno Setup was used to create the installer. https://jrsoftware.org/isinfo.php
 
