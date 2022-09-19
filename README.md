@@ -1,8 +1,14 @@
 ## MyScheduledTasks
 
 [![GitHub](https://img.shields.io/github/license/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/LICENSE)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest) 
-[![GitHub all releases](https://img.shields.io/github/downloads/Timthreetwelve/MyScheduledTasks/total?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases) 
+[![NET6win](https://img.shields.io/badge/.NET-6.0--Windows-blueviolet?style=plastic)](https://dotnet.microsoft.com/en-us/download)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
+[![GitHub Release Date](https://img.shields.io/github/release-date/timthreetwelve/MyScheduledTasks?style=plastic&color=orange)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
+[![GitHub all releases](https://img.shields.io/github/downloads/Timthreetwelve/MyScheduledTasks/total?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases)
+[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/timthreetwelve/MyScheduledTasks/latest?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
+[![GitHub last commit](https://img.shields.io/github/last-commit/timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
+
+
 
 MyScheduledTasks is an application that lets you keep track of the tasks in Windows Task Scheduler that
 you care about.
@@ -31,8 +37,3 @@ you care about.
 
 * Easily adjust zoom level of the data grid.
 
-👉  MyScheduledTasks requires .Net Framework 4.8
-
-<br/>
-
-![MyScheduledTasks screenshot](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/Images/MyScheduledTasks.png?raw=true)
