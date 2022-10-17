@@ -36,7 +36,7 @@
             Grid.ColumnSpan="2"
             Height="45"
             Padding="10,5,5,5"
-            materialDesign:ShadowAssist.ShadowDepth="Depth3"
+            materialDesign:ElevationAssist.Elevation="Dp2"
             Background="{DynamicResource PrimaryHueMidBrush}"
             Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
             MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"
