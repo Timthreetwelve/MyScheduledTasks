@@ -2,653 +2,210 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-        xmlns:local="clr-namespace:MyScheduledTasks"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:set="clr-namespace:MyScheduledTasks"
-        mc:Ignorable="d" Title="MainWindow"
-        MinWidth="300" MinHeight="300"
-        d:DataContext="{d:DesignInstance Type=local:MyTasks}"
+        mc:Ignorable="d"
+        xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
+        xmlns:convert="clr-namespace:MyScheduledTasks.Converters"
+        xmlns:helpers="clr-namespace:MyScheduledTasks.Helpers"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
+        Title="{x:Static helpers:AppInfo.AppName}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Closing="Window_Closing"
-        ContentRendered="Window_ContentRendered"
-        PreviewKeyDown="Window_PreviewKeydown"
-        PreviewMouseWheel="Window_MouseWheel"
+        FontFamily="Segoe UI"
+        FontSize="12"
         Style="{StaticResource MaterialDesignWindow}"
-        TextElement.FontSize="14"
+        TextElement.FontWeight="Regular"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        UseLayoutRounding="True">
+        Topmost="{Binding KeepOnTop,
+                          Source={x:Static config:UserSettings.Setting}}">
 
+
+    <!--#region Window resources-->
+    <Window.DataContext>
+        <viewmodels:NavigationViewModel />
+    </Window.DataContext>
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolVisConverter" />
+        <config:UserSettings x:Key="config" />
+        <convert:SelectedItemConverter x:Key="SelItemConv" />
     </Window.Resources>
+    <!--#endregion-->
 
-    <Grid>
-        <materialDesign:DialogHost x:Name="MainDH"
-                                   CloseOnClickAway="False"
-                                   DialogTheme="Inherit"
-                                   Identifier="MainDialogHost">
+    <!--#region Interaction Triggers-->
+    <bh:Interaction.Triggers>
+        <bh:EventTrigger EventName="KeyDown">
+            <bh:InvokeCommandAction Command="{Binding KeyDownCommand}"
+                                    PassEventArgsToCommand="True" />
+        </bh:EventTrigger>
+    </bh:Interaction.Triggers>
+    <!--#endregion-->
 
-            <Grid x:Name="OuterGrid">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+    <materialDesign:DialogHost CloseOnClickAway="False"
+                               DialogTheme="Inherit"
+                               Identifier="MainDialogHost">
 
-                <!--#region ColorZone-->
-                <DockPanel Grid.Row="0" LastChildFill="True">
-                    <materialDesign:ColorZone Height="33" Margin="10"
-                                              Padding="0,0,0,3"
-                                              materialDesign:ElevationAssist.Elevation="Dp2"
-                                              CornerRadius="4" Mode="PrimaryMid"
-                                              MouseDoubleClick="ColorZone_MouseDoubleClick">
-                        <Grid>
-                            <StackPanel Orientation="Horizontal">
-                                <ToggleButton Width="30" Height="30"
-                                              Margin="5,2"
-                                              IsChecked="{Binding IsLeftDrawerOpen,
-                                                                  ElementName=NavDrawer}"
-                                              Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
-                                              ToolTip="Click to navigate" />
-                                <TextBlock x:Name="PageTitle"
-                                           Margin="6,0,0,0"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center" FontSize="20"
-                                           FontWeight="DemiBold"
-                                           Text="My Scheduled Tasks" />
-                            </StackPanel>
+        <Grid x:Name="MainGrid">
+            <!--#region Row definitions-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <!--#endregion-->
 
-                            <Button x:Name="BtnRefresh"
-                                    Margin="0,-7,30,0"
-                                    HorizontalAlignment="Right"
-                                    Click="BtnRefresh_Click"
-                                    Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="Refresh">
-                                <materialDesign:PackIcon Width="24" Height="24"
-                                                         Margin="0"
-                                                         Foreground="{Binding ElementName=PageTitle,
-                                                                              Path=Foreground}"
-                                                         Kind="Refresh" />
-                            </Button>
-
-                            <materialDesign:PopupBox Margin="10,4,0,0" Padding="0"
-                                                     HorizontalAlignment="Right"
-                                                     PlacementMode="LeftAndAlignTopEdges"
-                                                     PopupMode="Click" ToolTip="View Files">
-                                <Border Padding="3"
-                                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                                        BorderThickness="2">
-                                    <Grid Width="150" Margin="0">
-                                        <StackPanel Orientation="Vertical">
-                                            <Button Click="BtnViewTasksFile_Click"
-                                                    Content="View Tasks File" />
-                                            <Separator Margin="0" Padding="1"
-                                                       Background="{DynamicResource PrimaryHueMidBrush}" />
-                                            <Button Click="BtnViewLog_Click"
-                                                    Content="View Log File" />
-                                            <Button Click="BtnReadme_Click"
-                                                    Content="View ReadMe" />
-                                            <Separator Margin="0" Padding="1"
-                                                       Background="{DynamicResource PrimaryHueMidBrush}" />
-                                            <Button HorizontalContentAlignment="Left"
-                                                    Content="Cancel" FontSize="14" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </materialDesign:PopupBox>
-
-                        </Grid>
-                    </materialDesign:ColorZone>
-                </DockPanel>
+            <!--#region Title Row-->
+            <Grid Grid.Column="1"
+                  Grid.ColumnSpan="2">
+                <!--#region Column definitions for the title row-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
                 <!--#endregion-->
 
-                <materialDesign:DrawerHost x:Name="NavDrawer"
-                                           Grid.Row="1" VerticalAlignment="Stretch"
-                                           LeftDrawerCloseOnClickAway="True"
-                                           LeftDrawerCornerRadius="0">
+                <!--#region Page title label-->
+                <Label x:Name="PageTitle"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Margin="10,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Content="{Binding PageTitle}"
+                       FontSize="22"
+                       FontWeight="SemiBold" />
+                <!--#endregion-->
 
-                    <!--#region Navigation Drawer Content-->
-                    <materialDesign:DrawerHost.LeftDrawerContent>
-                        <ListBox x:Name="NavListBox"
-                                 Width="auto" Margin="0,10,0,0"
-                                 HorizontalAlignment="Left"
-                                 FontFamily="Segue UI" FontSize="14"
-                                 MouseUp="NavListBox_MouseUp"
-                                 SelectionChanged="NavListBox_SelectionChanged"
-                                 Style="{StaticResource MaterialDesignNavigationPrimaryListBox}">
+                <!--#region SnackBar-->
+                <materialDesign:Snackbar x:Name="SnackBar1"
+                                         Grid.Row="0"
+                                         Grid.Column="1"
+                                         Grid.ColumnSpan="2"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Top"
+                                         Background="{DynamicResource MaterialDesignPaper}"
+                                         Foreground="{DynamicResource MaterialDesignBody}"
+                                         IsTabStop="False"
+                                         MessageQueue="{materialDesign:MessageQueue}" />
+                <!--#endregion-->
 
-                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
-                                <ListBoxItem.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Width="24" Height="24"
-                                                                 VerticalAlignment="Center"
-                                                                 Kind="EyeOutline" />
-                                        <TextBlock Margin="10,0" VerticalAlignment="Center"
-                                                   Text="View Tasks" />
-                                    </StackPanel>
-                                </ListBoxItem.Content>
-                            </ListBoxItem>
-
-                            <Separator Margin="0"
-                                       Background="{DynamicResource PrimaryHueMidBrush}" />
-                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
-                                <ListBoxItem.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Width="24" Height="24"
-                                                                 VerticalAlignment="Center"
-                                                                 Kind="GearOutline" />
-                                        <TextBlock Margin="10,0" VerticalAlignment="Center"
-                                                   Text="Settings" />
-                                    </StackPanel>
-                                </ListBoxItem.Content>
-                            </ListBoxItem>
-                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
-                                <ListBoxItem.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Width="24" Height="24"
-                                                                 VerticalAlignment="Center"
-                                                                 Kind="AboutOutline" />
-                                        <TextBlock Margin="10,0" VerticalAlignment="Center"
-                                                   Text="About" />
-                                    </StackPanel>
-                                </ListBoxItem.Content>
-                            </ListBoxItem>
-
-                            <Separator Margin="0"
-                                       Background="{DynamicResource PrimaryHueMidBrush}" />
-                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
-                                <ListBoxItem.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Width="24" Height="24"
-                                                                 VerticalAlignment="Center"
-                                                                 Kind="ClockOutline" />
-                                        <TextBlock Margin="10,0" VerticalAlignment="Center"
-                                                   Text="Open Task Scheduler" />
-                                    </StackPanel>
-                                </ListBoxItem.Content>
-                            </ListBoxItem>
-                            <Separator Margin="0"
-                                       Background="{DynamicResource PrimaryHueMidBrush}" />
-                            <ListBoxItem x:Name="mnuRestart"
-                                         Style="{StaticResource NavPaneListBoxItem}">
-                                <ListBoxItem.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Width="24" Height="24"
-                                                                 VerticalAlignment="Center"
-                                                                 Kind="RestartAlert" />
-                                        <TextBlock Margin="10,0" VerticalAlignment="Center"
-                                                   Text="Restart as Admin" />
-                                    </StackPanel>
-                                </ListBoxItem.Content>
-                            </ListBoxItem>
-                            <ListBoxItem Style="{StaticResource NavPaneListBoxItem}">
-                                <ListBoxItem.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Width="24" Height="24"
-                                                                 VerticalAlignment="Center"
-                                                                 Kind="ExitRun" />
-                                        <TextBlock Margin="10,0" VerticalAlignment="Center"
-                                                   Text="Exit" />
-                                    </StackPanel>
-                                </ListBoxItem.Content>
-                            </ListBoxItem>
-                            <ListBox.Resources>
-                                <Style TargetType="ScrollBar"
-                                       BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" />
-                            </ListBox.Resources>
-                        </ListBox>
-                    </materialDesign:DrawerHost.LeftDrawerContent>
-                    <!--#endregion-->
-
-                    <Grid>
-                        <!--#region Row & Column Definitions-->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition x:Name="dgRow"
-                                           Height="*" MinHeight="60" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition x:Name="detailsRow"
-                                           Height="{Binding DetailsHeight,
-                                                            Source={x:Static local:UserSettings.Setting}}"
-                                           MaxHeight="400" />
-                            <RowDefinition Height="35" />
-                        </Grid.RowDefinitions>
-                        <!--#endregion-->
-
-                        <!--#region Menu in Card-->
-                        <Grid Grid.Row="0" Grid.Column="1"
-                              Margin="0,0,0,10">
-                            <materialDesign:Card Height="30"
-                                                 materialDesign:ElevationAssist.Elevation="Dp2">
-                                <Menu Margin="0,1"
-                                      materialDesign:MenuAssist.TopLevelMenuItemHeight="28"
-                                      FontSize="{Binding ElementName=DataGridTasks,
-                                                         Path=FontSize}"
-                                      Style="{StaticResource MaterialDesignMenu}">
-                                    <MenuItem Header="_File">
-                                        <MenuItem x:Name="mnuSave"
-                                                  Click="Save_Click"
-                                                  Header="_Save Task List File"
-                                                  InputGestureText="Ctrl + S" />
-                                        <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
-                                        <MenuItem Name="mnuExit" Click="MnuExit_Click"
-                                                  Header="E_xit"
-                                                  InputGestureText="Alt + F4" />
-                                    </MenuItem>
-
-                                    <MenuItem Header="_Tasks"
-                                              SubmenuOpened="MenuOpened">
-                                        <MenuItem x:Name="mnuAdd"
-                                                  Click="Add_Click" Header="_Add Tasks"
-                                                  InputGestureText="Ctrl + N" />
-                                        <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
-                                        <MenuItem x:Name="mnuRemove"
-                                                  Click="Remove_Click"
-                                                  Header="_Remove Selected"
-                                                  InputGestureText="Delete" />
-                                        <MenuItem x:Name="mnuExport"
-                                                  Click="MnuExport_Click"
-                                                  Header="_Export Selected"
-                                                  InputGestureText="Ctrl + E" />
-                                        <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
-                                        <MenuItem x:Name="mnuEnable"
-                                                  Click="EnableTask_Click"
-                                                  Header="Enable Selected" />
-                                        <MenuItem x:Name="mnuDisable"
-                                                  Click="DisableTask_Click"
-                                                  Header="Disable Selected" />
-                                        <MenuItem x:Name="mnuRunTask"
-                                                  Click="MnuRunTask_Click"
-                                                  Header="Run Selected" />
-                                    </MenuItem>
-
-                                    <MenuItem Header="_View"
-                                              SubmenuOpened="MenuOpened">
-                                        <MenuItem x:Name="mnuLarger"
-                                                  Click="MnuLarger_Click"
-                                                  Header="UI Larger"
-                                                  InputGestureText="Ctrl + Numpad Plus" />
-                                        <MenuItem x:Name="mnuSmaller"
-                                                  Click="MnuSmaller_Click"
-                                                  Header="UI Smaller"
-                                                  InputGestureText="Ctrl + Numpad Minus" />
-                                        <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
-                                        <MenuItem x:Name="mnuRefresh"
-                                                  Click="Refresh_Click" Header="_Refresh"
-                                                  InputGestureText="F5" />
-                                        <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
-                                        <MenuItem Click="ToggleDetails_Click"
-                                                  Header="_Toggle Details Pane"
-                                                  InputGestureText="Ctrl + D" />
-                                        <Separator Background="{DynamicResource PrimaryHueMidBrush}" />
-                                        <MenuItem Click="ResetCols_Click"
-                                                  Header="Reset Column _Sort"
-                                                  InputGestureText="Ctrl + R" />
-                                    </MenuItem>
-                                    <MenuItem Header="Help">
-                                        <MenuItem Click="OpenAbout_Click" Header="About"
-                                                  InputGestureText="F1" />
-                                        <MenuItem Click="OpenReadme_Click"
-                                                  Header="Open ReadMe" />
-                                    </MenuItem>
-                                </Menu>
-                            </materialDesign:Card>
-                        </Grid>
-                        <!--#endregion-->
-
-                        <!--#region Datagrid & Snackbar-->
-                        <Grid Grid.Row="1" Grid.Column="1">
-                            <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2">
-                                <Grid>
-                                    <DataGrid x:Name="DataGridTasks"
-                                              d:ItemsSource="{d:SampleData ItemCount=5}"
-                                              dd:DragDrop.DropTargetAdornerBrush="{DynamicResource PrimaryHueDarkBrush}"
-                                              dd:DragDrop.IsDragSource="True"
-                                              dd:DragDrop.IsDropTarget="True"
-                                              dd:DragDrop.UseDefaultDragAdorner="False"
-                                              materialDesign:ThemeAssist.Theme="Inherit"
-                                              AutoGenerateColumns="False"
-                                              CanUserAddRows="False"
-                                              CanUserDeleteRows="False"
-                                              CellStyle="{StaticResource notFocusable}"
-                                              Drop="DataGridTasks_Drop"
-                                              FontFamily="Segoe UI" FontSize="14"
-                                              HeadersVisibility="Column"
-                                              IsReadOnly="False"
-                                              ItemsSource="{Binding TaskList}"
-                                              ScrollViewer.CanContentScroll="False"
-                                              SelectionChanged="DataGridTasks_SelectionChanged"
-                                              Sorting="DataGridTasks_Sorting">
-
-                                        <!--#region Datagrid styles-->
-                                        <DataGrid.Resources>
-                                            <Style TargetType="ScrollBar"
-                                                   BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" />
-                                        </DataGrid.Resources>
-                                        <!--#endregion-->
-
-                                        <!--#region Datagrid Columns-->
-                                        <DataGrid.Columns>
-                                            <DataGridTemplateColumn CanUserSort="True" DisplayIndex="0"
-                                                                    Header="&#x26A0;"
-                                                                    HeaderStyle="{StaticResource headerCenter}"
-                                                                    SortMemberPath="IsChecked"
-                                                                    Visibility="{Binding ShowAlertCol,
-                                                                                         Source={x:Static set:UserSettings.Setting},
-                                                                                         Converter={StaticResource BoolVisConverter}}">
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <CheckBox Margin="1,0,0,0"
-                                                                  HorizontalAlignment="Center"
-                                                                  VerticalAlignment="Center"
-                                                                  IsChecked="{Binding IsChecked,
-                                                                                      UpdateSourceTrigger=PropertyChanged}" />
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-
-                                            </DataGridTemplateColumn>
-
-                                            <DataGridTextColumn Binding="{Binding TaskName}"
-                                                                MinWidth="200" DisplayIndex="1"
-                                                                ElementStyle="{StaticResource ColumnMargin5}"
-                                                                Header="Task Name" IsReadOnly="True" />
-
-                                            <DataGridTemplateColumn MinWidth="75" CanUserSort="True"
-                                                                    CellStyle="{StaticResource ResultCell}"
-                                                                    DisplayIndex="2" Header="Result"
-                                                                    IsReadOnly="True"
-                                                                    SortMemberPath="TaskResultShort"
-                                                                    Visibility="{Binding ShowResultCol,
-                                                                                         Source={x:Static set:UserSettings.Setting},
-                                                                                         Converter={StaticResource BoolVisConverter}}">
-                                                <DataGridTemplateColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding TaskResultShort}">
-                                                            <TextBlock.ToolTip>
-                                                                <ToolTip Placement="Left">
-                                                                    <TextBlock Text="{Binding TaskResultHex, StringFormat='Result: {0}'}" />
-                                                                </ToolTip>
-                                                            </TextBlock.ToolTip>
-                                                        </TextBlock>
-                                                    </DataTemplate>
-                                                </DataGridTemplateColumn.CellTemplate>
-                                            </DataGridTemplateColumn>
-
-                                            <DataGridTextColumn Binding="{Binding TaskStatus}"
-                                                                MinWidth="75"
-                                                                CellStyle="{StaticResource StatusCell}"
-                                                                DisplayIndex="3"
-                                                                ElementStyle="{StaticResource ColumnMargin5}"
-                                                                Header="Status" IsReadOnly="True"
-                                                                Visibility="{Binding ShowStatusCol,
-                                                                                     Source={x:Static set:UserSettings.Setting},
-                                                                                     Converter={StaticResource BoolVisConverter}}" />
-
-                                            <DataGridTextColumn Binding="{Binding LastRun}"
-                                                                MinWidth="90" DisplayIndex="4"
-                                                                ElementStyle="{StaticResource ColumnMargin5}"
-                                                                Header="Last Run" IsReadOnly="True"
-                                                                Visibility="{Binding ShowLastRunCol,
-                                                                                     Source={x:Static set:UserSettings.Setting},
-                                                                                     Converter={StaticResource BoolVisConverter}}" />
-
-                                            <DataGridTextColumn Binding="{Binding TaskFolder}"
-                                                                MinWidth="50" DisplayIndex="5"
-                                                                ElementStyle="{StaticResource ColumnMargin5}"
-                                                                Header="Folder" IsReadOnly="True"
-                                                                Visibility="{Binding ShowFolderCol,
-                                                                                     Source={x:Static set:UserSettings.Setting},
-                                                                                     Converter={StaticResource BoolVisConverter}}" />
-
-                                            <DataGridTextColumn Binding="{Binding TaskNote}"
-                                                                MinWidth="70" DisplayIndex="6"
-                                                                ElementStyle="{StaticResource ColumnMargin5}"
-                                                                Header="Notes"
-                                                                Visibility="{Binding ShowNoteCol,
-                                                                                     Source={x:Static set:UserSettings.Setting},
-                                                                                     Converter={StaticResource BoolVisConverter}}">
-                                                <DataGridTextColumn.CellStyle>
-                                                    <Style TargetType="DataGridCell"
-                                                           BasedOn="{StaticResource MaterialDesignDataGridCell}">
-                                                        <Setter Property="Focusable" Value="False" />
-                                                        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-                                                        <Setter Property="IsHitTestVisible" Value="True" />
-                                                    </Style>
-                                                </DataGridTextColumn.CellStyle>
-                                            </DataGridTextColumn>
-                                        </DataGrid.Columns>
-                                        <!--#endregion-->
-
-                                        <!--#region Datagrid context menu-->
-                                        <DataGrid.ContextMenu>
-                                            <ContextMenu Background="{DynamicResource MaterialDesignPaper}"
-                                                         Opened="MenuOpened">
-                                                <MenuItem x:Name="ctxEditNote"
-                                                          Click="Note_Click"
-                                                          Header="Edit Task Note" />
-                                                <Separator />
-                                                <MenuItem x:Name="ctxAdd"
-                                                          Click="Add_Click" Header="Add Tasks" />
-                                                <MenuItem x:Name="ctxRemove"
-                                                          Click="Remove_Click"
-                                                          Header="Remove Selected" />
-                                                <Separator />
-                                                <MenuItem x:Name="ctxExport"
-                                                          Click="MnuExport_Click"
-                                                          Header="Export Selected" />
-                                                <Separator />
-                                                <MenuItem x:Name="ctxEnable"
-                                                          Click="EnableTask_Click"
-                                                          Header="Enable Selected" />
-                                                <MenuItem x:Name="ctxDisable"
-                                                          Click="DisableTask_Click"
-                                                          Header="Disable Selected" />
-                                                <MenuItem Name="ctxRunTask"
-                                                          Click="MnuRunTask_Click"
-                                                          Header="Run Selected" />
-                                            </ContextMenu>
-                                        </DataGrid.ContextMenu>
-                                        <!--#endregion-->
-
-                                    </DataGrid>
-
-                                    <!--#region SnackBar-->
-                                    <materialDesign:Snackbar x:Name="SnackBar1"
-                                                             Grid.Row="1"
-                                                             HorizontalAlignment="Center"
-                                                             VerticalAlignment="Bottom"
-                                                             Background="Gray" Foreground="White"
-                                                             MessageQueue="{materialDesign:MessageQueue}" />
-                                    <!--#endregion-->
-                                </Grid>
-                            </materialDesign:Card>
-                        </Grid>
-                        <!--#endregion-->
-
-                        <!--#region GridSplitter-->
-                        <GridSplitter x:Name="splitter"
-                                      Grid.Row="2" Grid.Column="1"
-                                      Height="3" Margin="0,3"
-                                      HorizontalAlignment="Stretch"
-                                      Background="{DynamicResource PrimaryHueMidBrush}"
-                                      DragCompleted="GridSplitter_DragCompleted"
-                                      IsTabStop="False"
-                                      ResizeBehavior="BasedOnAlignment"
-                                      Style="{DynamicResource MaterialDesignGridSplitter}" />
-                        <!--#endregion-->
-
-                        <!--#region Details area-->
-                        <Grid x:Name="bottomGrid"
-                              Grid.Row="3" Grid.Column="1">
-                            <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2">
-                                <ScrollViewer x:Name="scvDetails"
-                                              VerticalAlignment="Top"
-                                              DataContext="{Binding SelectedItem,
-                                                                    ElementName=DataGridTasks}"
-                                              HorizontalScrollBarVisibility="Auto"
-                                              VerticalScrollBarVisibility="Auto">
-                                    <ScrollViewer.Resources>
-                                        <Style TargetType="ScrollBar"
-                                               BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" />
-                                    </ScrollViewer.Resources>
-                                    <Grid>
-                                        <!--#region Column and Row definitions-->
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="19" />
-                                            <ColumnDefinition Width="120" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="10" />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition Height="10" />
-                                        </Grid.RowDefinitions>
-                                        <!--#endregion-->
-                                        <TextBlock Grid.Row="1" Grid.Column="1"
-                                                   Margin="0,2" Text="Name:" />
-                                        <TextBlock Grid.Row="1" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskName,
-                                                                  FallbackValue='Select a task in the grid above to view its details here'}" />
-                                        <TextBlock Grid.Row="2" Grid.Column="1"
-                                                   Margin="0,2" Text="Description:" />
-                                        <TextBlock Grid.Row="2" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskDescription}" />
-                                        <TextBlock Grid.Row="3" Grid.Column="1"
-                                                   Margin="0,2" Text="Triggers:" />
-                                        <TextBlock Grid.Row="3" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskTriggers}" />
-                                        <TextBlock Grid.Row="4" Grid.Column="1"
-                                                   Margin="0,2" Text="Actions:" />
-                                        <TextBlock Grid.Row="4" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskActions}" />
-                                        <TextBlock Grid.Row="5" Grid.Column="1"
-                                                   Margin="0,2" Text="Last Result:" />
-                                        <TextBlock Grid.Row="5" Grid.Column="2"
-                                                   Margin="0,2">
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0} = {1}">
-                                                    <Binding Path="TaskResult" />
-                                                    <Binding Path="TaskResultHex" />
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                        <TextBlock Grid.Row="6" Grid.Column="1"
-                                                   Margin="0,2" Text="Last Run:" />
-                                        <TextBlock Grid.Row="6" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding LastRun}" />
-                                        <TextBlock Grid.Row="7" Grid.Column="1"
-                                                   Margin="0,2" Text="Next Run:" />
-                                        <TextBlock Grid.Row="7" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding NextRun}" />
-                                        <TextBlock Grid.Row="8" Grid.Column="1"
-                                                   Margin="0,2" Text="Status:" />
-                                        <TextBlock Grid.Row="8" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskStatus}" />
-                                        <TextBlock Grid.Row="9" Grid.Column="1"
-                                                   Margin="0,2" Text="Enabled:" />
-                                        <TextBlock Grid.Row="9" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding Enabled}" />
-                                        <TextBlock Grid.Row="10" Grid.Column="1"
-                                                   Margin="0,2" Text="Wake to Run:" />
-                                        <TextBlock Grid.Row="10" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding WakeToRun}" />
-                                        <TextBlock Grid.Row="11" Grid.Column="1"
-                                                   Margin="0,2" Text="Priority:" />
-                                        <TextBlock Grid.Row="11" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding Priority}" />
-                                        <TextBlock Grid.Row="12" Grid.Column="1"
-                                                   Margin="0,2" Text="Start on Demand:" />
-                                        <TextBlock Grid.Row="12" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding AllowDemandStart}" />
-                                        <TextBlock Grid.Row="13" Grid.Column="1"
-                                                   Margin="0,2" Text="Time Limit:" />
-                                        <TextBlock Grid.Row="13" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TimeLimit}" />
-                                        <TextBlock Grid.Row="14" Grid.Column="1"
-                                                   Margin="0,2" Text="Privileges:" />
-                                        <TextBlock Grid.Row="14" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskRunLevel}" />
-                                        <TextBlock Grid.Row="15" Grid.Column="1"
-                                                   Margin="0,2" Text="Folder" />
-                                        <TextBlock Grid.Row="15" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskFolder}" />
-                                        <TextBlock Grid.Row="16" Grid.Column="1"
-                                                   Margin="0,2" Text="Account:" />
-                                        <TextBlock Grid.Row="16" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskAccount}" />
-                                        <TextBlock Grid.Row="17" Grid.Column="1"
-                                                   Margin="0,2" Text="Author:" />
-                                        <TextBlock Grid.Row="17" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskAuthor}" />
-                                        <TextBlock Grid.Row="18" Grid.Column="1"
-                                                   Margin="0,2" Text="Notes:" />
-                                        <TextBlock Grid.Row="18" Grid.Column="2"
-                                                   Margin="0,2"
-                                                   Text="{Binding TaskNote}" />
-                                    </Grid>
-                                </ScrollViewer>
-                            </materialDesign:Card>
-                        </Grid>
-                        <!--#endregion-->
-
-                        <!--#region StatusBar-->
-                        <StatusBar Grid.Row="4" Grid.Column="1"
-                                   Margin="0,5" Padding="10,0"
-                                   Background="{DynamicResource MaterialDesignPaper}"
-                                   Foreground="{DynamicResource MaterialDesignBody}">
-                            <StatusBarItem x:Name="sbLeft"
-                                           ContentStringFormat="{}{0} Tasks" />
-                            <StatusBarItem x:Name="sbSelected"
-                                           Margin="5,0" />
-                            <StatusBarItem x:Name="sbRight"
-                                           HorizontalAlignment="Right" />
-                        </StatusBar>
-                        <!--#endregion-->
-
-                    </Grid>
-                </materialDesign:DrawerHost>
+                <!--#region Button with pop-up box-->
+                <Button Grid.Column="3"
+                        Width="45"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource MaterialDesignBody}"
+                        IsDefault="False"
+                        IsTabStop="False"
+                        KeyboardNavigation.TabNavigation="None"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                    <materialDesign:PopupBox Padding="0"
+                                             HorizontalAlignment="Right"
+                                             Focusable="False"
+                                             PlacementMode="LeftAndAlignTopEdges"
+                                             Style="{DynamicResource MaterialDesignPopupBox}"
+                                             ToolTip="{DynamicResource Button_ThreeDotToolTip}">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Width="45"
+                                                     Height="28"
+                                                     Foreground="{Binding ElementName=PageTitle,
+                                                                          Path=Foreground}"
+                                                     Kind="DotsHorizontal" />
+                        </materialDesign:PopupBox.ToggleContent>
+                        <Border Padding="3"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="2">
+                            <Grid Width="auto">
+                                <StackPanel Orientation="Vertical">
+                                    <Button Height="35"
+                                            Padding="15,1,15,22"
+                                            Command="{Binding ViewLogFileCommand}"
+                                            Content="{DynamicResource Button_OpenLogFile}"
+                                            ToolTip="{DynamicResource Button_OpenLogFileToolTip}" />
+                                    <Button Height="35"
+                                            Padding="15,1,15,22"
+                                            Command="{Binding ViewReadMeFileCommand}"
+                                            Content="{DynamicResource About_DocumentationText}"
+                                            ToolTip="{DynamicResource About_DocumentationToolTip}" />
+                                    <Separator Margin="0"
+                                               Padding="1"
+                                               Background="{DynamicResource MaterialDesignDivider}" />
+                                    <Button Height="35"
+                                            Padding="15,1,15,22"
+                                            Content="{DynamicResource Button_Close}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </materialDesign:PopupBox>
+                </Button>
+                <!--#endregion-->
             </Grid>
-        </materialDesign:DialogHost>
-    </Grid>
+            <!--#endregion-->
+
+            <!--#region Navigation Listbox-->
+            <ListBox x:Name="NavigationListBox"
+                     Grid.Row="0"
+                     Grid.RowSpan="2"
+                     Grid.Column="0"
+                     MinWidth="160"
+                     Margin="5,5,5,0"
+                     HorizontalContentAlignment="Stretch"
+                     ItemsSource="{Binding NavigationViewModelTypes,
+                                           Mode=TwoWay}"
+                     SelectedIndex="0"
+                     Style="{StaticResource MaterialDesignNavigationListBox}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Style="{StaticResource NavItemIndicator}" />
+                            <materialDesign:PackIcon Width="auto"
+                                                     Height="auto"
+                                                     VerticalAlignment="Center"
+                                                     Kind="{Binding IconKind}" />
+                            <TextBlock Margin="15,0"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       Text="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource MaterialDesignListBoxItem}"
+                           TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsExit}" Value="True" />
+                                    <Condition Binding="{Binding Source={x:Static config:UserSettings.Setting}, Path=ShowExitInNav}" Value="False" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <bh:Interaction.Triggers>
+                    <bh:EventTrigger EventName="SelectionChanged">
+                        <bh:InvokeCommandAction Command="{Binding NavigateCommand}"
+                                                PassEventArgsToCommand="True" />
+                    </bh:EventTrigger>
+                </bh:Interaction.Triggers>
+            </ListBox>
+            <!--#endregion-->
+
+            <!--#region Content control for pages-->
+            <Grid Grid.Row="1"
+                  Grid.Column="1"
+                  Background="{DynamicResource MaterialDesignCardBackground}">
+                <ContentControl Content="{Binding CurrentViewModel}" />
+            </Grid>
+            <!--#endregion-->
+        </Grid>
+    </materialDesign:DialogHost>
 </Window>

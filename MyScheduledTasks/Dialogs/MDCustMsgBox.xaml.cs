@@ -4,6 +4,9 @@
 
 namespace MyScheduledTasks.Dialogs;
 
+/// <summary>
+/// Custom message box that works well with Material Design in XAML.
+/// </summary>
 public partial class MDCustMsgBox : Window
 {
     #region Public Property
@@ -29,6 +32,8 @@ public partial class MDCustMsgBox : Window
                         bool IsError = false)
     {
         InitializeComponent();
+
+        DataContext = this;
 
         #region Topmost
         if (OnTop)
@@ -113,38 +118,44 @@ public partial class MDCustMsgBox : Window
             cardHeader.FontWeight = FontWeights.Bold;
         }
         #endregion Error message
-
     }
 
-    #region Button and mouse events
-    private void Btn_Click_Ok(object sender, RoutedEventArgs e)
+    #region Mouse event
+    private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
-        Close();
-        CustResult = CustResultType.Ok;
+        DragMove();
     }
+    #endregion Mouse event
 
-    private void Btn_Click_Yes(object sender, RoutedEventArgs e)
-    {
-        Close();
-        CustResult = CustResultType.Yes;
-    }
-    private void Btn_Click_No(object sender, RoutedEventArgs e)
-    {
-        Close();
-        CustResult = CustResultType.No;
-    }
-
-    private void Btn_Click_Cancel(object sender, RoutedEventArgs e)
+    #region Button commands
+    [RelayCommand]
+    internal void CancelButton()
     {
         Close();
         CustResult = CustResultType.Cancel;
     }
 
-    private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    [RelayCommand]
+    internal void OKButton()
     {
-        DragMove();
+        Close();
+        CustResult = CustResultType.Ok;
     }
-    #endregion Button and mouse events
+
+    [RelayCommand]
+    internal void YesButton()
+    {
+        Close();
+        CustResult = CustResultType.Yes;
+    }
+
+    [RelayCommand]
+    internal void NoButton()
+    {
+        Close();
+        CustResult = CustResultType.No;
+    }
+    #endregion Button commands
 }
 
 #region Button type enumeration

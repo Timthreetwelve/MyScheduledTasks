@@ -7,9 +7,9 @@ namespace MyScheduledTasks.Dialogs;
 /// </summary>
 public partial class AddTaskDialog : UserControl
 {
-    #region NLog Instance
-    private static readonly Logger log = LogManager.GetLogger("logTemp");
-    #endregion NLog Instance
+    #region MainWindow Instance
+    private static readonly MainWindow _mainWindow = Application.Current.MainWindow as MainWindow;
+    #endregion MainWindow Instance
 
     public AddTaskDialog()
     {
@@ -24,18 +24,18 @@ public partial class AddTaskDialog : UserControl
     private void ReadSettings()
     {
         // Set height and width
-        Width = MainWindow.Instance.Width - 150;
-        Height = MainWindow.Instance.ActualHeight - 150;
+        Width = _mainWindow.Width - 150;
+        Height = _mainWindow.ActualHeight - 150;
         MinWidth = 600;
         MinHeight = 300;
 
         // Hide Microsoft
-        cbxHideMicroSoft.IsChecked = UserSettings.Setting.HideMicrosoftFolder;
+        //cbxHideMicroSoft.IsChecked = UserSettings.Setting.HideMicrosoftFolder;
 
-        SetRowSpacing((Spacing)UserSettings.Setting.RowSpacing);
+        SetRowSpacing(UserSettings.Setting.RowSpacing);
 
         // Settings change event
-        UserSettings.Setting.PropertyChanged += UserSettingChanged;
+        //UserSettings.Setting.PropertyChanged += UserSettingChanged;
     }
     #endregion Read Settings
 
@@ -45,40 +45,45 @@ public partial class AddTaskDialog : UserControl
     /// </summary>
     private void UserSettingChanged(object sender, PropertyChangedEventArgs e)
     {
-        PropertyInfo prop = sender.GetType().GetProperty(e.PropertyName);
-        object newValue = prop?.GetValue(sender, null);
-        switch (e.PropertyName)
-        {
-            case nameof(UserSettings.Setting.RowSpacing):
-                SetRowSpacing((Spacing)newValue);
-                break;
-        }
+        //PropertyInfo prop = sender.GetType().GetProperty(e.PropertyName);
+        //object newValue = prop?.GetValue(sender, null);
+        //switch (e.PropertyName)
+        //{
+        //    case nameof(UserSettings.Setting.RowSpacing):
+        //        SetRowSpacing((Spacing)newValue);
+        //        break;
+        //}
     }
     #endregion Setting change
 
     #region Get list of tasks
     private void GetTaskList()
     {
-        List<string> taskList = new();
-
         using (TaskService ts = new())
         {
+            AllTasks.AllTasksCollection.Clear();
+
             foreach (Task task in ts.AllTasks)
             {
+                AllTasks allTasks = new();
+
                 if (cbxHideMicroSoft.IsChecked == true)
                 {
                     if (!task.Path.StartsWith(@"\Microsoft"))
                     {
-                        taskList.Add(task.Path);
+                        //taskList.Add(task.Path);
+                        allTasks.TaskPath = task.Path;
+                        AllTasks.AllTasksCollection.Add(allTasks);
                     }
                 }
                 else
                 {
-                    taskList.Add(task.Path);
+                    allTasks.TaskPath = task.Path;
+                    AllTasks.AllTasksCollection.Add(allTasks);
                 }
             }
         }
-        listBox.ItemsSource = taskList;
+        //listBox.ItemsSource = taskList;
         tbCounter.Text = $"{listBox.Items.Count} Tasks";
     }
     #endregion Get list of tasks
@@ -89,34 +94,34 @@ public partial class AddTaskDialog : UserControl
         if (listBox.SelectedItems.Count > 0)
         {
             int itemsAdded = 0;
-            foreach (var item in listBox.SelectedItems)
+            foreach (AllTasks item in listBox.SelectedItems)
             {
-                Task task = GetTaskInfo(item.ToString());
+                Task task = GetTaskInfo(item.TaskPath);
                 if (task == null)
                 {
-                    log.Error($"The Scheduled Task \"{item}\" was not found.");
+                    _log.Error($"The Scheduled Task \"{item}\" was not found.");
                     _ = new MDCustMsgBox($"The Scheduled Task \"{item}\" was not found.", "ERROR", ButtonType.Ok).ShowDialog();
                     return;
                 }
                 else if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
                 {
                     int pos = ScheduledTask.TaskList.IndexOf(ScheduledTask.TaskList.FirstOrDefault(x => x.TaskPath == task.Path));
-                    log.Warn($"{task.Path} is already present in the list in position {pos + 1}");
+                    _log.Warn($"{task.Path} is already present in the list in position {pos + 1}");
                     continue;
                 }
-                ScheduledTask schedTask = ScheduledTask.BuildSchedTask(task, null);
+                ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, null);
                 ScheduledTask.TaskList.Add(schedTask);
 
                 MyTasks my = new(task.Path, false, string.Empty);
                 MyTasks.MyTasksCollection.Add(my);
 
                 itemsAdded++;
-                log.Info($"Added {task.Path}");
+                _log.Info($"Added {task.Path}");
             }
             if (itemsAdded > 0)
             {
-                MainWindow.Instance.RefreshData();
-                log.Info($"{itemsAdded} task(s) added");
+                //MainWindow.Instance.RefreshData();
+                _log.Info($"{itemsAdded} task(s) added");
             }
 
             listBox.UnselectAll();
@@ -142,7 +147,7 @@ public partial class AddTaskDialog : UserControl
             listBox.InvalidateArrange();
             listBox.UpdateLayout();
             FilterTheList();
-            UserSettings.Setting.HideMicrosoftFolder = (bool)cbxHideMicroSoft.IsChecked;
+            //UserSettings.Setting.HideMicrosoftFolder = (bool)cbxHideMicroSoft.IsChecked;
         }
     }
     #endregion Checkbox events
@@ -154,26 +159,9 @@ public partial class AddTaskDialog : UserControl
     }
     #endregion Button Events
 
-    #region Mouse wheel events
-    private void ListBox_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-    {
-        if (Keyboard.Modifiers == ModifierKeys.Control)
-        {
-            if (e.Delta > 0)
-            {
-                MainWindow.Instance.EverythingLarger();
-            }
-            else if (e.Delta < 0)
-            {
-                MainWindow.Instance.EverythingSmaller();
-            }
-        }
-    }
-    #endregion Mouse wheel events
-
     #region Set the row spacing
     /// <summary>
-    /// Sets the padding around the rows in the datagrid
+    /// Sets the padding around the rows in the ListBox
     /// </summary>
     /// <param name="spacing"></param>
     public void SetRowSpacing(Spacing spacing)

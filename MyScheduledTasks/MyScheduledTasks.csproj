@@ -2,34 +2,49 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
-    <Description>Information about the scheduled tasks that you care about</Description>
-    <Copyright>Copyright © $([System.DateTime]::UtcNow.Year) Tim Kennedy</Copyright>
+    <Description>My Scheduled Tasks</Description>
+    <Copyright>© 2020-$([System.DateTime]::UtcNow.Year) Tim Kennedy</Copyright>
     <Authors>Tim Kennedy</Authors>
     <Company>T_K</Company>
     <Product>My Scheduled Tasks</Product>
+    <NeutralLanguage>en-US</NeutralLanguage>
     <ApplicationIcon>Images\MST.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MainWindowUIHelpers.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\MST.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="GitVersion.MsBuild" Version="5.10.3">
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="GitVersion.MsBuild" Version="5.12.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="gong-wpf-dragdrop" Version="3.2.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
-    <PackageReference Include="NLog" Version="5.0.4" />
+    <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="NLog" Version="5.2.8" />
+    <PackageReference Include="Octokit" Version="9.1.0" />
     <PackageReference Include="TaskScheduler" Version="2.10.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="License.txt">
+    <Folder Include="Inno_Setup\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ReadMe.txt">
+    <None Update="Readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -38,5 +53,13 @@
     <Message Importance="high" Text="Beginning GenBuildInfo for $(AssemblyName). Version is $(AssemblyVersion)" />
     <Exec Command="powershell -NoProfile -File &quot;$(ProjectDir)Powershell\GenBuildInfo.ps1&quot; -assemblyName $(AssemblyName) -assemblyVersion $(AssemblyVersion)" />
   </Target>
+
+    <Target Name="SpicNSpan" AfterTargets="AfterClean">
+        <Message Importance="high" Text="Additional cleaning of obj and bin folders." />
+        <!-- Remove obj folder -->
+        <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+        <!-- Remove bin folder -->
+        <RemoveDir Directories="$(BaseOutputPath)" />
+    </Target>
 
 </Project>

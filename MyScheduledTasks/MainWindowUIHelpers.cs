@@ -1,9 +1,12 @@
-﻿// Copyright(c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+
+using MyScheduledTasks.Models;
 
 namespace MyScheduledTasks;
 
 internal static class MainWindowUIHelpers
 {
+    #region Theme
     /// <summary>
     /// Gets the current theme
     /// </summary>
@@ -26,7 +29,7 @@ internal static class MainWindowUIHelpers
 
         if (mode == ThemeType.System)
         {
-            mode = GetSystemTheme().Equals("light") ? ThemeType.Light : ThemeType.Dark;
+            mode = GetSystemTheme().Equals("light") ? ThemeType.Light : ThemeType.Darker;
         }
 
         switch (mode)
@@ -52,7 +55,9 @@ internal static class MainWindowUIHelpers
         //Change the app's current theme
         paletteHelper.SetTheme(theme);
     }
+    #endregion Theme
 
+    #region Accent Color
     /// <summary>
     /// Sets the MDIX primary accent color
     /// </summary>
@@ -88,22 +93,27 @@ internal static class MainWindowUIHelpers
         theme.SetPrimaryColor(primaryColor);
         paletteHelper.SetTheme(theme);
     }
+    #endregion Accent Color
 
+    #region UI size
     /// <summary>
     /// Sets the value for UI scaling
     /// </summary>
-    /// <param name="size">One of 5 values</param>
-    /// <returns></returns>
+    /// <param name="size">One of 7 values</param>
+    /// <returns>Scaling multiplier</returns>
     internal static double UIScale(MySize size)
     {
         return size switch
         {
-            MySize.Smallest => 0.85,
-            MySize.Smaller => 0.95,
+            MySize.Smallest => 0.8,
+            MySize.Smaller => 0.9,
+            MySize.Small => 0.95,
             MySize.Default => 1.0,
-            MySize.Larger => 1.05,
-            MySize.Largest => 1.15,
+            MySize.Large => 1.05,
+            MySize.Larger => 1.1,
+            MySize.Largest => 1.2,
             _ => 1.0,
         };
     }
+    #endregion UI size
 }

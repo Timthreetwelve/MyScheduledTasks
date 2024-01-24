@@ -339,3 +339,5 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 MyScheduledTasks/Properties/launchSettings.json
+
+MyScheduledTasks/.editorconfig
