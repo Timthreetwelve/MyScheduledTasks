@@ -14,8 +14,8 @@ internal class MainViewModel
     /// </summary>
     public static void LoadData()
     {
-        ObservableCollection<ScheduledTask> taskList = new();
-        BindingList<ScheduledTask> bindingList = new();
+        ObservableCollection<ScheduledTask> taskList = [];
+        BindingList<ScheduledTask> bindingList = [];
         //ScheduledTask st = new();
         int count = 0;
         foreach (MyTasks item in MyTasks.MyTasksCollection)
