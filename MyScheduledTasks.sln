@@ -3,7 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyScheduledTasks", "MyScheduledTasks\MyScheduledTasks.csproj", "{A6785345-1687-4C21-81AA-D0B3626B71AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyScheduledTasks", "MyScheduledTasks\MyScheduledTasks.csproj", "{A6785345-1687-4C21-81AA-D0B3626B71AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0C8B71D0-B5B6-45A3-94D0-8C6DDA62D8DF}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.yml = .github\ISSUE_TEMPLATE\bug_report.yml
+		.github\ISSUE_TEMPLATE\config.yml = .github\ISSUE_TEMPLATE\config.yml
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\ISSUE_TEMPLATE\enhancement.yml = .github\ISSUE_TEMPLATE\enhancement.yml
+		GitVersion.yml = GitVersion.yml
+		README.md = README.md
+		.github\ISSUE_TEMPLATE\translation_issue.yml = .github\ISSUE_TEMPLATE\translation_issue.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
