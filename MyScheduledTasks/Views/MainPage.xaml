@@ -9,7 +9,6 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:global="clr-namespace:System.Globalization;assembly=mscorlib"
              xmlns:helpers="clr-namespace:MyScheduledTasks.Helpers"
-             xmlns:local="clr-namespace:MyScheduledTasks.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:MyScheduledTasks.Models"
              xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
@@ -79,8 +78,7 @@
                     <MenuItem Command="{Binding RemoveTasksCommand}"
                               Header="{DynamicResource MenuItem_RemoveTasks}"
                               InputGestureText="Delete" />
-                    <MenuItem 
-                              Command="{Binding ExportTasksCommand}"
+                    <MenuItem Command="{Binding ExportTasksCommand}"
                               Header="{DynamicResource MenuItem_ExportTasks}"
                               InputGestureText="Ctrl + E" />
                     <Separator />
@@ -231,8 +229,7 @@
         <!--#endregion-->
 
         <!--#region GridSplitter-->
-        <GridSplitter x:Name="splitter"
-                      Grid.Row="2"
+        <GridSplitter Grid.Row="2"
                       Height="3"
                       Margin="10,1"
                       HorizontalAlignment="Stretch"
@@ -472,13 +469,13 @@
                    Margin="0,5,0,0"
                    Padding="10,0"
                    Background="{DynamicResource MaterialDesignPaper}"
+                   FontFamily="Segoe UI"
+                   FontSize="14"
                    Foreground="{DynamicResource MaterialDesignBody}">
-            <StatusBarItem x:Name="sbLeft"
+            <StatusBarItem Content="{x:Static models:StatusBarItems.SbLeft}"
                            ContentStringFormat="{}{0} Tasks" />
-            <StatusBarItem x:Name="sbSelected"
-                           Margin="5,0" />
-            <StatusBarItem x:Name="sbRight"
-                           HorizontalAlignment="Right" />
+            <StatusBarItem HorizontalAlignment="Right"
+                           Content="{x:Static models:StatusBarItems.SbRight}" />
         </StatusBar>
         <!--#endregion-->
     </Grid>

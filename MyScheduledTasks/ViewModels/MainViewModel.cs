@@ -48,7 +48,7 @@ internal class MainViewModel
         ScheduledTask.TaskList = taskList;
         //ScheduledTask.TaskList.CollectionChanged += TaskList_CollectionChanged;
         //bindingList.ListChanged += Binding_ListChanged;
-        //sbLeft.Content = ScheduledTask.TaskList.Count;
+        StatusBarItems.SbLeft = ScheduledTask.TaskList.Count.ToString();
     }
     #endregion Load the task list
 }
