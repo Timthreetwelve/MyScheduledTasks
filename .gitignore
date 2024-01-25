@@ -341,3 +341,4 @@ healthchecksdb
 MyScheduledTasks/Properties/launchSettings.json
 
 MyScheduledTasks/.editorconfig
+/MyScheduledTasks/BuildInfo.cs
