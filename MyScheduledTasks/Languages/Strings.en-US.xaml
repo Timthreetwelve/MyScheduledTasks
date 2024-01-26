@@ -221,4 +221,8 @@
     <sys:String x:Key="SettingsSubHead_AppSettings">Yadda, yadda, and Log verbosity</sys:String>
     <sys:String x:Key="SettingsSubHead_Language">Language Settings and Testing</sys:String>
     <sys:String x:Key="SettingsSubHead_UISettings">Theme, Accent Color, UI Size, Row Height, Start Position and more</sys:String>
+    <!--  Status Bar  -->
+    <sys:String x:Key="StatusBar_Items">{0} Items</sys:String>
+    <sys:String x:Key="StatusBar_Selected">{0} Selected</sys:String>
+
 </ResourceDictionary>

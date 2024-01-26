@@ -322,6 +322,11 @@ internal partial class NavigationViewModel : ObservableObject
                     _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.Main);
                     break;
                 }
+            case Key.Escape:
+                {
+                    MainPage.Instance.DataGridTasks.SelectedIndex = -1;
+                    break;
+                }
         }
         #endregion Keys without modifiers
 

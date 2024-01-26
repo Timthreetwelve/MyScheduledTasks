@@ -140,7 +140,6 @@
                   IsReadOnly="False"
                   ItemsSource="{Binding TaskList}"
                   ScrollViewer.CanContentScroll="False"
-                  SelectionChanged="DataGridTasks_SelectionChanged"
                   Sorting="DataGridTasks_Sorting">
             <!--#region Datagrid Columns-->
             <DataGrid.Columns>
@@ -252,10 +251,6 @@
                                                 ElementName=DataGridTasks}"
                           HorizontalScrollBarVisibility="Auto"
                           VerticalScrollBarVisibility="Auto">
-                <ScrollViewer.Resources>
-                    <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"
-                           TargetType="ScrollBar" />
-                </ScrollViewer.Resources>
                 <Grid>
                     <!--#region Column and Row definitions-->
                     <Grid.ColumnDefinitions>
@@ -472,10 +467,27 @@
                    FontFamily="Segoe UI"
                    FontSize="14"
                    Foreground="{DynamicResource MaterialDesignBody}">
-            <StatusBarItem Content="{x:Static models:StatusBarItems.SbLeft}"
-                           ContentStringFormat="{}{0} Tasks" />
-            <StatusBarItem HorizontalAlignment="Right"
-                           Content="{x:Static models:StatusBarItems.SbRight}" />
+            <StatusBarItem Content="{Binding Items.Count,
+                                             ElementName=DataGridTasks,
+                                             Mode=OneWay}"
+                           ContentStringFormat="{DynamicResource StatusBar_Items}" />
+            <StatusBarItem Margin="10,0"
+                           Content="{Binding SelectedItems.Count,
+                                             ElementName=DataGridTasks,
+                                             Mode=OneWay}"
+                           ContentStringFormat="{DynamicResource StatusBar_Selected}" >
+                <StatusBarItem.Style>
+                    <Style TargetType="StatusBarItem">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItems.Count, ElementName=DataGridTasks}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StatusBarItem.Style>
+            </StatusBarItem>
+
         </StatusBar>
         <!--#endregion-->
     </Grid>
