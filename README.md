@@ -18,7 +18,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/timthreetwelve/MyScheduledTasks?style=plastic&color=orangered)](https://github.com/Timthreetwelve/MyScheduledTasks/issues)
 [![GitHub Issues](https://img.shields.io/github/issues-closed/timthreetwelve/MyScheduledTasks?style=plastic&color=slateblue)](https://github.com/Timthreetwelve/MyScheduledTasks/issues)
 
-My Scheduled Tasks is an application that lets you keep track of the tasks in Windows Task Scheduler that <b>you</b> care about.
+## My Scheduled Tasks is an application that lets you keep track of the tasks in Windows Task Scheduler that <b>you</b> care about.
 
 #### Features
 
