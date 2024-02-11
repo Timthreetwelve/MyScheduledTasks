@@ -44,5 +44,5 @@
 
 * Easily adjust zoom level of the data grid.
 
-#### Screenshot
-![Screenshot](/Images/MyScheduledTasks.png)
+#### Screenshot (Sneak peek at version 0.6)
+![Screenshot](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/Images/MyScheduledTasks_v6.png)
