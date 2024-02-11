@@ -41,6 +41,14 @@ internal partial class NavigationViewModel : ObservableObject
                     IconKind=PackIconKind.Microsoft,
                     PageTitle=GetStringResource("NavTitle_Main")
                 },
+                new ()
+                {
+                    Name="Add Tasks",
+                    NavPage = NavPage.Main,
+                    ViewModelType= typeof(AddTasksViewModel),
+                    IconKind=PackIconKind.Add,
+                    PageTitle = "Add Tasks"
+                },
                 new() {
                     Name = GetStringResource("NavItem_Settings"),
                     NavPage=NavPage.Settings,

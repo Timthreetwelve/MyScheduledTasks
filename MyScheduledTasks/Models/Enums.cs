@@ -9,6 +9,8 @@ public enum NavPage
 {
     [Description("The Main Page")]
     Main = 0,
+    [LocalizedDescription("SettingsEnum_Navigation_AddTasks")]
+    AddTasks,
     [LocalizedDescription("SettingsEnum_Navigation_Settings")]
     Settings,
     [LocalizedDescription("SettingsEnum_Navigation_About")]
