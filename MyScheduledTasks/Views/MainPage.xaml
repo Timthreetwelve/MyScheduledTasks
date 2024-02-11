@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MyScheduledTasks.Views.MainPage"
+<UserControl x:Class="MyScheduledTasks.Views.MainPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -113,6 +113,15 @@
                     <MenuItem Command="{Binding RemoveSortCommand}"
                               Header="{DynamicResource MenuItem_RemoveSort}"
                               InputGestureText="Ctrl + R" />
+                </MenuItem>
+                <MenuItem Header="Advanced"
+                          Visibility="{Binding Path=ShowAdvancedMenu,
+                                               Source={x:Static config:UserSettings.Setting},
+                                               Converter={StaticResource BoolVisConverter}}">
+                    <MenuItem Command="{Binding ShowImportTasksCommand}"
+                              Header="Import Task" />
+                    <MenuItem Command="{Binding ExportTasksCommand}"
+                              Header="{DynamicResource MenuItem_ExportTasks}" />
                 </MenuItem>
             </Menu>
 

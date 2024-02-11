@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 internal partial class NavigationViewModel : ObservableObject
@@ -278,7 +278,19 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion Export
 
-    #region Enable
+    [RelayCommand]
+    public static void ShowImportTasks()
+    {
+        DialogHelpers.ShowImportTaskDialog();
+    }
+
+    [RelayCommand]
+    public static void ImportTask()
+    {
+        TaskHelpers.ImportTasks();
+    }
+
+    #region Enable Tasks
     [RelayCommand]
     public static void EnableTasks()
     {
