@@ -10,7 +10,10 @@ public partial class UserSettings : ConfigManager<UserSettings>
     private bool _alertSound;
 
     [ObservableProperty]
-    private double _detailsHeight = 300;
+    private bool _annotateRoot = true;
+
+    [ObservableProperty]
+    private double _detailsHeight = 520;
 
     [ObservableProperty]
     private bool _hideMicrosoftFolder;
