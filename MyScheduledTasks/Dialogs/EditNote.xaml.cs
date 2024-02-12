@@ -12,5 +12,12 @@ public partial class EditNote : UserControl
         InitializeComponent();
 
         DataContext = task;
+
+        Loaded += (sender, args) =>
+        {
+            NoteTextBox.CaretIndex = NoteTextBox.Text.Length;
+            NoteTextBox.ScrollToEnd();
+            NoteTextBox.Focus();
+        };
     }
 }
