@@ -1,6 +1,7 @@
 // Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
+
 internal partial class NavigationViewModel : ObservableObject
 {
     #region Constructor
@@ -211,6 +212,17 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion Open Task Scheduler
 
+    #region Open the application folder
+    [RelayCommand]
+    public static void OpenAppFolder()
+    {
+        using Process process = new();
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.FileName = "Explorer.exe";
+        process.StartInfo.Arguments = AppInfo.AppDirectory;
+        _ = process.Start();
+    }
+    #endregion Open the application folder
 
     #region Edit Task Note
     [RelayCommand]

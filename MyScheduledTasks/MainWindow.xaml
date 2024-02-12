@@ -1,4 +1,4 @@
-<Window x:Class="MyScheduledTasks.MainWindow"
+﻿<Window x:Class="MyScheduledTasks.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,7 +21,6 @@
         TextOptions.TextRenderingMode="Auto"
         Topmost="{Binding KeepOnTop,
                           Source={x:Static config:UserSettings.Setting}}">
-
 
     <!--#region Window resources-->
     <Window.DataContext>
@@ -133,6 +132,12 @@
                                             Command="{Binding ViewLogFileCommand}"
                                             Content="{DynamicResource Button_OpenLogFile}"
                                             ToolTip="{DynamicResource Button_OpenLogFileToolTip}" />
+                                    <Button Height="35"
+                                            Padding="15,1,15,22"
+                                            Command="{Binding OpenAppFolderCommand}"
+                                            Content="{DynamicResource Button_OpenFolder}"
+                                            ToolTip="{DynamicResource Button_OpenFolderToolTip}" />
+                                    <Separator />
                                     <Button Height="35"
                                             Padding="15,1,15,22"
                                             Command="{Binding ViewReadMeFileCommand}"
