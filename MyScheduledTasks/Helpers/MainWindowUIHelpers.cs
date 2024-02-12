@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -128,6 +128,7 @@ internal static class MainWindowUIHelpers
             _ => 1.0,
         };
         _mainWindow.MainGrid.LayoutTransform = new ScaleTransform(newSize, newSize);
+        UserSettings.Setting.DialogScale = newSize;
     }
 
     /// <summary>
@@ -197,6 +198,14 @@ internal static class MainWindowUIHelpers
     public static void MainWindowNormalPointer()
     {
         _mainWindow.Cursor = Cursors.Arrow;
+    }
+
+    /// <summary>
+    /// Change to the no mouse cursor.
+    /// </summary>
+    public static void MainWindowNotAllowedPointer()
+    {
+        _mainWindow.Cursor = Cursors.No;
     }
     #endregion Change mouse pointer
 

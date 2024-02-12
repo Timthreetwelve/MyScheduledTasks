@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
              xmlns:local="clr-namespace:MyScheduledTasks.Dialogs"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:MyScheduledTasks.Models"
@@ -14,7 +15,17 @@
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto">
 
-    <Grid>
+    <!--#region Resources -->
+    <UserControl.Resources>
+        <ScaleTransform x:Key="DialogScale"
+                        ScaleX="{Binding Path=DialogScale,
+                                         Source={x:Static config:UserSettings.Setting}}"
+                        ScaleY="{Binding Path=DialogScale,
+                                         Source={x:Static config:UserSettings.Setting}}" />
+    </UserControl.Resources>
+    <!--#endregion-->
+
+    <Grid LayoutTransform="{StaticResource DialogScale}">
         <Border MinWidth="500"
                 BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                 BorderThickness="1.5"
@@ -44,6 +55,12 @@
 
                 <Grid Grid.Row="1"
                       Margin="10">
+                    <!--#region DataContext-->
+                    <Grid.DataContext>
+                        <models:ImportTask />
+                    </Grid.DataContext>
+                    <!--#endregion-->
+
                     <!--#region Row definitions-->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"
@@ -68,7 +85,7 @@
                     </Grid.RowDefinitions>
                     <!--#endregion-->
 
-                    <!--#region XML file name -->
+                    <!--#region XML file name-->
                     <TextBlock Grid.Row="1"
                                Margin="10,10,10,4"
                                Text="{DynamicResource ImportTask_XMLPath}" />
@@ -85,10 +102,10 @@
                              materialDesign:HintAssist.Hint="{DynamicResource ImportTask_XMLPathHint}"
                              materialDesign:HintAssist.IsFloating="False"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             Text="{x:Static models:ImportTask.ImportTaskXML}"/>
+                             Text="{Binding Import.XmlFile}" />
                     <!--#endregion-->
 
-                    <!--#region Task name -->
+                    <!--#region Task name-->
                     <TextBlock Grid.Row="3"
                                Margin="10,10,10,4"
                                Text="{DynamicResource ImportTask_TaskName}" />
@@ -105,22 +122,22 @@
                              materialDesign:HintAssist.Hint="{DynamicResource ImportTask_TaskNameHint}"
                              materialDesign:HintAssist.IsFloating="False"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             Text="{x:Static models:ImportTask.ImportTaskName}"/>
+                             Text="{Binding Import.TaskName}" />
                     <!--#endregion-->
 
                     <!--#region Check boxes-->
                     <CheckBox Grid.Row="5"
                               Margin="10,15,10,5"
                               Content="{DynamicResource ImportTask_RunLoggedOn}"
-                              IsChecked="{x:Static models:ImportTask.ImportRunOnlyLoggedOn}" />
+                              IsChecked="{Binding Import.RunOnlyLoggedOn}" />
 
                     <CheckBox Grid.Row="6"
                               Margin="10,5,10,5"
                               Content="{DynamicResource ImportTask_Overwrite}"
-                              IsChecked="{x:Static models:ImportTask.ImportOverwrite}" />
+                              IsChecked="{Binding Import.Overwrite}" />
                     <!--#endregion-->
 
-                    <!--#region Buttons -->
+                    <!--#region Buttons-->
                     <StackPanel Grid.Row="8"
                                 Margin="0,20,0,0"
                                 HorizontalAlignment="Center"

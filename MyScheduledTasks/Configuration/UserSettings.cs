@@ -16,6 +16,9 @@ public partial class UserSettings : ConfigManager<UserSettings>
     private double _detailsHeight = 520;
 
     [ObservableProperty]
+    private static double _dialogScale = 1;
+
+    [ObservableProperty]
     private bool _hideMicrosoftFolder;
 
     [ObservableProperty]
