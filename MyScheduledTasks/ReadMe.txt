@@ -154,8 +154,8 @@ These keyboard shortcuts are available in the main window:
 	Ctrl + S = Saves the Task List file.
 	Ctrl + Numpad Plus = Increases size.
 	Ctrl + Numpad Minus = Decreases size.
-	Ctrl + Shift + M = Changes the theme.
-	Ctrl + Shift + P = Changes the primary accent color.
+	Ctrl + Shift + T = Changes the theme.
+	Ctrl + Shift + C = Changes the primary accent color.
     Delete = Removes the selected task(s).
 	Escape = Clears the selection.
 	F1 = Shows the About dialog.
@@ -192,7 +192,7 @@ MyScheduledTasks uses the following icons & packages:
 
 
 MIT License
-Copyright (c) 2020 - 2022 Tim Kennedy
+Copyright (c) 2020 - 2024 Tim Kennedy
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction, including
