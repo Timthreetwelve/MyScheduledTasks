@@ -1,9 +1,10 @@
-<UserControl x:Class="MyScheduledTasks.Views.MainPage"
+﻿<UserControl x:Class="MyScheduledTasks.Views.MainPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
              xmlns:convert="clr-namespace:MyScheduledTasks.Converters"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
@@ -12,9 +13,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:MyScheduledTasks.Models"
              xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
-             TextElement.FontSize="14"
+             FontFamily="Segoe UI"
+             TextElement.FontSize="13"
              TextElement.FontWeight="Regular"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextOptions.TextFormattingMode="Ideal"
@@ -22,7 +22,9 @@
     <!--#region Resources & DataContext-->
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolVisConverter" />
+        <convert:BooleanInverter x:Key="BoolInverter" />
         <convert:SpacingConverter x:Key="Spacing" />
+        <convert:RootConverter x:Key="RootConverter" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <models:ScheduledTask />
@@ -62,39 +64,16 @@
                     <MenuItem Command="{Binding OpenTSchedulerCommand}"
                               Header="{DynamicResource MenuItem_OpenScheduler}" />
                     <MenuItem Command="{Binding QueryRestartAsAdminCommand}"
-                              Header="{DynamicResource MenuItem_RestartAdmin}" />
+                              Header="{DynamicResource MenuItem_RestartAdmin}"
+                              IsEnabled="{Binding Source={x:Static helpers:AppInfo.IsAdmin},
+                                                  Converter={StaticResource BoolInverter}}" />
                     <Separator />
                     <MenuItem Command="{Binding ExitCommand}"
                               Header="{DynamicResource MenuItem_Exit}"
                               InputGestureText="Alt + F4" />
                 </MenuItem>
 
-                <MenuItem Header="{DynamicResource Menu_Tasks}"
-                          SubmenuOpened="MenuOpened">
-                    <MenuItem Command="{Binding AddTasksCommand}"
-                              Header="{DynamicResource MenuItem_AddTasks}"
-                              InputGestureText="Ctrl + N" />
-                    <Separator />
-                    <MenuItem Command="{Binding RemoveTasksCommand}"
-                              Header="{DynamicResource MenuItem_RemoveTasks}"
-                              InputGestureText="Delete" />
-                    <MenuItem Command="{Binding ExportTasksCommand}"
-                              Header="{DynamicResource MenuItem_ExportTasks}"
-                              InputGestureText="Ctrl + E" />
-                    <Separator />
-                    <MenuItem Command="{Binding EnableTasksCommand}"
-                              Header="{DynamicResource MenuItem_EnableTasks}"
-                              IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
-                    <MenuItem Command="{Binding DisableTasksCommand}"
-                              Header="{DynamicResource MenuItem_DisableTasks}"
-                              IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
-                    <MenuItem Command="{Binding RunTasksCommand}"
-                              Header="{DynamicResource MenuItem_RunTasks}"
-                              IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
-                </MenuItem>
-
-                <MenuItem Header="{DynamicResource Menu_View}"
-                          SubmenuOpened="MenuOpened">
+                <MenuItem Header="{DynamicResource Menu_View}">
                     <MenuItem Command="{Binding UILargerCommand}"
                               Header="{DynamicResource MenuItem_Larger}"
                               InputGestureText="Ctrl + Numpad Plus" />
@@ -114,6 +93,23 @@
                               Header="{DynamicResource MenuItem_RemoveSort}"
                               InputGestureText="Ctrl + R" />
                 </MenuItem>
+
+                <MenuItem Header="{DynamicResource Menu_Tasks}">
+                    <MenuItem Command="{Binding RemoveTasksCommand}"
+                              Header="{DynamicResource MenuItem_RemoveTasks}"
+                              InputGestureText="Delete" />
+                    <Separator />
+                    <MenuItem Command="{Binding EnableTasksCommand}"
+                              Header="{DynamicResource MenuItem_EnableTasks}"
+                              IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
+                    <MenuItem Command="{Binding DisableTasksCommand}"
+                              Header="{DynamicResource MenuItem_DisableTasks}"
+                              IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
+                    <MenuItem Command="{Binding RunTasksCommand}"
+                              Header="{DynamicResource MenuItem_RunTasks}"
+                              IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
+                </MenuItem>
+
                 <MenuItem Header="Advanced"
                           Visibility="{Binding Path=ShowAdvancedMenu,
                                                Source={x:Static config:UserSettings.Setting},
@@ -142,13 +138,12 @@
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
-                  Drop="DataGridTasks_Drop"
-                  FontFamily="Segoe UI"
                   FontSize="14"
                   HeadersVisibility="Column"
                   IsReadOnly="False"
                   ItemsSource="{Binding TaskList}"
                   ScrollViewer.CanContentScroll="False"
+                  SelectedIndex="0"
                   Sorting="DataGridTasks_Sorting">
             <!--#region Datagrid Columns-->
             <DataGrid.Columns>
@@ -169,11 +164,11 @@
                                                           UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-
                 </DataGridTemplateColumn>
 
                 <DataGridTextColumn MinWidth="200"
                                     Binding="{Binding TaskName}"
+                                    CellStyle="{StaticResource DisplayOnly}"
                                     DisplayIndex="1"
                                     Header="{DynamicResource GridColumn_TaskName}"
                                     IsReadOnly="True" />
@@ -190,7 +185,13 @@
                                                              Converter={StaticResource BoolVisConverter}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding TaskResultShort}" />
+                            <TextBlock Text="{Binding TaskResultShort}">
+                                <TextBlock.ToolTip>
+                                    <ToolTip Placement="Left">
+                                        <TextBlock Text="{Binding TaskResultHex, StringFormat='Result: {0}'}" />
+                                    </ToolTip>
+                                </TextBlock.ToolTip>
+                            </TextBlock>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -208,6 +209,7 @@
                 <DataGridTextColumn MinWidth="90"
                                     Binding="{Binding LastRun,
                                                       ConverterCulture={x:Static global:CultureInfo.CurrentUICulture}}"
+                                    CellStyle="{StaticResource DisplayOnly}"
                                     DisplayIndex="4"
                                     Header="{DynamicResource GridColumn_LastRun}"
                                     IsReadOnly="True"
@@ -228,8 +230,10 @@
                                                          Converter={StaticResource BoolVisConverter}}" />
 
                 <DataGridTextColumn MinWidth="50"
-                                    Binding="{Binding TaskFolder}"
-                                    DisplayIndex="5"
+                                    Binding="{Binding TaskFolder,
+                                                      Converter={StaticResource RootConverter}}"
+                                    CellStyle="{StaticResource DisplayOnly}"
+                                    DisplayIndex="6"
                                     Header="{DynamicResource GridColumn_Folder}"
                                     IsReadOnly="True"
                                     Visibility="{Binding ShowFolderCol,
@@ -237,18 +241,42 @@
                                                          Converter={StaticResource BoolVisConverter}}" />
 
                 <DataGridTextColumn MinWidth="70"
-                                    Binding="{Binding TaskNote}"
-                                    DisplayIndex="6"
+                                    Binding="{Binding TaskNote,
+                                                      UpdateSourceTrigger=LostFocus}"
+                                    DisplayIndex="7"
                                     Header="{DynamicResource GridColumn_Notes}"
                                     Visibility="{Binding ShowNoteCol,
                                                          Source={x:Static config:UserSettings.Setting},
                                                          Converter={StaticResource BoolVisConverter}}" />
             </DataGrid.Columns>
             <!--#endregion-->
+
+            <!--#region Datagrid context menu-->
+            <DataGrid.ContextMenu>
+                <ContextMenu Background="{DynamicResource MaterialDesignPaper}"
+                             Opened="ContextMenu_Opened">
+                    <ContextMenu.DataContext>
+                        <viewmodels:NavigationViewModel />
+                    </ContextMenu.DataContext>
                     <MenuItem x:Name="EditNoteItem"
                               Command="{Binding EditNoteCommand}"
                               Header="{DynamicResource MenuItem_EditTaskNote}" />
                     <Separator />
+                    <MenuItem Command="{Binding RemoveTasksCommand}"
+                              Header="Remove Selected" />
+                    <Separator />
+                    <MenuItem Command="{Binding EnableTasksCommand}"
+                              Header="Enable Selected"
+                              IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
+                    <MenuItem Command="{Binding DisableTasksCommand}"
+                              Header="Disable Selected"
+                              IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
+                    <MenuItem Command="{Binding RunTasksCommand}"
+                              Header="Run Selected"
+                              IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <!--#endregion-->
         </DataGrid>
         <!--#endregion-->
 
@@ -267,216 +295,263 @@
                                            Converter={StaticResource BoolVisConverter}}" />
         <!--#endregion-->
 
-        <!--#region Details area-->
+        <!--#region Details area at the bottom-->
         <Grid x:Name="bottomGrid"
               Grid.Row="3">
-            <ScrollViewer x:Name="scvDetails"
-                          VerticalAlignment="Top"
-                          DataContext="{Binding SelectedItem,
-                                                ElementName=DataGridTasks}"
-                          HorizontalScrollBarVisibility="Auto"
+            <ScrollViewer VerticalAlignment="Top"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Opacity=".95"
                           VerticalScrollBarVisibility="Auto">
-                <Grid>
+                <Grid d:DataContext="{d:DesignInstance models:ScheduledTask}">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="DataContext" Value="{x:Null}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItems.Count,
+                                                               ElementName=DataGridTasks}"
+                                             Value="1">
+                                    <Setter Property="DataContext" Value="{Binding SelectedItem, ElementName=DataGridTasks}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
                     <!--#region Column and Row definitions-->
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="19" />
-                        <ColumnDefinition Width="auto"
-                                          MinWidth="120" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="30" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10" />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
+                        <RowDefinition Height="Auto"
+                                       MinHeight="22" />
                         <RowDefinition Height="10" />
                     </Grid.RowDefinitions>
                     <!--#endregion-->
 
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Name}" />
                     <TextBlock Grid.Row="1"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskName}" />
+                               Grid.Column="3"
+                               Text="{Binding TaskName,
+                                              FallbackValue='Select one task in the grid above to have the task details shown here.'}"
+                               TextWrapping="Wrap" />
 
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Description}" />
                     <TextBlock Grid.Row="2"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskDescription}" />
+                               Grid.Column="3"
+                               Text="{Binding TaskDescription}"
+                               TextWrapping="Wrap" />
 
                     <TextBlock Grid.Row="3"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Triggers}" />
                     <TextBlock Grid.Row="3"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskTriggers}" />
+                               Grid.Column="3"
+                               LineHeight="20"
+                               Text="{Binding TaskTriggers}"
+                               TextWrapping="Wrap" />
 
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Actions}" />
                     <TextBlock Grid.Row="4"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskActions}" />
+                               Grid.Column="3"
+                               LineHeight="20"
+                               Text="{Binding TaskActions}"
+                               TextWrapping="Wrap" />
 
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_LastResult}" />
                     <TextBlock Grid.Row="5"
-                               Grid.Column="2"
-                               Margin="0,2">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} = {1}">
-                                <Binding Path="TaskResult" />
-                                <Binding Path="TaskResultHex" />
-                            </MultiBinding>
-                        </TextBlock.Text>
+                               Grid.Column="3"
+                               Text="{Binding TaskResultHex}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TaskResult}"
+                                                 Value="0">
+                                        <Setter Property="FontWeight" Value="Normal" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
                     </TextBlock>
 
                     <TextBlock Grid.Row="6"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_LastRun}" />
                     <TextBlock Grid.Row="6"
-                               Grid.Column="2"
-                               Margin="0,2"
+                               Grid.Column="3"
                                Text="{Binding LastRun,
                                               ConverterCulture={x:Static global:CultureInfo.CurrentUICulture}}" />
 
                     <TextBlock Grid.Row="7"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_NextRun}" />
                     <TextBlock Grid.Row="7"
-                               Grid.Column="2"
-                               Margin="0,2"
+                               Grid.Column="3"
                                Text="{Binding NextRun,
                                               ConverterCulture={x:Static global:CultureInfo.CurrentUICulture}}" />
 
                     <TextBlock Grid.Row="8"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Status}" />
                     <TextBlock Grid.Row="8"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskStatus}" />
+                               Grid.Column="3"
+                               Text="{Binding TaskStatus}"
+                               TextWrapping="Wrap" />
 
                     <TextBlock Grid.Row="9"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Enabled}" />
                     <TextBlock Grid.Row="9"
-                               Grid.Column="2"
-                               Margin="0,2"
+                               Grid.Column="3"
                                Text="{Binding Enabled}" />
 
                     <TextBlock Grid.Row="10"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_WakeToRun}" />
                     <TextBlock Grid.Row="10"
-                               Grid.Column="2"
-                               Margin="0,2"
+                               Grid.Column="3"
                                Text="{Binding WakeToRun}" />
 
                     <TextBlock Grid.Row="11"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Priority}" />
                     <TextBlock Grid.Row="11"
-                               Grid.Column="2"
-                               Margin="0,2"
+                               Grid.Column="3"
                                Text="{Binding Priority}" />
 
                     <TextBlock Grid.Row="12"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_StartOnDemand}" />
                     <TextBlock Grid.Row="12"
-                               Grid.Column="2"
-                               Margin="0,2"
+                               Grid.Column="3"
                                Text="{Binding AllowDemandStart}" />
 
                     <TextBlock Grid.Row="13"
                                Grid.Column="1"
-                               Margin="0,2"
-                               Text="{DynamicResource Details_TimeLimit}" />
+                               Text="{DynamicResource Details_StartAsapIfMissed}" />
                     <TextBlock Grid.Row="13"
-                               Grid.Column="2"
-                               Margin="0,2"
+                               Grid.Column="3"
+                               Text="{Binding StartASAP}" />
+
+                    <TextBlock Grid.Row="14"
+                               Grid.Column="1"
+                               Text="{DynamicResource Details_StartOnlyOnAcPower}" />
+                    <TextBlock Grid.Row="14"
+                               Grid.Column="3"
+                               Text="{Binding StartOnAC}" />
+
+                    <TextBlock Grid.Row="15"
+                               Grid.Column="1"
+                               Text="Run Only When User is Logged On" />
+                    <TextBlock Grid.Row="15"
+                               Grid.Column="3"
+                               Text="{Binding TaskRunLoggedOn}" />
+
+                    <TextBlock Grid.Row="16"
+                               Grid.Column="1"
+                               Text="{DynamicResource Details_TimeLimit}" />
+                    <TextBlock Grid.Row="16"
+                               Grid.Column="3"
                                Text="{Binding TimeLimit}" />
 
-                    <TextBlock Grid.Row="14"
+                    <TextBlock Grid.Row="17"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Privileges}" />
-                    <TextBlock Grid.Row="14"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskRunLevel}" />
+                    <TextBlock Grid.Row="17"
+                               Grid.Column="3"
+                               Text="{Binding HighestPrivileges}" />
 
-                    <TextBlock Grid.Row="15"
+                    <TextBlock Grid.Row="18"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Folder}" />
-                    <TextBlock Grid.Row="15"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskFolder}" />
+                    <TextBlock Grid.Row="18"
+                               Grid.Column="3"
+                               Text="{Binding TaskFolder}"
+                               TextWrapping="Wrap" />
 
-                    <TextBlock Grid.Row="16"
+                    <TextBlock Grid.Row="19"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Account}" />
-                    <TextBlock Grid.Row="16"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskAccount}" />
+                    <TextBlock Grid.Row="19"
+                               Grid.Column="3"
+                               Text="{Binding TaskAccount}"
+                               TextWrapping="Wrap" />
 
-                    <TextBlock Grid.Row="17"
+                    <TextBlock Grid.Row="20"
                                Grid.Column="1"
-                               Margin="0,2"
                                Text="{DynamicResource Details_Author}" />
-                    <TextBlock Grid.Row="17"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskAuthor}" />
+                    <TextBlock Grid.Row="20"
+                               Grid.Column="3"
+                               Text="{Binding TaskAuthor}"
+                               TextWrapping="Wrap" />
 
-                    <TextBlock Grid.Row="18"
+                    <TextBlock Grid.Row="21"
                                Grid.Column="1"
-                               Margin="0,2"
+                               Text="{DynamicResource Details_Created}" />
+                    <TextBlock Grid.Row="21"
+                               Grid.Column="3"
+                               Text="{Binding TaskCreated,
+                                              ConverterCulture={x:Static global:CultureInfo.CurrentUICulture}}" />
+
+                    <TextBlock Grid.Row="22"
+                               Grid.Column="1"
                                Text="{DynamicResource Details_Notes}" />
-                    <TextBlock Grid.Row="18"
-                               Grid.Column="2"
-                               Margin="0,2"
-                               Text="{Binding TaskNote}" />
+                    <TextBlock Grid.Row="22"
+                               Grid.Column="3"
+                               Text="{Binding TaskNote}"
+                               TextWrapping="Wrap" />
                 </Grid>
             </ScrollViewer>
 
@@ -500,19 +575,20 @@
                            Content="{Binding SelectedItems.Count,
                                              ElementName=DataGridTasks,
                                              Mode=OneWay}"
-                           ContentStringFormat="{DynamicResource StatusBar_Selected}" >
+                           ContentStringFormat="{DynamicResource StatusBar_Selected}">
                 <StatusBarItem.Style>
                     <Style TargetType="StatusBarItem">
                         <Setter Property="Visibility" Value="Visible" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedItems.Count, ElementName=DataGridTasks}" Value="0">
+                            <DataTrigger Binding="{Binding SelectedItems.Count,
+                                                           ElementName=DataGridTasks}"
+                                         Value="0">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </StatusBarItem.Style>
             </StatusBarItem>
-
         </StatusBar>
         <!--#endregion-->
     </Grid>

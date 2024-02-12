@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Views;
 
@@ -7,8 +7,11 @@ namespace MyScheduledTasks.Views;
 /// </summary>
 public partial class MainPage : UserControl
 {
+    #region MainPage Instance
     public static MainPage Instance { get; private set; }
+    #endregion MainPage Instance
 
+    #region Constructor
     public MainPage()
     {
         InitializeComponent();
@@ -20,6 +23,7 @@ public partial class MainPage : UserControl
             ? new GridLength(1)
             : new GridLength(UserSettings.Setting.DetailsHeight);
     }
+    #endregion Constructor
 
     #region Clear column sort
     /// <summary>
@@ -37,22 +41,21 @@ public partial class MainPage : UserControl
     }
     #endregion Clear column sort
 
-    private void MenuOpened(object sender, RoutedEventArgs e)
+    #region GridSplitter drag completed
+    private void GridSplitter_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
     {
-        Debug.WriteLine("Why?");
+        UserSettings.Setting.DetailsHeight = detailsRow.Height.Value;
     }
+    #endregion GridSplitter drag completed
 
-    private void DataGridTasks_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-    }
-
+    #region DataGrid sorting event
     private void DataGridTasks_Sorting(object sender, DataGridSortingEventArgs e)
     {
-    }
+        MyTasks.SortIsDirty = true;
 
-    private void DataGridTasks_Drop(object sender, DragEventArgs e)
-    {
+        _log.Debug($"DataGrid sorting event: {e.Column.Header} (Index: {e.Column.DisplayIndex})  {e.Column.SortMemberPath}");
     }
+    #endregion DataGrid sorting event
 
     #region Context menu opened event
     private void ContextMenu_Opened(object sender, RoutedEventArgs e)
