@@ -2,9 +2,9 @@
 
 namespace MyScheduledTasks.Models;
 
-public class ScheduledTask : INotifyPropertyChanged
+public partial class ScheduledTask : ObservableObject
 {
-    #region Public Methods
+    #region Build a ScheduledTask object
     /// <summary>
     /// Creates a ScheduledTask object
     /// </summary>
@@ -15,123 +15,145 @@ public class ScheduledTask : INotifyPropertyChanged
     {
         if (task != null)
         {
-            string folder = task.Path.Replace(task.Name, "");
-            if (folder == "\\")
+            // Get folder name
+            int pos = task.Path.LastIndexOf('\\');
+            string folder = pos == 0 ? "\\" : task.Path[..pos];
+
+            ScheduledTask scheduledTask = new()
             {
-                folder = "\\  (root)";
-            }
-            return new()
-            {
-                TaskName = task.Name,
-                TaskStatus = task.State.ToString(),
-                TaskResult = (uint?)task.LastTaskResult,
-                LastRun = task.LastRunTime,
-                NextRun = task.NextRunTime,
-                TaskPath = task.Path,
-                TaskFolder = folder,
-                TaskActions = task.Definition.Actions.ToString(),
-                TaskMissedRuns = task.NumberOfMissedRuns,
-                TaskAccount = task.Definition.Principal.Account,
-                TaskRunLevel = task.Definition.Principal.RunLevel.ToString(),
-                TaskDescription = task.Definition.RegistrationInfo.Description,
-                TaskAuthor = task.Definition.RegistrationInfo.Author,
-                TaskTriggers = task.Definition.Triggers.ToString(),
-                Enabled = task.Definition.Settings.Enabled,
-                Priority = task.Definition.Settings.Priority.ToString(),
                 AllowDemandStart = task.Definition.Settings.AllowDemandStart,
+                Enabled = task.Definition.Settings.Enabled,
+                IsChecked = myTask?.Alert == true,
+                LastRunRaw = task.LastRunTime,
+                NextRunRaw = task.NextRunTime,
+                Priority = task.Definition.Settings.Priority.ToString(),
+                StartASAP = task.Definition.Settings.StartWhenAvailable,
+                StartOnAC = task.Definition.Settings.DisallowStartIfOnBatteries,
+                TaskAccount = task.Definition.Principal.Account,
+                TaskActions = task.Definition.Actions.ToString(),
+                TaskAuthor = task.Definition.RegistrationInfo.Author,
+                TaskCreatedRaw = task.Definition.RegistrationInfo.Date,
+                TaskDescription = task.Definition.RegistrationInfo.Description,
+                TaskFolder = folder,
+                TaskMissedRuns = task.NumberOfMissedRuns,
+                TaskName = task.Name,
+                TaskNote = myTask != null ? myTask.TaskNote : string.Empty,
+                TaskPath = task.Path,
+                TaskResult = (uint?)task.LastTaskResult,
+                TaskRunLevel = (int)task.Definition.Principal.RunLevel,
+                TaskRunLoggedOn = task.Definition.Settings.RunOnlyIfLoggedOn,
+                TaskStatus = task.State.ToString(),
+                TaskTriggers = task.Definition.Triggers.ToString(),
                 TimeLimit = task.Definition.Settings.ExecutionTimeLimit.ToString(),
                 WakeToRun = task.Definition.Settings.WakeToRun,
-                TaskNote = myTask != null ? myTask.TaskNote : string.Empty,
-                IsChecked = myTask?.Alert == true
             };
+
+            if (task.Definition.Triggers.Count > 1)
+            {
+                IEnumerable<string> triggers = task.Definition.Triggers.Select(t => t.ToString());
+                scheduledTask.TaskTriggers = string.Join(Environment.NewLine, triggers).TrimEnd(Environment.NewLine.ToCharArray());
+            }
+            if (task.Definition.Actions.Count > 1)
+            {
+                IEnumerable<string> actions = task.Definition.Actions.Select(a => a.ToString());
+                scheduledTask.TaskActions = string.Join(Environment.NewLine, actions).TrimEnd(Environment.NewLine.ToCharArray());
+            }
+
+            return scheduledTask;
         }
         return null;
     }
-    #endregion Public Methods
+    #endregion Build a ScheduledTask object
 
-    #region Private backing fields
-    private bool _isChecked;
-    private uint? _taskResult;
-    private string _taskActions;
-    private string _taskName;
-    private string _taskStatus;
-    private string _taskRunLevel;
-    private string _taskTriggers;
-    private DateTime? _lastRun;
-    private DateTime? _nextRun;
-    private string _taskNote;
-
-    #endregion Private backing fields
+    #region Observable collection
+    public static ObservableCollection<ScheduledTask> TaskList { get; set; } = [];
+    #endregion Observable collection
 
     #region Properties
-    public string TimeLimit { get; set; }
+    [ObservableProperty]
+    private bool _allowDemandStart;
 
-    public bool AllowDemandStart { get; set; }
+    [ObservableProperty]
+    private bool _enabled;
 
-    public bool WakeToRun { get; set; }
+    [ObservableProperty]
+    private bool _isChecked;
 
-    public bool Enabled { get; set; }
+    [ObservableProperty]
+    private DateTime? _lastRunRaw;
 
-    public string Priority { get; set; }
+    [ObservableProperty]
+    private DateTime? _nextRunRaw;
 
-    public bool IsChecked
-    {
-        get => _isChecked;
-        set
-        {
-            _isChecked = value;
-            OnPropertyChanged();
-        }
-    }
+    [ObservableProperty]
+    private string _priority;
 
-    public string TaskNote
-    {
-        get { return _taskNote; }
-        set
-        {
-            _taskNote = value;
-            OnPropertyChanged();
-        }
-    }
+    [ObservableProperty]
+    private bool _startASAP;
 
-    public string TaskName
-    {
-        get => _taskName;
-        set
-        {
-            if (value != null)
-            {
-                _taskName = value;
-                OnPropertyChanged();
-            }
-        }
-    }
+    [ObservableProperty]
+    private bool _startOnAC;
 
-    public string TaskStatus
-    {
-        get => _taskStatus;
-        set
-        {
-            if (value != null)
-            {
-                _taskStatus = value;
-                OnPropertyChanged();
-            }
-        }
-    }
+    [ObservableProperty]
+    private string _taskAccount;
 
-    public uint? TaskResult
-    {
-        get => _taskResult;
-        set
-        {
-            if (value != null)
-            {
-                _taskResult = value;
-                OnPropertyChanged();
-            }
-        }
-    }
+    [ObservableProperty]
+    private string _taskActions;
+
+    [ObservableProperty]
+    private string _taskAuthor;
+
+    [ObservableProperty]
+    private DateTime? _taskCreatedRaw;
+
+    [ObservableProperty]
+    private string _taskDescription;
+
+    [ObservableProperty]
+    private string _taskFolder;
+
+    [ObservableProperty]
+    private string _timeLimit;
+
+    [ObservableProperty]
+    private int _taskMissedRuns;
+
+    [ObservableProperty]
+    private string _taskName;
+
+    [ObservableProperty]
+    private string _taskNote;
+
+    [ObservableProperty]
+    private string _taskPath;
+
+    [ObservableProperty]
+    private uint? _taskResult;
+
+    [ObservableProperty]
+    private int _taskRunLevel;
+
+    [ObservableProperty]
+    private bool _taskRunLoggedOn;
+
+    [ObservableProperty]
+    private string _taskStatus;
+
+    [ObservableProperty]
+    private string _taskTriggers;
+
+    [ObservableProperty]
+    private bool _wakeToRun;
+
+    public bool HighestPrivileges => TaskRunLevel != 0;
+
+    public DateTime? LastRun => LastRunRaw == null || LastRunRaw == DateTime.MinValue || LastRunRaw == new DateTime(1999, 11, 30) ? null : LastRunRaw;
+
+    public DateTime? NextRun => NextRunRaw == DateTime.MinValue ? null : NextRunRaw;
+
+    public DateTime? TaskCreated => TaskCreatedRaw == DateTime.MinValue ? null : TaskCreatedRaw;
+
+    public string TaskResultHex => (TaskResult == null) ? string.Empty : $"0x{TaskResult:X8}";
 
     public string TaskResultShort
     {
@@ -140,147 +162,25 @@ public class ScheduledTask : INotifyPropertyChanged
             switch (TaskResult)
             {
                 case null:
-                    return string.Empty;
+                    return GetStringResource("TaskResult_Null");           //Null
                 case 0:
-                    return "OK";
+                    return GetStringResource("TaskResult_OK");             //The operation completed successfully
                 case 0x41300:
-                    return "RDY"; //Task is ready to run at its next scheduled time
+                    return GetStringResource("TaskResult_ReadyToRun");     //Task is ready to run at its next scheduled time
                 case 0x41301:
-                    return "RUN"; //The task is currently running
+                    return GetStringResource("TaskResult_Running");        //The task is currently running
                 case 0x41302:
-                    return "DIS"; //The task has been disabled
+                    return GetStringResource("TaskResult_Disabled");       //The task has been disabled
                 case 0x41303:
-                    return "NYR"; //The task has not yet run
-                case 0x41304:
-                    return "NMR"; //There are no more runs scheduled for this task
+                    return GetStringResource("TaskResult_NotYetRun");      //The task has not yet run
                 case 0x41306:
-                    return "TRM"; //The last run of the task was terminated by the user
-                case 0x8004131F:
-                    return "AR"; //An instance of this task is already running
+                    return GetStringResource("TaskResult_Terminated");     //The last run of the task was terminated by the user
                 case 0x80070002:
-                    return "FNF"; //File not found
+                    return GetStringResource("TaskResult_FileNotFound");   //File not found
                 default:
-                    return "NZ";
+                    return GetStringResource("TaskResult_NonZero");        //Other non-zero
             }
         }
     }
-
-    public string TaskResultHex
-    {
-        get
-        {
-            if (TaskResult == null)
-            {
-                return string.Empty;
-            }
-            else
-            {
-                return $"0x{TaskResult:X}";
-            }
-        }
-    }
-
-    public DateTime? LastRun
-    {
-        get => _lastRun;
-
-        set
-        {
-            if (value == DateTime.MinValue)
-            {
-                _lastRun = null;
-            }
-            else
-            {
-                _lastRun = value;
-            }
-        }
-    }
-
-    public DateTime? NextRun
-    {
-        get => _nextRun;
-
-        set
-        {
-            if (value == DateTime.MinValue)
-            {
-                _nextRun = null;
-            }
-            else
-            {
-                _nextRun = value;
-            }
-        }
-    }
-
-    public string TaskFolder { get; set; }
-
-    public string TaskPath { get; set; }
-
-    public int TaskMissedRuns { get; set; }
-
-    public string TaskAccount { get; set; }
-
-    public string TaskDescription { get; set; }
-
-    public string TaskAuthor { get; set; }
-
-    public string TaskRunLevel
-    {
-        get => _taskRunLevel;
-
-        set
-        {
-            if (value == null)
-            {
-                _taskRunLevel = string.Empty;
-            }
-            else if (value == "LUA")
-            {
-                _taskRunLevel = "Lowest";
-            }
-            else if (value == "Highest")
-            {
-                _taskRunLevel = value;
-            }
-            else
-            {
-                _taskRunLevel = value;
-            }
-        }
-    }
-
-    public string TaskTriggers
-    {
-        get { return _taskTriggers; }
-        set
-        {
-            _taskTriggers = value ?? string.Empty;
-        }
-    }
-
-    public string TaskActions
-    {
-        get { return _taskActions; }
-        set
-        {
-            _taskActions = value ?? string.Empty;
-        }
-    }
-
     #endregion Properties
-
-    #region Observable collection
-    public static ObservableCollection<ScheduledTask> TaskList { get; set; }
-    #endregion Observable collection
-
-    #region Property changed event handler
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-    #endregion Property changed event handler
 }
