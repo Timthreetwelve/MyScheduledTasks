@@ -10,6 +10,11 @@
         <views:SettingsPage DataContext="{Binding}" />
     </DataTemplate>
 
+    <DataTemplate x:Name="addTasksTemplate"
+                  DataType="{x:Type viewmodels:AddTasksViewModel}">
+        <views:AddTasks DataContext="{Binding}" />
+    </DataTemplate>
+
     <DataTemplate x:Name="mainViewTemplate"
                   DataType="{x:Type viewmodels:MainViewModel}">
         <views:MainPage DataContext="{Binding}" />
