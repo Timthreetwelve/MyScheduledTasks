@@ -215,6 +215,18 @@
                                                          Source={x:Static config:UserSettings.Setting},
                                                          Converter={StaticResource BoolVisConverter}}" />
 
+
+                <DataGridTextColumn MinWidth="90"
+                                    Binding="{Binding NextRun,
+                                                      ConverterCulture={x:Static global:CultureInfo.CurrentUICulture}}"
+                                    CellStyle="{StaticResource DisplayOnly}"
+                                    DisplayIndex="5"
+                                    Header="{DynamicResource GridColumn_NextRun}"
+                                    IsReadOnly="True"
+                                    Visibility="{Binding ShowNextRunCol,
+                                                         Source={x:Static config:UserSettings.Setting},
+                                                         Converter={StaticResource BoolVisConverter}}" />
+
                 <DataGridTextColumn MinWidth="50"
                                     Binding="{Binding TaskFolder}"
                                     DisplayIndex="5"

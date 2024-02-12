@@ -1,4 +1,4 @@
-<UserControl x:Class="MyScheduledTasks.Views.SettingsPage"
+﻿<UserControl x:Class="MyScheduledTasks.Views.SettingsPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -134,34 +134,41 @@
                                       IsChecked="{Binding ShowLastRunCol,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
+
                             <CheckBox Grid.Row="3"
+                                      Padding="10,0"
+                                      Content="{DynamicResource SettingsItem_ShowNextRunColumn}"
+                                      IsChecked="{Binding ShowNextRunCol,
+                                                          Source={x:Static config:UserSettings.Setting}}" />
+
+                            <CheckBox Grid.Row="4"
                                       Padding="10,0"
                                       Content="{DynamicResource SettingsItem_ShowFolderColumn}"
                                       IsChecked="{Binding ShowFolderCol,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
-                            <CheckBox Grid.Row="4"
+                            <CheckBox Grid.Row="5"
                                       Padding="10,0"
                                       Content="{DynamicResource SettingsItem_ShowNoteColumn}"
                                       IsChecked="{Binding ShowNoteCol,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
-                            <CheckBox Grid.Row="5"
+                            <CheckBox Grid.Row="6"
                                       Padding="10,0"
                                       Content="{DynamicResource SettingsItem_ShowDetails}"
                                       IsChecked="{Binding ShowDetails,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
-                            <CheckBox Grid.Row="6"
+                            <CheckBox Grid.Row="7"
                                       Padding="10,0"
                                       Content="{DynamicResource SettingsItem_SaveTasksOnExit}"
                                       IsChecked="{Binding SaveOnExit,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
-                            <CheckBox Grid.Row="7"
+                            <CheckBox Grid.Row="8"
                                       Padding="10,0"
-                                      Content="{DynamicResource SettingsItem_AlertSound}"
-                                      IsChecked="{Binding AlertSound,
+                                      Content="Replace with localized text"
+                                      IsChecked="{Binding ShowAdvancedMenu,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
                             <CheckBox Grid.Row="9"
@@ -176,7 +183,7 @@
                                       IsChecked="{Binding KeepOnTop,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
-                            <CheckBox Grid.Row="9"
+                            <CheckBox Grid.Row="11"
                                       Padding="10,0"
                                       Content="{DynamicResource SettingsItem_IncludeDebug}"
                                       IsChecked="{Binding IncludeDebug,
