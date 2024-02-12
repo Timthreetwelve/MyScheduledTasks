@@ -463,4 +463,33 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion Key down events
 
+    #region Right mouse button
+    /// <summary>
+    /// Copy (nearly) any text in a TextBlock to the clipboard on right mouse button up.
+    /// </summary>
+    [RelayCommand]
+    public static void RightMouseUp(MouseButtonEventArgs e)
+    {
+        if (e.OriginalSource is TextBlock text)
+        {
+            // Skip the navigation menu
+            ListBox lb = MainWindowUIHelpers.FindParent<ListBox>(text);
+            if (lb?.Name == "NavigationListBox")
+            {
+                return;
+            }
+
+            DataGrid dg = MainWindowUIHelpers.FindParent<DataGrid>(text);
+            if (dg?.Name == "DataGridTasks")
+            {
+                return;
+            }
+
+            if (ClipboardHelper.CopyTextToClipboard(text.Text))
+            {
+                SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_CopiedToClipboardItem"));
+            }
+        }
+    }
+    #endregion Right mouse button
 }
