@@ -4,12 +4,16 @@ namespace MyScheduledTasks.Helpers;
 
 internal static class TaskFileHelpers
 {
+    #region Tasks filename
     public static string TasksFile { get; } = Path.Combine(AppInfo.AppDirectory, "MyTasks.json");
+    #endregion Tasks filename
 
+    #region JSON serializer options
     private static readonly JsonSerializerOptions _options = new()
     {
         WriteIndented = true
     };
+    #endregion JSON serializer options
 
     #region MainWindow Instance
     private static readonly MainWindow _mainWindow = Application.Current.MainWindow as MainWindow;
@@ -21,25 +25,8 @@ internal static class TaskFileHelpers
         // If the file doesn't exist, create a minimal JSON file
         if (!File.Exists(TasksFile))
         {
-            const string x = "[]";
-            try
-            {
-                File.WriteAllText(TasksFile, x);
-            }
-            catch (Exception ex)
-            {
-                _log.Fatal(ex, $"Error creating {TasksFile}");
-                _ = new MDCustMsgBox($"Error creating {TasksFile}\n\n{ex.Message}",
-                                    "ERROR", ButtonType.Ok).ShowDialog();
-
-                _ = new MDCustMsgBox("Fatal Error. My Scheduled Tasks will now close.",
-                                    "FATAL ERROR", ButtonType.Ok, true).ShowDialog();
-
-                // Quit via Environment.Exit so that normal shutdown processing doesn't run
-                Environment.Exit(1);
-            }
+            CreateEmptyFile();
         }
-
         // Read the JSON file
         try
         {
@@ -51,7 +38,30 @@ internal static class TaskFileHelpers
         catch (Exception ex)
         {
             _log.Fatal(ex, $"Error reading {TasksFile}");
-            _ = new MDCustMsgBox($"Error reading {TasksFile}\n\n{ex.Message}",
+            _ = new MDCustMsgBox($"Error reading {TasksFile}\n\n{ex.Message}\n\nFatal Error. My Scheduled Tasks will now close.",
+                                "My Scheduled Tasks Error",
+                                ButtonType.Ok,
+                                true,
+                                true,
+                                null,
+                                true).ShowDialog();
+
+            // Quit via Environment.Exit so that normal shutdown processing doesn't run
+            Environment.Exit(1);
+        }
+    }
+
+    private static void CreateEmptyFile()
+    {
+        const string x = "[]";
+        try
+        {
+            File.WriteAllText(TasksFile, x);
+        }
+        catch (Exception ex)
+        {
+            _log.Fatal(ex, $"Error creating {TasksFile}");
+            _ = new MDCustMsgBox($"Error creating {TasksFile}\n\n{ex.Message}",
                                 "ERROR", ButtonType.Ok).ShowDialog();
 
             _ = new MDCustMsgBox("Fatal Error. My Scheduled Tasks will now close.",
@@ -67,16 +77,18 @@ internal static class TaskFileHelpers
     /// <summary>
     /// Convert MyTasksCollection to JSON and save it to a file
     /// </summary>
-    public static void WriteTasks2Json()
+    public static void WriteTasks2Json(bool quiet = true)
     {
         try
         {
             string x = JsonSerializer.Serialize(MyTasks.MyTasksCollection, _options);
             File.WriteAllText(TasksFile, x);
             _log.Info($"Writing {MyTasks.MyTasksCollection.Count} items to {TasksFile} ");
-            SnackbarMsg.ClearAndQueueMessage($"{TasksFile} has been saved");
+            if (!quiet)
+            {
+                SnackbarMsg.ClearAndQueueMessage("Tasks file has been saved");
+            }
             MyTasks.IsDirty = false;
-            //sbRight.Content = string.Empty;
         }
         catch (Exception ex)
         {
@@ -110,7 +122,7 @@ internal static class TaskFileHelpers
 
             if (MDCustMsgBox.CustResult == CustResultType.Yes)
             {
-                DialogHelpers.ShowAddTasksDialog();
+                _mainWindow.NavigationListBox.SelectedValue = NavigationViewModel.FindNavPage(NavPage.AddTasks);
             }
         }
     }

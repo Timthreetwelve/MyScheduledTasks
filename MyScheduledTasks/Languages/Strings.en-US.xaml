@@ -42,6 +42,14 @@
     <sys:String x:Key="About_UpdateText">Check for new release of My Scheduled Tasks</sys:String>
     <sys:String x:Key="About_UpdateToolTip">Check GitHub for a newer release</sys:String>
     <sys:String x:Key="About_Version">Version</sys:String>
+    <!--  Add Tasks Page  -->
+    <sys:String x:Key="AddTasks_Add">Add Tasks</sys:String>
+    <sys:String x:Key="AddTasks_DGHeader_TaskFolder">Folder</sys:String>
+    <sys:String x:Key="AddTasks_DGHeader_TaskName">Task Name</sys:String>
+    <sys:String x:Key="AddTasks_FilterHint">Filter</sys:String>
+    <sys:String x:Key="AddTasks_HideMicrosoft">Hide Microsoft Folder</sys:String>
+    <sys:String x:Key="AddTasks_HideMicrosoftTooltip">Check to hide all entries in the \Microsoft folder</sys:String>
+    <sys:String x:Key="AddTasks_Refresh">Refresh Tasks</sys:String>
     <!--  Button Text  -->
     <sys:String x:Key="Button_Cancel">Cancel</sys:String>
     <sys:String x:Key="Button_Close">Close Menu</sys:String>
@@ -59,6 +67,7 @@
     <sys:String x:Key="Details_Account">Account:</sys:String>
     <sys:String x:Key="Details_Actions">Actions:</sys:String>
     <sys:String x:Key="Details_Author">Author:</sys:String>
+    <sys:String x:Key="Details_Created">Created:</sys:String>
     <sys:String x:Key="Details_Description">Description:</sys:String>
     <sys:String x:Key="Details_Enabled">Enabled:</sys:String>
     <sys:String x:Key="Details_FallbackText">Select a task in the grid above to view its details here</sys:String>
@@ -69,20 +78,36 @@
     <sys:String x:Key="Details_NextRun">Next Run:</sys:String>
     <sys:String x:Key="Details_Notes">Notes:</sys:String>
     <sys:String x:Key="Details_Priority">Priority:</sys:String>
-    <sys:String x:Key="Details_Privileges">Privileges:</sys:String>
+    <sys:String x:Key="Details_Privileges">Run with Highest Privileges:</sys:String>
     <sys:String x:Key="Details_StartOnDemand">Start on Demand:</sys:String>
+    <sys:String x:Key="Details_StartAsapIfMissed">Start ASAP if Missed:</sys:String>
+    <sys:String x:Key="Details_StartOnlyOnAcPower">Start Only if on AC Power:</sys:String>
     <sys:String x:Key="Details_Status">Status:</sys:String>
     <sys:String x:Key="Details_TimeLimit">Time Limit:</sys:String>
     <sys:String x:Key="Details_Triggers">Triggers:</sys:String>
     <sys:String x:Key="Details_WakeToRun">Wake to Run:</sys:String>
     <!--  DataGrid Column Headers  -->
-    <sys:String x:Key="GridColumn_TaskName">Task Name</sys:String>
+    <sys:String x:Key="GridColumn_Folder">Folder</sys:String>
+    <sys:String x:Key="GridColumn_LastRun">Last Run</sys:String>
+    <sys:String x:Key="GridColumn_NextRun">Next Run</sys:String>
+    <sys:String x:Key="GridColumn_Notes">Notes</sys:String>
     <sys:String x:Key="GridColumn_Result">Result</sys:String>
     <sys:String x:Key="GridColumn_ResultTooltip">Result: {0}</sys:String>
     <sys:String x:Key="GridColumn_Status">Status</sys:String>
-    <sys:String x:Key="GridColumn_LastRun">Last Run</sys:String>
-    <sys:String x:Key="GridColumn_Folder">Folder</sys:String>
-    <sys:String x:Key="GridColumn_Notes">Notes</sys:String>
+    <sys:String x:Key="GridColumn_TaskName">Task Name</sys:String>
+    <!--#region Import Task-->
+    <sys:String x:Key="ImportTask_FileNotFound">File not found.</sys:String>
+    <sys:String x:Key="ImportTask_Heading">Import a Task from an XML File</sys:String>
+    <sys:String x:Key="ImportTask_ImportErrorBlank">The task name cannot be blank.</sys:String>
+    <sys:String x:Key="ImportTask_ImportErrorExists">There is already a task named</sys:String>
+    <sys:String x:Key="ImportTask_ImportErrorGeneral">Error importing task.</sys:String>
+    <sys:String x:Key="ImportTask_ImportErrorHeader">Import Error</sys:String>
+    <sys:String x:Key="ImportTask_Overwrite">Overwrite existing task</sys:String>
+    <sys:String x:Key="ImportTask_RunLoggedOn">Run only when user is logged on</sys:String>
+    <sys:String x:Key="ImportTask_TaskName">Task name (including folder):</sys:String>
+    <sys:String x:Key="ImportTask_TaskNameHint">e.g. \My Folder\My Task</sys:String>
+    <sys:String x:Key="ImportTask_XMLPath">Path for the XML file</sys:String>
+    <sys:String x:Key="ImportTask_XMLPathHint">e.g. C:\users\&lt;user&gt;\Desktop\mytask.xml</sys:String>
     <!--  Menu Items  -->
     <sys:String x:Key="Menu_File">_File</sys:String>
     <sys:String x:Key="Menu_Tasks">_Tasks</sys:String>
@@ -91,11 +116,12 @@
     <sys:String x:Key="MenuItem_CopyToClipboard">Copy Grid to Clipboard</sys:String>
     <sys:String x:Key="MenuItem_DisableTasks">Disable Selected</sys:String>
     <sys:String x:Key="MenuItem_EnableTasks">Enable Selected</sys:String>
+    <sys:String x:Key="MenuItem_EditTaskNote">Edit Task Note</sys:String>
     <sys:String x:Key="MenuItem_Exit">Exit</sys:String>
     <sys:String x:Key="MenuItem_ExportTasks">Export Selected</sys:String>
     <sys:String x:Key="MenuItem_Larger">Larger View</sys:String>
     <sys:String x:Key="MenuItem_OpenScheduler">Open Task Scheduler</sys:String>
-    <sys:String x:Key="MenuItem_Refresh">Refresh Updates</sys:String>
+    <sys:String x:Key="MenuItem_Refresh">Refresh</sys:String>
     <sys:String x:Key="MenuItem_RemoveSort">Remove Column Sort</sys:String>
     <sys:String x:Key="MenuItem_RemoveTasks">Remove Selected</sys:String>
     <sys:String x:Key="MenuItem_RestartAdmin">Restart as Administrator</sys:String>
@@ -122,6 +148,7 @@
     <sys:String x:Key="MsgText_ElapsedTime">Elapsed time</sys:String>
     <sys:String x:Key="MsgText_FilterOneRowShown">1 row shown</sys:String>
     <sys:String x:Key="MsgText_FilterRowsShown">{0} rows shown</sys:String>
+
     <sys:String x:Key="MsgText_Million">million</sys:String>
     <sys:String x:Key="MsgText_NotAvailable">Not Available</sys:String>
     <sys:String x:Key="MsgText_Opening">Opening</sys:String>
@@ -131,6 +158,7 @@
     <sys:String x:Key="MsgText_RemoveFromStartupFailed">Failed to remove My Scheduled Tasks from Windows startup. See log file for additional info.</sys:String>
     <sys:String x:Key="MsgText_SeeLogFile">See the log file.</sys:String>
     <sys:String x:Key="MsgText_NullItemFound">Null item found while reading the task list.</sys:String>
+
     <sys:String x:Key="MsgText_NoInformationFound">No information found for</sys:String>
     <sys:String x:Key="MsgText_Thousand">thousand</sys:String>
     <sys:String x:Key="MsgText_Translated">translated</sys:String>
@@ -138,6 +166,7 @@
     <sys:String x:Key="MsgText_UISizeSet">Size set to {0}</sys:String>
     <sys:String x:Key="MsgText_UIThemeSet">Theme set to {0}</sys:String>
     <sys:String x:Key="MsgText_WindowTitleAdministrator">Administrator</sys:String>
+    <sys:String x:Key="MsgText_TaskNote">Task Note</sys:String>
     <!--  Navigation Items and Titles  -->
     <sys:String x:Key="NavItem_About">About</sys:String>
     <sys:String x:Key="NavItem_Exit">Exit</sys:String>
@@ -175,7 +204,7 @@
     <sys:String x:Key="SettingsEnum_Navigation_HardwareInfo">Hardware Info</sys:String>
     <sys:String x:Key="SettingsEnum_Navigation_History">History</sys:String>
     <sys:String x:Key="SettingsEnum_Navigation_Settings">Settings</sys:String>
-    <sys:String x:Key="SettingsEnum_Navigation_WindowsInfo">Windows Info</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_AddTasks">Add Tasks</sys:String>
     <sys:String x:Key="SettingsEnum_Size_Default">100%</sys:String>
     <sys:String x:Key="SettingsEnum_Size_Large">105%</sys:String>
     <sys:String x:Key="SettingsEnum_Size_Larger">110%</sys:String>
@@ -192,6 +221,8 @@
     <sys:String x:Key="SettingsEnum_Theme_System">System</sys:String>
     <!--  Settings Page Items  -->
     <sys:String x:Key="SettingsItem_AccentColor">Accent Color</sys:String>
+    <sys:String x:Key="SettingsItem_AnnotateRoot">Add [root folder] notation to Root Folder</sys:String>
+    <sys:String x:Key="SettingsItem_Root">root folder</sys:String>
     <sys:String x:Key="SettingsItem_ChangingLanguageWarning">Changing Language will cause application to restart!</sys:String>
     <sys:String x:Key="SettingsItem_EnableLanguageTesting">Enable language testing</sys:String>
     <sys:String x:Key="SettingsItem_IncludeDebug">Include debug level messages in log file</sys:String>
@@ -204,6 +235,7 @@
     <sys:String x:Key="SettingsItem_ShowDetails">Show Details Pane</sys:String>
     <sys:String x:Key="SettingsItem_ShowStatusColumn">Show Status Column</sys:String>
     <sys:String x:Key="SettingsItem_ShowLastRunColumn">Show Last Run Column</sys:String>
+    <sys:String x:Key="SettingsItem_ShowNextRunColumn">Show Next Run Column</sys:String>
     <sys:String x:Key="SettingsItem_ShowFolderColumn">Show Folder Column</sys:String>
     <sys:String x:Key="SettingsItem_ShowNoteColumn">Show Note Column</sys:String>
     <sys:String x:Key="SettingsItem_ShowExit">Show Exit in Navigation bar</sys:String>
@@ -224,5 +256,19 @@
     <!--  Status Bar  -->
     <sys:String x:Key="StatusBar_Items">{0} Items</sys:String>
     <sys:String x:Key="StatusBar_Selected">{0} Selected</sys:String>
+    <!--  Task Result Short-->
+    <sys:String x:Key="TaskResult_Disabled">DIS</sys:String>
+    <sys:String x:Key="TaskResult_FileNotFound">FNF</sys:String>
+    <sys:String x:Key="TaskResult_NonZero">NZ</sys:String>
+    <sys:String x:Key="TaskResult_NotYetRun">NYR</sys:String>
+    <sys:String x:Key="TaskResult_Null">No Info</sys:String>
+    <sys:String x:Key="TaskResult_OK">OK</sys:String>
+    <sys:String x:Key="TaskResult_ReadyToRun">RDY</sys:String>
+    <sys:String x:Key="TaskResult_Running">RUN</sys:String>
+    <sys:String x:Key="TaskResult_Terminated">TRM</sys:String>
+    
+    <!--  Task Privileges  -->
+    <sys:String x:Key="TaskPrivileges_Lowest">Lowest privileges</sys:String>
+    <sys:String x:Key="TaskPrivileges_Highest">Highest privileges</sys:String>
 
 </ResourceDictionary>

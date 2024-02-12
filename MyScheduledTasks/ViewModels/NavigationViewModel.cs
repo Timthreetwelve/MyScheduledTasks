@@ -221,6 +221,15 @@ internal partial class NavigationViewModel : ObservableObject
         DialogHelpers.ShowEditNoteDialog(row);
     }
     #endregion Edit Task Note
+
+    #region Remove tasks
+    [RelayCommand]
+    public static void RemoveTasks()
+    {
+        TaskHelpers.RemoveTasks(MainPage.Instance.DataGridTasks);
+    }
+    #endregion Remove tasks
+
     #region Restart as Administrator
     /// <summary>
     /// Confirm restart
@@ -284,7 +293,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void RefreshGrid()
     {
-        Debug.WriteLine("Refresh");
+        MainViewModel.LoadData();
     }
     #endregion Refresh
 
@@ -292,7 +301,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void ExportTasks()
     {
-        Debug.WriteLine("Export");
+        TaskHelpers.ExportTask(MainPage.Instance.DataGridTasks);
     }
     #endregion Export
 
@@ -314,25 +323,28 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void EnableTasks()
     {
-        Debug.WriteLine("Enable");
+        TaskHelpers.EnableTask(MainPage.Instance.DataGridTasks);
+        RefreshGrid();
     }
-    #endregion Enable
+    #endregion Enable Tasks
 
-    #region Disable
+    #region Disable Tasks
     [RelayCommand]
     public static void DisableTasks()
     {
-        Debug.WriteLine("Disable");
+        TaskHelpers.DisableTask(MainPage.Instance.DataGridTasks);
+        RefreshGrid();
     }
-    #endregion Disable
+    #endregion Disable Tasks
 
-    #region Run
+    #region Run Tasks
     [RelayCommand]
     public static void RunTasks()
     {
-        Debug.WriteLine("Run");
+        TaskHelpers.RunTask(MainPage.Instance.DataGridTasks);
+        RefreshGrid();
     }
-    #endregion Run
+    #endregion Run Tasks
 
     #region Key down events
     /// <summary>
