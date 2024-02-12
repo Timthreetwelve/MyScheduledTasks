@@ -19,6 +19,8 @@ internal static class MainWindowHelpers
         MainViewModel.LoadData();
 
         ProcessCommandLine();
+
+        _ = System.Threading.Tasks.Task.Run(TaskHelpers.GetAllTasks);
     }
     #endregion Startup
 
