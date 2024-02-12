@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -9,12 +9,8 @@ internal static class DialogHelpers
     /// </summary>
     internal static async void ShowImportTaskDialog()
     {
-        MainWindowUIHelpers.MainWindowWaitPointer();
-        double newSize = ScaleDialog(UserSettings.Setting.UISize);
-        ImportTaskDialog importDialog = new()
-        {
-            LayoutTransform = new ScaleTransform(newSize, newSize)
-        };
+        MainWindowUIHelpers.MainWindowNotAllowedPointer();
+        ImportTaskDialog importDialog = new();
         _ = await DialogHost.Show(importDialog, "MainDialogHost");
         MainWindowUIHelpers.MainWindowNormalPointer();
     }
@@ -25,13 +21,9 @@ internal static class DialogHelpers
     /// <param name="task">task to edit note property</param>
     internal static async void ShowEditNoteDialog(ScheduledTask task)
     {
-        double newSize = ScaleDialog(UserSettings.Setting.UISize);
-        EditNote en = new(task)
-        {
-            LayoutTransform = new ScaleTransform(newSize, newSize)
-        };
+        MainWindowUIHelpers.MainWindowNotAllowedPointer();
+        EditNote en = new(task);
         _ = await DialogHost.Show(en, "MainDialogHost");
+        MainWindowUIHelpers.MainWindowNormalPointer();
     }
-
-    internal static double ScaleDialog(MySize size)
 }
