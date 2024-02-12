@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -48,6 +48,7 @@ internal static class MainWindowUIHelpers
                 theme.SetBaseTheme(Theme.Dark);
                 theme.CardBackground = (Color)ColorConverter.ConvertFromString("#FF141414");
                 theme.Paper = (Color)ColorConverter.ConvertFromString("#FF202020");
+                theme.Selection = (Color)ColorConverter.ConvertFromString("#FF303030");
                 break;
             default:
                 theme.SetBaseTheme(Theme.Light);
