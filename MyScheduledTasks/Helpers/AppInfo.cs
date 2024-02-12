@@ -197,12 +197,5 @@ public static class AppInfo
     /// <summary>
     /// True if running as administrator
     /// </summary>
-    //public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-    public static bool IsAdmin
-    {
-        get
-        {
-            return true;
-        }
-    }
+    public static bool IsAdmin => new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 }
