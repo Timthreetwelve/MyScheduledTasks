@@ -296,6 +296,7 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion Export
 
+    #region Import tasks
     [RelayCommand]
     public static void ShowImportTasks()
     {
@@ -307,6 +308,7 @@ internal partial class NavigationViewModel : ObservableObject
     {
         TaskHelpers.ImportTasks();
     }
+    #endregion Import tasks
 
     #region Enable Tasks
     [RelayCommand]

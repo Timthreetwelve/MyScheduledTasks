@@ -229,27 +229,77 @@ internal static class TaskHelpers
     #region Import a task
     internal static void ImportTasks()
     {
+        if (ImportTask.Import.XmlFile.Contains('\"'))
+        {
+            ImportTask.Import.XmlFile = ImportTask.Import.XmlFile.Trim('\"');
+        }
+
+        if (!File.Exists(ImportTask.Import.XmlFile))
+        {
+            MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_FileNotFound")}\n\n{ImportTask.Import.XmlFile}",
+                GetStringResource("ImportTask_ImportErrorHeader"),
+                ButtonType.Ok,
+                false,
+                true,
+                _mainWindow,
+                true);
+            _ = mbox.ShowDialog();
+            return;
+        }
+
+        if (string.IsNullOrEmpty(ImportTask.Import.TaskName))
+        {
+            MDCustMsgBox mbox = new(GetStringResource("ImportTask_ImportErrorBlank"),
+                GetStringResource("ImportTask_ImportErrorHeader"),
+                ButtonType.Ok,
+                false,
+                true,
+                _mainWindow,
+                true);
+            _ = mbox.ShowDialog();
+            return;
+        }
+
+        if (!ImportTask.Import.TaskName.StartsWith('\\'))
+        {
+            ImportTask.Import.TaskName = ImportTask.Import.TaskName.Insert(0, "\\");
+        }
+
+        if (!ImportTask.Import.Overwrite && CheckTaskExists(ImportTask.Import.TaskName))
+        {
+            MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_ImportErrorExists")} {ImportTask.Import.TaskName}.",
+                GetStringResource("ImportTask_ImportErrorHeader"),
+                ButtonType.Ok,
+                false,
+                true,
+                _mainWindow,
+                true);
+            _ = mbox.ShowDialog();
+            return;
+        }
+
         try
         {
-            TaskDefinition td = TaskService.Instance.NewTaskFromFile(ImportTask.ImportTaskXML);
-            td.Principal.LogonType = TaskLogonType.InteractiveToken;
-            td.Principal.RunLevel = TaskRunLevel.Highest;
-            _ = TaskService.Instance.RootFolder.RegisterTaskDefinition(ImportTask.ImportTaskName, td);
-            SnackbarMsg.ClearAndQueueMessage($"Imported: {ImportTask.ImportTaskXML}");
-            _log.Info($"Imported {ImportTask.ImportTaskXML} to {ImportTask.ImportTaskName}");
+            TaskDefinition td = TaskService.Instance.NewTaskFromFile(ImportTask.Import.XmlFile);
+            if (ImportTask.Import.RunOnlyLoggedOn)
+            {
+                td.Principal.LogonType = TaskLogonType.InteractiveToken;
+            }
+            _ = TaskService.Instance.RootFolder.RegisterTaskDefinition(ImportTask.Import.TaskName, td);
+            SnackbarMsg.ClearAndQueueMessage($"Imported: {ImportTask.Import.XmlFile}");
+            _log.Info($"Imported {ImportTask.Import.XmlFile} to {ImportTask.Import.TaskName}");
         }
         catch (Exception ex)
         {
-            _log.Error(ex, $"Error Importing {ImportTask.ImportTaskXML}");
-            MDCustMsgBox mbox = new($"Error importing task.\n\n{ex.Message}",
-                    "Replace this with localized text",
+            _log.Error(ex, $"Error Importing {ImportTask.Import.XmlFile}");
+            MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_ImportErrorGeneral")}\n\n{ex.Message}",
+                    GetStringResource("ImportTask_ImportErrorHeader"),
                     ButtonType.Ok,
                     false,
                     true,
                     _mainWindow,
                     true);
             _ = mbox.ShowDialog();
-
         }
     }
     #endregion Import a task

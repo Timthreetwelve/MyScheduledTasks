@@ -5,15 +5,19 @@ namespace MyScheduledTasks.Models;
 /// <summary>
 /// Class for properties used by the Import Task
 /// </summary>
-public static class ImportTask
+public class ImportTask
 {
-    public static string ImportTaskXML { get; set; } = string.Empty;
+    public static ImportTask Import { get; set; } = new();
 
-    public static string ImportTaskName { get; set; } = string.Empty;
+    public ImportTask()
+    {
+    }
 
-    public static bool ImportOverwrite { get; set; }
+    public string XmlFile { get; set; } = string.Empty;
 
-    public static bool ImportRunOnlyLoggedOn { get; set; } = true;
+    public string TaskName { get; set; } = string.Empty;
 
-    public static bool ImportRunHighest { get; set; }
+    public bool Overwrite { get; set; }
+
+    public bool RunOnlyLoggedOn { get; set; } = true;
 }
