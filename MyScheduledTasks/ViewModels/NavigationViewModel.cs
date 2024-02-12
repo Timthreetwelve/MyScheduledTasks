@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -74,7 +74,7 @@ internal partial class NavigationViewModel : ObservableObject
     #endregion List of navigation items
 
     #region Navigation Methods
-    private static NavigationItem FindNavPage(NavPage page)
+    internal static NavigationItem FindNavPage(NavPage page)
     {
         return NavigationViewModelTypes.Find(x => x.NavPage == page);
     }
@@ -174,22 +174,6 @@ internal partial class NavigationViewModel : ObservableObject
         Application.Current.Shutdown();
     }
     #endregion Application Shutdown
-
-    #region Add tasks
-    [RelayCommand]
-    public static void AddTasks()
-    {
-        DialogHelpers.ShowAddTasksDialog();
-    }
-    #endregion Add tasks
-
-    #region Remove tasks
-    [RelayCommand]
-    public static void RemoveTasks()
-    {
-        Debug.WriteLine("Remove");
-    }
-    #endregion Remove tasks
 
     #region Open Task Scheduler
     [RelayCommand]
@@ -363,7 +347,7 @@ internal partial class NavigationViewModel : ObservableObject
     /// Keyboard events
     /// </summary>
     [RelayCommand]
-    public static void KeyDown(KeyEventArgs e)
+    public void KeyDown(KeyEventArgs e)
     {
         #region Keys without modifiers
         switch (e.Key)
@@ -373,6 +357,9 @@ internal partial class NavigationViewModel : ObservableObject
                     _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.About);
                     break;
                 }
+            case Key.F5:
+                RefreshGrid();
+                break;
             case Key.Home:
                 {
                     _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.Main);
@@ -380,7 +367,21 @@ internal partial class NavigationViewModel : ObservableObject
                 }
             case Key.Escape:
                 {
-                    MainPage.Instance.DataGridTasks.SelectedIndex = -1;
+                    if (CurrentViewModel is MainViewModel)
+                    {
+                        MainPage.Instance.DataGridTasks.SelectedIndex = -1;
+                        e.Handled = true;
+                    }
+                    if (CurrentViewModel is AddTasksViewModel)
+                    {
+                        Views.AddTasks.Instance.AllTasksGrid.SelectedIndex = -1;
+                        e.Handled = true;
+                    }
+                    if ((CurrentViewModel is SettingsViewModel) || (CurrentViewModel is AboutViewModel))
+                    {
+                        e.Handled = true;
+                    }
+
                     break;
                 }
         }
@@ -411,7 +412,6 @@ internal partial class NavigationViewModel : ObservableObject
                     }
                 case Key.N:
                     {
-                        DialogHelpers.ShowAddTasksDialog();
                         break;
                     }
                 case Key.Add:
