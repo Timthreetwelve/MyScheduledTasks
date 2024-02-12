@@ -1,4 +1,4 @@
-﻿<Window x:Class="MyScheduledTasks.MainWindow"
+<Window x:Class="MyScheduledTasks.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -37,6 +37,10 @@
     <bh:Interaction.Triggers>
         <bh:EventTrigger EventName="KeyDown">
             <bh:InvokeCommandAction Command="{Binding KeyDownCommand}"
+                                    PassEventArgsToCommand="True" />
+        </bh:EventTrigger>
+        <bh:EventTrigger EventName="MouseRightButtonUp">
+            <bh:InvokeCommandAction Command="{Binding RightMouseUpCommand}"
                                     PassEventArgsToCommand="True" />
         </bh:EventTrigger>
     </bh:Interaction.Triggers>
