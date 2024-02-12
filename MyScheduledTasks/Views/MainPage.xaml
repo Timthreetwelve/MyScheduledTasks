@@ -245,6 +245,10 @@
                                                          Converter={StaticResource BoolVisConverter}}" />
             </DataGrid.Columns>
             <!--#endregion-->
+                    <MenuItem x:Name="EditNoteItem"
+                              Command="{Binding EditNoteCommand}"
+                              Header="{DynamicResource MenuItem_EditTaskNote}" />
+                    <Separator />
         </DataGrid>
         <!--#endregion-->
 

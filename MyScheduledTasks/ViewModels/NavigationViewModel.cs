@@ -211,6 +211,16 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion Open Task Scheduler
 
+
+    #region Edit Task Note
+    [RelayCommand]
+    public static void EditNote()
+    {
+        DataGrid grid = MainPage.Instance.DataGridTasks;
+        ScheduledTask row = grid.SelectedItem as ScheduledTask;
+        DialogHelpers.ShowEditNoteDialog(row);
+    }
+    #endregion Edit Task Note
     #region Restart as Administrator
     /// <summary>
     /// Confirm restart

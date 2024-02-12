@@ -7,11 +7,15 @@ internal static class DialogHelpers
     /// <summary>
     /// Shows the Add Tasks dialog.
     /// </summary>
-    internal static async void ShowAddTasksDialog()
+    internal static async void ShowImportTaskDialog()
     {
         MainWindowUIHelpers.MainWindowWaitPointer();
-        AddTaskDialog add = new();
-        _ = await DialogHost.Show(add, "MainDialogHost");
+        double newSize = ScaleDialog(UserSettings.Setting.UISize);
+        ImportTaskDialog importDialog = new()
+        {
+            LayoutTransform = new ScaleTransform(newSize, newSize)
+        };
+        _ = await DialogHost.Show(importDialog, "MainDialogHost");
         MainWindowUIHelpers.MainWindowNormalPointer();
     }
 

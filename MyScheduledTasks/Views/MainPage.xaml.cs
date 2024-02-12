@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Views;
 
@@ -54,8 +54,10 @@ public partial class MainPage : UserControl
     {
     }
 
-    private void GridSplitter_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+    #region Context menu opened event
+    private void ContextMenu_Opened(object sender, RoutedEventArgs e)
     {
-        UserSettings.Setting.DetailsHeight = detailsRow.Height.Value;
+        EditNoteItem.IsEnabled = DataGridTasks.SelectedItems.Count == 1;
     }
+    #endregion Context menu opened event
 }
