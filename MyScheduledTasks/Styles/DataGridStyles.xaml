@@ -9,17 +9,20 @@
         <Setter Property="Focusable" Value="False" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignPaper}" />
+                <Setter Property="BorderBrush" Value="Transparent" />
             </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="Transparent" />
+            </Trigger>
+
         </Style.Triggers>
     </Style>
     <!--#endregion-->
 
     <!--#region Style for DataGrid cells-->
-    <Style TargetType="DataGridCell"
-           x:Key="DGCellStyle"
-           BasedOn="{StaticResource {x:Type DataGridCell}}">
+    <Style x:Key="DGCellStyle"
+           BasedOn="{StaticResource {x:Type DataGridCell}}"
+           TargetType="DataGridCell">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="IsHitTestVisible" Value="False" />
     </Style>
@@ -29,9 +32,13 @@
     <Style x:Key="DisplayOnlyRows"
            BasedOn="{StaticResource {x:Type DataGridRow}}"
            TargetType="DataGridRow">
+        <Setter Property="Focusable" Value="False" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="Transparent" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -84,29 +91,37 @@
         <Setter Property="Margin" Value="1,0,0,0" />
         <Setter Property="TextBlock.TextAlignment" Value="Left" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding TaskResultShort}" Value="NZ">
+            <!--  Note: Static Resource must be used in a data trigger  -->
+            <!--  Note: Values are assigned in ScheduledTask.cs (TaskResultShort)  -->
+            <DataTrigger Binding="{Binding TaskResultShort}"
+                         Value="{StaticResource TaskResult_NonZero}">
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="Foreground" Value="Crimson" />
             </DataTrigger>
             <DataTrigger Binding="{Binding TaskResultShort}"
-                         Value="TRM">
+                         Value="{StaticResource TaskResult_Terminated}">
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="Foreground" Value="Crimson" />
             </DataTrigger>
             <DataTrigger Binding="{Binding TaskResultShort}"
-                         Value="FNF">
+                         Value="{StaticResource TaskResult_FileNotFound}">
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="Foreground" Value="Crimson" />
             </DataTrigger>
             <DataTrigger Binding="{Binding TaskResultShort}"
-                         Value="NYR">
+                         Value="{StaticResource TaskResult_NotYetRun}">
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="Foreground" Value="DodgerBlue" />
             </DataTrigger>
             <DataTrigger Binding="{Binding TaskResultShort}"
-                         Value="RUN">
+                         Value="{StaticResource TaskResult_Running}">
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="Foreground" Value="LimeGreen" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TaskResultShort}"
+                         Value="{StaticResource TaskResult_Null}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="Orange" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -122,6 +137,11 @@
                          Value="Running">
                 <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="Foreground" Value="LimeGreen" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TaskResultShort}"
+                         Value="{StaticResource TaskResult_Null}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="Orange" />
             </DataTrigger>
             <DataTrigger Binding="{Binding TaskStatus}"
                          Value="Disabled">
