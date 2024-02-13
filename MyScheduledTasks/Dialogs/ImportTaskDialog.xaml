@@ -88,7 +88,12 @@
                                Margin="10,10,10,4"
                                Text="{DynamicResource ImportTask_XMLPath}" />
                     <Grid Grid.Row="2">
-                        <TextBox Width="auto"
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="35" />
+
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
                                  Height="auto"
                                  MinWidth="300"
                                  MaxWidth="{Binding Path=ActualWidth,
@@ -96,25 +101,29 @@
                                                                                    Mode=FindAncestor}}"
                                  Margin="10,0"
                                  Padding="10,5,10,7"
-                                 HorizontalContentAlignment="Left"
+                                 HorizontalAlignment="Stretch"
+                                 HorizontalContentAlignment="Stretch"
                                  materialDesign:HintAssist.Hint="{DynamicResource ImportTask_XMLPathHint}"
                                  materialDesign:HintAssist.IsFloating="False"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                  Text="{Binding ImportXMLFile,
                                                 Source={x:Static config:TempSettings.Setting}}" />
-                        <Button Width="40"
+                        <Button Grid.Column="1"
+                                Width="30"
                                 Margin="0,0,7,0"
-                                Padding="0"
+                                Padding="2,0,0,0"
                                 HorizontalAlignment="Right"
                                 Command="{Binding ImportFilePickerCommand}"
                                 Foreground="{DynamicResource MaterialDesignBody}"
                                 IsDefault="False"
                                 IsTabStop="False"
                                 Style="{StaticResource MaterialDesignFlatButton}"
-                                ToolTip="{DynamicResource ImportTask_FilePickerTooltip}">
+                                ToolTip="{DynamicResource ImportTask_FilePickerTooltip}"
+                                ToolTipService.Placement="Left">
                             <materialDesign:PackIcon Width="22"
                                                      Height="22"
-                                                     Kind="FileOutline" />
+                                                     Kind="FileOutline"
+                                                     Opacity="0.8" />
                         </Button>
                     </Grid>
                     <!--#endregion-->
@@ -130,7 +139,7 @@
                              MaxWidth="{Binding Path=ActualWidth,
                                                 RelativeSource={RelativeSource AncestorType={x:Type materialDesign:DialogHost},
                                                                                Mode=FindAncestor}}"
-                             Margin="10,0"
+                             Margin="10,0,45,0"
                              Padding="10,5,10,7"
                              HorizontalContentAlignment="Left"
                              materialDesign:HintAssist.Hint="{DynamicResource ImportTask_TaskNameHint}"
