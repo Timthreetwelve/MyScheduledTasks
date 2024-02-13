@@ -221,36 +221,36 @@
     <sys:String x:Key="SettingsEnum_Theme_System">System</sys:String>
     <!--  Settings Page Items  -->
     <sys:String x:Key="SettingsItem_AccentColor">Accent Color</sys:String>
+    <sys:String x:Key="SettingsItem_AlertSound">Play Sound for Alert</sys:String>
     <sys:String x:Key="SettingsItem_AnnotateRoot">Add [root folder] notation to Root Folder</sys:String>
-    <sys:String x:Key="SettingsItem_Root">root folder</sys:String>
     <sys:String x:Key="SettingsItem_ChangingLanguageWarning">Changing Language will cause application to restart!</sys:String>
     <sys:String x:Key="SettingsItem_EnableLanguageTesting">Enable language testing</sys:String>
     <sys:String x:Key="SettingsItem_IncludeDebug">Include debug level messages in log file</sys:String>
     <sys:String x:Key="SettingsItem_KeepOnTop">Keep My Scheduled Tasks on top of other windows</sys:String>
     <sys:String x:Key="SettingsItem_Language">Language</sys:String>
+    <sys:String x:Key="SettingsItem_Root">root folder</sys:String>
     <sys:String x:Key="SettingsItem_RowHeight">Row Height</sys:String>
-    <sys:String x:Key="SettingsItem_AlertSound">Play Sound for Alert</sys:String>
     <sys:String x:Key="SettingsItem_SaveTasksOnExit">Save Task List on Exit</sys:String>
+    <sys:String x:Key="SettingsItem_ShowAdvancedMenu">Show Advanced Menu</sys:String>
     <sys:String x:Key="SettingsItem_ShowAlertColumn">Show Alert Column</sys:String>
     <sys:String x:Key="SettingsItem_ShowDetails">Show Details Pane</sys:String>
-    <sys:String x:Key="SettingsItem_ShowStatusColumn">Show Status Column</sys:String>
+    <sys:String x:Key="SettingsItem_ShowExit">Show Exit in Navigation bar</sys:String>
+    <sys:String x:Key="SettingsItem_ShowFolderColumn">Show Folder Column</sys:String>
     <sys:String x:Key="SettingsItem_ShowLastRunColumn">Show Last Run Column</sys:String>
     <sys:String x:Key="SettingsItem_ShowNextRunColumn">Show Next Run Column</sys:String>
-    <sys:String x:Key="SettingsItem_ShowFolderColumn">Show Folder Column</sys:String>
     <sys:String x:Key="SettingsItem_ShowNoteColumn">Show Note Column</sys:String>
-    <sys:String x:Key="SettingsItem_ShowExit">Show Exit in Navigation bar</sys:String>
+    <sys:String x:Key="SettingsItem_ShowStatusColumn">Show Status Column</sys:String>
     <sys:String x:Key="SettingsItem_StartCentered">Start with window centered on screen</sys:String>
     <sys:String x:Key="SettingsItem_Theme">Theme</sys:String>
     <sys:String x:Key="SettingsItem_UISize">UI Size</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageCheckBox">Use Windows display language</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine1">When this option is selected, the language specified in the Windows settings will</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine2">be used if a translation is available, otherwise English (en-US) will be used.</sys:String>
-
     <!--  Settings Page Expander Headings and Sub Headings -->
     <sys:String x:Key="SettingsSection_AppSettings">Application Settings</sys:String>
     <sys:String x:Key="SettingsSection_Language">Language</sys:String>
     <sys:String x:Key="SettingsSection_UISettings">UI Settings</sys:String>
-    <sys:String x:Key="SettingsSubHead_AppSettings">Yadda, yadda, and Log verbosity</sys:String>
+    <sys:String x:Key="SettingsSubHead_AppSettings">Show columns and details pane options, annotate root folder and more</sys:String>
     <sys:String x:Key="SettingsSubHead_Language">Language Settings and Testing</sys:String>
     <sys:String x:Key="SettingsSubHead_UISettings">Theme, Accent Color, UI Size, Row Height, Start Position and more</sys:String>
     <!--  Status Bar  -->
@@ -266,7 +266,7 @@
     <sys:String x:Key="TaskResult_ReadyToRun">RDY</sys:String>
     <sys:String x:Key="TaskResult_Running">RUN</sys:String>
     <sys:String x:Key="TaskResult_Terminated">TRM</sys:String>
-    
+
     <!--  Task Privileges  -->
     <sys:String x:Key="TaskPrivileges_Lowest">Lowest privileges</sys:String>
     <sys:String x:Key="TaskPrivileges_Highest">Highest privileges</sys:String>

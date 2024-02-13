@@ -167,7 +167,7 @@
 
                             <CheckBox Grid.Row="8"
                                       Padding="10,0"
-                                      Content="Replace with localized text"
+                                      Content="{DynamicResource SettingsItem_ShowAdvancedMenu}"
                                       IsChecked="{Binding ShowAdvancedMenu,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
