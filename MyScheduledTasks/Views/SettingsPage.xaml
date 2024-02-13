@@ -44,7 +44,6 @@
                 </Grid.RowDefinitions>
                 <!--#endregion-->
 
-
                 <!--#region App Settings-->
                 <Expander Grid.Row="0"
                           materialDesign:ExpanderAssist.HorizontalHeaderPadding="10"

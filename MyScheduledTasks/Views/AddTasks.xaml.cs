@@ -21,9 +21,6 @@ public partial class AddTasks : UserControl
         FilterTheGrid(AddTasksViewModel.FilterText);
     }
 
-    #region Filter the list
-    #endregion Filter the list
-
     #region Filter the datagrid
     /// <summary>
     /// Filters the grid.
