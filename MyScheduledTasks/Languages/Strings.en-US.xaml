@@ -97,14 +97,19 @@
     <sys:String x:Key="GridColumn_TaskName">Task Name</sys:String>
     <!--#region Import Task-->
     <sys:String x:Key="ImportTask_FileNotFound">File not found.</sys:String>
+    <sys:String x:Key="ImportTask_FilePickerTitle">Browse for file</sys:String>
+    <sys:String x:Key="ImportTask_FilePickerTooltip">Browse for file</sys:String>
     <sys:String x:Key="ImportTask_Heading">Import a Task from an XML File</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorBlank">The task name cannot be blank.</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorExists">There is already a task named</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorGeneral">Error importing task.</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorHeader">Import Error</sys:String>
-    <sys:String x:Key="ImportTask_Overwrite">Overwrite existing task</sys:String>
+    <sys:String x:Key="ImportTask_ImportSuccess">was successfully imported.</sys:String>
+    <sys:String x:Key="ImportTask_ImportSuccessHeader">Success</sys:String>
+    <sys:String x:Key="ImportTask_Overwrite">Overwrite existing task with the same name</sys:String>
+    <sys:String x:Key="ImportTask_ResetDate">Reset creation date and time to current</sys:String>
     <sys:String x:Key="ImportTask_RunLoggedOn">Run only when user is logged on</sys:String>
-    <sys:String x:Key="ImportTask_TaskName">Task name (including folder):</sys:String>
+    <sys:String x:Key="ImportTask_TaskName">Task Name (including folder) - Must be unique:</sys:String>
     <sys:String x:Key="ImportTask_TaskNameHint">e.g. \My Folder\My Task</sys:String>
     <sys:String x:Key="ImportTask_XMLPath">Path for the XML file</sys:String>
     <sys:String x:Key="ImportTask_XMLPathHint">e.g. C:\users\&lt;user&gt;\Desktop\mytask.xml</sys:String>

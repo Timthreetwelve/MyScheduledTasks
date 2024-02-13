@@ -229,14 +229,14 @@ internal static class TaskHelpers
     #region Import a task
     internal static void ImportTasks()
     {
-        if (ImportTask.Import.XmlFile.Contains('\"'))
+        if (TempSettings.Setting.ImportXMLFile.Contains('\"'))
         {
-            ImportTask.Import.XmlFile = ImportTask.Import.XmlFile.Trim('\"');
+            TempSettings.Setting.ImportXMLFile = TempSettings.Setting.ImportXMLFile.Trim('\"');
         }
 
-        if (!File.Exists(ImportTask.Import.XmlFile))
+        if (!File.Exists(TempSettings.Setting.ImportXMLFile))
         {
-            MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_FileNotFound")}\n\n{ImportTask.Import.XmlFile}",
+            MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_FileNotFound")}\n\n{TempSettings.Setting.ImportXMLFile}",
                 GetStringResource("ImportTask_ImportErrorHeader"),
                 ButtonType.Ok,
                 false,
@@ -247,7 +247,7 @@ internal static class TaskHelpers
             return;
         }
 
-        if (string.IsNullOrEmpty(ImportTask.Import.TaskName))
+        if (string.IsNullOrEmpty(TempSettings.Setting.ImportTaskName))
         {
             MDCustMsgBox mbox = new(GetStringResource("ImportTask_ImportErrorBlank"),
                 GetStringResource("ImportTask_ImportErrorHeader"),
@@ -260,14 +260,14 @@ internal static class TaskHelpers
             return;
         }
 
-        if (!ImportTask.Import.TaskName.StartsWith('\\'))
+        if (!TempSettings.Setting.ImportTaskName.StartsWith('\\'))
         {
-            ImportTask.Import.TaskName = ImportTask.Import.TaskName.Insert(0, "\\");
+            TempSettings.Setting.ImportTaskName = TempSettings.Setting.ImportTaskName.Insert(0, "\\");
         }
 
-        if (!ImportTask.Import.Overwrite && CheckTaskExists(ImportTask.Import.TaskName))
+        if (!TempSettings.Setting.ImportOverwrite && CheckTaskExists(TempSettings.Setting.ImportTaskName))
         {
-            MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_ImportErrorExists")} {ImportTask.Import.TaskName}.",
+            MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_ImportErrorExists")} \"{TempSettings.Setting.ImportTaskName}\".",
                 GetStringResource("ImportTask_ImportErrorHeader"),
                 ButtonType.Ok,
                 false,
@@ -280,18 +280,36 @@ internal static class TaskHelpers
 
         try
         {
-            TaskDefinition td = TaskService.Instance.NewTaskFromFile(ImportTask.Import.XmlFile);
-            if (ImportTask.Import.RunOnlyLoggedOn)
+            using (TaskDefinition td = TaskService.Instance.NewTaskFromFile(TempSettings.Setting.ImportXMLFile))
             {
-                td.Principal.LogonType = TaskLogonType.InteractiveToken;
+                if (TempSettings.Setting.ImportRunOnlyLoggedOn)
+                {
+                    td.Principal.LogonType = TaskLogonType.InteractiveToken;
+                }
+                if (TempSettings.Setting.ImportResetCreationDate)
+                {
+                    td.RegistrationInfo.Date = DateTime.Now;
+                }
+
+                _ = TaskService.Instance.RootFolder.RegisterTaskDefinition(TempSettings.Setting.ImportTaskName, td);
             }
-            _ = TaskService.Instance.RootFolder.RegisterTaskDefinition(ImportTask.Import.TaskName, td);
-            SnackbarMsg.ClearAndQueueMessage($"Imported: {ImportTask.Import.XmlFile}");
-            _log.Info($"Imported {ImportTask.Import.XmlFile} to {ImportTask.Import.TaskName}");
+
+            GetAllTasks();
+
+            SnackbarMsg.ClearAndQueueMessage($"Imported: {TempSettings.Setting.ImportXMLFile}");
+            _log.Info($"Imported {TempSettings.Setting.ImportXMLFile} to {TempSettings.Setting.ImportTaskName}");
+            MDCustMsgBox mbox = new($"{TempSettings.Setting.ImportXMLFile} {GetStringResource("ImportTask_ImportSuccess")}",
+                    GetStringResource("ImportTask_ImportSuccessHeader"),
+                    ButtonType.Ok,
+                    false,
+                    true,
+                    _mainWindow,
+                    false);
+            _ = mbox.ShowDialog();
         }
         catch (Exception ex)
         {
-            _log.Error(ex, $"Error Importing {ImportTask.Import.XmlFile}");
+            _log.Error(ex, $"Error Importing {TempSettings.Setting.ImportXMLFile}");
             MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_ImportErrorGeneral")}\n\n{ex.Message}",
                     GetStringResource("ImportTask_ImportErrorHeader"),
                     ButtonType.Ok,

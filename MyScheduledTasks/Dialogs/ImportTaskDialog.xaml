@@ -15,7 +15,7 @@
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto">
 
-    <!--#region Resources -->
+    <!--#region Resources-->
     <UserControl.Resources>
         <ScaleTransform x:Key="DialogScale"
                         ScaleX="{Binding Path=DialogScale,
@@ -23,6 +23,9 @@
                         ScaleY="{Binding Path=DialogScale,
                                          Source={x:Static config:UserSettings.Setting}}" />
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewModels:NavigationViewModel />
+    </UserControl.DataContext>
     <!--#endregion-->
 
     <Grid LayoutTransform="{StaticResource DialogScale}">
@@ -55,11 +58,6 @@
 
                 <Grid Grid.Row="1"
                       Margin="10">
-                    <!--#region DataContext-->
-                    <Grid.DataContext>
-                        <models:ImportTask />
-                    </Grid.DataContext>
-                    <!--#endregion-->
 
                     <!--#region Row definitions-->
                     <Grid.RowDefinitions>
@@ -89,20 +87,36 @@
                     <TextBlock Grid.Row="1"
                                Margin="10,10,10,4"
                                Text="{DynamicResource ImportTask_XMLPath}" />
-                    <TextBox Grid.Row="2"
-                             Width="auto"
-                             Height="auto"
-                             MinWidth="300"
-                             MaxWidth="{Binding Path=ActualWidth,
-                                                RelativeSource={RelativeSource AncestorType={x:Type materialDesign:DialogHost},
-                                                                               Mode=FindAncestor}}"
-                             Margin="10,0"
-                             Padding="10,5,10,7"
-                             HorizontalContentAlignment="Left"
-                             materialDesign:HintAssist.Hint="{DynamicResource ImportTask_XMLPathHint}"
-                             materialDesign:HintAssist.IsFloating="False"
-                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             Text="{Binding Import.XmlFile}" />
+                    <Grid Grid.Row="2">
+                        <TextBox Width="auto"
+                                 Height="auto"
+                                 MinWidth="300"
+                                 MaxWidth="{Binding Path=ActualWidth,
+                                                    RelativeSource={RelativeSource AncestorType={x:Type materialDesign:DialogHost},
+                                                                                   Mode=FindAncestor}}"
+                                 Margin="10,0"
+                                 Padding="10,5,10,7"
+                                 HorizontalContentAlignment="Left"
+                                 materialDesign:HintAssist.Hint="{DynamicResource ImportTask_XMLPathHint}"
+                                 materialDesign:HintAssist.IsFloating="False"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 Text="{Binding ImportXMLFile,
+                                                Source={x:Static config:TempSettings.Setting}}" />
+                        <Button Width="40"
+                                Margin="0,0,7,0"
+                                Padding="0"
+                                HorizontalAlignment="Right"
+                                Command="{Binding ImportFilePickerCommand}"
+                                Foreground="{DynamicResource MaterialDesignBody}"
+                                IsDefault="False"
+                                IsTabStop="False"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="{DynamicResource ImportTask_FilePickerTooltip}">
+                            <materialDesign:PackIcon Width="22"
+                                                     Height="22"
+                                                     Kind="FileOutline" />
+                        </Button>
+                    </Grid>
                     <!--#endregion-->
 
                     <!--#region Task name-->
@@ -122,19 +136,28 @@
                              materialDesign:HintAssist.Hint="{DynamicResource ImportTask_TaskNameHint}"
                              materialDesign:HintAssist.IsFloating="False"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             Text="{Binding Import.TaskName}" />
+                             Text="{Binding ImportTaskName,
+                                            Source={x:Static config:TempSettings.Setting}}" />
                     <!--#endregion-->
 
                     <!--#region Check boxes-->
                     <CheckBox Grid.Row="5"
                               Margin="10,15,10,5"
                               Content="{DynamicResource ImportTask_RunLoggedOn}"
-                              IsChecked="{Binding Import.RunOnlyLoggedOn}" />
+                              IsChecked="{Binding ImportRunOnlyLoggedOn,
+                                                  Source={x:Static config:TempSettings.Setting}}" />
 
                     <CheckBox Grid.Row="6"
                               Margin="10,5,10,5"
+                              Content="{DynamicResource ImportTask_ResetDate}"
+                              IsChecked="{Binding ImportResetCreationDate,
+                                                  Source={x:Static config:TempSettings.Setting}}" />
+
+                    <CheckBox Grid.Row="7"
+                              Margin="10,5,10,5"
                               Content="{DynamicResource ImportTask_Overwrite}"
-                              IsChecked="{Binding Import.Overwrite}" />
+                              IsChecked="{Binding ImportOverwrite,
+                                                  Source={x:Static config:TempSettings.Setting}}" />
                     <!--#endregion-->
 
                     <!--#region Buttons-->
@@ -142,9 +165,6 @@
                                 Margin="0,20,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal">
-                        <StackPanel.DataContext>
-                            <viewModels:NavigationViewModel />
-                        </StackPanel.DataContext>
                         <Button Margin="10,0"
                                 Command="{Binding ImportTaskCommand}"
                                 Content="Import"

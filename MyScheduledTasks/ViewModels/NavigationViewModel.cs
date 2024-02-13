@@ -312,6 +312,12 @@ internal partial class NavigationViewModel : ObservableObject
     {
         TaskHelpers.ImportTasks();
     }
+
+    [RelayCommand]
+    private static void ImportFilePicker()
+    {
+        ImportTaskDialog.FilePicker();
+    }
     #endregion Import tasks
 
     #region Enable Tasks

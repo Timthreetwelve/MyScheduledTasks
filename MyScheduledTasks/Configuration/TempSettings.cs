@@ -12,23 +12,23 @@ internal partial class TempSettings : ConfigManager<TempSettings>
     private static bool _appExpanderOpen;
 
     [ObservableProperty]
-    private static bool _driveExpanderOpen;
-
-    [ObservableProperty]
-    private static bool _logicalExpanderOpen;
-
-    [ObservableProperty]
-    private static bool _physicalExpanderOpen;
-
-    [ObservableProperty]
-    private static int _driveSelectedTab;
-
-    [ObservableProperty]
     private static bool _langExpanderOpen;
 
     [ObservableProperty]
     private static bool _uIExpanderOpen;
 
     [ObservableProperty]
-    private static bool _runAccessPermitted;
+    private static string _importXMLFile;
+
+    [ObservableProperty]
+    private static string _importTaskName;
+
+    [ObservableProperty]
+    private static bool _importOverwrite;
+
+    [ObservableProperty]
+    private static bool _importRunOnlyLoggedOn = true;
+
+    [ObservableProperty]
+    private static bool _importResetCreationDate = true;
 }
