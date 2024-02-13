@@ -158,10 +158,12 @@
     <sys:String x:Key="MsgText_WindowTitleAdministrator">Administrator</sys:String>
     <!--  Navigation Items and Titles  -->
     <sys:String x:Key="NavItem_About">About</sys:String>
+    <sys:String x:Key="NavItem_AddTasks">Add Tasks</sys:String>
     <sys:String x:Key="NavItem_Exit">Exit</sys:String>
     <sys:String x:Key="NavItem_Main">View Tasks</sys:String>
     <sys:String x:Key="NavItem_Settings">Settings</sys:String>
     <sys:String x:Key="NavTitle_About">About My Scheduled Tasks</sys:String>
+    <sys:String x:Key="NavTitle_AddTasks">Add Tasks to My Scheduled Tasks</sys:String>
     <sys:String x:Key="NavTitle_Main">My Scheduled Tasks</sys:String>
     <sys:String x:Key="NavTitle_Settings">Settings</sys:String>
     <!--  Enums for Combo Boxes on the Settings Page  -->

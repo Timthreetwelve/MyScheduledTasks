@@ -44,11 +44,11 @@ internal partial class NavigationViewModel : ObservableObject
                 },
                 new ()
                 {
-                    Name="Add Tasks",
+                    Name=GetStringResource("NavItem_AddTasks"),
                     NavPage = NavPage.Main,
                     ViewModelType= typeof(AddTasksViewModel),
                     IconKind=PackIconKind.Add,
-                    PageTitle = "Add Tasks"
+                    PageTitle = GetStringResource("NavTitle_AddTasks")
                 },
                 new() {
                     Name = GetStringResource("NavItem_Settings"),
@@ -115,7 +115,6 @@ internal partial class NavigationViewModel : ObservableObject
                 }
                 _ = p.Start();
                 Debug.WriteLine($"Starting {p.ProcessName}");
-                Debug.WriteLine(NavItem.Name);
             }
             catch (Exception ex)
             {
@@ -187,7 +186,7 @@ internal partial class NavigationViewModel : ObservableObject
             p.StartInfo.UseShellExecute = true;
             p.StartInfo.Arguments = @"c:\windows\system32\taskschd.msc";
             _ = p.Start();
-            Debug.WriteLine($"Starting {p.ProcessName}");
+            _log.Debug($"Launching Task Scheduler: {p.StartInfo.FileName} {p.StartInfo.Arguments}");
         }
         catch (Exception ex)
         {
