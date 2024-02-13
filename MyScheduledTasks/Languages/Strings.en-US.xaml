@@ -115,8 +115,8 @@
     <sys:String x:Key="MenuItem_AddTasks">Add Tasks</sys:String>
     <sys:String x:Key="MenuItem_CopyToClipboard">Copy Grid to Clipboard</sys:String>
     <sys:String x:Key="MenuItem_DisableTasks">Disable Selected</sys:String>
-    <sys:String x:Key="MenuItem_EnableTasks">Enable Selected</sys:String>
     <sys:String x:Key="MenuItem_EditTaskNote">Edit Task Note</sys:String>
+    <sys:String x:Key="MenuItem_EnableTasks">Enable Selected</sys:String>
     <sys:String x:Key="MenuItem_Exit">Exit</sys:String>
     <sys:String x:Key="MenuItem_ExportTasks">Export Selected</sys:String>
     <sys:String x:Key="MenuItem_Larger">Larger View</sys:String>
@@ -130,43 +130,32 @@
     <sys:String x:Key="MenuItem_Smaller">Smaller View</sys:String>
     <sys:String x:Key="MenuItem_ToggleDetails">Toggle Details Pane</sys:String>
     <!--  Text found in messages (log, message box, status bar, details area, etc.)  -->
-    <sys:String x:Key="MsgText_AddedToStartup">My Scheduled Tasks was added to Windows startup</sys:String>
-    <sys:String x:Key="MsgText_AddToStartupFailed">Failed to add My Scheduled Tasks to Windows startup. See log file for additional info.</sys:String>
     <sys:String x:Key="MsgText_ApplicationShutdown">is shutting down</sys:String>
     <sys:String x:Key="MsgText_ApplicationStarting">is starting up</sys:String>
     <sys:String x:Key="MsgText_AppUpdateCheckFailed">Check for update failed. See the log for more information.</sys:String>
     <sys:String x:Key="MsgText_AppUpdateChecking">Checking for update.</sys:String>
-    <sys:String x:Key="MsgText_AppUpdateGoToRelease">Do you want to go to the release page?</sys:String>
     <sys:String x:Key="MsgText_AppUpdateCloseApp">Clicking 'Yes' will close My Scheduled Tasks.</sys:String>
+    <sys:String x:Key="MsgText_AppUpdateGoToRelease">Do you want to go to the release page?</sys:String>
     <sys:String x:Key="MsgText_AppUpdateNewerFound">A newer release ({0}) has been found.</sys:String>
     <sys:String x:Key="MsgText_AppUpdateNoneFound">No newer releases were found.</sys:String>
     <sys:String x:Key="MsgText_ColumnSortCleared">Column sort cleared</sys:String>
-    <sys:String x:Key="MsgText_CopiedToClipboard">Current page was copied to the clipboard</sys:String>
     <sys:String x:Key="MsgText_CopiedToClipboardItem">Item was copied to the clipboard</sys:String>
-    <sys:String x:Key="MsgText_CopyToClipboardInvalid">Copy to clipboard is not valid on this page</sys:String>
-    <sys:String x:Key="MsgText_DriveInfoRefreshed">Disk drive info refreshed</sys:String>
     <sys:String x:Key="MsgText_ElapsedTime">Elapsed time</sys:String>
     <sys:String x:Key="MsgText_FilterOneRowShown">1 row shown</sys:String>
     <sys:String x:Key="MsgText_FilterRowsShown">{0} rows shown</sys:String>
-
-    <sys:String x:Key="MsgText_Million">million</sys:String>
+    <sys:String x:Key="MsgText_NoInformationFound">No information found for</sys:String>
     <sys:String x:Key="MsgText_NotAvailable">Not Available</sys:String>
+    <sys:String x:Key="MsgText_NullItemFound">Null item found while reading the task list.</sys:String>
     <sys:String x:Key="MsgText_Opening">Opening</sys:String>
     <sys:String x:Key="MsgText_OpeningLogFile">Opening the log file</sys:String>
     <sys:String x:Key="MsgText_OpeningReadMeFile">Opening the ReadMe file</sys:String>
-    <sys:String x:Key="MsgText_RemovedFromStartup">My Scheduled Tasks was removed from Windows startup</sys:String>
-    <sys:String x:Key="MsgText_RemoveFromStartupFailed">Failed to remove My Scheduled Tasks from Windows startup. See log file for additional info.</sys:String>
     <sys:String x:Key="MsgText_SeeLogFile">See the log file.</sys:String>
-    <sys:String x:Key="MsgText_NullItemFound">Null item found while reading the task list.</sys:String>
-
-    <sys:String x:Key="MsgText_NoInformationFound">No information found for</sys:String>
-    <sys:String x:Key="MsgText_Thousand">thousand</sys:String>
+    <sys:String x:Key="MsgText_TaskNote">Task Note</sys:String>
     <sys:String x:Key="MsgText_Translated">translated</sys:String>
     <sys:String x:Key="MsgText_UIColorSet">Accent color set to {0}</sys:String>
     <sys:String x:Key="MsgText_UISizeSet">Size set to {0}</sys:String>
     <sys:String x:Key="MsgText_UIThemeSet">Theme set to {0}</sys:String>
     <sys:String x:Key="MsgText_WindowTitleAdministrator">Administrator</sys:String>
-    <sys:String x:Key="MsgText_TaskNote">Task Note</sys:String>
     <!--  Navigation Items and Titles  -->
     <sys:String x:Key="NavItem_About">About</sys:String>
     <sys:String x:Key="NavItem_Exit">Exit</sys:String>
@@ -266,7 +255,6 @@
     <sys:String x:Key="TaskResult_ReadyToRun">RDY</sys:String>
     <sys:String x:Key="TaskResult_Running">RUN</sys:String>
     <sys:String x:Key="TaskResult_Terminated">TRM</sys:String>
-
     <!--  Task Privileges  -->
     <sys:String x:Key="TaskPrivileges_Lowest">Lowest privileges</sys:String>
     <sys:String x:Key="TaskPrivileges_Highest">Highest privileges</sys:String>
