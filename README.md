@@ -14,7 +14,7 @@
 [![GitHub all releases](https://img.shields.io/github/downloads/Timthreetwelve/MyScheduledTasks/total?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases)
 [![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/timthreetwelve/MyScheduledTasks/latest?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
 [![GitHub last commit](https://img.shields.io/github/last-commit/timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
-[![GitHub commits](https://img.shields.io/github/commit-activity/m/timthreetwelve/MyScheduledTasks)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
+[![GitHub commits](https://img.shields.io/github/commit-activity/m/timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
 [![GitHub Issues](https://img.shields.io/github/issues/timthreetwelve/MyScheduledTasks?style=plastic&color=orangered)](https://github.com/Timthreetwelve/MyScheduledTasks/issues)
 [![GitHub Issues](https://img.shields.io/github/issues-closed/timthreetwelve/MyScheduledTasks?style=plastic&color=slateblue)](https://github.com/Timthreetwelve/MyScheduledTasks/issues)
 
