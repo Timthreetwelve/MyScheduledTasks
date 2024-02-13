@@ -33,8 +33,8 @@ internal partial class NavigationViewModel : ObservableObject
 
     #region List of navigation items
     public static List<NavigationItem> NavigationViewModelTypes { get; set; } = new List<NavigationItem>
-        (new List<NavigationItem>
-            {
+        (
+            [
                 new() {
                     Name=GetStringResource("NavItem_Main"),
                     NavPage = NavPage.Main,
@@ -69,7 +69,7 @@ internal partial class NavigationViewModel : ObservableObject
                     IconKind=PackIconKind.ExitToApp,
                     IsExit=true
                 }
-            }
+            ]
         );
     #endregion List of navigation items
 
@@ -337,6 +337,14 @@ internal partial class NavigationViewModel : ObservableObject
         RefreshGrid();
     }
     #endregion Disable Tasks
+
+    #region Delete Tasks
+    [RelayCommand]
+    private static void DeleteTasks()
+    {
+        TaskHelpers.DeleteTasks(MainPage.Instance.DataGridTasks);
+    }
+    #endregion
 
     #region Run Tasks
     [RelayCommand]
