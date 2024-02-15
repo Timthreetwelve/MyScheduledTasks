@@ -158,4 +158,15 @@
         <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
 
+    <!--#region Style for DataGrid column headers-->
+    <Style TargetType="DataGridColumnHeader"
+           x:Key="DGColumnHeader"
+           BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Regular" />
+        <Setter Property="Foreground" Value="{DynamicResource materialDesignBody}" />
+        <Setter Property="Padding" Value="15,3" />
+        <Setter Property="Opacity" Value="0.8" />
+    </Style>
+    <!--#endregion-->
 </ResourceDictionary>
