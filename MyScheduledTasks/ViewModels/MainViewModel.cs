@@ -38,7 +38,7 @@ internal class MainViewModel
                     ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, item);
                     ScheduledTask.TaskList.Add(schedTask);
                     bindingList.Add(schedTask);
-                    _log.Debug($"Added {i + 1,3}: \"{item.TaskPath}\" {schedTask.TaskCreated}");
+                    _log.Debug($"Added {i + 1,3}: \"{item.TaskPath}\"");
                 }
                 else
                 {
