@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -55,7 +55,7 @@ internal static class TaskHelpers
                 ScheduledTask row = grid.SelectedItems[i] as ScheduledTask;
                 _ = ScheduledTask.TaskList.Remove(row);
                 _log.Info($"Removed \"{row.TaskPath}\"");
-                SnackbarMsg.QueueMessage($"Removed {row.TaskName}", 1000);
+                SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {row.TaskName}", 2000);
             }
         }
         else if (grid.SelectedItems.Count > 3)
@@ -67,7 +67,7 @@ internal static class TaskHelpers
                 ScheduledTask.TaskList.Remove(row);
                 _log.Info($"Removed \"{row.TaskPath}\"");
             }
-            SnackbarMsg.QueueMessage($"Removed {count} tasks", 2000);
+            SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {count} {GetStringResource("MsgText_Tasks")}", 2000);
         }
     }
     #endregion Remove tasks
@@ -78,7 +78,7 @@ internal static class TaskHelpers
         if (grid.SelectedItems.Count == 0)
         {
             SystemSounds.Beep.Play();
-            SnackbarMsg.ClearAndQueueMessage("Nothing selected to run.", 5000);
+            SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_RunNoneSelected"), 5000);
             return;
         }
 
@@ -92,15 +92,16 @@ internal static class TaskHelpers
             {
                 try
                 {
-                    task.Run();
-                    SnackbarMsg.ClearAndQueueMessage($"Running: {task.Name}");
+                    _ = task.Run();
+                    SnackbarMsg.ClearAndQueueMessage($"{GetStringResource("MsgText_Running")}: {task.Name}");
                     _log.Info($"Running {task.Path}");
                     System.Threading.Tasks.Task.Delay(1250).Wait();
                 }
                 catch (Exception ex)
                 {
                     SystemSounds.Beep.Play();
-                    SnackbarMsg.ClearAndQueueMessage($"Error attempting to run {task.Name}. See the log file for details.", 5000);
+                    string msg = string.Format(GetStringResource("MsgText_RunError"), task.Name);
+                    SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                     _log.Error(ex, $"Error attempting to run {task.Name}");
                 }
             }
@@ -114,7 +115,7 @@ internal static class TaskHelpers
         if (grid.SelectedItems.Count == 0)
         {
             SystemSounds.Beep.Play();
-            SnackbarMsg.ClearAndQueueMessage("Nothing selected to disable.", 5000);
+            SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_DisableNoneSelected"), 5000);
             return;
         }
 
@@ -129,14 +130,15 @@ internal static class TaskHelpers
                 try
                 {
                     task.Enabled = false;
-                    //RefreshData();
-                    SnackbarMsg.QueueMessage($"Disabled: {task.Name}", 2000);
+                    string msg = string.Format(GetStringResource("MsgText_Disabled"), task.Name);
+                    SnackbarMsg.QueueMessage(msg, 2000);
                     _log.Info($"Disabled {task.Path}");
                 }
                 catch (Exception ex)
                 {
                     SystemSounds.Beep.Play();
-                    SnackbarMsg.ClearAndQueueMessage($"Error attempting to disable {task.Name}", 5000);
+                    string msg = string.Format(GetStringResource("MsgText_DisabledError"), task.Name);
+                    SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                     _log.Error(ex, $"Error attempting to disable {task.Name}");
                 }
             }
@@ -150,7 +152,7 @@ internal static class TaskHelpers
         if (grid.SelectedItems.Count == 0)
         {
             SystemSounds.Beep.Play();
-            SnackbarMsg.ClearAndQueueMessage("Nothing selected to enable.", 5000);
+            SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_EnableNoneSelected"), 5000);
             return;
         }
 
@@ -165,14 +167,15 @@ internal static class TaskHelpers
                 try
                 {
                     task.Enabled = true;
-                    //RefreshData();
-                    SnackbarMsg.QueueMessage($"Enabled: {task.Name}", 2000);
+                    string msg = string.Format(GetStringResource("MsgText_Enabled"), task.Name);
+                    SnackbarMsg.QueueMessage(msg, 2000);
                     _log.Info($"Enabled {task.Path}");
                 }
                 catch (Exception ex)
                 {
                     SystemSounds.Beep.Play();
-                    SnackbarMsg.ClearAndQueueMessage($"Error attempting to enable {task.Name}", 5000);
+                    string msg = string.Format(GetStringResource("MsgText_EnableError"), task.Name);
+                    SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                     _log.Error(ex, $"Error attempting to enable {task.Name}");
                 }
             }
@@ -186,7 +189,7 @@ internal static class TaskHelpers
         if (grid.SelectedItems.Count == 0)
         {
             SystemSounds.Beep.Play();
-            SnackbarMsg.ClearAndQueueMessage("Nothing selected to export.", 5000);
+            SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_ExportNoneSelected"), 5000);
             return;
         }
 
@@ -211,6 +214,8 @@ internal static class TaskHelpers
                     if (result == true)
                     {
                         task.Export(dialog.FileName);
+                        string msg = string.Format(GetStringResource("MsgText_Exported"), task.Name);
+                        SnackbarMsg.QueueMessage(msg, 2000);
                         SnackbarMsg.ClearAndQueueMessage($"Exported: {task.Name}");
                         _log.Info($"Exported {task.Path}");
                     }
@@ -218,7 +223,8 @@ internal static class TaskHelpers
                 catch (Exception ex)
                 {
                     SystemSounds.Beep.Play();
-                    SnackbarMsg.ClearAndQueueMessage($"Error attempting to export {task.Name}", 5000);
+                    string msg = string.Format(GetStringResource("MsgText_ExportError"), task.Name);
+                    SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                     _log.Error(ex, $"Error attempting to export {task.Path}");
                 }
             }
@@ -361,4 +367,5 @@ internal static class TaskHelpers
         ts.Dispose();
         return task != null;
     }
+    #endregion Verify task exists
 }

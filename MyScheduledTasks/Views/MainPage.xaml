@@ -1,4 +1,4 @@
-<UserControl x:Class="MyScheduledTasks.Views.MainPage"
+﻿<UserControl x:Class="MyScheduledTasks.Views.MainPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -110,12 +110,12 @@
                               IsEnabled="{x:Static helpers:AppInfo.IsAdmin}" />
                 </MenuItem>
 
-                <MenuItem Header="Advanced"
+                <MenuItem Header="{DynamicResource Menu_Advanced}"
                           Visibility="{Binding Path=ShowAdvancedMenu,
                                                Source={x:Static config:UserSettings.Setting},
                                                Converter={StaticResource BoolVisConverter}}">
                     <MenuItem Command="{Binding ShowImportTasksCommand}"
-                              Header="Import Task" />
+                              Header="{DynamicResource MenuItem_ImportTask}" />
                     <MenuItem Command="{Binding ExportTasksCommand}"
                               Header="{DynamicResource MenuItem_ExportTasks}" />
                     <Separator />
@@ -381,7 +381,7 @@
                     <TextBlock Grid.Row="1"
                                Grid.Column="3"
                                Text="{Binding TaskName,
-                                              FallbackValue='Select one task in the grid above to have the task details shown here.'}"
+                                              FallbackValue={StaticResource Details_FallbackText}}"
                                TextWrapping="Wrap" />
 
                     <TextBlock Grid.Row="2"
@@ -497,7 +497,7 @@
 
                     <TextBlock Grid.Row="15"
                                Grid.Column="1"
-                               Text="Run Only When User is Logged On" />
+                               Text="{DynamicResource Details_RunOnlyLoggedOn}" />
                     <TextBlock Grid.Row="15"
                                Grid.Column="3"
                                Text="{Binding TaskRunLoggedOn}" />
