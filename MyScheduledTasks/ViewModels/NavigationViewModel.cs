@@ -340,6 +340,12 @@ internal partial class NavigationViewModel : ObservableObject
 
     #region Delete Tasks
     [RelayCommand]
+    public static void ShowDeleteTasks()
+    {
+        DialogHelpers.ShowDeleteTasksDialog(MainPage.Instance.DataGridTasks);
+    }
+
+    [RelayCommand]
     private static void DeleteTasks()
     {
         TaskHelpers.DeleteTasks(MainPage.Instance.DataGridTasks);

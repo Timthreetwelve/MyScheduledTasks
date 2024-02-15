@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -322,6 +322,38 @@ internal static class TaskHelpers
     }
     #endregion Import a task
 
+    #region Delete tasks
+    internal static void DeleteTasks(DataGrid grid)
+    {
+        if (grid.SelectedItems.Count == 0)
+        {
+            SystemSounds.Beep.Play();
+            SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_DeleteNoneSelected"), 5000);
+            return;
+        }
+
+        for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
+        {
+            ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
+            try
+            {
+                string msg = string.Format(GetStringResource("MsgText_Deleted"), task.TaskPath);
+                SnackbarMsg.QueueMessage(msg, 2000);
+                _log.Error($"Deleted: {task.TaskPath}");
+            }
+            catch (Exception ex)
+            {
+                string msg = string.Format(GetStringResource("MsgText_DeleteError"), task.TaskPath);
+                SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
+                _log.Error(ex, $"Error attempting to delete {task.TaskPath}");
+            }
+        }
+
+        DialogHost.Close("MainDialogHost");
+    }
+    #endregion Delete tasks
+
+    #region Verify task exists
     public static bool CheckTaskExists(string taskPath)
     {
         TaskService ts = TaskService.Instance;

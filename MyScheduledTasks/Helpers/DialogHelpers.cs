@@ -4,8 +4,9 @@ namespace MyScheduledTasks.Helpers;
 
 internal static class DialogHelpers
 {
+    #region Import dialog
     /// <summary>
-    /// Shows the Add Tasks dialog.
+    /// Shows the Import Tasks dialog.
     /// </summary>
     internal static async void ShowImportTaskDialog()
     {
@@ -14,7 +15,22 @@ internal static class DialogHelpers
         _ = await DialogHost.Show(importDialog, "MainDialogHost");
         MainWindowUIHelpers.MainWindowNormalPointer();
     }
+    #endregion Import dialog
 
+    #region Delete dialog
+    /// <summary>
+    /// Shows the Delete Tasks dialog.
+    /// </summary>
+    internal static async void ShowDeleteTasksDialog(DataGrid grid)
+    {
+        MainWindowUIHelpers.MainWindowNotAllowedPointer();
+        DeleteTasksDialog deleteDialog = new(grid);
+        _ = await DialogHost.Show(deleteDialog, "MainDialogHost");
+        MainWindowUIHelpers.MainWindowNormalPointer();
+    }
+    #endregion Delete dialog
+
+    #region Edit note dialog
     /// <summary>
     /// Shows the Edit Note dialog
     /// </summary>
@@ -26,4 +42,5 @@ internal static class DialogHelpers
         _ = await DialogHost.Show(en, "MainDialogHost");
         MainWindowUIHelpers.MainWindowNormalPointer();
     }
+    #endregion Edit note dialog
 }
