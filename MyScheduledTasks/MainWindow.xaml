@@ -29,6 +29,7 @@
     <Window.Resources>
         <config:UserSettings x:Key="config" />
         <convert:SelectedItemConverter x:Key="SelItemConv" />
+        <convert:RefreshVisibilityConverter x:Key="RefreshConv" />
     </Window.Resources>
     <!--#endregion-->
 
@@ -70,7 +71,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="90" />
                 </Grid.ColumnDefinitions>
                 <!--#endregion-->
 
@@ -99,62 +100,92 @@
                                          MessageQueue="{materialDesign:MessageQueue}" />
                 <!--#endregion-->
 
-                <!--#region Button with pop-up box-->
-                <Button Grid.Column="3"
-                        Width="45"
-                        Padding="0"
-                        HorizontalAlignment="Center"
-                        Foreground="{DynamicResource MaterialDesignBody}"
-                        IsDefault="False"
-                        IsTabStop="False"
-                        KeyboardNavigation.TabNavigation="None"
-                        Style="{StaticResource MaterialDesignFlatButton}">
-                    <materialDesign:PopupBox Padding="0"
-                                             HorizontalAlignment="Right"
-                                             Focusable="False"
-                                             PlacementMode="LeftAndAlignTopEdges"
-                                             Style="{DynamicResource MaterialDesignPopupBox}"
-                                             ToolTip="{DynamicResource Button_ThreeDotToolTip}">
-                        <materialDesign:PopupBox.ToggleContent>
-                            <materialDesign:PackIcon Width="45"
-                                                     Height="28"
-                                                     Foreground="{Binding ElementName=PageTitle,
-                                                                          Path=Foreground}"
-                                                     Kind="DotsHorizontal" />
-                        </materialDesign:PopupBox.ToggleContent>
-                        <Border Padding="3"
-                                BorderBrush="{DynamicResource MaterialDesignDivider}"
-                                BorderThickness="2">
-                            <Grid Width="auto">
-                                <StackPanel Orientation="Vertical">
-                                    <Button Height="35"
-                                            Padding="15,1,15,22"
-                                            Command="{Binding ViewLogFileCommand}"
-                                            Content="{DynamicResource Button_OpenLogFile}"
-                                            ToolTip="{DynamicResource Button_OpenLogFileToolTip}" />
-                                    <Button Height="35"
-                                            Padding="15,1,15,22"
-                                            Command="{Binding OpenAppFolderCommand}"
-                                            Content="{DynamicResource Button_OpenFolder}"
-                                            ToolTip="{DynamicResource Button_OpenFolderToolTip}" />
-                                    <Separator />
-                                    <Button Height="35"
-                                            Padding="15,1,15,22"
-                                            Command="{Binding ViewReadMeFileCommand}"
-                                            Content="{DynamicResource About_DocumentationText}"
-                                            ToolTip="{DynamicResource About_DocumentationToolTip}" />
-                                    <Separator Margin="0"
-                                               Padding="1"
-                                               Background="{DynamicResource MaterialDesignDivider}" />
-                                    <Button Height="35"
-                                            Padding="15,1,15,22"
-                                            Content="{DynamicResource Button_Close}" />
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </materialDesign:PopupBox>
-                </Button>
-                <!--#endregion-->
+                <Grid Grid.Row="0"
+                      Grid.Column="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!--#region Refresh button-->
+                    <Button Grid.Column="0"
+                            Width="40"
+                            Margin="0"
+                            Padding="0"
+                            HorizontalAlignment="Left"
+                            Command="{Binding RefreshGridCommand}"
+                            Foreground="{DynamicResource MaterialDesignBody}"
+                            IsDefault="False"
+                            IsTabStop="False"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="{DynamicResource MenuItem_Refresh}"
+                            Visibility="{Binding CurrentViewModel,Converter={StaticResource RefreshConv}                                                }">
+                        <materialDesign:PackIcon Width="28"
+                                                 Height="28"
+                                                 Foreground="{Binding ElementName=PageTitle,
+                                                                      Path=Foreground}"
+                                                 Kind="Refresh" />
+                    </Button>
+                    <!--#endregion-->
+
+                    <!--#region Button with pop-up box-->
+                    <Button Grid.Column="1"
+                            Width="40"
+                            Margin="0,0,5,0"
+                            Padding="0"
+                            HorizontalContentAlignment="Stretch"
+                            Foreground="{DynamicResource MaterialDesignBody}"
+                            IsDefault="False"
+                            IsTabStop="False"
+                            KeyboardNavigation.TabNavigation="None"
+                            Style="{StaticResource MaterialDesignFlatButton}">
+                        <materialDesign:PopupBox Padding="0"
+                                                 HorizontalAlignment="Right"
+                                                 Focusable="False"
+                                                 PlacementMode="LeftAndAlignTopEdges"
+                                                 Style="{DynamicResource MaterialDesignPopupBox}"
+                                                 ToolTip="{DynamicResource Button_ThreeDotToolTip}">
+                            <materialDesign:PopupBox.ToggleContent>
+                                <materialDesign:PackIcon Width="40"
+                                                         Height="28"
+                                                         Foreground="{Binding ElementName=PageTitle,
+                                                                              Path=Foreground}"
+                                                         Kind="DotsHorizontal" />
+                            </materialDesign:PopupBox.ToggleContent>
+                            <Border Padding="3"
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="2">
+                                <Grid Width="auto">
+                                    <StackPanel Orientation="Vertical">
+                                        <Button Height="35"
+                                                Padding="15,1,15,22"
+                                                Command="{Binding ViewLogFileCommand}"
+                                                Content="{DynamicResource Button_OpenLogFile}"
+                                                ToolTip="{DynamicResource Button_OpenLogFileToolTip}" />
+                                        <Button Height="35"
+                                                Padding="15,1,15,22"
+                                                Command="{Binding OpenAppFolderCommand}"
+                                                Content="{DynamicResource Button_OpenFolder}"
+                                                ToolTip="{DynamicResource Button_OpenFolderToolTip}" />
+                                        <Separator />
+                                        <Button Height="35"
+                                                Padding="15,1,15,22"
+                                                Command="{Binding ViewReadMeFileCommand}"
+                                                Content="{DynamicResource About_DocumentationText}"
+                                                ToolTip="{DynamicResource About_DocumentationToolTip}" />
+                                        <Separator Margin="0"
+                                                   Padding="1"
+                                                   Background="{DynamicResource MaterialDesignDivider}" />
+                                        <Button Height="35"
+                                                Padding="15,1,15,22"
+                                                Content="{DynamicResource Button_Close}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </materialDesign:PopupBox>
+                    </Button>
+                    <!--#endregion-->
+                </Grid>
             </Grid>
             <!--#endregion-->
 
@@ -166,6 +197,7 @@
                      MinWidth="160"
                      Margin="5,5,5,0"
                      HorizontalContentAlignment="Stretch"
+                     d:ItemsSource="{d:SampleData ItemCount=5}"
                      ItemsSource="{Binding NavigationViewModelTypes,
                                            Mode=TwoWay}"
                      SelectedIndex="0"
