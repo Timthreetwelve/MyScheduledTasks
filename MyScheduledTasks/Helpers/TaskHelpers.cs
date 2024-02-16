@@ -326,6 +326,18 @@ internal static class TaskHelpers
             _ = mbox.ShowDialog();
         }
     }
+
+    internal static void ImportCaution()
+    {
+        MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_Caution")}",
+        AppInfo.AppProduct,
+        ButtonType.Ok,
+        false,
+        true,
+        _mainWindow,
+        false);
+        _ = mbox.ShowDialog();
+    }
     #endregion Import a task
 
     #region Delete tasks

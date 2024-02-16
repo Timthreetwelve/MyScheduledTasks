@@ -51,6 +51,16 @@ public static class SettingChange
         object newValue = MainWindowHelpers.GetPropertyValue(sender, e);
         // Write to trace level to avoid unnecessary message in log file
         _log.Trace($"Temp Setting change: {e.PropertyName} New Value: {newValue}");
+
+        switch (e.PropertyName)
+        {
+            case nameof(TempSettings.Setting.ImportRunOnlyLoggedOn):
+                if (!(bool)newValue)
+                {
+                    TaskHelpers.ImportCaution();
+                }
+                break;
+        }
     }
     #endregion Temp setting change
 }

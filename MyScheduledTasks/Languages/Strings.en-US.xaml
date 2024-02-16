@@ -104,6 +104,7 @@
     <sys:String x:Key="GridColumn_Status">Status</sys:String>
     <sys:String x:Key="GridColumn_TaskName">Task Name</sys:String>
     <!--#region Import Task-->
+    <sys:String x:Key="ImportTask_Caution">Since "Run only when user is logged on" has been unchecked, it is recommended that you go to Windows Task Scheduler and verify the Security Options section on the General tab after importing this Task.</sys:String>
     <sys:String x:Key="ImportTask_FileNotFound">File not found.</sys:String>
     <sys:String x:Key="ImportTask_FilePickerTitle">Browse for file</sys:String>
     <sys:String x:Key="ImportTask_FilePickerTooltip">Browse for file</sys:String>
@@ -115,7 +116,7 @@
     <sys:String x:Key="ImportTask_ImportSuccess">was successfully imported.</sys:String>
     <sys:String x:Key="ImportTask_ImportSuccessHeader">Success</sys:String>
     <sys:String x:Key="ImportTask_Overwrite">Overwrite existing task with the same name</sys:String>
-    <sys:String x:Key="ImportTask_ResetDate">Reset creation date and time to current</sys:String>
+    <sys:String x:Key="ImportTask_ResetDate">Reset creation date and time to current date and time</sys:String>
     <sys:String x:Key="ImportTask_RunLoggedOn">Run only when user is logged on</sys:String>
     <sys:String x:Key="ImportTask_TaskName">Task Name (including folder) - Must be unique:</sys:String>
     <sys:String x:Key="ImportTask_TaskNameHint">e.g. \My Folder\My Task</sys:String>
