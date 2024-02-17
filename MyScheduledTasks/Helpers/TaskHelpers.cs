@@ -302,8 +302,8 @@ internal static class TaskHelpers
 
             GetAllTasks();
 
-            SnackbarMsg.ClearAndQueueMessage($"Imported: {TempSettings.Setting.ImportXMLFile}");
             _log.Info($"Imported {TempSettings.Setting.ImportXMLFile} to {TempSettings.Setting.ImportTaskName}");
+            SnackbarMsg.ClearAndQueueMessage($"{TempSettings.Setting.ImportXMLFile} {GetStringResource("ImportTask_ImportSuccess")}");
             MDCustMsgBox mbox = new($"{TempSettings.Setting.ImportXMLFile} {GetStringResource("ImportTask_ImportSuccess")}",
                     GetStringResource("ImportTask_ImportSuccessHeader"),
                     ButtonType.Ok,
