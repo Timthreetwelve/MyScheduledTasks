@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -45,7 +45,7 @@ internal partial class NavigationViewModel : ObservableObject
                 new ()
                 {
                     Name=GetStringResource("NavItem_AddTasks"),
-                    NavPage = NavPage.Main,
+                    NavPage = NavPage.AddTasks,
                     ViewModelType= typeof(AddTasksViewModel),
                     IconKind=PackIconKind.Add,
                     PageTitle = GetStringResource("NavTitle_AddTasks")
@@ -82,51 +82,25 @@ internal partial class NavigationViewModel : ObservableObject
 
     #region Navigate Command
     [RelayCommand]
-    internal void Navigate(SelectionChangedEventArgs e)
+    internal void Navigate(object param)
     {
-        ListBox listBox = e.Source as ListBox;
-        NavigationItem oldItem = e.RemovedItems[0] as NavigationItem;
-        NavigationItem selectedItem = e.AddedItems[0] as NavigationItem;
-
-        if (selectedItem.IsExit)
+        if (param is NavigationItem item)
         {
-            if (InputManager.Current.MostRecentInputDevice is KeyboardDevice)
+            if (item.IsExit)
             {
-                return;
-            }
-            Application.Current.Shutdown();
-        }
-        else if (selectedItem.IsRestart)
-        {
-            QueryRestartAsAdmin();
-        }
-        else if (selectedItem.IsLaunch)
-        {
-            listBox.SelectedItem = oldItem;
-            try
-            {
-                using Process p = new();
-                p.StartInfo.FileName = selectedItem.LaunchFile;
-                p.StartInfo.ErrorDialog = false;
-                p.StartInfo.UseShellExecute = selectedItem.LaunchShellExecute;
-                if (selectedItem.LaunchArguments != null)
+                if (InputManager.Current.MostRecentInputDevice is KeyboardDevice)
                 {
-                    p.StartInfo.Arguments = selectedItem.LaunchArguments;
+                    return;
                 }
-                _ = p.Start();
-                Debug.WriteLine($"Starting {p.ProcessName}");
+                Application.Current.Shutdown();
             }
-            catch (Exception ex)
+            else if (item.ViewModelType is not null)
             {
-                Debug.WriteLine($"Error launching {selectedItem.PageTitle}: {ex.Message}");
+                PageTitle = item.PageTitle;
+                CurrentViewModel = null;
+                CurrentViewModel = Activator.CreateInstance((Type)item.ViewModelType);
+                NavItem = item;
             }
-        }
-        else if (selectedItem.ViewModelType is not null)
-        {
-            PageTitle = selectedItem.PageTitle;
-            CurrentViewModel = null;
-            CurrentViewModel = Activator.CreateInstance((Type)selectedItem.ViewModelType);
-            NavItem = selectedItem;
         }
     }
     #endregion Navigate Command
@@ -216,6 +190,14 @@ internal partial class NavigationViewModel : ObservableObject
         DialogHelpers.ShowEditNoteDialog(row);
     }
     #endregion Edit Task Note
+
+    #region Add tasks
+    [RelayCommand]
+    public static void AddTasks()
+    {
+        _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.AddTasks);
+    }
+    #endregion Add tasks
 
     #region Remove tasks
     [RelayCommand]

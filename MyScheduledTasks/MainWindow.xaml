@@ -119,7 +119,8 @@
                             IsTabStop="False"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             ToolTip="{DynamicResource MenuItem_Refresh}"
-                            Visibility="{Binding CurrentViewModel,Converter={StaticResource RefreshConv}                                                }">
+                            Visibility="{Binding CurrentViewModel,
+                                                 Converter={StaticResource RefreshConv}}">
                         <materialDesign:PackIcon Width="28"
                                                  Height="28"
                                                  Foreground="{Binding ElementName=PageTitle,
@@ -234,7 +235,8 @@
                 <bh:Interaction.Triggers>
                     <bh:EventTrigger EventName="SelectionChanged">
                         <bh:InvokeCommandAction Command="{Binding NavigateCommand}"
-                                                PassEventArgsToCommand="True" />
+                                                CommandParameter="{Binding Path=SelectedItem,
+                                                                           RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
                     </bh:EventTrigger>
                 </bh:Interaction.Triggers>
             </ListBox>
