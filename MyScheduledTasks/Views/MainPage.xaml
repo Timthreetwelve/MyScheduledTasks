@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MyScheduledTasks.Views.MainPage"
+<UserControl x:Class="MyScheduledTasks.Views.MainPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -386,34 +386,42 @@
 
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
-                               Text="{DynamicResource Details_Description}" />
+                               Text="{DynamicResource Details_Folder}" />
                     <TextBlock Grid.Row="2"
+                               Grid.Column="3"
+                               Text="{Binding TaskFolder}"
+                               TextWrapping="Wrap" />
+                    
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Text="{DynamicResource Details_Description}" />
+                    <TextBlock Grid.Row="3"
                                Grid.Column="3"
                                Text="{Binding TaskDescription}"
                                TextWrapping="Wrap" />
 
-                    <TextBlock Grid.Row="3"
+                    <TextBlock Grid.Row="4"
                                Grid.Column="1"
                                Text="{DynamicResource Details_Triggers}" />
-                    <TextBlock Grid.Row="3"
+                    <TextBlock Grid.Row="4"
                                Grid.Column="3"
                                LineHeight="20"
                                Text="{Binding TaskTriggers}"
                                TextWrapping="Wrap" />
 
-                    <TextBlock Grid.Row="4"
+                    <TextBlock Grid.Row="5"
                                Grid.Column="1"
                                Text="{DynamicResource Details_Actions}" />
-                    <TextBlock Grid.Row="4"
+                    <TextBlock Grid.Row="5"
                                Grid.Column="3"
                                LineHeight="20"
                                Text="{Binding TaskActions}"
                                TextWrapping="Wrap" />
 
-                    <TextBlock Grid.Row="5"
+                    <TextBlock Grid.Row="6"
                                Grid.Column="1"
                                Text="{DynamicResource Details_LastResult}" />
-                    <TextBlock Grid.Row="5"
+                    <TextBlock Grid.Row="6"
                                Grid.Column="3"
                                Text="{Binding TaskResultHex}">
                         <TextBlock.Style>
@@ -429,100 +437,92 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <TextBlock Grid.Row="6"
+                    <TextBlock Grid.Row="7"
                                Grid.Column="1"
                                Text="{DynamicResource Details_LastRun}" />
-                    <TextBlock Grid.Row="6"
+                    <TextBlock Grid.Row="7"
                                Grid.Column="3"
                                Text="{Binding LastRun,
                                               ConverterCulture={x:Static global:CultureInfo.CurrentUICulture}}" />
 
-                    <TextBlock Grid.Row="7"
+                    <TextBlock Grid.Row="8"
                                Grid.Column="1"
                                Text="{DynamicResource Details_NextRun}" />
-                    <TextBlock Grid.Row="7"
+                    <TextBlock Grid.Row="8"
                                Grid.Column="3"
                                Text="{Binding NextRun,
                                               ConverterCulture={x:Static global:CultureInfo.CurrentUICulture}}" />
 
-                    <TextBlock Grid.Row="8"
+                    <TextBlock Grid.Row="9"
                                Grid.Column="1"
                                Text="{DynamicResource Details_Status}" />
-                    <TextBlock Grid.Row="8"
+                    <TextBlock Grid.Row="9"
                                Grid.Column="3"
                                Text="{Binding TaskStatus}"
                                TextWrapping="Wrap" />
 
-                    <TextBlock Grid.Row="9"
+                    <TextBlock Grid.Row="10"
                                Grid.Column="1"
                                Text="{DynamicResource Details_Enabled}" />
-                    <TextBlock Grid.Row="9"
+                    <TextBlock Grid.Row="10"
                                Grid.Column="3"
                                Text="{Binding Enabled}" />
 
-                    <TextBlock Grid.Row="10"
+                    <TextBlock Grid.Row="11"
                                Grid.Column="1"
                                Text="{DynamicResource Details_WakeToRun}" />
-                    <TextBlock Grid.Row="10"
+                    <TextBlock Grid.Row="11"
                                Grid.Column="3"
                                Text="{Binding WakeToRun}" />
 
-                    <TextBlock Grid.Row="11"
+                    <TextBlock Grid.Row="12"
                                Grid.Column="1"
                                Text="{DynamicResource Details_Priority}" />
-                    <TextBlock Grid.Row="11"
+                    <TextBlock Grid.Row="12"
                                Grid.Column="3"
                                Text="{Binding Priority}" />
 
-                    <TextBlock Grid.Row="12"
+                    <TextBlock Grid.Row="13"
                                Grid.Column="1"
                                Text="{DynamicResource Details_StartOnDemand}" />
-                    <TextBlock Grid.Row="12"
+                    <TextBlock Grid.Row="14"
                                Grid.Column="3"
                                Text="{Binding AllowDemandStart}" />
 
-                    <TextBlock Grid.Row="13"
+                    <TextBlock Grid.Row="14"
                                Grid.Column="1"
                                Text="{DynamicResource Details_StartAsapIfMissed}" />
-                    <TextBlock Grid.Row="13"
+                    <TextBlock Grid.Row="14"
                                Grid.Column="3"
                                Text="{Binding StartASAP}" />
 
-                    <TextBlock Grid.Row="14"
+                    <TextBlock Grid.Row="15"
                                Grid.Column="1"
                                Text="{DynamicResource Details_StartOnlyOnAcPower}" />
-                    <TextBlock Grid.Row="14"
+                    <TextBlock Grid.Row="15"
                                Grid.Column="3"
                                Text="{Binding StartOnAC}" />
 
-                    <TextBlock Grid.Row="15"
+                    <TextBlock Grid.Row="16"
                                Grid.Column="1"
                                Text="{DynamicResource Details_RunOnlyLoggedOn}" />
-                    <TextBlock Grid.Row="15"
+                    <TextBlock Grid.Row="16"
                                Grid.Column="3"
                                Text="{Binding TaskRunLoggedOn}" />
 
-                    <TextBlock Grid.Row="16"
+                    <TextBlock Grid.Row="17"
                                Grid.Column="1"
                                Text="{DynamicResource Details_TimeLimit}" />
-                    <TextBlock Grid.Row="16"
+                    <TextBlock Grid.Row="17"
                                Grid.Column="3"
                                Text="{Binding TimeLimit}" />
 
-                    <TextBlock Grid.Row="17"
+                    <TextBlock Grid.Row="18"
                                Grid.Column="1"
                                Text="{DynamicResource Details_Privileges}" />
-                    <TextBlock Grid.Row="17"
+                    <TextBlock Grid.Row="18"
                                Grid.Column="3"
                                Text="{Binding HighestPrivileges}" />
-
-                    <TextBlock Grid.Row="18"
-                               Grid.Column="1"
-                               Text="{DynamicResource Details_Folder}" />
-                    <TextBlock Grid.Row="18"
-                               Grid.Column="3"
-                               Text="{Binding TaskFolder}"
-                               TextWrapping="Wrap" />
 
                     <TextBlock Grid.Row="19"
                                Grid.Column="1"
