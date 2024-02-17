@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -416,6 +416,7 @@ internal partial class NavigationViewModel : ObservableObject
                         break;
                     }
                 case Key.Add:
+                case Key.OemPlus:
                     {
                         MainWindowUIHelpers.EverythingLarger();
                         string size = EnumDescConverter.GetEnumDescription(UserSettings.Setting.UISize);
@@ -424,6 +425,7 @@ internal partial class NavigationViewModel : ObservableObject
                         break;
                     }
                 case Key.Subtract:
+                case Key.OemMinus:
                     {
                         MainWindowUIHelpers.EverythingSmaller();
                         string size = EnumDescConverter.GetEnumDescription(UserSettings.Setting.UISize);
