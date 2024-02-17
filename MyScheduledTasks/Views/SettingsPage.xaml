@@ -327,14 +327,6 @@
                                           SelectedItem="{Binding RowSpacing,
                                                                  Source={x:Static config:UserSettings.Setting}}"
                                           Style="{StaticResource MaterialDesignComboBox}" />
-                                <TextBlock Margin="15,8,0,0"
-                                           ToolTip="{DynamicResource SettingsItem_RowHeightToolTip}"
-                                           ToolTipService.InitialShowDelay="300"
-                                           ToolTipService.Placement="Top">
-                                    <materialDesign:PackIcon Width="20"
-                                                             Height="20"
-                                                             Kind="InfoOutline" />
-                                </TextBlock>
                             </StackPanel>
                         </Grid>
 
