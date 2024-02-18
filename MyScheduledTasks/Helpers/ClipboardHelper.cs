@@ -1,4 +1,5 @@
-﻿
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+
 using static Vanara.PInvoke.User32;
 
 namespace MyScheduledTasks.Helpers;
