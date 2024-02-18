@@ -39,7 +39,7 @@ internal partial class NavigationViewModel : ObservableObject
                     Name=GetStringResource("NavItem_Main"),
                     NavPage = NavPage.Main,
                     ViewModelType= typeof(MainViewModel),
-                    IconKind=PackIconKind.Microsoft,
+                    IconKind=PackIconKind.CheckboxOutline,
                     PageTitle=GetStringResource("NavTitle_Main")
                 },
                 new ()
@@ -47,7 +47,7 @@ internal partial class NavigationViewModel : ObservableObject
                     Name=GetStringResource("NavItem_AddTasks"),
                     NavPage = NavPage.AddTasks,
                     ViewModelType= typeof(AddTasksViewModel),
-                    IconKind=PackIconKind.Add,
+                    IconKind=PackIconKind.AddCircleOutline,
                     PageTitle = GetStringResource("NavTitle_AddTasks")
                 },
                 new() {
