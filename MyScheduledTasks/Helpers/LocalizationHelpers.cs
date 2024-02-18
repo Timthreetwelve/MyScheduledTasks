@@ -7,6 +7,7 @@ namespace MyScheduledTasks.Helpers;
 /// </summary>
 internal static class LocalizationHelpers
 {
+    #region Return the current culture (language)
     /// <summary>
     /// Gets the current culture.
     /// </summary>
@@ -15,7 +16,9 @@ internal static class LocalizationHelpers
     {
         return CultureInfo.CurrentCulture.Name;
     }
+    #endregion Return the current culture (language)
 
+    #region Return the current UI culture
     /// <summary>
     /// Gets the current UI culture.
     /// </summary>
@@ -24,7 +27,9 @@ internal static class LocalizationHelpers
     {
         return CultureInfo.CurrentUICulture.Name;
     }
+    #endregion Return the current UI culture
 
+    #region Save settings and restart (after language change)
     /// <summary>
     /// Saves settings and restarts the application. Invoked when language is changed.
     /// </summary>
@@ -38,7 +43,9 @@ internal static class LocalizationHelpers
         _log.Debug("Restarting for language change.");
         Application.Current.Shutdown();
     }
+    #endregion Save settings and restart (after language change)
 
+    #region Return the language index
     /// <summary>
     /// Gets the index of the selected language.
     /// </summary>
@@ -47,4 +54,5 @@ internal static class LocalizationHelpers
     {
         return UILanguage.DefinedLanguages.FindIndex(x => x.LanguageCode == UserSettings.Setting.UILanguage);
     }
+    #endregion Return the language index
 }

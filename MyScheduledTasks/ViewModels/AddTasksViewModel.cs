@@ -4,6 +4,7 @@ namespace MyScheduledTasks.ViewModels;
 
 internal partial class AddTasksViewModel
 {
+    #region Include or exclude Microsoft tasks
     internal static void UpdateItems(DataGrid grid)
     {
         if (UserSettings.Setting.HideMicrosoftFolder)
@@ -15,6 +16,7 @@ internal partial class AddTasksViewModel
             grid.ItemsSource = AllTasks.All_TasksCollection;
         }
     }
+    #endregion Include or exclude Microsoft tasks
 
     #region Add selected items to TaskList
     private static void AddSelectedItems(DataGrid grid)
@@ -27,14 +29,23 @@ internal partial class AddTasksViewModel
                 Task task = GetTaskInfo(item.TaskPath);
                 if (task == null)
                 {
+                    string msg = string.Format(GetStringResource("AddTasks_NotFound"), item.TaskName);
                     _log.Error($"The Scheduled Task \"{item.TaskPath}\" was not found.");
-                    _ = new MDCustMsgBox($"The Scheduled Task \"{item.TaskName}\" was not found.", "ERROR", ButtonType.Ok).ShowDialog();
+                    _ = new MDCustMsgBox(msg,
+                            GetStringResource("AddTasks_Error"),
+                            ButtonType.Ok,
+                            false,
+                            true,
+                            null,
+                            true).ShowDialog();
                     return;
                 }
                 else if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
                 {
                     int pos = ScheduledTask.TaskList.IndexOf(ScheduledTask.TaskList.FirstOrDefault(x => x.TaskPath == task.Path));
                     _log.Warn($"{task.Path} is already present in the list in position {pos + 1}");
+                    string msg = string.Format(GetStringResource("AddTasks_TaskAlreadyAdded"), task.Path);
+                    SnackbarMsg.QueueMessage(msg, 3000);
                     continue;
                 }
                 ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, null);
@@ -49,7 +60,8 @@ internal partial class AddTasksViewModel
             if (itemsAdded > 0)
             {
                 _log.Info($"{itemsAdded} task(s) added");
-                SnackbarMsg.QueueMessage($"{itemsAdded} task(s) added",3000);
+                string msg = string.Format(GetStringResource("AddTasks_TasksAdded"), itemsAdded);
+                SnackbarMsg.QueueMessage(msg, 3000);
             }
 
             grid.UnselectAll();
@@ -65,6 +77,7 @@ internal partial class AddTasksViewModel
     }
     #endregion Get info for a task
 
+    #region Relay commands
     [RelayCommand]
     public static void HideTasks(DataGrid grid)
     {
@@ -82,7 +95,9 @@ internal partial class AddTasksViewModel
     {
         AddSelectedItems(grid);
     }
+    #endregion Relay commands
 
+    #region Static property and change event handler for filter text
     public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
     private static string _filterText;
@@ -98,4 +113,5 @@ internal partial class AddTasksViewModel
             }
         }
     }
+    #endregion Static property and change event handler for filter text
 }

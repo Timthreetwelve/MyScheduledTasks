@@ -140,8 +140,6 @@ internal static class MainWindowHelpers
     /// <summary>
     /// Handles any exceptions that weren't caught by a try-catch statement.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="args"></param>
     /// <remarks>
     /// This uses default message box.
     /// </remarks>
@@ -156,8 +154,9 @@ internal static class MainWindowHelpers
         }
         _log.Error(e.StackTrace);
 
-        _ = MessageBox.Show("An error has occurred. See the log file",
-            "ERROR",
+        string msg = string.Format($"{GetStringResource("MsgText_ErrorGeneral")}\n{e.Message}\n{GetStringResource("MsgText_SeeLogFile")}");
+        _ = MessageBox.Show(msg,
+            GetStringResource("MsgText_ErrorCaption"),
             MessageBoxButton.OK,
             MessageBoxImage.Error);
     }

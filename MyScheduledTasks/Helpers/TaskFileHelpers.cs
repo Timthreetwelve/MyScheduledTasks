@@ -38,8 +38,10 @@ internal static class TaskFileHelpers
         catch (Exception ex)
         {
             _log.Fatal(ex, $"Error reading {TasksFile}");
-            _ = new MDCustMsgBox($"Error reading {TasksFile}\n\n{ex.Message}\n\nFatal Error. My Scheduled Tasks will now close.",
-                                "My Scheduled Tasks Error",
+            string msg = string.Format($"{GetStringResource("MsgText_ErrorReadingFile")}", TasksFile);
+            msg += $"\n\n{ex.Message}\n\n{GetStringResource("MsgText_ErrorFatal")}";
+            _ = new MDCustMsgBox(msg,
+                                GetStringResource("MsgText_ErrorCaption"),
                                 ButtonType.Ok,
                                 true,
                                 true,
@@ -61,11 +63,15 @@ internal static class TaskFileHelpers
         catch (Exception ex)
         {
             _log.Fatal(ex, $"Error creating {TasksFile}");
-            _ = new MDCustMsgBox($"Error creating {TasksFile}\n\n{ex.Message}",
-                                "ERROR", ButtonType.Ok).ShowDialog();
-
-            _ = new MDCustMsgBox("Fatal Error. My Scheduled Tasks will now close.",
-                                "FATAL ERROR", ButtonType.Ok, true).ShowDialog();
+            string msg = string.Format($"{GetStringResource("MsgText_ErrorCreatingFile")}", TasksFile);
+            msg += $"\n\n{ex.Message}\n\n{GetStringResource("MsgText_ErrorFatal")}";
+            _ = new MDCustMsgBox(msg,
+                                GetStringResource("MsgText_ErrorCaption"),
+                                ButtonType.Ok,
+                                true,
+                                true,
+                                null,
+                                true).ShowDialog();
 
             // Quit via Environment.Exit so that normal shutdown processing doesn't run
             Environment.Exit(1);
@@ -93,26 +99,26 @@ internal static class TaskFileHelpers
         catch (Exception ex)
         {
             _log.Error(ex, $"Error saving {TasksFile}");
-            if (!DialogHost.IsDialogOpen("MainDialogHost"))
-            {
-                //DialogHelpers.ShowErrorDialog($"Error saving {TasksFile}\n\n{ex.Message}");
-            }
-            else
-            {
-                DialogHost.Close("MainDialogHost");
-                //DialogHelpers.ShowErrorDialog($"Error saving {TasksFile}\n\n{ex.Message}");
-            }
+            string msg = string.Format($"{GetStringResource("MsgText_ErrorSavingFile")}", TasksFile);
+            msg += $"\n\n{ex.Message}";
+            _ = new MDCustMsgBox(msg,
+                                GetStringResource("MsgText_ErrorCaption"),
+                                ButtonType.Ok,
+                                true,
+                                true,
+                                _mainWindow,
+                                true).ShowDialog();
         }
     }
     #endregion Write the tasks JSON file
 
-    #region Check for empty task list (first run)
+    #region Check for empty task list
     public static void CheckEmptyList()
     {
         if (ScheduledTask.TaskList.Count == 0)
         {
-            _ = new MDCustMsgBox("The task list is empty. Would you like to add tasks now?",
-                                   "ADD TASKS?",
+            _ = new MDCustMsgBox(GetStringResource("MsgText_ErrorEmptyTaskList"),
+                                   GetStringResource("MsgText_ErrorEmptyTaskListCaption"),
                                    ButtonType.YesNo,
                                    true,
                                    true,
@@ -126,5 +132,5 @@ internal static class TaskFileHelpers
             }
         }
     }
-    #endregion Check for empty task list (first run)
+    #endregion Check for empty task list
 }

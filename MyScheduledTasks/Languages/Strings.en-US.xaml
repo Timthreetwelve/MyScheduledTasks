@@ -45,10 +45,14 @@
     <sys:String x:Key="AddTasks_Add">Add Tasks</sys:String>
     <sys:String x:Key="AddTasks_DGHeader_TaskFolder">Folder</sys:String>
     <sys:String x:Key="AddTasks_DGHeader_TaskName">Task Name</sys:String>
-    <sys:String x:Key="AddTasks_FilterHint">Filter</sys:String>
+    <sys:String x:Key="AddTasks_Error">Adding Task</sys:String>
+    <sys:String x:Key="AddTasks_FilterHint">Filter the list</sys:String>
     <sys:String x:Key="AddTasks_HideMicrosoft">Hide Microsoft Folder</sys:String>
     <sys:String x:Key="AddTasks_HideMicrosoftTooltip">Check to hide all entries in the \Microsoft folder</sys:String>
+    <sys:String x:Key="AddTasks_NotFound">The Scheduled Task "{0}" was not found.</sys:String>
     <sys:String x:Key="AddTasks_Refresh">Refresh Tasks</sys:String>
+    <sys:String x:Key="AddTasks_TaskAlreadyAdded">{0} has already been added.</sys:String>
+    <sys:String x:Key="AddTasks_TasksAdded">{0} task(s) added.</sys:String>
     <!--  Button Text  -->
     <sys:String x:Key="Button_Cancel">Cancel</sys:String>
     <sys:String x:Key="Button_Close">Close Menu</sys:String>
@@ -111,7 +115,7 @@
     <sys:String x:Key="ImportTask_Heading">Import a Task from an XML File</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorBlank">The task name cannot be blank.</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorExists">There is already a task named</sys:String>
-    <sys:String x:Key="ImportTask_ImportErrorGeneral">Error importing task.</sys:String>
+    <sys:String x:Key="ImportTask_ImportError">Error importing task.</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorHeader">Import Error</sys:String>
     <sys:String x:Key="ImportTask_ImportSuccess">was successfully imported.</sys:String>
     <sys:String x:Key="ImportTask_ImportSuccessHeader">Success</sys:String>
@@ -174,6 +178,8 @@
     <sys:String x:Key="MsgText_Enabled">Enabled {0}.</sys:String>
     <sys:String x:Key="MsgText_EnableError">Error attempting to enable {0}.</sys:String>
     <sys:String x:Key="MsgText_EnableNoneSelected">Nothing selected to enable.</sys:String>
+    <sys:String x:Key="MsgText_ErrorCaption">ERROR</sys:String>
+    <sys:String x:Key="MsgText_ErrorGeneral">An error has occurred.</sys:String>
     <sys:String x:Key="MsgText_Exported">Exported {0}.</sys:String>
     <sys:String x:Key="MsgText_ExportError">Error attempting to export {0}.</sys:String>
     <sys:String x:Key="MsgText_ExportNoneSelected">Nothing selected to export.</sys:String>
@@ -189,7 +195,7 @@
     <sys:String x:Key="MsgText_RunError">Error attempting to run {0}.</sys:String>
     <sys:String x:Key="MsgText_Running">Running</sys:String>
     <sys:String x:Key="MsgText_RunNoneSelected">Nothing selected to run.</sys:String>
-    <sys:String x:Key="MsgText_SeeLogFile">See the log file.</sys:String>
+    <sys:String x:Key="MsgText_SeeLogFile">See the log file for additional information.</sys:String>
     <sys:String x:Key="MsgText_TaskNote">Task Note</sys:String>
     <sys:String x:Key="MsgText_Tasks">Tasks</sys:String>
     <sys:String x:Key="MsgText_Translated">translated</sys:String>
@@ -197,6 +203,13 @@
     <sys:String x:Key="MsgText_UISizeSet">Size set to {0}</sys:String>
     <sys:String x:Key="MsgText_UIThemeSet">Theme set to {0}</sys:String>
     <sys:String x:Key="MsgText_WindowTitleAdministrator">Administrator</sys:String>
+    <sys:String x:Key="MsgText_ErrorReadingFile">Error reading {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorOpeningFile">Error opening {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorCreatingFile">Error creating {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorSavingFile">Error saving {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorFatal">Fatal error. My Scheduled Tasks will close.</sys:String>
+    <sys:String x:Key="MsgText_ErrorEmptyTaskList">The task list is empty. Would you like to add tasks now?</sys:String>
+    <sys:String x:Key="MsgText_ErrorEmptyTaskListCaption">ADD TASKS?</sys:String>
     <!--  Navigation Items and Titles  -->
     <sys:String x:Key="NavItem_About">About</sys:String>
     <sys:String x:Key="NavItem_AddTasks">Add Tasks</sys:String>
