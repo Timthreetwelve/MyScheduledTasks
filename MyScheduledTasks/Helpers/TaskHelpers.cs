@@ -312,6 +312,15 @@ internal static class TaskHelpers
                     _mainWindow,
                     false);
             _ = mbox.ShowDialog();
+
+            if (TempSettings.Setting.ImportAddToMyTasks)
+            {
+                AllTasks task = new()
+                {
+                    TaskPath = TempSettings.Setting.ImportTaskName
+                };
+                _ = AddTasksViewModel.AddToMyTasks(task);
+            }
         }
         catch (Exception ex)
         {

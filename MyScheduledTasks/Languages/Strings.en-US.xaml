@@ -108,14 +108,15 @@
     <sys:String x:Key="GridColumn_Status">Status</sys:String>
     <sys:String x:Key="GridColumn_TaskName">Task Name</sys:String>
     <!--#region Import Task-->
+    <sys:String x:Key="ImportTask_AddToMyTasks">Add to My Tasks after import</sys:String>
     <sys:String x:Key="ImportTask_Caution">Since "Run only when user is logged on" has been unchecked, it is recommended that you go to Windows Task Scheduler and verify the Security Options section on the General tab after importing this Task.</sys:String>
     <sys:String x:Key="ImportTask_FileNotFound">File not found.</sys:String>
     <sys:String x:Key="ImportTask_FilePickerTitle">Browse for file</sys:String>
     <sys:String x:Key="ImportTask_FilePickerTooltip">Browse for file</sys:String>
     <sys:String x:Key="ImportTask_Heading">Import a Task from an XML File</sys:String>
+    <sys:String x:Key="ImportTask_ImportError">Error importing task.</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorBlank">The task name cannot be blank.</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorExists">There is already a task named</sys:String>
-    <sys:String x:Key="ImportTask_ImportError">Error importing task.</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorHeader">Import Error</sys:String>
     <sys:String x:Key="ImportTask_ImportSuccess">was successfully imported.</sys:String>
     <sys:String x:Key="ImportTask_ImportSuccessHeader">Success</sys:String>

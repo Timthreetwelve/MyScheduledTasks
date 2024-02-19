@@ -26,36 +26,10 @@ internal partial class AddTasksViewModel
             int itemsAdded = 0;
             foreach (AllTasks item in grid.SelectedItems)
             {
-                Task task = GetTaskInfo(item.TaskPath);
-                if (task == null)
+                if (AddToMyTasks(item))
                 {
-                    string msg = string.Format(GetStringResource("AddTasks_NotFound"), item.TaskName);
-                    _log.Error($"The Scheduled Task \"{item.TaskPath}\" was not found.");
-                    _ = new MDCustMsgBox(msg,
-                            GetStringResource("AddTasks_Error"),
-                            ButtonType.Ok,
-                            false,
-                            true,
-                            null,
-                            true).ShowDialog();
-                    return;
+                    itemsAdded++;
                 }
-                else if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
-                {
-                    int pos = ScheduledTask.TaskList.IndexOf(ScheduledTask.TaskList.FirstOrDefault(x => x.TaskPath == task.Path));
-                    _log.Warn($"{task.Path} is already present in the list in position {pos + 1}");
-                    string msg = string.Format(GetStringResource("AddTasks_TaskAlreadyAdded"), task.Path);
-                    SnackbarMsg.QueueMessage(msg, 3000);
-                    continue;
-                }
-                ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, null);
-                ScheduledTask.TaskList.Add(schedTask);
-
-                MyTasks newTask = new(task.Path, false, string.Empty);
-                MyTasks.MyTasksCollection.Add(newTask);
-
-                itemsAdded++;
-                _log.Info($"Added {task.Path}");
             }
             if (itemsAdded > 0)
             {
@@ -66,6 +40,40 @@ internal partial class AddTasksViewModel
 
             grid.UnselectAll();
         }
+    }
+
+    internal static bool AddToMyTasks(AllTasks item)
+    {
+        Task task = GetTaskInfo(item.TaskPath);
+        if (task == null)
+        {
+            string msg = string.Format(GetStringResource("AddTasks_NotFound"), item.TaskName);
+            _log.Error($"The Scheduled Task \"{item.TaskPath}\" was not found.");
+            _ = new MDCustMsgBox(msg,
+                    GetStringResource("AddTasks_Error"),
+                    ButtonType.Ok,
+                    false,
+                    true,
+                    null,
+                    true).ShowDialog();
+            return false;
+        }
+        else if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
+        {
+            int pos = ScheduledTask.TaskList.IndexOf(ScheduledTask.TaskList.FirstOrDefault(x => x.TaskPath == task.Path));
+            _log.Warn($"{task.Path} is already present in the list in position {pos + 1}");
+            string msg = string.Format(GetStringResource("AddTasks_TaskAlreadyAdded"), task.Path);
+            SnackbarMsg.QueueMessage(msg, 3000);
+            return false;
+        }
+        ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, null);
+        ScheduledTask.TaskList.Add(schedTask);
+
+        MyTasks newTask = new(task.Path, false, string.Empty);
+        MyTasks.MyTasksCollection.Add(newTask);
+
+        _log.Info($"Added {task.Path}");
+        return true;
     }
     #endregion Add selected items to TaskList
 

@@ -5,9 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
-             xmlns:local="clr-namespace:MyScheduledTasks.Dialogs"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:models="clr-namespace:MyScheduledTasks.Models"
              xmlns:viewModels="clr-namespace:MyScheduledTasks.ViewModels"
              TextElement.FontFamily="Segoe UI"
              TextElement.FontSize="14"
@@ -61,6 +59,8 @@
 
                     <!--#region Row definitions-->
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"
+                                       MinHeight="22" />
                         <RowDefinition Height="auto"
                                        MinHeight="22" />
                         <RowDefinition Height="auto"
@@ -167,10 +167,16 @@
                               Content="{DynamicResource ImportTask_Overwrite}"
                               IsChecked="{Binding ImportOverwrite,
                                                   Source={x:Static config:TempSettings.Setting}}" />
+
+                    <CheckBox Grid.Row="8"
+                              Margin="10,5,10,5"
+                              Content="{DynamicResource ImportTask_AddToMyTasks}"
+                              IsChecked="{Binding ImportAddToMyTasks,
+                                                  Source={x:Static config:TempSettings.Setting}}" />
                     <!--#endregion-->
 
                     <!--#region Buttons-->
-                    <StackPanel Grid.Row="8"
+                    <StackPanel Grid.Row="9"
                                 Margin="0,20,0,0"
                                 HorizontalAlignment="Center"
                                 Orientation="Horizontal">
