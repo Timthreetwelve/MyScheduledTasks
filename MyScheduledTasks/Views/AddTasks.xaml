@@ -30,25 +30,27 @@
     </UserControl.Resources>
     <!--#endregion-->
 
-    <Grid>
-        <!--#region Row definitions-->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="45" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="70" />
-        </Grid.RowDefinitions>
-        <!--#endregion-->
-
-        <!--#region Filter and hide MS checkbox-->
-        <Grid Grid.Row="1">
-            <!--#region Column definitions-->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
+    <Border BorderBrush="{DynamicResource MaterialDesignDivider}"
+            BorderThickness="1.5,1.5,0,0">
+        <Grid>
+            <!--#region Row definitions-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="45" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
             <!--#endregion-->
-            <TextBox x:Name="tbxSearch"
+
+            <!--#region Filter and hide MS checkbox-->
+            <Grid Grid.Row="1">
+                <!--#region Column definitions-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <!--#endregion-->
+                <TextBox x:Name="tbxSearch"
                      Grid.Column="0"
                      Margin="10,10,20,0"
                      Padding="10,5"
@@ -62,7 +64,7 @@
                      Text="{Binding FilterText,
                                     UpdateSourceTrigger=PropertyChanged}" />
 
-            <CheckBox x:Name="cbxHideMicroSoft"
+                <CheckBox x:Name="cbxHideMicroSoft"
                       Grid.Column="1"
                       Margin="0,10,15,0"
                       HorizontalAlignment="Right"
@@ -73,51 +75,51 @@
                       IsChecked="{Binding HideMicrosoftFolder,
                                           Source={x:Static config:UserSettings.Setting}}"
                       ToolTip="{DynamicResource AddTasks_HideMicrosoftTooltip}" />
-        </Grid>
-        <!--#endregion-->
+            </Grid>
+            <!--#endregion-->
 
-        <!--#region DataGrid inside a Border-->
-        <Border Grid.Row="2"
+            <!--#region DataGrid inside a Border-->
+            <Border Grid.Row="2"
                 Margin="10"
                 BorderBrush="{DynamicResource MaterialDesignDivider}"
                 BorderThickness="2"
                 CornerRadius="5">
-            <DataGrid x:Name="AllTasksGrid"
+                <DataGrid x:Name="AllTasksGrid"
                       VerticalAlignment="Top"
                       materialDesign:DataGridAssist.CellPadding="{Binding Converter={StaticResource Spacing}}"
                       AutoGenerateColumns="False"
                       Background="{DynamicResource MaterialDesignPaper}"
                       HeadersVisibility="Column"
                       IsReadOnly="True">
-                <DataGrid.DataContext>
-                    <models:AllTasks />
-                </DataGrid.DataContext>
-                <DataGrid.Columns>
-                    <DataGridTextColumn MinWidth="80"
+                    <DataGrid.DataContext>
+                        <models:AllTasks />
+                    </DataGrid.DataContext>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="80"
                                         Binding="{Binding TaskName}"
                                         CellStyle="{StaticResource DisplayOnly}"
                                         Header="{DynamicResource AddTasks_DGHeader_TaskName}" />
-                    <DataGridTextColumn MinWidth="70"
+                        <DataGridTextColumn MinWidth="70"
                                         Binding="{Binding TaskFolder,
                                                           Converter={StaticResource RootConverter}}"
                                         CellStyle="{StaticResource DisplayOnly}"
                                         Header="{DynamicResource AddTasks_DGHeader_TaskFolder}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
-        <!--#endregion-->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+            <!--#endregion-->
 
-        <!--#region Status bar and Buttons-->
-        <Grid Grid.Row="3"
+            <!--#region Status bar and Buttons-->
+            <Grid Grid.Row="3"
               Margin="10,0">
-            <StackPanel HorizontalAlignment="Center"
+                <StackPanel HorizontalAlignment="Center"
                         Orientation="Horizontal">
-                <Button Width="Auto"
+                    <Button Width="Auto"
                         MinWidth="150"
                         Command="{Binding RefreshTasksCommand}"
                         Content="{DynamicResource AddTasks_Refresh}"
                         Style="{StaticResource PlainOutlinedButton}" />
-                <Button x:Name="AddButton"
+                    <Button x:Name="AddButton"
                         Width="Auto"
                         MinWidth="150"
                         Command="{Binding AddTasksCommand}"
@@ -127,56 +129,57 @@
                         IsEnabled="{Binding ElementName=AllTasksGrid,
                                             Path=SelectedItems.Count}"
                         Style="{StaticResource PlainOutlinedButton}" />
-            </StackPanel>
+                </StackPanel>
 
-            <StatusBar Height="28"
+                <StatusBar Height="28"
                        Margin="0"
                        HorizontalAlignment="Left"
                        Background="{DynamicResource MaterialDesignCardBackground}"
                        FontFamily="Segoe UI"
                        FontSize="14"
                        Foreground="{DynamicResource MaterialDesignBody}">
-                <StatusBarItem Content="{Binding Items.Count,
+                    <StatusBarItem Content="{Binding Items.Count,
                                                  ElementName=AllTasksGrid,
                                                  Mode=OneWay}"
                                ContentStringFormat="{DynamicResource StatusBar_Items}" />
-                <Separator Height="15"
+                    <Separator Height="15"
                            Margin="10,0"
                            Background="{DynamicResource MaterialDesignDivider}">
-                    <Separator.Style>
-                        <Style TargetType="Separator">
-                            <Setter Property="Visibility" Value="Visible" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItems.Count,
+                        <Separator.Style>
+                            <Style TargetType="Separator">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItems.Count,
                                                                ElementName=AllTasksGrid}"
                                              Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Separator.Style>
-                </Separator>
-                <StatusBarItem Margin="0,0,0,0"
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Separator.Style>
+                    </Separator>
+                    <StatusBarItem Margin="0,0,0,0"
                                Content="{Binding SelectedItems.Count,
                                                  ElementName=AllTasksGrid,
                                                  Mode=OneWay}"
                                ContentStringFormat="{DynamicResource StatusBar_Selected}">
-                    <StatusBarItem.Style>
-                        <Style TargetType="StatusBarItem">
-                            <Setter Property="Visibility" Value="Visible" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItems.Count,
+                        <StatusBarItem.Style>
+                            <Style TargetType="StatusBarItem">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItems.Count,
                                                                ElementName=AllTasksGrid}"
                                              Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StatusBarItem.Style>
-                </StatusBarItem>
-            </StatusBar>
-        </Grid>
-        <!--#endregion-->
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StatusBarItem.Style>
+                    </StatusBarItem>
+                </StatusBar>
+            </Grid>
+            <!--#endregion-->
 
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>
