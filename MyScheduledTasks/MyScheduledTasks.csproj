@@ -16,10 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="MainWindowUIHelpers.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Content Include="CommonCompletionCodes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\MST.ico" />
   </ItemGroup>
 

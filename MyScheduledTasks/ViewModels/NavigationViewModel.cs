@@ -121,6 +121,14 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion View readme file
 
+    #region View result codes file
+    [RelayCommand]
+    public static void ViewResultCodes()
+    {
+        TextFileViewer.ViewTextFile(Path.Combine(AppInfo.AppDirectory, "CommonCompletionCodes.txt"));
+    }
+    #endregion View result codes file
+
     #region Toggle details
     [RelayCommand]
     public static void ToggleDetails()

@@ -59,11 +59,13 @@
     <sys:String x:Key="Button_CopyToClipboardToolTip">Copy this page to the clipboard</sys:String>
     <sys:String x:Key="Button_No">No</sys:String>
     <sys:String x:Key="Button_OK">OK</sys:String>
-    <sys:String x:Key="Button_OpenFolder">Open the App Folder</sys:String>
     <sys:String x:Key="Button_OpenAppFolder">Open App Folder</sys:String>
+    <sys:String x:Key="Button_OpenFolder">Open the App Folder</sys:String>
     <sys:String x:Key="Button_OpenFolderToolTip">Open the My Scheduled Tasks folder in file explorer</sys:String>
     <sys:String x:Key="Button_OpenLogFile">View Log File</sys:String>
     <sys:String x:Key="Button_OpenLogFileToolTip">Open the log file in the default application.</sys:String>
+    <sys:String x:Key="Button_OpenResultCodes">Result Codes Reference</sys:String>
+    <sys:String x:Key="Button_OpenResultCodesTooltip">Open the common result codes file.</sys:String>
     <sys:String x:Key="Button_ThreeDotToolTip">Additional Actions</sys:String>
     <sys:String x:Key="Button_Yes">Yes</sys:String>
     <!--  Delete Tasks  -->

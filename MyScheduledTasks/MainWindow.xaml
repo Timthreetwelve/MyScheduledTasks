@@ -168,7 +168,14 @@
                                                 Command="{Binding OpenAppFolderCommand}"
                                                 Content="{DynamicResource Button_OpenFolder}"
                                                 ToolTip="{DynamicResource Button_OpenFolderToolTip}" />
-                                        <Separator />
+                                        <Separator Margin="0"
+                                                   Padding="1"
+                                                   Background="{DynamicResource MaterialDesignDivider}" />
+                                        <Button Height="35"
+                                                Padding="15,1,15,22"
+                                                Command="{Binding ViewResultCodesCommand}"
+                                                Content="{DynamicResource Button_OpenResultCodes}"
+                                                ToolTip="{DynamicResource Button_OpenResultCodesTooltip}" />
                                         <Button Height="35"
                                                 Padding="15,1,15,22"
                                                 Command="{Binding ViewReadMeFileCommand}"
