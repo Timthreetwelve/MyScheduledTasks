@@ -257,8 +257,7 @@
 
                 <!--#region Datagrid context menu-->
                 <DataGrid.ContextMenu>
-                    <ContextMenu 
-                                 Opened="ContextMenu_Opened">
+                    <ContextMenu Opened="ContextMenu_Opened">
                         <ContextMenu.DataContext>
                             <viewmodels:NavigationViewModel />
                         </ContextMenu.DataContext>
@@ -392,7 +391,8 @@
                                    Text="{DynamicResource Details_Folder}" />
                         <TextBlock Grid.Row="2"
                                    Grid.Column="3"
-                                   Text="{Binding TaskFolder}"
+                                   Text="{Binding TaskFolder,
+                                                  Converter={StaticResource RootConverter}}"
                                    TextWrapping="Wrap" />
 
                         <TextBlock Grid.Row="3"
@@ -567,11 +567,11 @@
             <!--#region StatusBar-->
             <StatusBar Grid.Row="4"
                        Grid.Column="1"
-                       BorderBrush="{DynamicResource MaterialDesignDivider}"
-                       BorderThickness="0,1.5,0,0"
                        Margin="0,5,0,0"
                        Padding="10,0"
                        Background="{DynamicResource MaterialDesignPaper}"
+                       BorderBrush="{DynamicResource MaterialDesignDivider}"
+                       BorderThickness="0,1.5,0,0"
                        FontFamily="Segoe UI"
                        FontSize="14"
                        Foreground="{DynamicResource MaterialDesignBody}">
