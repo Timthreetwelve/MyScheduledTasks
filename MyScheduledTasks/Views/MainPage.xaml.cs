@@ -63,4 +63,24 @@ public partial class MainPage : UserControl
         EditNoteItem.IsEnabled = DataGridTasks.SelectedItems.Count == 1;
     }
     #endregion Context menu opened event
+
+    #region DataGrid selection changed
+    /// <summary>
+    /// This will blank out the details pane if/when multiple rows are selected in the data grid
+    /// </summary>
+    private void DataGridTasks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (DetailsGrid != null)
+        {
+            if (DataGridTasks.SelectedItems.Count == 1)
+            {
+                DetailsGrid.DataContext = DataGridTasks.SelectedItem;
+            }
+            else
+            {
+                DetailsGrid.DataContext = null;
+            }
+        }
+    }
+    #endregion DataGrid selection changed
 }

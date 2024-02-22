@@ -57,6 +57,7 @@ internal class MainViewModel
                     }
                     else
                     {
+                        // todo: localize
                         emptyTask.TaskDescription = "No information for this task was returned. The task may no longer exist. Check Task Scheduler.";
                         emptyTask.TaskStatus = GetStringResource("TaskResult_Null");
                     }
@@ -78,13 +79,13 @@ internal class MainViewModel
 
     private static void Binding_ListChanged(object sender, ListChangedEventArgs e)
     {
-        //UpdateMyTasksCollection();
+        UpdateMyTasksCollection();
         //TaskFileHelpers.WriteTasks2Json(quiet: true);
     }
 
     private static void TaskList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
-        //UpdateMyTasksCollection();
+        UpdateMyTasksCollection();
         //TaskFileHelpers.WriteTasks2Json(quiet: true);
     }
     #endregion Load the task list

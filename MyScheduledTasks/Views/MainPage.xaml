@@ -131,7 +131,7 @@
             <DataGrid x:Name="DataGridTasks"
                       Grid.Row="1"
                       Margin="10,0,11,4"
-                      d:ItemsSource="{d:SampleData ItemCount=5}"
+                      d:ItemsSource="{d:SampleData ItemCount=4}"
                       dd:DragDrop.DropTargetAdornerBrush="{DynamicResource PrimaryHueDarkBrush}"
                       dd:DragDrop.IsDragSource="True"
                       dd:DragDrop.IsDropTarget="True"
@@ -148,6 +148,7 @@
                       ItemsSource="{Binding TaskList}"
                       ScrollViewer.CanContentScroll="False"
                       SelectedIndex="0"
+                      SelectionChanged="DataGridTasks_SelectionChanged"
                       Sorting="DataGridTasks_Sorting">
                 <!--#region Datagrid Columns-->
                 <DataGrid.Columns>
@@ -307,19 +308,11 @@
                               HorizontalScrollBarVisibility="Disabled"
                               Opacity=".95"
                               VerticalScrollBarVisibility="Auto">
-                    <Grid d:DataContext="{d:DesignInstance models:ScheduledTask}">
-                        <Grid.Style>
-                            <Style TargetType="Grid">
-                                <Setter Property="DataContext" Value="{x:Null}" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedItems.Count,
-                                                                   ElementName=DataGridTasks}"
-                                                 Value="1">
-                                        <Setter Property="DataContext" Value="{Binding SelectedItem, ElementName=DataGridTasks}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Grid.Style>
+                    <Grid x:Name="DetailsGrid"
+                          d:DataContext="{d:DesignInstance models:ScheduledTask}"
+                          DataContext="{Binding ElementName=DataGridTasks,
+                                                Path=SelectedItem}">
+
                         <!--#region Column and Row definitions-->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20" />
@@ -376,7 +369,6 @@
                             <RowDefinition Height="10" />
                         </Grid.RowDefinitions>
                         <!--#endregion-->
-
                         <TextBlock Grid.Row="1"
                                    Grid.Column="1"
                                    Text="{DynamicResource Details_Name}" />
