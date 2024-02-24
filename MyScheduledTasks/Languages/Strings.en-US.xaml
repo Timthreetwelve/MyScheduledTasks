@@ -83,7 +83,7 @@
     <sys:String x:Key="Details_Created">Created:</sys:String>
     <sys:String x:Key="Details_Description">Description:</sys:String>
     <sys:String x:Key="Details_Enabled">Enabled:</sys:String>
-    <sys:String x:Key="Details_FallbackText">Select one task in the grid above to view its details here</sys:String>
+    <sys:String x:Key="Details_FallbackText">Select one task in the grid above to view the details here</sys:String>
     <sys:String x:Key="Details_Folder">Folder:</sys:String>
     <sys:String x:Key="Details_LastResult">Last Result:</sys:String>
     <sys:String x:Key="Details_LastRun">Last Run:</sys:String>

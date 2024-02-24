@@ -148,7 +148,6 @@
                       ItemsSource="{Binding TaskList}"
                       ScrollViewer.CanContentScroll="False"
                       SelectedIndex="0"
-                      SelectionChanged="DataGridTasks_SelectionChanged"
                       Sorting="DataGridTasks_Sorting">
                 <!--#region Datagrid Columns-->
                 <DataGrid.Columns>
@@ -304,6 +303,29 @@
             <!--#region Details area at the bottom-->
             <Grid x:Name="bottomGrid"
                   Grid.Row="3">
+                <!--#region Fallback text if selected rows != 1-->
+                <TextBlock Margin="20"
+                           HorizontalAlignment="Center"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Opacity=".4"
+                           Text="{DynamicResource Details_FallbackText}"
+                           TextWrapping="Wrap">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=DataGridTasks,
+                                                               Path=SelectedItems.Count}"
+                                             Value="1">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <!--#endregion-->
+
                 <ScrollViewer VerticalAlignment="Top"
                               HorizontalScrollBarVisibility="Disabled"
                               Opacity=".95"
@@ -312,6 +334,18 @@
                           d:DataContext="{d:DesignInstance models:ScheduledTask}"
                           DataContext="{Binding ElementName=DataGridTasks,
                                                 Path=SelectedItem}">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=DataGridTasks,
+                                                                   Path=SelectedItems.Count}"
+                                                 Value="1">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
 
                         <!--#region Column and Row definitions-->
                         <Grid.ColumnDefinitions>
@@ -374,8 +408,7 @@
                                    Text="{DynamicResource Details_Name}" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="3"
-                                   Text="{Binding TaskName,
-                                                  FallbackValue={StaticResource Details_FallbackText}}"
+                                   Text="{Binding TaskName}"
                                    TextWrapping="Wrap" />
 
                         <TextBlock Grid.Row="2"
@@ -552,7 +585,6 @@
                                    TextWrapping="Wrap" />
                     </Grid>
                 </ScrollViewer>
-
             </Grid>
             <!--#endregion-->
 
