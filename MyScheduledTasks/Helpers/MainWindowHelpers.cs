@@ -189,6 +189,7 @@ internal static class MainWindowHelpers
     }
     #endregion Write startup messages to the log
 
+    #region Process command line options
     private static void ProcessCommandLine()
     {
         // Since this is not a console app, get the command line args
@@ -243,4 +244,5 @@ internal static class MainWindowHelpers
             }
         }
     }
+    #endregion Process command line options
 }
