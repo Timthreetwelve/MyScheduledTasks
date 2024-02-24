@@ -178,8 +178,8 @@
 
                             <CheckBox Grid.Row="10"
                                       Padding="10,0"
-                                      Content="{DynamicResource SettingsItem_KeepOnTop}"
-                                      IsChecked="{Binding KeepOnTop,
+                                      Content="{DynamicResource SettingsItem_AlertSound}"
+                                      IsChecked="{Binding Sound,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
                             <CheckBox Grid.Row="11"

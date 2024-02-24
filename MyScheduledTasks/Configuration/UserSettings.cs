@@ -70,6 +70,9 @@ public partial class UserSettings : ConfigManager<UserSettings>
     private bool _showStatusCol = true;
 
     [ObservableProperty]
+    private bool _sound = true;
+
+    [ObservableProperty]
     private bool _startCentered = true;
 
     [ObservableProperty]

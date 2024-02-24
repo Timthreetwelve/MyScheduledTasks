@@ -209,5 +209,38 @@ internal static class MainWindowHelpers
             _log.Debug("Command line argument \"administrator\" was specified. Restarting as Administrator.");
             NavigationViewModel.RestartAsAdmin();
         }
+
+        if (result?.Value.Hide == true)
+        {
+            _log.Debug("Argument \"hide\" specified. Scheduled tasks will be checked but window will only be shown if needed.");
+            // hide the window
+            _mainWindow.Visibility = Visibility.Hidden;
+            bool showMainWindow = false;
+
+            // Only write so log file when the window is hidden
+            foreach (ScheduledTask task in ScheduledTask.TaskList)
+            {
+                _log.Debug($"{task.TaskName} result = {task.TaskResultShort}");
+                if (task.IsChecked && task.TaskResult != 0)
+                {
+                    showMainWindow = true;
+                    _log.Info($"Last result for {task.TaskName} was {task.TaskResultHex}, will show window.");
+                }
+            }
+            // If showMainWindow is false, then shut down
+            if (showMainWindow)
+            {
+                _mainWindow.Visibility = Visibility.Visible;
+                if (UserSettings.Setting.Sound)
+                {
+                    SystemSounds.Beep.Play();
+                }
+            }
+            else
+            {
+                _log.Info("No checked scheduled tasks with a non-zero results were found.");
+                Application.Current.Shutdown();
+            }
+        }
     }
 }
