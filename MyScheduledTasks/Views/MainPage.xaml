@@ -1,15 +1,13 @@
-﻿<UserControl x:Class="MyScheduledTasks.Views.MainPage"
+<UserControl x:Class="MyScheduledTasks.Views.MainPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
              xmlns:convert="clr-namespace:MyScheduledTasks.Converters"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:global="clr-namespace:System.Globalization;assembly=mscorlib"
-             xmlns:helpers="clr-namespace:MyScheduledTasks.Helpers"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:models="clr-namespace:MyScheduledTasks.Models"
              xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
@@ -25,6 +23,17 @@
         <convert:BooleanInverter x:Key="BoolInverter" />
         <convert:SpacingConverter x:Key="Spacing" />
         <convert:RootConverter x:Key="RootConverter" />
+        <Style x:Key="AdvancedVisibility"
+               BasedOn="{StaticResource MaterialDesignMenuItem}"
+               TargetType="MenuItem">
+            <Setter Property="Visibility">
+                <Setter.Value>
+                    <Binding Converter="{StaticResource BoolVisConverter}"
+                             Path="ShowAdvancedMenu"
+                             Source="{x:Static config:UserSettings.Setting}" />
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <UserControl.DataContext>
         <models:ScheduledTask />
@@ -38,18 +47,16 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*"
-                               MinHeight="70" />
+                               MinHeight="110" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition x:Name="detailsRow"
-                               Height="{Binding DetailsHeight,
-                                                Source={x:Static config:UserSettings.Setting}}" />
-                <RowDefinition Height="35" />
+                               Height="550" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <!--#endregion-->
 
             <!--#region Menu-->
-            <Grid Grid.Row="0"
-                  Margin="0">
+            <Grid Grid.Row="0">
                 <Menu Margin="0,0,0,5"
                       materialDesign:MenuAssist.TopLevelMenuItemHeight="30"
                       BorderBrush="{DynamicResource MaterialDesignDivider}"
@@ -123,14 +130,47 @@
                     <MenuItem Command="{Binding OpenTSchedulerCommand}"
                               Header="{DynamicResource MenuItem_OpenScheduler}" />
                 </Menu>
-
             </Grid>
+            <!--#endregion-->
+
+            <!--#region StatusBar-->
+            <StatusBar Grid.Row="0"
+                       Margin="0,0,0,5"
+                       Padding="8,0"
+                       HorizontalAlignment="Right"
+                       Background="Transparent"
+                       FontFamily="Segoe UI"
+                       FontSize="14"
+                       Foreground="{DynamicResource MaterialDesignBody}">
+                <StatusBarItem Content="{Binding Items.Count,
+                                                 ElementName=DataGridTasks,
+                                                 Mode=OneWay}"
+                               ContentStringFormat="{DynamicResource StatusBar_Items}" />
+                <StatusBarItem Margin="10,0"
+                               Content="{Binding SelectedItems.Count,
+                                                 ElementName=DataGridTasks,
+                                                 Mode=OneWay}"
+                               ContentStringFormat="{DynamicResource StatusBar_Selected}">
+                    <StatusBarItem.Style>
+                        <Style TargetType="StatusBarItem">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItems.Count,
+                                                               ElementName=DataGridTasks}"
+                                             Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StatusBarItem.Style>
+                </StatusBarItem>
+            </StatusBar>
             <!--#endregion-->
 
             <!--#region DataGrid at top-->
             <DataGrid x:Name="DataGridTasks"
                       Grid.Row="1"
-                      Margin="10,0,11,4"
+                      Margin="10,0,5,4"
                       d:ItemsSource="{d:SampleData ItemCount=4}"
                       dd:DragDrop.DropTargetAdornerBrush="{DynamicResource PrimaryHueDarkBrush}"
                       dd:DragDrop.IsDragSource="True"
@@ -244,7 +284,7 @@
                                                              Source={x:Static config:UserSettings.Setting},
                                                              Converter={StaticResource BoolVisConverter}}" />
 
-                    <DataGridTextColumn MinWidth="70"
+                    <DataGridTextColumn MinWidth="100"
                                         Binding="{Binding TaskNote,
                                                           UpdateSourceTrigger=LostFocus}"
                                         DisplayIndex="7"
@@ -261,24 +301,22 @@
                         <ContextMenu.DataContext>
                             <viewmodels:NavigationViewModel />
                         </ContextMenu.DataContext>
+
                         <MenuItem x:Name="EditNoteItem"
                                   Command="{Binding EditNoteCommand}"
                                   Header="{DynamicResource MenuItem_EditTaskNote}" />
-
+                        <Separator />
                         <MenuItem Command="{Binding RemoveTasksCommand}"
                                   Header="Remove Selected" />
-                        <Separator />
-                        <MenuItem Header="{StaticResource Menu_Advanced}"
-                                  Visibility="{Binding Path=ShowAdvancedMenu,
-                                                       Source={x:Static config:UserSettings.Setting},
-                                                       Converter={StaticResource BoolVisConverter}}">
-                            <MenuItem Command="{Binding EnableTasksCommand}"
-                                      Header="Enable Selected" />
-                            <MenuItem Command="{Binding DisableTasksCommand}"
-                                      Header="Disable Selected" />
-                            <MenuItem Command="{Binding RunTasksCommand}"
-                                      Header="Run Selected" />
-                        </MenuItem>
+                        <MenuItem Command="{Binding EnableTasksCommand}"
+                                  Header="Enable Selected"
+                                  Style="{StaticResource AdvancedVisibility}" />
+                        <MenuItem Command="{Binding DisableTasksCommand}"
+                                  Header="Disable Selected"
+                                  Style="{StaticResource AdvancedVisibility}" />
+                        <MenuItem Command="{Binding RunTasksCommand}"
+                                  Header="Run Selected"
+                                  Style="{StaticResource AdvancedVisibility}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <!--#endregion-->
@@ -288,9 +326,10 @@
             <!--#region GridSplitter-->
             <GridSplitter Grid.Row="2"
                           Height="4"
-                          Margin="10,1"
+                          Margin="5,8"
                           HorizontalAlignment="Stretch"
-                          Background="{DynamicResource MaterialDesignSelection}"
+                          Background="Gray"
+                          Opacity=".2"
                           DragCompleted="GridSplitter_DragCompleted"
                           IsTabStop="False"
                           ResizeBehavior="BasedOnAlignment"
@@ -586,42 +625,6 @@
                     </Grid>
                 </ScrollViewer>
             </Grid>
-            <!--#endregion-->
-
-            <!--#region StatusBar-->
-            <StatusBar Grid.Row="4"
-                       Grid.Column="1"
-                       Margin="0,5,0,0"
-                       Padding="10,0"
-                       Background="{DynamicResource MaterialDesignPaper}"
-                       BorderBrush="{DynamicResource MaterialDesignDivider}"
-                       BorderThickness="0,1.5,0,0"
-                       FontFamily="Segoe UI"
-                       FontSize="14"
-                       Foreground="{DynamicResource MaterialDesignBody}">
-                <StatusBarItem Content="{Binding Items.Count,
-                                                 ElementName=DataGridTasks,
-                                                 Mode=OneWay}"
-                               ContentStringFormat="{DynamicResource StatusBar_Items}" />
-                <StatusBarItem Margin="10,0"
-                               Content="{Binding SelectedItems.Count,
-                                                 ElementName=DataGridTasks,
-                                                 Mode=OneWay}"
-                               ContentStringFormat="{DynamicResource StatusBar_Selected}">
-                    <StatusBarItem.Style>
-                        <Style TargetType="StatusBarItem">
-                            <Setter Property="Visibility" Value="Visible" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItems.Count,
-                                                               ElementName=DataGridTasks}"
-                                             Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StatusBarItem.Style>
-                </StatusBarItem>
-            </StatusBar>
             <!--#endregion-->
         </Grid>
     </Border>
