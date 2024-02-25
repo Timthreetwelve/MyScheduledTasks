@@ -51,4 +51,4 @@ Common completion (Last Result) codes for scheduled tasks are:
 0xC000013A: The application terminated as a result of a CTRL+C.
 0xC0000142: The application failed to initialize properly.
 
-Wikipedia contributors. (2023b, December 22). Windows Task Scheduler. Wikipedia. https://en.wikipedia.org/wiki/Windows_Task_Scheduler#Column_'Last_Result'
+Source: Wikipedia contributors. (2023b, December 22). Windows Task Scheduler. Wikipedia. https://en.wikipedia.org/wiki/Windows_Task_Scheduler#Column_'Last_Result'
