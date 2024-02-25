@@ -66,6 +66,8 @@
     <sys:String x:Key="Button_OpenLogFileToolTip">Open the log file in the default application.</sys:String>
     <sys:String x:Key="Button_OpenResultCodes">Result Codes Reference</sys:String>
     <sys:String x:Key="Button_OpenResultCodesTooltip">Open the common result codes file.</sys:String>
+    <sys:String x:Key="Button_OpenTasksFile">Open the Tasks File</sys:String>
+    <sys:String x:Key="Button_OpenTasksFileTooltip">Open the tasks file in the default application.</sys:String>
     <sys:String x:Key="Button_ThreeDotToolTip">Additional Actions</sys:String>
     <sys:String x:Key="Button_Yes">Yes</sys:String>
     <!--  Delete Tasks  -->

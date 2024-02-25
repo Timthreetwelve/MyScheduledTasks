@@ -121,6 +121,14 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion View readme file
 
+    #region View tasks file
+    [RelayCommand]
+    public static void OpenTasksFile()
+    {
+        TextFileViewer.ViewTextFile(TaskFileHelpers.TasksFile);
+    }
+    #endregion View tasks file
+
     #region View result codes file
     [RelayCommand]
     public static void ViewResultCodes()

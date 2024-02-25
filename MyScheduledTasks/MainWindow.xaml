@@ -167,6 +167,11 @@
                                                 ToolTip="{DynamicResource Button_OpenLogFileToolTip}" />
                                         <Button Height="35"
                                                 Padding="15,1,15,22"
+                                                Command="{Binding OpenTasksFileCommand}"
+                                                Content="{DynamicResource Button_OpenTasksFile}"
+                                                ToolTip="{DynamicResource Button_OpenTasksFileToolTip}" />
+                                        <Button Height="35"
+                                                Padding="15,1,15,22"
                                                 Command="{Binding OpenAppFolderCommand}"
                                                 Content="{DynamicResource Button_OpenFolder}"
                                                 ToolTip="{DynamicResource Button_OpenFolderToolTip}" />
