@@ -23,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Strings.test.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="GitVersion.MsBuild" Version="5.12.0">
@@ -35,10 +41,6 @@
     <PackageReference Include="Octokit" Version="10.0.0" />
     <PackageReference Include="TaskScheduler" Version="2.10.1" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="3.4.17" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Inno_Setup\" />
   </ItemGroup>
 
   <ItemGroup>
