@@ -59,6 +59,6 @@ internal partial class UILanguage : ObservableObject
     /// <summary>
     /// List of defined languages ordered by LanguageNative.
     /// </summary>
-    public static List<UILanguage> DefinedLanguages => LanguageList.OrderBy(x => x.LanguageNative).ToList();
+    public static List<UILanguage> DefinedLanguages => [.. LanguageList.OrderBy(x => x.LanguageNative)];
     #endregion List of languages
 }
