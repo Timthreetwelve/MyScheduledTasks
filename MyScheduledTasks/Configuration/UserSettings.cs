@@ -37,9 +37,6 @@ public partial class UserSettings : ConfigManager<UserSettings>
     private Spacing _rowSpacing = Spacing.Comfortable;
 
     [ObservableProperty]
-    private bool _saveOnExit = true;
-
-    [ObservableProperty]
     private bool _showAdvancedMenu;
 
     [ObservableProperty]

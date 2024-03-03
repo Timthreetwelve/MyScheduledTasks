@@ -111,7 +111,6 @@
                                 <RowDefinition Height="31" />
                                 <RowDefinition Height="31" />
                                 <RowDefinition Height="31" />
-                                <RowDefinition Height="31" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <!--#endregion-->
@@ -160,29 +159,23 @@
 
                             <CheckBox Grid.Row="7"
                                       Padding="10,0"
-                                      Content="{DynamicResource SettingsItem_SaveTasksOnExit}"
-                                      IsChecked="{Binding SaveOnExit,
-                                                          Source={x:Static config:UserSettings.Setting}}" />
-
-                            <CheckBox Grid.Row="8"
-                                      Padding="10,0"
                                       Content="{DynamicResource SettingsItem_ShowAdvancedMenu}"
                                       IsChecked="{Binding ShowAdvancedMenu,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
-                            <CheckBox Grid.Row="9"
+                            <CheckBox Grid.Row="8"
                                       Padding="10,0"
                                       Content="{DynamicResource SettingsItem_AnnotateRoot}"
                                       IsChecked="{Binding AnnotateRoot,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
-                            <CheckBox Grid.Row="10"
+                            <CheckBox Grid.Row="9"
                                       Padding="10,0"
                                       Content="{DynamicResource SettingsItem_AlertSound}"
                                       IsChecked="{Binding Sound,
                                                           Source={x:Static config:UserSettings.Setting}}" />
 
-                            <CheckBox Grid.Row="11"
+                            <CheckBox Grid.Row="10"
                                       Padding="10,0"
                                       Content="{DynamicResource SettingsItem_IncludeDebug}"
                                       IsChecked="{Binding IncludeDebug,
