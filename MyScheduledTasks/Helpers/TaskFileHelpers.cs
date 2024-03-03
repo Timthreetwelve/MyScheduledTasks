@@ -83,16 +83,17 @@ internal static class TaskFileHelpers
     /// <summary>
     /// Convert MyTasksCollection to JSON and save it to a file
     /// </summary>
-    public static void WriteTasks2Json(bool quiet = true)
+    /// <param name="quiet">Setting quiet to true will not display snack bar message</param>
+    public static void WriteTasksToFile(bool quiet = true)
     {
         try
         {
-            string x = JsonSerializer.Serialize(MyTasks.MyTasksCollection, _options);
-            File.WriteAllText(TasksFile, x);
-            _log.Info($"Writing {MyTasks.MyTasksCollection.Count} items to {TasksFile} ");
+            string tasks = JsonSerializer.Serialize(MyTasks.MyTasksCollection, _options);
+            File.WriteAllText(TasksFile, tasks);
+            _log.Info($"Saving {MyTasks.MyTasksCollection.Count} tasks to {TasksFile} ");
             if (!quiet)
             {
-                SnackbarMsg.ClearAndQueueMessage("Tasks file has been saved");
+                SnackbarMsg.QueueMessage(GetStringResource("MsgText_FileSaved"), 3000);
             }
             MyTasks.IsDirty = false;
         }
