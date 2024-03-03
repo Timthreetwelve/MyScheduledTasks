@@ -134,6 +134,7 @@
     <!--  Menu Items  -->
     <sys:String x:Key="Menu_Advanced">_Advanced</sys:String>
     <sys:String x:Key="Menu_File">_File</sys:String>
+    <sys:String x:Key="Menu_OpenScheduler">_Task Scheduler</sys:String>
     <sys:String x:Key="Menu_Tasks">_My Tasks</sys:String>
     <sys:String x:Key="Menu_View">_View</sys:String>
     <sys:String x:Key="MenuItem_AddTasks">Add Tasks</sys:String>
@@ -146,7 +147,6 @@
     <sys:String x:Key="MenuItem_ExportTasks">Export Selected...</sys:String>
     <sys:String x:Key="MenuItem_ImportTask">Import Task...</sys:String>
     <sys:String x:Key="MenuItem_Larger">Larger View</sys:String>
-    <sys:String x:Key="MenuItem_OpenScheduler">Task Scheduler</sys:String>
     <sys:String x:Key="MenuItem_Refresh">Refresh</sys:String>
     <sys:String x:Key="MenuItem_RemoveSort">Remove Column Sort</sys:String>
     <sys:String x:Key="MenuItem_RemoveTasks">Remove Selected</sys:String>
@@ -184,7 +184,15 @@
     <sys:String x:Key="MsgText_EnableError">Error attempting to enable {0}.</sys:String>
     <sys:String x:Key="MsgText_EnableNoneSelected">Nothing selected to enable.</sys:String>
     <sys:String x:Key="MsgText_ErrorCaption">ERROR</sys:String>
+    <sys:String x:Key="MsgText_ErrorCreatingFile">Error creating {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorEmptyTaskList">The task list is empty. Would you like to add tasks now?</sys:String>
+    <sys:String x:Key="MsgText_ErrorEmptyTaskListCaption">ADD TASKS?</sys:String>
+    <sys:String x:Key="MsgText_ErrorFatal">Fatal error. My Scheduled Tasks will close.</sys:String>
     <sys:String x:Key="MsgText_ErrorGeneral">An error has occurred.</sys:String>
+    <sys:String x:Key="MsgText_ErrorOpeningFile">Error opening {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorReadingFile">Error reading {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorSavingFile">Error saving {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorTaskNull">No information for this task was returned. The task may no longer exist. Check Windows Task Scheduler.</sys:String>
     <sys:String x:Key="MsgText_Exported">Exported {0}.</sys:String>
     <sys:String x:Key="MsgText_ExportError">Error attempting to export {0}.</sys:String>
     <sys:String x:Key="MsgText_ExportNoneSelected">Nothing selected to export.</sys:String>
@@ -208,13 +216,7 @@
     <sys:String x:Key="MsgText_UISizeSet">Size set to {0}</sys:String>
     <sys:String x:Key="MsgText_UIThemeSet">Theme set to {0}</sys:String>
     <sys:String x:Key="MsgText_WindowTitleAdministrator">Administrator</sys:String>
-    <sys:String x:Key="MsgText_ErrorReadingFile">Error reading {0}</sys:String>
-    <sys:String x:Key="MsgText_ErrorOpeningFile">Error opening {0}</sys:String>
-    <sys:String x:Key="MsgText_ErrorCreatingFile">Error creating {0}</sys:String>
-    <sys:String x:Key="MsgText_ErrorSavingFile">Error saving {0}</sys:String>
-    <sys:String x:Key="MsgText_ErrorFatal">Fatal error. My Scheduled Tasks will close.</sys:String>
-    <sys:String x:Key="MsgText_ErrorEmptyTaskList">The task list is empty. Would you like to add tasks now?</sys:String>
-    <sys:String x:Key="MsgText_ErrorEmptyTaskListCaption">ADD TASKS?</sys:String>
+    <sys:String x:Key="MsgText_FileSaved">The tasks file has been saved.</sys:String>
     <!--  Navigation Items and Titles  -->
     <sys:String x:Key="NavItem_About">About</sys:String>
     <sys:String x:Key="NavItem_AddTasks">Add Tasks</sys:String>
