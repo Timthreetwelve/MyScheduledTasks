@@ -58,11 +58,9 @@
   </Target>
 
     <Target Name="SpicNSpan" AfterTargets="AfterClean">
-        <Message Importance="high" Text="Additional cleaning of obj and bin folders." />
+        <Message Importance="high" Text="obj folder deleted." />
         <!-- Remove obj folder -->
         <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
-        <!-- Remove bin folder -->
-        <RemoveDir Directories="$(BaseOutputPath)" />
     </Target>
 
 </Project>
