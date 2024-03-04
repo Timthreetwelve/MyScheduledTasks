@@ -4,21 +4,11 @@ namespace MyScheduledTasks.ViewModels;
 
 internal partial class AddTasksViewModel
 {
-    #region Include or exclude Microsoft tasks
-    internal static void UpdateItems(DataGrid grid)
-    {
-        if (UserSettings.Setting.HideMicrosoftFolder)
-        {
-            grid.ItemsSource = AllTasks.Non_MS_TasksCollection;
-        }
-        else
-        {
-            grid.ItemsSource = AllTasks.All_TasksCollection;
-        }
-    }
-    #endregion Include or exclude Microsoft tasks
-
     #region Add selected items to TaskList
+    /// <summary>
+    /// Add all selected items
+    /// </summary>
+    /// <param name="grid">Name of the DataGrid</param>
     private static void AddSelectedItems(DataGrid grid)
     {
         if (grid.SelectedItems.Count > 0)
@@ -36,12 +26,20 @@ internal partial class AddTasksViewModel
                 _log.Info($"{itemsAdded} task(s) added");
                 string msg = string.Format(GetStringResource("AddTasks_TasksAdded"), itemsAdded);
                 SnackbarMsg.QueueMessage(msg, 3000);
+                TaskFileHelpers.WriteTasksToFile(true);
             }
 
             grid.UnselectAll();
         }
     }
+    #endregion Add selected items to TaskList
 
+    #region Add a single item
+    /// <summary>
+    /// Adds a single item to the tasks list
+    /// </summary>
+    /// <param name="item">Path of the item to be added</param>
+    /// <returns>True if the task was added. Otherwise returns false.</returns>
     internal static bool AddToMyTasks(AllTasks item)
     {
         Task task = GetTaskInfo(item.TaskPath);
@@ -75,7 +73,25 @@ internal partial class AddTasksViewModel
         _log.Info($"Added {task.Path}");
         return true;
     }
-    #endregion Add selected items to TaskList
+    #endregion Add a single item
+
+    #region Include or exclude Microsoft tasks
+    /// <summary>
+    /// Determine source of add tasks list
+    /// </summary>
+    /// <param name="grid">Name of the DataGrid</param>
+    internal static void DetermineSource(DataGrid grid)
+    {
+        if (UserSettings.Setting.HideMicrosoftFolder)
+        {
+            grid.ItemsSource = AllTasks.Non_MS_TasksCollection;
+        }
+        else
+        {
+            grid.ItemsSource = AllTasks.All_TasksCollection;
+        }
+    }
+    #endregion Include or exclude Microsoft tasks
 
     #region Get info for a task
     public static Task GetTaskInfo(string name)
@@ -89,7 +105,7 @@ internal partial class AddTasksViewModel
     [RelayCommand]
     public static void HideTasks(DataGrid grid)
     {
-        UpdateItems(grid);
+        DetermineSource(grid);
     }
 
     [RelayCommand]

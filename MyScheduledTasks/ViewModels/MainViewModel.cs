@@ -2,14 +2,10 @@
 
 namespace MyScheduledTasks.ViewModels;
 
+#pragma warning disable RCS1102 // Make class static
 internal class MainViewModel
+#pragma warning restore RCS1102 // Make class static
 {
-    #region Constructor
-    public MainViewModel()
-    {
-    }
-    #endregion Constructor
-
     #region Load the task list
     /// <summary>
     /// Load the task list from MyTasksCollection
@@ -18,14 +14,12 @@ internal class MainViewModel
     {
         bool hasBadRecord = false;
         ScheduledTask.TaskList.Clear();
-        //ObservableCollection<ScheduledTask> taskList = [];
-        BindingList<ScheduledTask> bindingList = [];
         for (int i = 0; i < MyTasks.MyTasksCollection.Count; i++)
         {
             MyTasks item = MyTasks.MyTasksCollection[i];
             if (string.IsNullOrEmpty(item.TaskPath))
             {
-                _log.Warn($"Null or empty item found in position {i + 1} while reading {TaskFileHelpers.TasksFile}");
+                _log.Warn($"Null or empty item found in position {i + 1} while reading {TaskFileHelpers.TasksFile}. Item will be removed. ");
                 MyTasks.MyTasksCollection.RemoveAt(i);
                 i--;
                 hasBadRecord = true;
@@ -37,7 +31,6 @@ internal class MainViewModel
                 {
                     ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, item);
                     ScheduledTask.TaskList.Add(schedTask);
-                    bindingList.Add(schedTask);
                     _log.Debug($"Added {i + 1,3}: \"{item.TaskPath}\"");
                 }
                 else
@@ -48,60 +41,21 @@ internal class MainViewModel
 
                     ScheduledTask emptyTask = new()
                     {
-                        TaskName = item.TaskPath
+                        TaskName = item.TaskPath,
+                        TaskDescription = GetStringResource("MsgText_ErrorTaskNull"),
+                        TaskStatus = GetStringResource("TaskResult_Null")
                     };
-                    if (!AppInfo.IsAdmin)
-                    {
-                        emptyTask.TaskDescription = "No information for this task was returned. Try running My Scheduled Tasks as Administrator. ";
-                        emptyTask.TaskStatus = GetStringResource("TaskResult_Null");
-                    }
-                    else
-                    {
-                        // todo: localize
-                        emptyTask.TaskDescription = "No information for this task was returned. The task may no longer exist. Check Task Scheduler.";
-                        emptyTask.TaskStatus = GetStringResource("TaskResult_Null");
-                    }
+
                     ScheduledTask.TaskList.Add(emptyTask);
-                    bindingList.Add(emptyTask);
                     _log.Debug($"Added {i + 1,3}: \"{item.TaskPath}\"");
                 }
             }
         }
 
-        //ScheduledTask.TaskList = taskList;
-        ScheduledTask.TaskList.CollectionChanged += TaskList_CollectionChanged;
-        bindingList.ListChanged += Binding_ListChanged;
         if (hasBadRecord)
         {
-            //TaskFileHelpers.WriteTasks2Json();
+            TaskFileHelpers.WriteTasksToFile();
         }
-    }
-
-    private static void Binding_ListChanged(object sender, ListChangedEventArgs e)
-    {
-        UpdateMyTasksCollection();
-        //TaskFileHelpers.WriteTasks2Json(quiet: true);
-    }
-
-    private static void TaskList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-    {
-        UpdateMyTasksCollection();
-        //TaskFileHelpers.WriteTasks2Json(quiet: true);
     }
     #endregion Load the task list
-
-    #region Get updated tasks from TaskList
-    public static void UpdateMyTasksCollection()
-    {
-        MyTasks.MyTasksCollection.Clear();
-        for (int i = 0; i < ScheduledTask.TaskList.Count; i++)
-        {
-            ScheduledTask item = ScheduledTask.TaskList[i];
-            if (item.TaskPath is not null)
-            {
-                MyTasks.MyTasksCollection.Add(new MyTasks(item.TaskPath, item.IsChecked, item.TaskNote));
-            }
-        }
-    }
-    #endregion Get updated tasks from TaskList
 }

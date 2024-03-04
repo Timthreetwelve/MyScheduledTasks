@@ -35,7 +35,7 @@ internal static class DialogHelpers
     /// Shows the Edit Note dialog
     /// </summary>
     /// <param name="task">task to edit note property</param>
-    internal static async void ShowEditNoteDialog(ScheduledTask task)
+    internal static async System.Threading.Tasks.Task ShowEditNoteDialog(ScheduledTask task)
     {
         MainWindowUIHelpers.MainWindowNotAllowedPointer();
         EditNote en = new(task);

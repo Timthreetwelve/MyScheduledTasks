@@ -67,6 +67,7 @@ public partial class ScheduledTask : ObservableObject
 
     #region Observable collection
     public static ObservableCollection<ScheduledTask> TaskList { get; set; } = [];
+    //public static BindingList<ScheduledTask> TaskList { get; set; } = [];
     #endregion Observable collection
 
     #region Properties
@@ -75,9 +76,6 @@ public partial class ScheduledTask : ObservableObject
 
     [ObservableProperty]
     private bool _enabled;
-
-    [ObservableProperty]
-    private bool _isChecked;
 
     [ObservableProperty]
     private DateTime? _lastRunRaw;
@@ -120,9 +118,6 @@ public partial class ScheduledTask : ObservableObject
 
     [ObservableProperty]
     private string _taskName;
-
-    [ObservableProperty]
-    private string _taskNote;
 
     [ObservableProperty]
     private string _taskPath;
@@ -179,6 +174,31 @@ public partial class ScheduledTask : ObservableObject
                     return GetStringResource("TaskResult_FileNotFound");   //File not found
                 default:
                     return GetStringResource("TaskResult_NonZero");        //Other non-zero
+            }
+        }
+    }
+
+    private string _taskNote;
+    public string TaskNote
+    {
+        get => _taskNote;
+        set
+        {
+            _taskNote = value;
+            TaskHelpers.TaskNoteChanged();
+        }
+    }
+
+    private bool _isChecked;
+    public bool IsChecked
+    {
+        get => _isChecked;
+        set
+        {
+            if (value != _isChecked)
+            {
+                _isChecked = value;
+                TaskHelpers.TaskAlertChanged();
             }
         }
     }

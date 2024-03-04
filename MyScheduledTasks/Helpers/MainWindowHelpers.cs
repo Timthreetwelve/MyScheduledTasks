@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -19,8 +19,6 @@ internal static class MainWindowHelpers
         MainViewModel.LoadData();
 
         ProcessCommandLine();
-
-        _ = System.Threading.Tasks.Task.Run(TaskHelpers.GetAllTasks);
     }
     #endregion Startup
 
@@ -119,6 +117,12 @@ internal static class MainWindowHelpers
 
     private static void MainWindow_Closing(object sender, CancelEventArgs e)
     {
+        // Save tasks file if it is "dirty"
+        if (MyTasks.IsDirty)
+        {
+            TaskFileHelpers.WriteTasksToFile();
+        }
+
         // Clear any remaining messages
         _mainWindow.SnackBar1.MessageQueue.Clear();
 

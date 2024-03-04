@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -36,7 +36,7 @@ internal static class TaskHelpers
             }
         }
         stopwatch.Stop();
-        _log.Debug($"GetAllTasks found {AllTasks.All_TasksCollection.Count}/{AllTasks.Non_MS_TasksCollection.Count} tasks took {stopwatch.Elapsed.TotalSeconds} seconds.");
+        _log.Debug($"GetAllTasks found {AllTasks.All_TasksCollection.Count}/{AllTasks.Non_MS_TasksCollection.Count} tasks and took {stopwatch.Elapsed.TotalSeconds} seconds.");
     }
     #endregion List all tasks
 
@@ -70,14 +70,14 @@ internal static class TaskHelpers
             return;
         }
 
-        if (grid.SelectedItems.Count <= 5)
+        if (grid.SelectedItems.Count <= 3)
         {
             for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
             {
-                ScheduledTask row = grid.SelectedItems[i] as ScheduledTask;
-                _ = ScheduledTask.TaskList.Remove(row);
-                _log.Info($"Removed \"{row.TaskPath}\"");
-                SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {row.TaskName}", 2000);
+                ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
+                _ = ScheduledTask.TaskList.Remove(task);
+                _log.Info($"Removed \"{task.TaskName}\"");
+                SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {task.TaskName}", 2000);
             }
         }
         else if (grid.SelectedItems.Count > 3)
@@ -85,14 +85,32 @@ internal static class TaskHelpers
             int count = grid.SelectedItems.Count;
             for (int i = count - 1; i >= 0; i--)
             {
-                ScheduledTask row = grid.SelectedItems[i] as ScheduledTask;
-                ScheduledTask.TaskList.Remove(row);
-                _log.Info($"Removed \"{row.TaskPath}\"");
+                ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
+                _ = ScheduledTask.TaskList.Remove(task);
+                _log.Info($"Removed \"{task.TaskPath}\"");
             }
             SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {count} {GetStringResource("MsgText_Tasks")}", 2000);
         }
+
+        UpdateMyTasksCollection();
+        TaskFileHelpers.WriteTasksToFile(true);
     }
     #endregion Remove tasks
+
+    #region Get updated tasks from TaskList
+    public static void UpdateMyTasksCollection()
+    {
+        MyTasks.MyTasksCollection.Clear();
+        for (int i = 0; i < ScheduledTask.TaskList.Count; i++)
+        {
+            ScheduledTask item = ScheduledTask.TaskList[i];
+            if (item.TaskPath is not null)
+            {
+                MyTasks.MyTasksCollection.Add(new MyTasks(item.TaskPath, item.IsChecked, item.TaskNote));
+            }
+        }
+    }
+    #endregion Get updated tasks from TaskList
 
     #region Run tasks
     internal static void RunTask(DataGrid grid)
@@ -411,4 +429,56 @@ internal static class TaskHelpers
         return task != null;
     }
     #endregion Verify task exists
+
+    #region Task note changed
+    public static void TaskNoteChanged()
+    {
+        if (_mainWindow.IsLoaded && !MyTasks.IsDirty)
+        {
+            MyTasks.IsDirty = true;
+        }
+    }
+    #endregion Task note changed
+
+    #region Task alert changed
+    public static void TaskAlertChanged()
+    {
+        if (_mainWindow.IsLoaded && !MyTasks.IsDirty)
+        {
+            MyTasks.IsDirty = true;
+        }
+    }
+    #endregion Task alert changed
+
+    #region Datagrid rows changed
+    public static void UpdateMyTasksAfterDrop()
+    {
+        System.Threading.Tasks.Task.Delay(100).Wait();
+        if (!MyTasks.IsDirty)
+        {
+            MyTasks.IsDirty = true;
+        }
+    }
+    #endregion Datagrid rows changed
+
+    #region IsDirty changed
+    public static void IsDirtyChanged()
+    {
+        if (!MyTasks.IsDirty)
+        {
+            return;
+        }
+        MyTasks.MyTasksCollection.Clear();
+        for (int i = 0; i < ScheduledTask.TaskList.Count; i++)
+        {
+            ScheduledTask item = ScheduledTask.TaskList[i];
+            if (item.TaskPath is not null)
+            {
+                MyTasks.MyTasksCollection.Add(new MyTasks(item.TaskPath, item.IsChecked, item.TaskNote));
+            }
+        }
+        TaskFileHelpers.WriteTasksToFile();
+    }
+    #endregion IsDirty changed
+
 }

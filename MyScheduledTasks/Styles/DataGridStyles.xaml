@@ -19,6 +19,18 @@
     </Style>
     <!--#endregion-->
 
+    <!--#region Cell style-->
+    <Style x:Key="Input"
+           BasedOn="{StaticResource {x:Type DataGridCell}}"
+           TargetType="DataGridCell">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
     <!--#region Style for DataGrid cells-->
     <Style x:Key="DGCellStyle"
            BasedOn="{StaticResource {x:Type DataGridCell}}"

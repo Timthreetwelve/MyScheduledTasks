@@ -63,4 +63,12 @@ public partial class MainPage : UserControl
         EditNoteItem.IsEnabled = DataGridTasks.SelectedItems.Count == 1;
     }
     #endregion Context menu opened event
+
+    public void DataGridTasksDrop(object sender, DragEventArgs e)
+    {
+        if (e.Source == DataGridTasks)
+        {
+            _ = System.Threading.Tasks.Task.Run(TaskHelpers.UpdateMyTasksAfterDrop);
+        }
+    }
 }

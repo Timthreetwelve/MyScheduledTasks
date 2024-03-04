@@ -23,7 +23,19 @@ public partial class MyTasks : ObservableObject
     [ObservableProperty]
     private string _taskNote;
 
-    public static bool IsDirty { get; set; }
+    private static bool _isDirty;
+    public static bool IsDirty
+    {
+        get => _isDirty;
+        set
+        {
+            if (value != _isDirty)
+            {
+                _isDirty = value;
+                TaskHelpers.IsDirtyChanged();
+            }
+        }
+    }
 
     public static bool SortIsDirty { get; set; }
     #endregion Properties

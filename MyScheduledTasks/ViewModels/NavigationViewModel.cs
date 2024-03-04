@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -199,11 +199,13 @@ internal partial class NavigationViewModel : ObservableObject
 
     #region Edit Task Note
     [RelayCommand]
-    public static void EditNote()
+    public static async System.Threading.Tasks.Task EditNote()
     {
         DataGrid grid = MainPage.Instance.DataGridTasks;
         ScheduledTask row = grid.SelectedItem as ScheduledTask;
-        DialogHelpers.ShowEditNoteDialog(row);
+        await DialogHelpers.ShowEditNoteDialog(row);
+        System.Threading.Tasks.Task.Delay(100).Wait();
+        grid.Items.Refresh();
     }
     #endregion Edit Task Note
 
@@ -264,7 +266,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void SaveTasks()
     {
-        TaskFileHelpers.WriteTasks2Json();
+        TaskFileHelpers.WriteTasksToFile();
     }
     #endregion Save task file
 
@@ -355,7 +357,7 @@ internal partial class NavigationViewModel : ObservableObject
     public static void RunTasks()
     {
         TaskHelpers.RunTask(MainPage.Instance.DataGridTasks);
-        RefreshGrid();
+        //RefreshGrid();
     }
     #endregion Run Tasks
 
@@ -387,6 +389,7 @@ internal partial class NavigationViewModel : ObservableObject
                     if (CurrentViewModel is MainViewModel)
                     {
                         MainPage.Instance.DataGridTasks.SelectedIndex = -1;
+                        Keyboard.ClearFocus();
                         e.Handled = true;
                     }
                     if (CurrentViewModel is AddTasksViewModel)
@@ -525,6 +528,7 @@ internal partial class NavigationViewModel : ObservableObject
                 return;
             }
 
+            // Skip the DataGrid of tasks since it has a context menu
             DataGrid dg = MainWindowUIHelpers.FindParent<DataGrid>(text);
             if (dg?.Name == "DataGridTasks")
             {
