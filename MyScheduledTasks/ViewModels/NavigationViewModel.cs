@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -427,8 +427,9 @@ internal partial class NavigationViewModel : ObservableObject
                             : new GridLength(UserSettings.Setting.DetailsHeight);
                         break;
                     }
-                case Key.N:
+                case Key.L:
                     {
+                        TaskHelpers.ListMyTasks(MainPage.Instance.DataGridTasks);
                         break;
                     }
                 case Key.Add:

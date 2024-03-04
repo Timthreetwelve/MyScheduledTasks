@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -39,6 +39,28 @@ internal static class TaskHelpers
         _log.Debug($"GetAllTasks found {AllTasks.All_TasksCollection.Count}/{AllTasks.Non_MS_TasksCollection.Count} tasks took {stopwatch.Elapsed.TotalSeconds} seconds.");
     }
     #endregion List all tasks
+
+    #region List tasks
+    internal static void ListMyTasks(DataGrid grid)
+    {
+        _log.Debug("---------------------------------------------------------------");
+        foreach (ScheduledTask item in ScheduledTask.TaskList)
+        {
+            _log.Debug($"TaskList: {item.TaskPath} {item.IsChecked} {item.TaskNote}");
+        }
+        _log.Debug("---------------------------------------------------------------");
+        foreach (MyTasks item in MyTasks.MyTasksCollection)
+        {
+            _log.Debug($"MyTasks: {item.TaskPath} {item.Alert} {item.TaskNote}");
+        }
+        _log.Debug("---------------------------------------------------------------");
+        foreach (ScheduledTask row in grid.Items)
+        {
+            _log.Debug($"DataGrid: {row.TaskPath} {row.IsChecked} {row.TaskNote}");
+        }
+        _log.Debug("---------------------------------------------------------------");
+    }
+    #endregion List tasks
 
     #region Remove tasks
     internal static void RemoveTasks(DataGrid grid)
