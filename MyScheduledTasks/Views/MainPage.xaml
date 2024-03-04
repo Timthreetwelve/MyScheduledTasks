@@ -128,7 +128,7 @@
                     </MenuItem>
 
                     <MenuItem Command="{Binding OpenTSchedulerCommand}"
-                              Header="{DynamicResource MenuItem_OpenScheduler}" />
+                              Header="{DynamicResource Menu_OpenScheduler}" />
                 </Menu>
             </Grid>
             <!--#endregion-->
@@ -175,40 +175,30 @@
                       dd:DragDrop.DropTargetAdornerBrush="{DynamicResource PrimaryHueDarkBrush}"
                       dd:DragDrop.IsDragSource="True"
                       dd:DragDrop.IsDropTarget="True"
-                      dd:DragDrop.UseDefaultDragAdorner="False"
+                      dd:DragDrop.SelectDroppedItems="True"
                       materialDesign:DataGridAssist.CellPadding="{Binding Converter={StaticResource Spacing}}"
-                      materialDesign:ThemeAssist.Theme="Inherit"
                       AutoGenerateColumns="False"
                       Background="{DynamicResource MaterialDesignCardBackground}"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
+                      CanUserSortColumns="True"
+                      Drop="DataGridTasksDrop"
                       FontSize="14"
                       HeadersVisibility="Column"
                       IsReadOnly="False"
-                      ItemsSource="{Binding TaskList}"
+                      ItemsSource="{Binding TaskList, Mode=TwoWay}"
                       ScrollViewer.CanContentScroll="False"
-                      SelectedIndex="0"
-                      Sorting="DataGridTasks_Sorting">
+                      SelectedIndex="0">
                 <!--#region Datagrid Columns-->
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn CanUserSort="True"
-                                            DisplayIndex="0"
+                    <DataGridCheckBoxColumn Binding="{Binding IsChecked,
+                                                              UpdateSourceTrigger=PropertyChanged}"
                                             Header="&#x26A0;"
                                             HeaderStyle="{StaticResource headerCenter}"
-                                            SortMemberPath="IsChecked"
+                                            CellStyle="{StaticResource Input}"
                                             Visibility="{Binding ShowAlertCol,
                                                                  Source={x:Static config:UserSettings.Setting},
-                                                                 Converter={StaticResource BoolVisConverter}}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox Margin="1,0,0,0"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"
-                                          IsChecked="{Binding IsChecked,
-                                                              UpdateSourceTrigger=PropertyChanged}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                                                 Converter={StaticResource BoolVisConverter}}" />
 
                     <DataGridTextColumn MinWidth="200"
                                         Binding="{Binding TaskName}"
@@ -287,6 +277,7 @@
                     <DataGridTextColumn MinWidth="100"
                                         Binding="{Binding TaskNote,
                                                           UpdateSourceTrigger=LostFocus}"
+                                        CellStyle="{StaticResource Input}"
                                         DisplayIndex="7"
                                         Header="{DynamicResource GridColumn_Notes}"
                                         Visibility="{Binding ShowNoteCol,
@@ -329,9 +320,9 @@
                           Margin="5,8"
                           HorizontalAlignment="Stretch"
                           Background="Gray"
-                          Opacity=".2"
                           DragCompleted="GridSplitter_DragCompleted"
                           IsTabStop="False"
+                          Opacity=".2"
                           ResizeBehavior="BasedOnAlignment"
                           Style="{DynamicResource MaterialDesignGridSplitter}"
                           Visibility="{Binding ShowDetails,
