@@ -6,13 +6,15 @@
              mc:Ignorable="d"
              xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:models="clr-namespace:MyScheduledTasks.Models"
+             d:DataContext="{d:DesignInstance Type=models:ScheduledTask}"
              TextElement.FontFamily="Segoe UI"
              TextElement.FontSize="14"
              TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto">
 
-    <!--#region Resources -->
+    <!--#region Resources-->
     <UserControl.Resources>
         <ScaleTransform x:Key="DialogScale"
                         ScaleX="{Binding Path=DialogScale,
@@ -81,6 +83,7 @@
                                                                                Mode=FindAncestor}}"
                              Padding="10,5,10,7"
                              HorizontalContentAlignment="Left"
+                             KeyDown="TextBox_KeyDown"
                              materialDesign:HintAssist.FloatingHintHorizontalAlignment="Center"
                              materialDesign:HintAssist.FloatingOffset="0,-18"
                              materialDesign:HintAssist.FloatingScale=".9"
