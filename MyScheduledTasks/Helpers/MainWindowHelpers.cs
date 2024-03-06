@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -112,6 +112,7 @@ internal static class MainWindowHelpers
     #region Window Events
     private static void ContentRendered(object sender, EventArgs e)
     {
+        _ = System.Threading.Tasks.Task.Run(TaskHelpers.GetAllTasks);
         TaskFileHelpers.CheckEmptyList();
     }
 
