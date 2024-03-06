@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -417,11 +417,6 @@ internal partial class NavigationViewModel : ObservableObject
                         _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
                         break;
                     }
-                case Key.C:
-                    {
-                        //CopyToClipboard();
-                        break;
-                    }
                 case Key.D:
                     {
                         UserSettings.Setting.ShowDetails = !UserSettings.Setting.ShowDetails;
@@ -433,6 +428,16 @@ internal partial class NavigationViewModel : ObservableObject
                 case Key.L:
                     {
                         TaskHelpers.ListMyTasks(MainPage.Instance.DataGridTasks);
+                        break;
+                    }
+                case Key.R:
+                    {
+                        RemoveSort();
+                        break;
+                    }
+                case Key.S:
+                    {
+                        SaveTasks();
                         break;
                     }
                 case Key.Add:
