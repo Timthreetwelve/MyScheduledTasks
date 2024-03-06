@@ -1,10 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
                     xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes">
 
+    <BooleanToVisibilityConverter x:Key="BoolVisConverter" />
+    
     <Style x:Key="MySeparator" TargetType="{x:Type Separator}">
-        <Setter Property="Background" Value="{DynamicResource MaterialDesignSelection}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignSelection}"/>
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignDivider}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}"/>
         <Setter Property="MinHeight" Value="1"/>
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Height" Value="12"/>
@@ -14,6 +17,30 @@
                     <Rectangle Height="1.5" Fill="{TemplateBinding Background}"
                                HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SeparatorVisibility"
+               BasedOn="{StaticResource MySeparator}"
+               TargetType="Separator">
+        <Setter Property="Visibility">
+            <Setter.Value>
+                <Binding Converter="{StaticResource BoolVisConverter}"
+                             Path="ShowAdvancedMenu"
+                             Source="{x:Static config:UserSettings.Setting}" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AdvancedVisibility"
+               BasedOn="{StaticResource MaterialDesignMenuItem}"
+               TargetType="MenuItem">
+        <Setter Property="Visibility">
+            <Setter.Value>
+                <Binding Converter="{StaticResource BoolVisConverter}"
+                             Path="ShowAdvancedMenu"
+                             Source="{x:Static config:UserSettings.Setting}" />
             </Setter.Value>
         </Setter>
     </Style>

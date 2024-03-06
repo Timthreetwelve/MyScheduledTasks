@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MyScheduledTasks.Views.MainPage"
+<UserControl x:Class="MyScheduledTasks.Views.MainPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -23,19 +23,6 @@
         <convert:BooleanInverter x:Key="BoolInverter" />
         <convert:SpacingConverter x:Key="Spacing" />
         <convert:RootConverter x:Key="RootConverter" />
-        <!--#region Style-->
-        <Style x:Key="AdvancedVisibility"
-               BasedOn="{StaticResource MaterialDesignMenuItem}"
-               TargetType="MenuItem">
-            <Setter Property="Visibility">
-                <Setter.Value>
-                    <Binding Converter="{StaticResource BoolVisConverter}"
-                             Path="ShowAdvancedMenu"
-                             Source="{x:Static config:UserSettings.Setting}" />
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <!--#endregion-->
     </UserControl.Resources>
     <UserControl.DataContext>
         <models:ScheduledTask />
@@ -89,7 +76,7 @@
                         <MenuItem Command="{Binding RefreshGridCommand}"
                                   Header="{DynamicResource MenuItem_Refresh}"
                                   InputGestureText="{DynamicResource MenuShortcut_F5}" />
-                        <Separator />
+                        <Separator Style="{StaticResource MySeparator}" />
                         <MenuItem Command="{Binding ToggleDetailsCommand}"
                                   Header="{DynamicResource MenuItem_ToggleDetails}"
                                   InputGestureText="{DynamicResource MenuShortcut_CtrlD}" />
