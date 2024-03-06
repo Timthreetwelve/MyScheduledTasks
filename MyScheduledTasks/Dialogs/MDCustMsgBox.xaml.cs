@@ -22,7 +22,7 @@ public partial class MDCustMsgBox : Window
     /// <param name="HideClose">True to hide close button</param>
     /// <param name="OnTop">True to make window topmost</param>
     /// <param name="MsgBoxOwner">Owner of the window</param>
-    /// <param name="IsError">True will set accent color to red</param>
+    /// <param name="IsError">True will set accent color to OrangeRed</param>
     public MDCustMsgBox(string Message,
                         string Title,
                         ButtonType Buttons,

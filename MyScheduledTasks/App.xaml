@@ -9,7 +9,7 @@
                 <materialDesign:BundledTheme BaseTheme="Dark"
                                              ColorAdjustment="{materialDesign:ColorAdjustment}"
                                              PrimaryColor="Blue" SecondaryColor="Red" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <!--  Data Templates  -->
                 <ResourceDictionary Source="Styles/DataTemplates.xaml" />
                 <!--  es-US will be the fallback source for localized strings  -->

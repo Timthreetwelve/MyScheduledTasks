@@ -9,7 +9,7 @@
              xmlns:viewModels="clr-namespace:MyScheduledTasks.ViewModels"
              TextElement.FontFamily="Segoe UI"
              TextElement.FontSize="14"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto">
 
@@ -28,7 +28,7 @@
 
     <Grid LayoutTransform="{StaticResource DialogScale}">
         <Border MinWidth="500"
-                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
                 BorderThickness="1.5"
                 CornerRadius="5">
             <Grid>
@@ -114,7 +114,7 @@
                                 Padding="2,0,0,0"
                                 HorizontalAlignment="Right"
                                 Command="{Binding ImportFilePickerCommand}"
-                                Foreground="{DynamicResource MaterialDesignBody}"
+                                Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                                 IsDefault="False"
                                 IsTabStop="False"
                                 Style="{StaticResource MaterialDesignFlatButton}"

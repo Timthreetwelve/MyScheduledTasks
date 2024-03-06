@@ -14,7 +14,7 @@
              FontFamily="Segoe UI"
              TextElement.FontSize="13"
              TextElement.FontWeight="Regular"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Background}"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto">
     <!--#region Resources & DataContext-->
@@ -23,6 +23,7 @@
         <convert:BooleanInverter x:Key="BoolInverter" />
         <convert:SpacingConverter x:Key="Spacing" />
         <convert:RootConverter x:Key="RootConverter" />
+        <!--#region Style-->
         <Style x:Key="AdvancedVisibility"
                BasedOn="{StaticResource MaterialDesignMenuItem}"
                TargetType="MenuItem">
@@ -34,6 +35,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--#endregion-->
     </UserControl.Resources>
     <UserControl.DataContext>
         <models:ScheduledTask />
@@ -141,7 +143,7 @@
                        Background="Transparent"
                        FontFamily="Segoe UI"
                        FontSize="14"
-                       Foreground="{DynamicResource MaterialDesignBody}">
+                       Foreground="{DynamicResource MaterialDesign.Brush.Background}">
                 <StatusBarItem Content="{Binding Items.Count,
                                                  ElementName=DataGridTasks,
                                                  Mode=OneWay}"
@@ -172,13 +174,13 @@
                       Grid.Row="1"
                       Margin="10,0,5,4"
                       d:ItemsSource="{d:SampleData ItemCount=4}"
-                      dd:DragDrop.DropTargetAdornerBrush="{DynamicResource PrimaryHueDarkBrush}"
+                      dd:DragDrop.DropTargetAdornerBrush="{DynamicResource MaterialDesign.Brush.Primary.Light}"
                       dd:DragDrop.IsDragSource="True"
                       dd:DragDrop.IsDropTarget="True"
                       dd:DragDrop.SelectDroppedItems="True"
                       materialDesign:DataGridAssist.CellPadding="{Binding Converter={StaticResource Spacing}}"
                       AutoGenerateColumns="False"
-                      Background="{DynamicResource MaterialDesignCardBackground}"
+                      Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
                       CanUserSortColumns="True"
@@ -186,20 +188,32 @@
                       FontSize="14"
                       HeadersVisibility="Column"
                       IsReadOnly="False"
-                      ItemsSource="{Binding TaskList, Mode=TwoWay}"
+                      ItemsSource="{Binding TaskList,
+                                            Mode=TwoWay}"
                       ScrollViewer.CanContentScroll="False"
                       SelectedIndex="0">
                 <!--#region Datagrid Columns-->
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding IsChecked,
-                                                              UpdateSourceTrigger=PropertyChanged}"
+                    <DataGridTemplateColumn CanUserSort="True"
+                                            CellStyle="{StaticResource Input}"
+                                            DisplayIndex="0"
                                             Header="&#x26A0;"
                                             HeaderStyle="{StaticResource headerCenter}"
-                                            CellStyle="{StaticResource Input}"
+                                            SortMemberPath="IsChecked"
                                             Visibility="{Binding ShowAlertCol,
                                                                  Source={x:Static config:UserSettings.Setting},
-                                                                 Converter={StaticResource BoolVisConverter}}" />
+                                                                 Converter={StaticResource BoolVisConverter}}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Margin="1,0,0,0"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          IsChecked="{Binding IsChecked,
+                                                              UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
 
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn MinWidth="200"
                                         Binding="{Binding TaskName}"
                                         CellStyle="{StaticResource DisplayOnly}"
@@ -274,15 +288,29 @@
                                                              Source={x:Static config:UserSettings.Setting},
                                                              Converter={StaticResource BoolVisConverter}}" />
 
-                    <DataGridTextColumn MinWidth="100"
-                                        Binding="{Binding TaskNote,
-                                                          UpdateSourceTrigger=LostFocus}"
-                                        CellStyle="{StaticResource Input}"
-                                        DisplayIndex="7"
-                                        Header="{DynamicResource GridColumn_Notes}"
-                                        Visibility="{Binding ShowNoteCol,
-                                                             Source={x:Static config:UserSettings.Setting},
-                                                             Converter={StaticResource BoolVisConverter}}" />
+                    <DataGridTemplateColumn MinWidth="100"
+                                            CellStyle="{StaticResource Input}"
+                                            Header="{DynamicResource GridColumn_Notes}"
+                                            Visibility="{Binding ShowNoteCol,
+                                                                 Source={x:Static config:UserSettings.Setting},
+                                                                 Converter={StaticResource BoolVisConverter}}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Margin="0,0,0,1"
+                                         Padding="0,0,0,1"
+                                         VerticalAlignment="Center"
+                                         Text="{Binding TaskNote,
+                                                        UpdateSourceTrigger=LostFocus}">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}" >
+                                            <Setter Property="BorderThickness" Value="0" />
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
                 <!--#endregion-->
 
@@ -334,7 +362,7 @@
             <Grid x:Name="bottomGrid"
                   Grid.Row="3"
                   Margin="5,0,5,5"
-                  Background="{DynamicResource MaterialDesignPaper}">
+                  Background="{DynamicResource MaterialDesign.Brush.Background}">
                 <!--#region Fallback text if selected rows != 1-->
                 <TextBlock Margin="20"
                            HorizontalAlignment="Center"

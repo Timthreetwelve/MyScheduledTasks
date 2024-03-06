@@ -16,7 +16,7 @@
     <!--#region Navigation Item Indicator Style-->
     <Style TargetType="Border"
            x:Key="NavItemIndicator">
-        <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}" />
+        <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
         <Setter Property="CornerRadius" Value="2" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Height" Value="20" />

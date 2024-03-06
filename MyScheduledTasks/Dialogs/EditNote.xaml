@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.FontFamily="Segoe UI"
              TextElement.FontSize="14"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto">
 
@@ -23,7 +23,7 @@
     <!--#endregion-->
 
     <Grid LayoutTransform="{StaticResource DialogScale}">
-        <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+        <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
                 BorderThickness="1.5"
                 CornerRadius="5">
             <Grid>

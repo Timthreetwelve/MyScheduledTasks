@@ -19,15 +19,15 @@
     </Style>
     <!--#endregion-->
 
-    <!--#region Cell style-->
+    <!--#region Style for DataGrid input cells-->
     <Style x:Key="Input"
            BasedOn="{StaticResource {x:Type DataGridCell}}"
            TargetType="DataGridCell">
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                </Trigger>
-            </Style.Triggers>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="Transparent" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <!--#endregion-->
 
@@ -40,14 +40,14 @@
     </Style>
     <!--#endregion-->
 
-    <!--#region Row styles-->
+    <!--#region Style for DataGrid rows -->
     <Style x:Key="DisplayOnlyRows"
            BasedOn="{StaticResource {x:Type DataGridRow}}"
            TargetType="DataGridRow">
         <Setter Property="Focusable" Value="False" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+                <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Background}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderBrush" Value="Transparent" />
@@ -57,45 +57,7 @@
 
     <!--#endregion-->
 
-    <!--#region  Style to alight datagrid column headers right-->
-    <Style x:Key="alignHeaderRight"
-           BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
-           TargetType="DataGridColumnHeader">
-        <Setter Property="HorizontalContentAlignment" Value="Right" />
-    </Style>
-    <!--#endregion-->
-
-    <!--#region  Style to align datagrid column headers left-->
-    <Style x:Key="alignHeaderLeft"
-           BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
-           TargetType="DataGridColumnHeader">
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="Padding" Value="15,0,0,0" />
-    </Style>
-    <!--#endregion-->
-
-    <!--#region  Style to alight text boxes in a datagrid right-->
-    <Style x:Key="alignRight"
-           BasedOn="{StaticResource {x:Type TextBlock}}"
-           TargetType="TextBlock">
-        <Setter Property="HorizontalAlignment" Value="Right" />
-    </Style>
-    <!--#endregion-->
-
-    <!--#region Style to center align text in a data grid-->
-    <Style x:Key="alignCenter"
-           BasedOn="{StaticResource {x:Type TextBlock}}"
-           TargetType="TextBlock">
-        <Setter Property="HorizontalAlignment" Value="Center" />
-    </Style>
-    <!--#endregion-->
-
-    <Style x:Key="ColumnMargin5"
-           BasedOn="{StaticResource {x:Type TextBlock}}"
-           TargetType="TextBlock">
-        <Setter Property="Margin" Value="0,0,5,0" />
-    </Style>
-
+    <!--#region Style for DataGrid results column cells -->
     <Style x:Key="ResultCell"
            BasedOn="{StaticResource MaterialDesignDataGridCell}"
            TargetType="DataGridCell">
@@ -137,7 +99,9 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+    <!--#endregion-->
 
+    <!--#region Style for DataGrid status column cells -->
     <Style x:Key="StatusCell"
            BasedOn="{StaticResource MaterialDesignDataGridCell}"
            TargetType="DataGridCell">
@@ -163,22 +127,25 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+    <!--#endregion-->
 
+    <!--#region Style to center DataGrid column headers -->
     <Style x:Key="headerCenter"
            BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
            TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
+    <!--#endregion-->
 
     <!--#region Style for DataGrid column headers-->
-    <Style TargetType="DataGridColumnHeader"
-           x:Key="DGColumnHeader"
-           BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+    <Style x:Key="DGColumnHeader"
+           BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
+           TargetType="DataGridColumnHeader">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="Foreground" Value="{DynamicResource materialDesignBody}" />
-        <Setter Property="Padding" Value="15,3" />
         <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Padding" Value="15,3" />
     </Style>
     <!--#endregion-->
 </ResourceDictionary>

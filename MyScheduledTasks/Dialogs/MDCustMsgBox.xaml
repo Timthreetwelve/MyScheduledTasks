@@ -10,13 +10,13 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         MaxWidth="500"
         MaxHeight="700"
-        Background="{DynamicResource MaterialDesignPaper}"
-        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+        Background="{DynamicResource MaterialDesign.Brush.Background}"
+        BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
         BorderThickness="1"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         SnapsToDevicePixels="True"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
         WindowStyle="None">
 
     <!--#region Window Resources-->
@@ -24,7 +24,7 @@
         <Style x:Key="DialogCloseButton"
                BasedOn="{StaticResource MaterialDesignFlatButton}"
                TargetType="Button">
-            <Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
             <Setter Property="Height" Value="30" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="ToolTip" Value="Close" />
@@ -35,11 +35,11 @@
                TargetType="Button">
             <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}" />
             <Setter Property="BorderThickness" Value="1.5" />
-            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Foreground}" />
             <Setter Property="Height" Value="32" />
             <Setter Property="Margin" Value="5" />
             <Setter Property="Width" Value="100" />
-            <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignBody}" />
+            <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MaterialDesign.Brush.Foreground}" />
         </Style>
         <ScaleTransform x:Key="DialogScale"
                         ScaleX="{Binding Path=DialogScale,
@@ -69,8 +69,8 @@
                              Height="35"
                              Padding="10,2,5,3"
                              materialDesign:ElevationAssist.Elevation="Dp5"
-                             Background="{DynamicResource PrimaryHueMidBrush}"
-                             Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                             Background="{DynamicResource MaterialDesign.Brush.Primary}"
+                             Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
                              MouseLeftButtonDown="TitleBar_MouseLeftButtonDown"
                              UniformCornerRadius="0"
                              Visibility="Visible">
@@ -85,7 +85,6 @@
                            VerticalAlignment="Center"
                            FontSize="16"
                            FontWeight="SemiBold"
-                           Style="{DynamicResource MaterialDesignTitleTextBlock}"
                            Text="Title Text"
                            TextTrimming="CharacterEllipsis" />
                 <Button x:Name="btnClose"
@@ -126,7 +125,6 @@
                            Margin="5"
                            HorizontalAlignment="Center"
                            FontSize="16"
-                           Style="{StaticResource MaterialDesignTextBlock}"
                            TextWrapping="WrapWithOverflow" />
             </ScrollViewer>
             <!--#endregion-->

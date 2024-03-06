@@ -11,11 +11,11 @@
              xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             Background="{DynamicResource MaterialDesignCardBackground}"
+             Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
              FontFamily="Segoe UI"
              TextElement.FontSize="14"
              TextElement.FontWeight="Regular"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto">
 
@@ -88,7 +88,7 @@
                       VerticalAlignment="Top"
                       materialDesign:DataGridAssist.CellPadding="{Binding Converter={StaticResource Spacing}}"
                       AutoGenerateColumns="False"
-                      Background="{DynamicResource MaterialDesignPaper}"
+                      Background="{DynamicResource MaterialDesign.Brush.Background}"
                       HeadersVisibility="Column"
                       IsReadOnly="True">
                     <DataGrid.DataContext>
@@ -134,10 +134,10 @@
                 <StatusBar Height="28"
                        Margin="0"
                        HorizontalAlignment="Left"
-                       Background="{DynamicResource MaterialDesignCardBackground}"
+                       Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
                        FontFamily="Segoe UI"
                        FontSize="14"
-                       Foreground="{DynamicResource MaterialDesignBody}">
+                       Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
                     <StatusBarItem Content="{Binding Items.Count,
                                                  ElementName=AllTasksGrid,
                                                  Mode=OneWay}"

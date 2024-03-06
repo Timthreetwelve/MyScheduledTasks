@@ -13,12 +13,12 @@
         Title="{x:Static helpers:AppInfo.AppName}"
         MinWidth="800"
         MinHeight="400"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="{DynamicResource MaterialDesign.Brush.Background}"
         FontFamily="Segoe UI"
         FontSize="12"
         Style="{StaticResource MaterialDesignWindow}"
         TextElement.FontWeight="Regular"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Topmost="{Binding KeepOnTop,
@@ -96,8 +96,8 @@
                                          Grid.ColumnSpan="2"
                                          HorizontalAlignment="Right"
                                          VerticalAlignment="Top"
-                                         Background="{DynamicResource MaterialDesignPaper}"
-                                         Foreground="{DynamicResource MaterialDesignBody}"
+                                         Background="{DynamicResource MaterialDesign.Brush.Background}"
+                                         Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                                          IsTabStop="False"
                                          MessageQueue="{materialDesign:MessageQueue}" />
                 <!--#endregion-->
@@ -116,7 +116,7 @@
                             Padding="0"
                             HorizontalAlignment="Left"
                             Command="{Binding RefreshGridCommand}"
-                            Foreground="{DynamicResource MaterialDesignBody}"
+                            Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                             IsDefault="False"
                             IsTabStop="False"
                             Style="{StaticResource MaterialDesignFlatButton}"
@@ -137,7 +137,7 @@
                             Margin="0,0,5,0"
                             Padding="0"
                             HorizontalContentAlignment="Stretch"
-                            Foreground="{DynamicResource MaterialDesignBody}"
+                            Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                             IsDefault="False"
                             IsTabStop="False"
                             KeyboardNavigation.TabNavigation="None"
@@ -259,7 +259,7 @@
             <!--#region Content control for pages-->
             <Grid Grid.Row="1"
                   Grid.Column="1"
-                  Background="{DynamicResource MaterialDesignCardBackground}">
+                  Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
                 <ContentControl Content="{Binding CurrentViewModel}" />
             </Grid>
             <!--#endregion-->

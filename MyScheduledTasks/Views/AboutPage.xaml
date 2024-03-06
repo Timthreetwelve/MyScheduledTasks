@@ -12,9 +12,9 @@
              xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             FontSize="14"
              FontFamily="Segoe UI"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+             FontSize="14"
+             TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
 
     <!--#region DataContext & Resources-->
     <UserControl.DataContext>
@@ -26,7 +26,7 @@
     </UserControl.Resources>
     <!--#endregion-->
 
-    <Grid Background="{DynamicResource MaterialDesignCardBackground}">
+    <Grid Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
 
         <ScrollViewer Margin="20,20,20,15"
                       HorizontalScrollBarVisibility="Disabled"
@@ -63,6 +63,7 @@
                     <RowDefinition Height="auto"
                                    MinHeight="26" />
 
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
@@ -104,7 +105,7 @@
                            ToolTipService.Placement="Top">
                     <Hyperlink Command="{Binding GoToWebPageCommand}"
                                CommandParameter="https://github.com/Timthreetwelve"
-                               Foreground="{DynamicResource MaterialDesignBody}">
+                               Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
                         <TextBlock Text="Tim Kennedy"
                                    TextWrapping="Wrap" />
                     </Hyperlink>
@@ -124,7 +125,7 @@
                 <TextBlock Grid.Row="4"
                            Grid.Column="2">
                     <Hyperlink Command="{Binding ViewLicenseCommand}"
-                               Foreground="{DynamicResource MaterialDesignBody}"
+                               Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                                ToolTip="{DynamicResource About_LicenseToolTip}">
                         <TextBlock Text="{DynamicResource About_LicenseText}"
                                    TextWrapping="Wrap" />
@@ -172,7 +173,7 @@
                     <Hyperlink Command="{Binding GoToWebPageCommand}"
                                CommandParameter="{Binding Path=Text,
                                                           ElementName=tbxGithub}"
-                               Foreground="{DynamicResource MaterialDesignBody}"
+                               Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                                ToolTip="{DynamicResource About_GitHubToolTip}"
                                ToolTipService.Placement="Top">
                         <TextBlock x:Name="tbxGithub"
@@ -187,7 +188,7 @@
                 <TextBlock Grid.Row="8"
                            Grid.Column="2">
                     <Hyperlink Command="{Binding ViewReadMeCommand}"
-                               Foreground="{DynamicResource MaterialDesignBody}"
+                               Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                                ToolTip="{DynamicResource About_DocumentationToolTip}"
                                ToolTipService.Placement="Top">
                         <TextBlock Text="{DynamicResource About_DocumentationText}"
@@ -203,7 +204,7 @@
                 <TextBlock Grid.Row="9"
                            Grid.Column="2">
                     <Hyperlink Command="{Binding CheckReleaseCommand}"
-                               Foreground="{DynamicResource MaterialDesignBody}"
+                               Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                                ToolTip="{DynamicResource About_UpdateToolTip}"
                                ToolTipService.Placement="Top">
                         <TextBlock Text="{DynamicResource About_UpdateText}"
@@ -226,7 +227,7 @@
                     <TextBlock Grid.Row="1">
                         <Hyperlink Command="{Binding GoToWebPageCommand}"
                                    CommandParameter="https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Contribute-a-Translation"
-                                   Foreground="{DynamicResource MaterialDesignBody}"
+                                   Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                                    ToolTip="{DynamicResource About_ContributeToolTip}"
                                    ToolTipService.Placement="Top">
                             <TextBlock Text="{DynamicResource About_Contribute}" />
@@ -245,7 +246,7 @@
                               MaxHeight="120"
                               materialDesign:DataGridAssist.CellPadding="{Binding Converter={StaticResource Spacing}}"
                               AutoGenerateColumns="False"
-                              Background="{DynamicResource MaterialDesignCardBackground}"
+                              Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
                               CellStyle="{StaticResource DGCellStyle}"
                               HeadersVisibility="None"
                               IsReadOnly="True"
@@ -260,6 +261,9 @@
                     </DataGrid>
                 </Border>
                 <!--#endregion-->
+                <Label x:Name="helperText"
+                           Grid.Row="13"
+                           Content="{DynamicResource MaterialDesign.Brush.Foreground}"/>
             </Grid>
         </ScrollViewer>
     </Grid>

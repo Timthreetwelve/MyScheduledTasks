@@ -8,12 +8,12 @@
              xmlns:convert="clr-namespace:MyScheduledTasks.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:MyScheduledTasks.ViewModels"
+             KeyDown="UserControl_KeyDown"
              TextElement.FontFamily="Segoe UI"
              TextElement.FontSize="14"
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
              TextOptions.TextFormattingMode="Ideal"
-             TextOptions.TextRenderingMode="Auto"
-             KeyDown="UserControl_KeyDown">
+             TextOptions.TextRenderingMode="Auto">
 
     <!--#region Resources-->
     <UserControl.Resources>
@@ -23,12 +23,13 @@
                         ScaleY="{Binding Path=DialogScale,
                                          Source={x:Static config:UserSettings.Setting}}" />
         <convert:SpacingConverter x:Key="Spacing" />
+        <convert:RootConverter x:Key="RootConverter" />
     </UserControl.Resources>
     <!--#endregion-->
 
     <Grid LayoutTransform="{StaticResource DialogScale}">
         <Border MinWidth="500"
-                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
                 BorderThickness="1.5"
                 CornerRadius="5">
             <Grid>
@@ -72,15 +73,16 @@
                     <DataGrid Grid.Row="2"
                               MaxHeight="280"
                               Margin="20,10,20,10"
+                              d:ItemsSource="{d:SampleData ItemCount=3}"
                               materialDesign:DataGridAssist.CellPadding="{Binding Converter={StaticResource Spacing}}"
                               AutoGenerateColumns="False"
-                              Background="{DynamicResource MaterialDesignCardBackground}"
+                              Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
                               BorderBrush="{DynamicResource MaterialDesignDivider}"
-                              BorderThickness="1.5"
+                              BorderThickness="2,22,2,1"
                               CanUserAddRows="False"
                               CanUserSortColumns="False"
-                              ColumnHeaderStyle="{StaticResource DGColumnHeader}"
                               CellStyle="{StaticResource DisplayOnly}"
+                              ColumnHeaderStyle="{StaticResource DGColumnHeader}"
                               HeadersVisibility="Column"
                               IsReadOnly="True"
                               ItemsSource="{Binding TasksGrid.SelectedItems}"
@@ -89,7 +91,8 @@
                             <DataGridTextColumn MinWidth="120"
                                                 Binding="{Binding TaskName}"
                                                 Header="{DynamicResource DeleteTask_NameColumn}" />
-                            <DataGridTextColumn Binding="{Binding TaskFolder}"
+                            <DataGridTextColumn Binding="{Binding TaskFolder,
+                                                                  Converter={StaticResource RootConverter}}"
                                                 Header="{DynamicResource DeleteTask_FolderColumn}" />
                         </DataGrid.Columns>
                     </DataGrid>
