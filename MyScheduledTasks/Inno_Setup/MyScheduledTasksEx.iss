@@ -101,6 +101,7 @@ Source: "{#MySourceDir}\*.json"; Excludes: "usersettings.json"; DestDir: "{app}"
 Source: "{#MySourceDir}\ReadMe.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MySourceDir}\License.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MySourceDir}\Strings.test.xaml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MySourceDir}\CommonCompletionCodes.txt"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
