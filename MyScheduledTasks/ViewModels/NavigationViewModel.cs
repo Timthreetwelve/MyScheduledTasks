@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -357,7 +357,8 @@ internal partial class NavigationViewModel : ObservableObject
     public static void RunTasks()
     {
         TaskHelpers.RunTask(MainPage.Instance.DataGridTasks);
-        //RefreshGrid();
+        System.Threading.Tasks.Task.Delay(100).Wait();
+        RefreshGrid();
     }
     #endregion Run Tasks
 
