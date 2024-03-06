@@ -1,4 +1,4 @@
-<UserControl x:Class="MyScheduledTasks.Views.MainPage"
+﻿<UserControl x:Class="MyScheduledTasks.Views.MainPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -311,17 +311,22 @@
                         <MenuItem x:Name="EditNoteItem"
                                   Command="{Binding EditNoteCommand}"
                                   Header="{DynamicResource MenuItem_EditTaskNote}" />
-                        <Separator />
+                        <Separator Style="{StaticResource MySeparator}"/>
                         <MenuItem Command="{Binding RemoveTasksCommand}"
-                                  Header="Remove Selected" />
+                                  Header="{DynamicResource MenuItem_RemoveTasks}" />
                         <MenuItem Command="{Binding EnableTasksCommand}"
-                                  Header="Enable Selected"
+                                  Header="{DynamicResource MenuItem_EnableTasks}"
                                   Style="{StaticResource AdvancedVisibility}" />
                         <MenuItem Command="{Binding DisableTasksCommand}"
-                                  Header="Disable Selected"
+                                  Header="{DynamicResource MenuItem_DisableTasks}"
                                   Style="{StaticResource AdvancedVisibility}" />
+                        <Separator Style="{StaticResource SeparatorVisibility}" />
                         <MenuItem Command="{Binding RunTasksCommand}"
-                                  Header="Run Selected"
+                                  Header="{DynamicResource MenuItem_RunTasks}"
+                                  Style="{StaticResource AdvancedVisibility}" />
+                        <Separator Style="{StaticResource SeparatorVisibility}" />
+                        <MenuItem Command="{Binding DeleteTasksCommand}"
+                                  Header="{DynamicResource MenuItem_DeleteTasks}"
                                   Style="{StaticResource AdvancedVisibility}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
