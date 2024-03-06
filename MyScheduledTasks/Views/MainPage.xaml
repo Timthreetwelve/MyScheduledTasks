@@ -14,7 +14,7 @@
              FontFamily="Segoe UI"
              TextElement.FontSize="13"
              TextElement.FontWeight="Regular"
-             TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Background}"
+             TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto">
     <!--#region Resources & DataContext-->
@@ -143,7 +143,7 @@
                        Background="Transparent"
                        FontFamily="Segoe UI"
                        FontSize="14"
-                       Foreground="{DynamicResource MaterialDesign.Brush.Background}">
+                       Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
                 <StatusBarItem Content="{Binding Items.Count,
                                                  ElementName=DataGridTasks,
                                                  Mode=OneWay}"
