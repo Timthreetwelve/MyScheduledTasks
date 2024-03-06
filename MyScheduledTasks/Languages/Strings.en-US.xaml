@@ -95,8 +95,8 @@
     <sys:String x:Key="Details_Priority">Priority:</sys:String>
     <sys:String x:Key="Details_Privileges">Run with Highest Privileges:</sys:String>
     <sys:String x:Key="Details_RunOnlyLoggedOn">Run Only When User is Logged On:</sys:String>
-    <sys:String x:Key="Details_StartOnDemand">Start on Demand:</sys:String>
     <sys:String x:Key="Details_StartAsapIfMissed">Start ASAP if Missed:</sys:String>
+    <sys:String x:Key="Details_StartOnDemand">Start on Demand:</sys:String>
     <sys:String x:Key="Details_StartOnlyOnAcPower">Start Only if on AC Power:</sys:String>
     <sys:String x:Key="Details_Status">Status:</sys:String>
     <sys:String x:Key="Details_TimeLimit">Time Limit:</sys:String>
@@ -155,13 +155,13 @@
     <sys:String x:Key="MenuItem_Save">Save Task List File</sys:String>
     <sys:String x:Key="MenuItem_Smaller">Smaller View</sys:String>
     <sys:String x:Key="MenuItem_ToggleDetails">Toggle Details Pane</sys:String>
+    <sys:String x:Key="MenuShortcut_AltF4">Alt + F4</sys:String>
+    <sys:String x:Key="MenuShortcut_CtrlD">Ctrl + D</sys:String>
     <sys:String x:Key="MenuShortcut_CtrlMinus">Ctrl + Minus</sys:String>
     <sys:String x:Key="MenuShortcut_CtrlPlus">Ctrl + Plus</sys:String>
-    <sys:String x:Key="MenuShortcut_CtrlD">Ctrl + D</sys:String>
     <sys:String x:Key="MenuShortcut_CtrlR">Ctrl + R</sys:String>
     <sys:String x:Key="MenuShortcut_CtrlS">Ctrl + S</sys:String>
     <sys:String x:Key="MenuShortcut_F5">F5</sys:String>
-    <sys:String x:Key="MenuShortcut_AltF4">Alt + F4</sys:String>
     <!--  Text found in messages (log, message box, status bar, details area, etc.)  -->
     <sys:String x:Key="MsgText_ApplicationShutdown">is shutting down</sys:String>
     <sys:String x:Key="MsgText_ApplicationStarting">is starting up</sys:String>
@@ -196,6 +196,7 @@
     <sys:String x:Key="MsgText_Exported">Exported {0}.</sys:String>
     <sys:String x:Key="MsgText_ExportError">Error attempting to export {0}.</sys:String>
     <sys:String x:Key="MsgText_ExportNoneSelected">Nothing selected to export.</sys:String>
+    <sys:String x:Key="MsgText_FileSaved">The tasks file has been saved.</sys:String>
     <sys:String x:Key="MsgText_FilterOneRowShown">1 row shown</sys:String>
     <sys:String x:Key="MsgText_FilterRowsShown">{0} rows shown</sys:String>
     <sys:String x:Key="MsgText_NoInformationFound">No information found for</sys:String>
@@ -216,7 +217,6 @@
     <sys:String x:Key="MsgText_UISizeSet">Size set to {0}</sys:String>
     <sys:String x:Key="MsgText_UIThemeSet">Theme set to {0}</sys:String>
     <sys:String x:Key="MsgText_WindowTitleAdministrator">Administrator</sys:String>
-    <sys:String x:Key="MsgText_FileSaved">The tasks file has been saved.</sys:String>
     <!--  Navigation Items and Titles  -->
     <sys:String x:Key="NavItem_About">About</sys:String>
     <sys:String x:Key="NavItem_AddTasks">Add Tasks</sys:String>
@@ -250,13 +250,13 @@
     <sys:String x:Key="SettingsEnum_AccentColor_White">White</sys:String>
     <sys:String x:Key="SettingsEnum_AccentColor_Yellow">Yellow</sys:String>
     <sys:String x:Key="SettingsEnum_Navigation_About">About</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_AddTasks">Add Tasks</sys:String>
     <sys:String x:Key="SettingsEnum_Navigation_DriveInfo">Drive Info</sys:String>
     <sys:String x:Key="SettingsEnum_Navigation_Environment">Environment</sys:String>
     <sys:String x:Key="SettingsEnum_Navigation_GraphicsInfo">Graphics Info</sys:String>
     <sys:String x:Key="SettingsEnum_Navigation_HardwareInfo">Hardware Info</sys:String>
     <sys:String x:Key="SettingsEnum_Navigation_History">History</sys:String>
     <sys:String x:Key="SettingsEnum_Navigation_Settings">Settings</sys:String>
-    <sys:String x:Key="SettingsEnum_Navigation_AddTasks">Add Tasks</sys:String>
     <sys:String x:Key="SettingsEnum_Size_Default">100%</sys:String>
     <sys:String x:Key="SettingsEnum_Size_Large">105%</sys:String>
     <sys:String x:Key="SettingsEnum_Size_Larger">110%</sys:String>
