@@ -12,6 +12,7 @@ internal class MainViewModel
     /// </summary>
     public static void LoadData()
     {
+        MyTasks.IgnoreChanges = true;
         bool hasBadRecord = false;
         ScheduledTask.TaskList.Clear();
         for (int i = 0; i < MyTasks.MyTasksCollection.Count; i++)
@@ -56,6 +57,7 @@ internal class MainViewModel
         {
             TaskFileHelpers.WriteTasksToFile();
         }
+        MyTasks.IgnoreChanges = false;
     }
     #endregion Load the task list
 }

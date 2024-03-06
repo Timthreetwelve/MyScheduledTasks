@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -132,10 +132,9 @@ internal static class TaskHelpers
             {
                 try
                 {
-                    _ = task.Run();
-                    SnackbarMsg.ClearAndQueueMessage($"{GetStringResource("MsgText_Running")}: {task.Name}");
                     _log.Info($"Running {task.Path}");
-                    System.Threading.Tasks.Task.Delay(1250).Wait();
+                    _ = task.Run();
+                    SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Running")}: {task.Name}", 2000);
                 }
                 catch (Exception ex)
                 {
@@ -443,7 +442,7 @@ internal static class TaskHelpers
     #region Task alert changed
     public static void TaskAlertChanged()
     {
-        if (_mainWindow.IsLoaded && !MyTasks.IsDirty)
+        if (_mainWindow.IsLoaded)
         {
             MyTasks.IsDirty = true;
         }
@@ -464,10 +463,11 @@ internal static class TaskHelpers
     #region IsDirty changed
     public static void IsDirtyChanged()
     {
-        if (!MyTasks.IsDirty)
+        if (!MyTasks.IsDirty || MyTasks.IgnoreChanges)
         {
             return;
         }
+        Debug.WriteLine("IsDirtyChanged");
         MyTasks.MyTasksCollection.Clear();
         for (int i = 0; i < ScheduledTask.TaskList.Count; i++)
         {

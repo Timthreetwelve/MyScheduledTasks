@@ -29,13 +29,12 @@ public partial class MyTasks : ObservableObject
         get => _isDirty;
         set
         {
-            if (value != _isDirty)
-            {
-                _isDirty = value;
-                TaskHelpers.IsDirtyChanged();
-            }
+            _isDirty = value;
+            TaskHelpers.IsDirtyChanged();
         }
     }
+
+    public static bool IgnoreChanges { get; set; }
 
     public static bool SortIsDirty { get; set; }
     #endregion Properties
