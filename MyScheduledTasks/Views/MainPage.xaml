@@ -325,7 +325,7 @@
                                   Header="{DynamicResource MenuItem_RunTasks}"
                                   Style="{StaticResource AdvancedVisibility}" />
                         <Separator Style="{StaticResource SeparatorVisibility}" />
-                        <MenuItem Command="{Binding DeleteTasksCommand}"
+                        <MenuItem Command="{Binding ShowDeleteTasksCommand}"
                                   Header="{DynamicResource MenuItem_DeleteTasks}"
                                   Style="{StaticResource AdvancedVisibility}" />
                     </ContextMenu>

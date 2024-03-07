@@ -403,9 +403,16 @@ internal static class TaskHelpers
             ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
             try
             {
+                using TaskService ts = TaskService.Instance;
+                Task taskToDelete = ts.GetTask(task.TaskPath);
+
+                ts.RootFolder.DeleteTask(taskToDelete.Name);
+
                 string msg = string.Format(GetStringResource("MsgText_Deleted"), task.TaskPath);
                 SnackbarMsg.QueueMessage(msg, 2000);
-                _log.Error($"Deleted: {task.TaskPath}");
+                _log.Info($"Deleted: \"{task.TaskPath}\"");
+                _ = ScheduledTask.TaskList.Remove(task);
+                _log.Info($"Removed: \"{task.TaskPath}\"");
             }
             catch (Exception ex)
             {
