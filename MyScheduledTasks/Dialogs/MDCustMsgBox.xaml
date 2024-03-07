@@ -33,7 +33,7 @@
         <Style x:Key="DialogButton"
                BasedOn="{StaticResource MaterialDesignOutlinedButton}"
                TargetType="Button">
-            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesign.Brush.Separator.Background}" />
             <Setter Property="BorderThickness" Value="1.5" />
             <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Foreground}" />
             <Setter Property="Height" Value="32" />
