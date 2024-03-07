@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -8,7 +8,7 @@ internal static class TaskHelpers
     private static readonly MainWindow _mainWindow = Application.Current.MainWindow as MainWindow;
     #endregion MainWindow Instance
 
-    #region List all tasks
+    #region Get all tasks from Windows Task Scheduler
     /// <summary>
     /// Gets all scheduled tasks.
     /// Creates a list for all tasks and one for tasks not in the Microsoft folder.
@@ -38,7 +38,7 @@ internal static class TaskHelpers
         stopwatch.Stop();
         _log.Debug($"GetAllTasks found {AllTasks.All_TasksCollection.Count}/{AllTasks.Non_MS_TasksCollection.Count} tasks and took {stopwatch.Elapsed.TotalSeconds} seconds.");
     }
-    #endregion List all tasks
+    #endregion Get all tasks from Windows Task Scheduler
 
     #region List tasks
     internal static void ListMyTasks(DataGrid grid)
@@ -76,7 +76,7 @@ internal static class TaskHelpers
             {
                 ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
                 _ = ScheduledTask.TaskList.Remove(task);
-                _log.Info($"Removed \"{task.TaskName}\"");
+                _log.Info($"Removed: \"{task.TaskName}\"");
                 SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {task.TaskName}", 2000);
             }
         }
@@ -87,7 +87,7 @@ internal static class TaskHelpers
             {
                 ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
                 _ = ScheduledTask.TaskList.Remove(task);
-                _log.Info($"Removed \"{task.TaskPath}\"");
+                _log.Info($"Removed: \"{task.TaskPath}\"");
             }
             SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {count} {GetStringResource("MsgText_Tasks")}", 2000);
         }
@@ -132,7 +132,7 @@ internal static class TaskHelpers
             {
                 try
                 {
-                    _log.Info($"Running {task.Path}");
+                    _log.Info($"Running: \"{task.Path}\"");
                     _ = task.Run();
                     SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Running")}: {task.Name}", 2000);
                 }
@@ -171,7 +171,7 @@ internal static class TaskHelpers
                     task.Enabled = false;
                     string msg = string.Format(GetStringResource("MsgText_Disabled"), task.Name);
                     SnackbarMsg.QueueMessage(msg, 2000);
-                    _log.Info($"Disabled {task.Path}");
+                    _log.Info($"Disabled: \"{task.Path}\"");
                 }
                 catch (Exception ex)
                 {
@@ -208,7 +208,7 @@ internal static class TaskHelpers
                     task.Enabled = true;
                     string msg = string.Format(GetStringResource("MsgText_Enabled"), task.Name);
                     SnackbarMsg.QueueMessage(msg, 2000);
-                    _log.Info($"Enabled {task.Path}");
+                    _log.Info($"Enabled: \"{task.Path}\"");
                 }
                 catch (Exception ex)
                 {
@@ -256,7 +256,7 @@ internal static class TaskHelpers
                         string msg = string.Format(GetStringResource("MsgText_Exported"), task.Name);
                         SnackbarMsg.QueueMessage(msg, 2000);
                         SnackbarMsg.ClearAndQueueMessage($"Exported: {task.Name}");
-                        _log.Info($"Exported {task.Path}");
+                        _log.Info($"Exported: \"{task.Path}\"");
                     }
                 }
                 catch (Exception ex)
@@ -341,7 +341,7 @@ internal static class TaskHelpers
 
             GetAllTasks();
 
-            _log.Info($"Imported {TempSettings.Setting.ImportXMLFile} to {TempSettings.Setting.ImportTaskName}");
+            _log.Info($"Imported {TempSettings.Setting.ImportXMLFile} to \"{TempSettings.Setting.ImportTaskName}\"");
             SnackbarMsg.ClearAndQueueMessage($"{TempSettings.Setting.ImportXMLFile} {GetStringResource("ImportTask_ImportSuccess")}");
             MDCustMsgBox mbox = new($"{TempSettings.Setting.ImportXMLFile} {GetStringResource("ImportTask_ImportSuccess")}",
                     GetStringResource("ImportTask_ImportSuccessHeader"),
@@ -474,7 +474,6 @@ internal static class TaskHelpers
         {
             return;
         }
-        Debug.WriteLine("IsDirtyChanged");
         MyTasks.MyTasksCollection.Clear();
         for (int i = 0; i < ScheduledTask.TaskList.Count; i++)
         {

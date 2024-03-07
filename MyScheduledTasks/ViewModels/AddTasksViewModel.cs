@@ -70,7 +70,7 @@ internal partial class AddTasksViewModel
         MyTasks newTask = new(task.Path, false, string.Empty);
         MyTasks.MyTasksCollection.Add(newTask);
 
-        _log.Info($"Added {task.Path}");
+        _log.Info($"Added: \"{task.Path}\"");
         return true;
     }
     #endregion Add a single item
