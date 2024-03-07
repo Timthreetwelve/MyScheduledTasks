@@ -69,6 +69,7 @@
                     <TextBlock Grid.Row="1"
                                Margin="20,0"
                                HorizontalAlignment="Center"
+                               FontWeight="SemiBold"
                                Text="{DynamicResource DeleteTask_Heading}" />
                     <DataGrid Grid.Row="2"
                               MaxHeight="280"
@@ -78,7 +79,7 @@
                               AutoGenerateColumns="False"
                               Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
                               BorderBrush="{DynamicResource MaterialDesignDivider}"
-                              BorderThickness="2,22,2,1"
+                              BorderThickness="2,2,2,1"
                               CanUserAddRows="False"
                               CanUserSortColumns="False"
                               CellStyle="{StaticResource DisplayOnly}"
