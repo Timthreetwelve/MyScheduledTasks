@@ -18,7 +18,7 @@ internal partial class TempSettings : ConfigManager<TempSettings>
     private static bool _uIExpanderOpen;
 
     [ObservableProperty]
-    private static bool _importAddToMyTasks;
+    private static bool _importAddToMyTasks = true;
 
     [ObservableProperty]
     private static string _importXMLFile;
