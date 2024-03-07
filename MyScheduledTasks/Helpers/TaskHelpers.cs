@@ -397,7 +397,7 @@ internal static class TaskHelpers
             SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_DeleteNoneSelected"), 5000);
             return;
         }
-
+        bool deleted = false;
         for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
         {
             ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
@@ -406,8 +406,8 @@ internal static class TaskHelpers
                 using TaskService ts = TaskService.Instance;
                 Task taskToDelete = ts.GetTask(task.TaskPath);
 
-                ts.RootFolder.DeleteTask(taskToDelete.Name);
-
+                ts.RootFolder.DeleteTask(taskToDelete.Path, true);
+                deleted = true;
                 string msg = string.Format(GetStringResource("MsgText_Deleted"), task.TaskPath);
                 SnackbarMsg.QueueMessage(msg, 2000);
                 _log.Info($"Deleted: \"{task.TaskPath}\"");
@@ -416,13 +416,27 @@ internal static class TaskHelpers
             }
             catch (Exception ex)
             {
+                SystemSounds.Beep.Play();
                 string msg = string.Format(GetStringResource("MsgText_DeleteError"), task.TaskPath);
                 SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                 _log.Error(ex, $"Error attempting to delete {task.TaskPath}");
+                MDCustMsgBox mbox = new($"{msg} {GetStringResource("MsgText_SeeLogFile")}",
+                        GetStringResource("ImportTask_ImportErrorHeader"),
+                        ButtonType.Ok,
+                        false,
+                        true,
+                        _mainWindow,
+                        true);
+                _ = mbox.ShowDialog();
             }
         }
 
         DialogHost.Close("MainDialogHost");
+        if (deleted)
+        {
+            UpdateMyTasksCollection();
+            TaskFileHelpers.WriteTasksToFile();
+        }
     }
     #endregion Delete tasks
 
