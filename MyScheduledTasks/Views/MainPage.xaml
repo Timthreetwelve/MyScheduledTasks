@@ -23,6 +23,7 @@
         <convert:BooleanInverter x:Key="BoolInverter" />
         <convert:SpacingConverter x:Key="Spacing" />
         <convert:RootConverter x:Key="RootConverter" />
+        <convert:MenuItemEnabledConverter x:Key="EnabledConverter" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <models:ScheduledTask />
@@ -87,13 +88,21 @@
                     </MenuItem>
 
                     <MenuItem Header="{DynamicResource Menu_Tasks}">
-                        <MenuItem Command="{Binding EditNoteCommand}"
-                                  Header="{DynamicResource MenuItem_EditTaskNote}" />
                         <MenuItem Command="{Binding AddTasksCommand}"
                                   Header="{DynamicResource MenuItem_AddTasks}" />
+                        <Separator Style="{StaticResource MySeparator}" />
+                        <MenuItem Command="{Binding EditNoteCommand}"
+                                  Header="{DynamicResource MenuItem_EditTaskNote}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='One'}" />
                         <MenuItem Command="{Binding RemoveTasksCommand}"
-                                  Header="{DynamicResource MenuItem_RemoveTasks}" />
-
+                                  Header="{DynamicResource MenuItem_RemoveTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}" />
                     </MenuItem>
 
                     <MenuItem Header="{DynamicResource Menu_Advanced}"
@@ -101,19 +110,39 @@
                                                    Source={x:Static config:UserSettings.Setting},
                                                    Converter={StaticResource BoolVisConverter}}">
                         <MenuItem Command="{Binding EnableTasksCommand}"
-                                  Header="{DynamicResource MenuItem_EnableTasks}" />
+                                  Header="{DynamicResource MenuItem_EnableTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}" />
                         <MenuItem Command="{Binding DisableTasksCommand}"
-                                  Header="{DynamicResource MenuItem_DisableTasks}" />
+                                  Header="{DynamicResource MenuItem_DisableTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}" />
                         <MenuItem Command="{Binding RunTasksCommand}"
-                                  Header="{DynamicResource MenuItem_RunTasks}" />
+                                  Header="{DynamicResource MenuItem_RunTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}" />
                         <Separator Style="{StaticResource MySeparator}" />
                         <MenuItem Command="{Binding ShowDeleteTasksCommand}"
-                                  Header="{DynamicResource MenuItem_DeleteTasks}" />
+                                  Header="{DynamicResource MenuItem_DeleteTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}" />
                         <Separator Style="{StaticResource MySeparator}" />
                         <MenuItem Command="{Binding ShowImportTasksCommand}"
                                   Header="{DynamicResource MenuItem_ImportTask}" />
                         <MenuItem Command="{Binding ExportTasksCommand}"
-                                  Header="{DynamicResource MenuItem_ExportTasks}" />
+                                  Header="{DynamicResource MenuItem_ExportTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}" />
                     </MenuItem>
 
                     <MenuItem Command="{Binding OpenTSchedulerCommand}"
@@ -177,8 +206,7 @@
                       IsReadOnly="False"
                       ItemsSource="{Binding TaskList,
                                             Mode=TwoWay}"
-                      ScrollViewer.CanContentScroll="False"
-                      SelectedIndex="0">
+                      ScrollViewer.CanContentScroll="False">
                 <!--#region Datagrid Columns-->
                 <DataGrid.Columns>
                     <DataGridTemplateColumn CanUserSort="True"
@@ -289,7 +317,8 @@
                                          Text="{Binding TaskNote,
                                                         UpdateSourceTrigger=LostFocus}">
                                     <TextBox.Style>
-                                        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}" >
+                                        <Style BasedOn="{StaticResource MaterialDesignTextBox}"
+                                               TargetType="TextBox">
                                             <Setter Property="BorderThickness" Value="0" />
                                         </Style>
                                     </TextBox.Style>
@@ -303,30 +332,52 @@
 
                 <!--#region Datagrid context menu-->
                 <DataGrid.ContextMenu>
-                    <ContextMenu Opened="ContextMenu_Opened">
+                    <ContextMenu x:Name="DGContextMenu">
                         <ContextMenu.DataContext>
                             <viewmodels:NavigationViewModel />
                         </ContextMenu.DataContext>
-
-                        <MenuItem x:Name="EditNoteItem"
-                                  Command="{Binding EditNoteCommand}"
-                                  Header="{DynamicResource MenuItem_EditTaskNote}" />
-                        <Separator Style="{StaticResource MySeparator}"/>
+                        <MenuItem Command="{Binding EditNoteCommand}"
+                                  Header="{DynamicResource MenuItem_EditTaskNote}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='One'}" />
+                        <Separator Style="{StaticResource MySeparator}" />
                         <MenuItem Command="{Binding RemoveTasksCommand}"
-                                  Header="{DynamicResource MenuItem_RemoveTasks}" />
+                                  Header="{DynamicResource MenuItem_RemoveTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}" />
                         <MenuItem Command="{Binding EnableTasksCommand}"
                                   Header="{DynamicResource MenuItem_EnableTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}"
                                   Style="{StaticResource AdvancedVisibility}" />
                         <MenuItem Command="{Binding DisableTasksCommand}"
                                   Header="{DynamicResource MenuItem_DisableTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}"
                                   Style="{StaticResource AdvancedVisibility}" />
                         <Separator Style="{StaticResource SeparatorVisibility}" />
                         <MenuItem Command="{Binding RunTasksCommand}"
                                   Header="{DynamicResource MenuItem_RunTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}"
                                   Style="{StaticResource AdvancedVisibility}" />
                         <Separator Style="{StaticResource SeparatorVisibility}" />
                         <MenuItem Command="{Binding ShowDeleteTasksCommand}"
                                   Header="{DynamicResource MenuItem_DeleteTasks}"
+                                  IsEnabled="{Binding SelectedItems.Count,
+                                                      ElementName=DataGridTasks,
+                                                      Converter={StaticResource EnabledConverter},
+                                                      ConverterParameter='OneOrMore'}"
                                   Style="{StaticResource AdvancedVisibility}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>

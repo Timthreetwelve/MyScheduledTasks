@@ -2,9 +2,6 @@
 
 namespace MyScheduledTasks.Views;
 
-/// <summary>
-/// Interaction logic for MainPage.xaml
-/// </summary>
 public partial class MainPage : UserControl
 {
     #region MainPage Instance
@@ -17,6 +14,10 @@ public partial class MainPage : UserControl
         InitializeComponent();
 
         Instance = this;
+
+        // The following fixes binding ElementName in the Context Menu.
+        // Credit: https://stackoverflow.com/a/1066009
+        NameScope.SetNameScope(DGContextMenu, NameScope.GetNameScope(this));
 
         // Details pane size
         detailsRow.Height = !UserSettings.Setting.ShowDetails
@@ -48,22 +49,7 @@ public partial class MainPage : UserControl
     }
     #endregion GridSplitter drag completed
 
-    #region DataGrid sorting event
-    private void DataGridTasks_Sorting(object sender, DataGridSortingEventArgs e)
-    {
-        MyTasks.SortIsDirty = true;
-
-        _log.Debug($"DataGrid sorting event: {e.Column.Header} (Index: {e.Column.DisplayIndex})  {e.Column.SortMemberPath}");
-    }
-    #endregion DataGrid sorting event
-
-    #region Context menu opened event
-    private void ContextMenu_Opened(object sender, RoutedEventArgs e)
-    {
-        EditNoteItem.IsEnabled = DataGridTasks.SelectedItems.Count == 1;
-    }
-    #endregion Context menu opened event
-
+    #region DataGrid row drag & drop
     public void DataGridTasksDrop(object sender, DragEventArgs e)
     {
         if (e.Source == DataGridTasks)
@@ -71,4 +57,5 @@ public partial class MainPage : UserControl
             _ = System.Threading.Tasks.Task.Run(TaskHelpers.UpdateMyTasksAfterDrop);
         }
     }
+    #endregion DataGrid row drag & drop
 }
