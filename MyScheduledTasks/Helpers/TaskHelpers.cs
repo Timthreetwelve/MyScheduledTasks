@@ -41,6 +41,10 @@ internal static class TaskHelpers
     #endregion Get all tasks from Windows Task Scheduler
 
     #region List tasks
+    /// <summary>
+    /// List tasks from TaskList, MyTasks, and in the DataGrid. Used for diagnostics.
+    /// </summary>
+    /// <param name="grid">The name of DataGrid</param>
     internal static void ListMyTasks(DataGrid grid)
     {
         _log.Debug("---------------------------------------------------------------");
@@ -63,6 +67,10 @@ internal static class TaskHelpers
     #endregion List tasks
 
     #region Remove tasks
+    /// <summary>
+    /// Remove tasks from the grid and MyTasks
+    /// </summary>
+    /// <param name="grid">The name of the DataGrid</param>
     internal static void RemoveTasks(DataGrid grid)
     {
         if (grid.SelectedItems.Count == 0)
@@ -98,6 +106,9 @@ internal static class TaskHelpers
     #endregion Remove tasks
 
     #region Get updated tasks from TaskList
+    /// <summary>
+    /// Update MyTasks from TaskList
+    /// </summary>
     public static void UpdateMyTasksCollection()
     {
         MyTasks.MyTasksCollection.Clear();
@@ -113,6 +124,10 @@ internal static class TaskHelpers
     #endregion Get updated tasks from TaskList
 
     #region Run tasks
+    /// <summary>
+    /// Execute the selected tasks
+    /// </summary>
+    /// <param name="grid">Name of the DataGrid</param>
     internal static void RunTask(DataGrid grid)
     {
         if (grid.SelectedItems.Count == 0)
@@ -149,6 +164,10 @@ internal static class TaskHelpers
     #endregion Run a single task
 
     #region Disable Tasks
+    /// <summary>
+    /// Disable the selected tasks
+    /// </summary>
+    /// <param name="grid">Name of the DataGrid</param>
     internal static void DisableTask(DataGrid grid)
     {
         if (grid.SelectedItems.Count == 0)
@@ -186,6 +205,10 @@ internal static class TaskHelpers
     #endregion Disable Tasks
 
     #region Enable Tasks
+    /// <summary>
+    /// Enable the selected tasks
+    /// </summary>
+    /// <param name="grid">Name of the DataGrid</param>
     internal static void EnableTask(DataGrid grid)
     {
         if (grid.SelectedItems.Count == 0)
@@ -223,6 +246,10 @@ internal static class TaskHelpers
     #endregion Enable Tasks
 
     #region Export Tasks
+    /// <summary>
+    /// Export the selected tasks
+    /// </summary>
+    /// <param name="grid">Name of the DataGrid</param>
     internal static void ExportTask(DataGrid grid)
     {
         if (grid.SelectedItems.Count == 0)
@@ -272,6 +299,9 @@ internal static class TaskHelpers
     #endregion
 
     #region Import a task
+    /// <summary>
+    /// Import a single task
+    /// </summary>
     internal static void ImportTasks()
     {
         if (TempSettings.Setting.ImportXMLFile.Contains('\"'))
@@ -375,6 +405,9 @@ internal static class TaskHelpers
         }
     }
 
+    /// <summary>
+    /// Display a message box
+    /// </summary>
     internal static void ImportCaution()
     {
         MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_Caution")}",
@@ -389,6 +422,10 @@ internal static class TaskHelpers
     #endregion Import a task
 
     #region Delete tasks
+    /// <summary>
+    /// Delete tasks from Windows Task Scheduler, remove it from MyTasks and then save the file.
+    /// </summary>
+    /// <param name="grid">Name of the DataGrid</param>
     internal static void DeleteTasks(DataGrid grid)
     {
         if (grid.SelectedItems.Count == 0)
@@ -441,6 +478,11 @@ internal static class TaskHelpers
     #endregion Delete tasks
 
     #region Verify task exists
+    /// <summary>
+    /// Verify that the task exists in Windows Task Scheduler.
+    /// </summary>
+    /// <param name="taskPath">Task name including any folder name</param>
+    /// <returns><see langword="true"/> if the task exists</returns>
     public static bool CheckTaskExists(string taskPath)
     {
         TaskService ts = TaskService.Instance;
@@ -451,6 +493,9 @@ internal static class TaskHelpers
     #endregion Verify task exists
 
     #region Task note changed
+    /// <summary>
+    /// Change the IsDirty property when the task note changes.
+    /// </summary>
     public static void TaskNoteChanged()
     {
         if (_mainWindow.IsLoaded && !MyTasks.IsDirty)
@@ -461,6 +506,9 @@ internal static class TaskHelpers
     #endregion Task note changed
 
     #region Task alert changed
+    /// <summary>
+    /// Change the IsDirty property when the task alert changes.
+    /// </summary>
     public static void TaskAlertChanged()
     {
         if (_mainWindow.IsLoaded)
@@ -471,6 +519,9 @@ internal static class TaskHelpers
     #endregion Task alert changed
 
     #region Datagrid rows changed
+    /// <summary>
+    /// Change the IsDirty property after DataGrid rows are changed.
+    /// </summary>
     public static void UpdateMyTasksAfterDrop()
     {
         System.Threading.Tasks.Task.Delay(100).Wait();
@@ -482,6 +533,9 @@ internal static class TaskHelpers
     #endregion Datagrid rows changed
 
     #region IsDirty changed
+    /// <summary>
+    /// Update MyTasks list and save the file.
+    /// </summary>
     public static void IsDirtyChanged()
     {
         if (!MyTasks.IsDirty || MyTasks.IgnoreChanges)
@@ -500,5 +554,4 @@ internal static class TaskHelpers
         TaskFileHelpers.WriteTasksToFile();
     }
     #endregion IsDirty changed
-
 }

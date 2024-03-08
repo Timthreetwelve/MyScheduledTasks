@@ -5,10 +5,16 @@ namespace MyScheduledTasks.Helpers;
 internal static class TaskFileHelpers
 {
     #region Tasks filename
+    /// <summary>
+    /// Name of the tasks file.
+    /// </summary>
     public static string TasksFile { get; } = Path.Combine(AppInfo.AppDirectory, "MyTasks.json");
     #endregion Tasks filename
 
     #region JSON serializer options
+    /// <summary>
+    /// JSON serializer options
+    /// </summary>
     private static readonly JsonSerializerOptions _options = new()
     {
         WriteIndented = true
@@ -20,6 +26,9 @@ internal static class TaskFileHelpers
     #endregion MainWindow Instance
 
     #region Read the tasks JSON file
+    /// <summary>
+    /// Read the tasks file.
+    /// </summary>
     public static void ReadMyTasks()
     {
         // If the file doesn't exist, create a minimal JSON file
@@ -53,6 +62,9 @@ internal static class TaskFileHelpers
         }
     }
 
+    /// <summary>
+    /// Create an empty JSON file if one doesn't exist.
+    /// </summary>
     private static void CreateEmptyFile()
     {
         const string x = "[]";
@@ -114,6 +126,9 @@ internal static class TaskFileHelpers
     #endregion Write the tasks JSON file
 
     #region Check for empty task list
+    /// <summary>
+    /// Display a message box if the tasks list is empty.
+    /// </summary>
     public static void CheckEmptyList()
     {
         if (ScheduledTask.TaskList.Count == 0)
