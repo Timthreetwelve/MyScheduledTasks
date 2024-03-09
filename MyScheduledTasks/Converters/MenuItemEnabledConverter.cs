@@ -11,7 +11,6 @@ internal class MenuItemEnabledConverter : IValueConverter
     {
         if (value is int selected && parameter is string desired)
         {
-            Debug.WriteLine($"Selected Items: {selected}  Desired to be selected {desired}");
             if (selected == 1 && desired.Equals("One", StringComparison.OrdinalIgnoreCase))
             {
                 return true;
