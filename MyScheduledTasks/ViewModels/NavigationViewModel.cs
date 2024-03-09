@@ -362,6 +362,18 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion Run Tasks
 
+    #region Open Choose Columns in Settings
+    [RelayCommand]
+    public static void ChooseColumns()
+    {
+        _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
+        TempSettings.Setting.AppExpanderOpen = false;
+        TempSettings.Setting.ColumnsExpanderOpen = true;
+        TempSettings.Setting.LangExpanderOpen = false;
+        TempSettings.Setting.UIExpanderOpen = false;
+    }
+    #endregion Open Choose Columns in Settings
+
     #region Key down events
     /// <summary>
     /// Keyboard events

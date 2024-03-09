@@ -138,6 +138,7 @@
     <sys:String x:Key="Menu_Tasks">_My Tasks</sys:String>
     <sys:String x:Key="Menu_View">_View</sys:String>
     <sys:String x:Key="MenuItem_AddTasks">Add Tasks</sys:String>
+    <sys:String x:Key="MenuItem_ChooseColumns">Choose Columns...</sys:String>
     <sys:String x:Key="MenuItem_CopyToClipboard">Copy Grid to Clipboard</sys:String>
     <sys:String x:Key="MenuItem_DeleteTasks">Delete Selected...</sys:String>
     <sys:String x:Key="MenuItem_DisableTasks">Disable Selected</sys:String>
@@ -300,9 +301,11 @@
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine2">be used if a translation is available, otherwise English (en-US) will be used.</sys:String>
     <!--  Settings Page Expander Headings and Sub Headings  -->
     <sys:String x:Key="SettingsSection_AppSettings">Application Settings</sys:String>
+    <sys:String x:Key="SettingsSection_Columns">Select Grid Columns</sys:String>
     <sys:String x:Key="SettingsSection_Language">Language</sys:String>
     <sys:String x:Key="SettingsSection_UISettings">UI Settings</sys:String>
-    <sys:String x:Key="SettingsSubHead_AppSettings">Show columns and details pane options, annotate root folder and more</sys:String>
+    <sys:String x:Key="SettingsSubHead_AppSettings">Show details pane, show advanced menu, annotate root folder and more</sys:String>
+    <sys:String x:Key="SettingsSubHead_Columns">Choose which columns are shown in the My Scheduled Tasks grid</sys:String>
     <sys:String x:Key="SettingsSubHead_Language">Language Settings and Testing</sys:String>
     <sys:String x:Key="SettingsSubHead_UISettings">Theme, Accent Color, UI Size, Row Height, Start Position and more</sys:String>
     <!--  Status Bar  -->

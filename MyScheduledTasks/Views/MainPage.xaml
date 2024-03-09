@@ -85,6 +85,8 @@
                         <MenuItem Command="{Binding RemoveSortCommand}"
                                   Header="{DynamicResource MenuItem_RemoveSort}"
                                   InputGestureText="{DynamicResource MenuShortcut_CtrlR}" />
+                        <MenuItem Command="{Binding ChooseColumnsCommand}"
+                                  Header="{DynamicResource MenuItem_ChooseColumns}" />
                     </MenuItem>
 
                     <MenuItem Header="{DynamicResource Menu_Tasks}">
