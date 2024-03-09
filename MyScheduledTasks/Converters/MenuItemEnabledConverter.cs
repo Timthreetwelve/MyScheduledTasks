@@ -11,15 +11,15 @@ internal class MenuItemEnabledConverter : IValueConverter
     {
         if (value is int selected && parameter is string desired)
         {
-            if (selected == 1 && desired.Equals("One", StringComparison.OrdinalIgnoreCase))
+            switch (desired.ToLowerInvariant())
             {
-                return true;
+                case "one":
+                    return selected == 1;
+                case "oneormore":
+                    return selected >= 1;
+                default:
+                    return false;
             }
-            else if (selected >= 1 && desired.Equals("OneOrMore", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-            return false;
         }
         return true;
     }
