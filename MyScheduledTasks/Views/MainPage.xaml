@@ -250,7 +250,8 @@
                                                                  Converter={StaticResource BoolVisConverter}}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding TaskResultShort}">
+                                <TextBlock Text="{Binding TaskResultShort}"
+                                           ToolTipService.InitialShowDelay="200">
                                     <TextBlock.ToolTip>
                                         <ToolTip Placement="Left">
                                             <TextBlock Text="{Binding TaskResultHex, StringFormat='Result: {0}'}" />
