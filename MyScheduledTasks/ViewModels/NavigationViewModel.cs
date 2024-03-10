@@ -288,7 +288,9 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void RefreshGrid()
     {
+        MainWindowUIHelpers.MainWindowWaitPointer();
         MainViewModel.LoadData();
+        MainWindowUIHelpers.MainWindowNormalPointer();
     }
     #endregion Refresh
 
