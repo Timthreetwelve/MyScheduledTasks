@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:convert="clr-namespace:MyScheduledTasks.Converters"
+             xmlns:global="clr-namespace:System.Globalization;assembly=mscorlib"
              xmlns:helpers="clr-namespace:MyScheduledTasks.Helpers"
              xmlns:local="clr-namespace:MyScheduledTasks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -135,10 +136,17 @@
                 <TextBlock Grid.Row="5"
                            Grid.Column="0"
                            Text="{DynamicResource About_BuildDate}" />
-                <TextBlock Grid.Row="5"
-                           Grid.Column="2"
-                           Text="{x:Static local:BuildInfo.BuildDateStringUtc}"
-                           TextWrapping="Wrap" />
+                <StackPanel Grid.Row="5"
+                            Grid.Column="2"
+                            Orientation="Horizontal">
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="2"
+                               Text="{Binding Source={x:Static local:BuildInfo.BuildDateUtc},
+                                              StringFormat=f,
+                                              ConverterCulture={x:Static global:CultureInfo.CurrentUICulture}}" />
+                    <TextBlock Margin="10,0"
+                               Text="(UTC)" />
+                </StackPanel>
 
                 <TextBlock Grid.Row="6"
                            Grid.Column="0"
