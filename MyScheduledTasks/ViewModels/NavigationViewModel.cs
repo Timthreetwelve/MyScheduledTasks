@@ -396,11 +396,6 @@ internal partial class NavigationViewModel : ObservableObject
             case Key.F5:
                 RefreshGrid();
                 break;
-            case Key.Home:
-                {
-                    _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.Main);
-                    break;
-                }
             case Key.Escape:
                 {
                     if (CurrentViewModel is MainViewModel)
@@ -455,6 +450,11 @@ internal partial class NavigationViewModel : ObservableObject
                 case Key.S:
                     {
                         SaveTasks();
+                        break;
+                    }
+                case Key.T:
+                    {
+                        _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.Main);
                         break;
                     }
                 case Key.Add:
