@@ -208,7 +208,8 @@
                       IsReadOnly="False"
                       ItemsSource="{Binding TaskList,
                                             Mode=TwoWay}"
-                      ScrollViewer.CanContentScroll="False">
+                      ScrollViewer.CanContentScroll="False"
+                      SelectedIndex="0">
                 <!--#region Datagrid Columns-->
                 <DataGrid.Columns>
                     <DataGridTemplateColumn CanUserSort="True"
