@@ -525,6 +525,7 @@ internal static class TaskHelpers
     public static void UpdateMyTasksAfterDrop()
     {
         System.Threading.Tasks.Task.Delay(100).Wait();
+        UpdateMyTasksCollection();
         if (!MyTasks.IsDirty)
         {
             MyTasks.IsDirty = true;
