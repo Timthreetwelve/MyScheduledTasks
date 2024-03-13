@@ -8,7 +8,7 @@
 </h1>
 
 [![GitHub](https://img.shields.io/github/license/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/LICENSE)
-[![NET6win](https://img.shields.io/badge/.NET-6.0--Windows-blueviolet?style=plastic)](https://dotnet.microsoft.com/en-us/download)
+[![NET8win](https://img.shields.io/badge/.NET-8.0--Windows-blueviolet?style=plastic)](https://dotnet.microsoft.com/en-us/download)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date/timthreetwelve/MyScheduledTasks?style=plastic&color=orange)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
 [![GitHub all releases](https://img.shields.io/github/downloads/Timthreetwelve/MyScheduledTasks/total?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases)
@@ -20,29 +20,24 @@
 
 ### My Scheduled Tasks is an application that lets you keep track of the tasks in Windows Task Scheduler that <ins>you</ins> care about.
 
+### My Scheduled Task is now Multilingual!
+
+#### My Scheduled tasks uses .NET 8
+
 #### Features
 
-* Easily add scheduled tasks to your list, optionally hiding Microsoft tasks.
-
-* Easily check the last result of the tasks in your list.
-
 * See the tasks that you have chosen in one window, no digging around in folders.
-
-* Optionally run as Administrator to see additional scheduled tasks.
-
-* Run, Disable and Enable individual tasks.
-
-* Export tasks in XML format.
-
+* Easily add scheduled tasks to your list.
+* Optionally hide Microsoft tasks from the Add Tasks list.
+* Easily check the last result of the tasks in your list.
+* Run, Disable, Enable, or Delete individual tasks.
+* Export tasks to XML file.
+* Import tasks from XML file.
 * Add a note to individual tasks.
-
-* Click on any task to see more details.
-
-* Optionally run MyScheduledTasks as a scheduled task and get notification of tasks that have a non-zero result code.
-
+* Select any task to see more details.
+* Optionally hide the details pane.
+* Optionally run My Scheduled Tasks as a scheduled task and get notification of tasks that have a non-zero result code.
 * Choose which columns are visible.
-
-* Easily adjust zoom level of the data grid.
 
 #### Screenshot (Sneak peek at version 0.6)
 ![Screenshot](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/Images/MyScheduledTasks_v6.png)
