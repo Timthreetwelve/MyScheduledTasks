@@ -1,24 +1,24 @@
-﻿The MyScheduledTasks ReadMe File
+﻿The My Scheduled Tasks ReadMe File
 
 
 Introduction
 ============
-MyScheduledTasks is an application that lets you keep track of the tasks in Windows Task Scheduler that
-you care about. MyScheduledTasks can be automated to let you know if any of the tasks completed with
-a non-zero exit code. It's important to note that while MyScheduledTasks allows you an simple way to
+My Scheduled Tasks is an application that lets you keep track of the tasks in Windows Task Scheduler that
+you care about. My Scheduled Tasks can be automated to let you know if any of the tasks completed with
+a non-zero exit code. It's important to note that while My Scheduled Tasks allows you an simple way to
 check on scheduled tasks, it doesn't allow you to change existing tasks or create new tasks. For those
 activities you will need to use Windows Task Scheduler.
 
 
 Changes from Previous Versions
 ==============================
-Starting in version 0.6.0 My Scheduled Tasks can import tasks from an XML file and delete tasks from
+Starting in version 0.6.0, My Scheduled Tasks can import tasks from an XML file and delete tasks from
 Windows Task Scheduler. The Import and Delete options are located under the "Advanced" menu which is
 hidden by default. You should only use these option if you understand the implications of doing so. I
 will not be held responsible if you use these options. Please use them wisely. The Advanced menu can
 be enabled in Settings -> Application Settings.
 
-Also starting in version 0.6.0 My Scheduled Task will always run as Administrator. Depending on your
+Also starting in version 0.6.0, My Scheduled Tasks will always run as Administrator. Depending on your
 User Account Control (UAC) settings, you may get a UAC dialog. If a UAC prompt is shown, you will need
 to click "Yes" in order to use My Scheduled Tasks. This change was made because My Scheduled Tasks needs
 to run elevated to be able to see all of the tasks in Windows Task Scheduler and to perform functions
@@ -37,8 +37,8 @@ If you select "Yes" you will be taken to the Add Tasks page. From there you can 
 and then click the Add Tasks button. More on adding tasks later.
 
 
-Using MyScheduledTasks
-======================
+Using My Scheduled Tasks
+========================
 After adding tasks, you will notice that there are several columns in the grid. The first column,
 the one with the ⚠ (warning emoji), has a checkbox. Check the checkbox if you are going to automate
 My Scheduled Tasks and you want to be alerted if the task in this row had a non-zero result from it's
@@ -177,18 +177,24 @@ checkbox is changed, when a task note is changed, or when the order of tasks is 
 save the file by selecting the Save Task List File option in the File menu, or by pressing Ctrl+S.
 
 
-Automating MyScheduledTasks
-===========================
-You can run MyScheduledTasks on a regular schedule by adding a task to Windows Task Scheduler,
-specifying the path to the MyScheduledTasks executable in the Program field and "-h" or "--hide"
+Copying Text
+============
+Text in the Details pane can be copied to the clipboard by right-clicking on it. No need to highlight
+the text, simply right-click. A confirmation message will be shown in the upper right.
+
+
+Automating My Scheduled Tasks
+=============================
+You can run My Scheduled Tasks on a regular schedule by adding a task to Windows Task Scheduler,
+specifying the path to the My Scheduled Tasks executable in the Program field and "-h" or "--hide"
 in the Arguments field.
 
-When set up this way, MyScheduledTasks will only show its window if there is a task that has a
+When set up this way, My Scheduled Tasks will only show its window if there is a task that has a
 check in the Alert column and the last result was non-zero or file not found. Otherwise, it will
 shut down without showing any windows.
 
-If you choose to add MyScheduledTasks to Windows Task Scheduler, don't check the Alert checkbox
-next to MyScheduledTasks. If you do, it will always show an alert window because tasks always have
+If you choose to add My Scheduled Tasks to Windows Task Scheduler, don't check the Alert checkbox
+next to My Scheduled Tasks. If you do, it will always show an alert window because tasks always have
 a non-zero result while they are running.
 
 
@@ -233,8 +239,8 @@ Depending on the capabilities of your computer, performance may decline if hundr
 to the My Scheduled Tasks list.
 
 
-Uninstalling MyScheduledTasks
-=============================
+Uninstalling My Scheduled Tasks
+===============================
 To uninstall, use the regular Windows add/remove programs feature.
 
 
