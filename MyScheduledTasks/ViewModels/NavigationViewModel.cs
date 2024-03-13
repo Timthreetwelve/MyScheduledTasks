@@ -288,9 +288,11 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void RefreshGrid()
     {
+        int index = MainPage.Instance.DataGridTasks.SelectedIndex;
         MainWindowUIHelpers.MainWindowWaitPointer();
         MainViewModel.LoadData();
         MainWindowUIHelpers.MainWindowNormalPointer();
+        MainPage.Instance.DataGridTasks.SelectedIndex = index;
     }
     #endregion Refresh
 
