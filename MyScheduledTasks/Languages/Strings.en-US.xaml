@@ -3,19 +3,19 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!--
         BEFORE UPDATING, refer to the "Contribute a Translation" topic in the Wiki:
-
+        
         https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Contribute-a-Translation
-
+        
         ======================================================================
-
+        
         Application name:            MyScheduledTasks
-
+        
         Language name:
-
+        
         Translation contributed by:
-
+        
         Date last update:
-
+        
         ======================================================================
     -->
 
@@ -111,13 +111,14 @@
     <sys:String x:Key="GridColumn_ResultTooltip">Result: {0}</sys:String>
     <sys:String x:Key="GridColumn_Status">Status</sys:String>
     <sys:String x:Key="GridColumn_TaskName">Task Name</sys:String>
-    <!--#region Import Task-->
+    <!--  Import  Task  -->
     <sys:String x:Key="ImportTask_AddToMyTasks">Add to My Tasks after import</sys:String>
     <sys:String x:Key="ImportTask_Caution">Since "Run only when user is logged on" has been unchecked, it is recommended that you go to Windows Task Scheduler and verify the Security Options section on the General tab after importing this Task.</sys:String>
     <sys:String x:Key="ImportTask_FileNotFound">File not found.</sys:String>
     <sys:String x:Key="ImportTask_FilePickerTitle">Browse for file</sys:String>
     <sys:String x:Key="ImportTask_FilePickerTooltip">Browse for file</sys:String>
     <sys:String x:Key="ImportTask_Heading">Import a Task from an XML File</sys:String>
+    <sys:String x:Key="ImportTask_Import">Import</sys:String>
     <sys:String x:Key="ImportTask_ImportError">Error importing task.</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorBlank">The task name cannot be blank.</sys:String>
     <sys:String x:Key="ImportTask_ImportErrorExists">There is already a task named</sys:String>
@@ -311,6 +312,9 @@
     <!--  Status Bar  -->
     <sys:String x:Key="StatusBar_Items">{0} Items</sys:String>
     <sys:String x:Key="StatusBar_Selected">{0} Selected</sys:String>
+    <!--  Task Privileges  -->
+    <sys:String x:Key="TaskPrivileges_Lowest">Lowest privileges</sys:String>
+    <sys:String x:Key="TaskPrivileges_Highest">Highest privileges</sys:String>
     <!--  Task Result Short  -->
     <sys:String x:Key="TaskResult_Disabled">DIS</sys:String>
     <sys:String x:Key="TaskResult_FileNotFound">FNF</sys:String>
@@ -321,8 +325,5 @@
     <sys:String x:Key="TaskResult_ReadyToRun">RDY</sys:String>
     <sys:String x:Key="TaskResult_Running">RUN</sys:String>
     <sys:String x:Key="TaskResult_Terminated">TRM</sys:String>
-    <!--  Task Privileges  -->
-    <sys:String x:Key="TaskPrivileges_Lowest">Lowest privileges</sys:String>
-    <sys:String x:Key="TaskPrivileges_Highest">Highest privileges</sys:String>
 
 </ResourceDictionary>
