@@ -93,7 +93,8 @@
                             <ColumnDefinition Width="35" />
 
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0"
+                        <TextBox x:Name="tbxFileName"
+                                 Grid.Column="0"
                                  Height="auto"
                                  MinWidth="300"
                                  MaxWidth="{Binding Path=ActualWidth,
@@ -132,7 +133,8 @@
                     <TextBlock Grid.Row="3"
                                Margin="10,10,10,4"
                                Text="{DynamicResource ImportTask_TaskName}" />
-                    <TextBox Grid.Row="4"
+                    <TextBox x:Name="tbxTaskName"
+                             Grid.Row="4"
                              Width="auto"
                              Height="auto"
                              MinWidth="300"
@@ -182,10 +184,26 @@
                                 Orientation="Horizontal">
                         <Button Margin="10,0"
                                 Command="{Binding ImportTaskCommand}"
-                                Content="Import"
+                                Content="{DynamicResource ImportTask_Import}"
                                 FontSize="15"
-                                IsDefault="False"
-                                Style="{StaticResource PlainOutlinedButton}" />
+                                IsDefault="False">
+                            <Button.Style>
+                                <Style BasedOn="{StaticResource PlainOutlinedButton}"
+                                       TargetType="Button">
+                                    <Setter Property="IsEnabled" Value="True" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=tbxFileName, Path=Text.Length, Mode=OneWay}"
+                                                     Value="0">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=tbxTaskName, Path=Text.Length, Mode=OneWay}"
+                                                     Value="0">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                         <Button Margin="10,0"
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                                 Content="{DynamicResource Button_Cancel}"
