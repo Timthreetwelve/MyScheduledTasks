@@ -27,7 +27,7 @@
 
 ### My Scheduled Task is now Multilingual!
 
-#### My Scheduled Tasks rus on .NET 8
+#### My Scheduled Tasks runs on .NET 8
 
 #### Features
 
