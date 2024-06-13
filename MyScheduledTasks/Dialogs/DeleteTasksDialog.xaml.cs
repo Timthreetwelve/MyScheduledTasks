@@ -7,7 +7,7 @@ namespace MyScheduledTasks.Dialogs
     /// </summary>
     public partial class DeleteTasksDialog : UserControl
     {
-        public DataGrid TasksGrid { get; set; } = new();
+        public DataGrid TasksGrid { get; set; }
         public DeleteTasksDialog(DataGrid grid)
         {
             InitializeComponent();
