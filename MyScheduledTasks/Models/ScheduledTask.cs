@@ -67,7 +67,6 @@ public partial class ScheduledTask : ObservableObject
 
     #region Observable collection
     public static ObservableCollection<ScheduledTask> TaskList { get; set; } = [];
-    //public static BindingList<ScheduledTask> TaskList { get; set; } = [];
     #endregion Observable collection
 
     #region Properties
