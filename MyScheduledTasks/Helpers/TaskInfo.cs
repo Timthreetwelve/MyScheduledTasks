@@ -12,8 +12,6 @@ internal static class TaskInfo
     /// <returns>Scheduled task object as Task</returns>
     public static Task GetTaskInfo(string name)
     {
-        //using TaskService ts = new();
-
         using TaskService ts = TaskService.Instance;
 
         return ts.GetTask(name);
