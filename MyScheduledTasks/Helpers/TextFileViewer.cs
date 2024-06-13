@@ -48,8 +48,7 @@ public static class TextFileViewer
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Error);
 #endif
-                _log.Error($"* Unable to open {textFile}");
-                _log.Error($"* {ex.Message}");
+                _log.Error(ex, $"Unable to open {textFile}");
             }
         }
         catch (Exception ex)
@@ -61,8 +60,7 @@ public static class TextFileViewer
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
 #endif
-            _log.Error($"* Unable to open {textFile}");
-            _log.Error($"* {ex.Message}");
+            _log.Error(ex, $"Unable to open {textFile}");
         }
     }
     #endregion Text file viewer
