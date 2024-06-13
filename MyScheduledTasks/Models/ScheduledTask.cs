@@ -154,27 +154,18 @@ public partial class ScheduledTask : ObservableObject
     {
         get
         {
-            switch (TaskResult)
+            return TaskResult switch
             {
-                case null:
-                    return GetStringResource("TaskResult_Null");           //Null
-                case 0:
-                    return GetStringResource("TaskResult_OK");             //The operation completed successfully
-                case 0x41300:
-                    return GetStringResource("TaskResult_ReadyToRun");     //Task is ready to run at its next scheduled time
-                case 0x41301:
-                    return GetStringResource("TaskResult_Running");        //The task is currently running
-                case 0x41302:
-                    return GetStringResource("TaskResult_Disabled");       //The task has been disabled
-                case 0x41303:
-                    return GetStringResource("TaskResult_NotYetRun");      //The task has not yet run
-                case 0x41306:
-                    return GetStringResource("TaskResult_Terminated");     //The last run of the task was terminated by the user
-                case 0x80070002:
-                    return GetStringResource("TaskResult_FileNotFound");   //File not found
-                default:
-                    return GetStringResource("TaskResult_NonZero");        //Other non-zero
-            }
+                null => GetStringResource("TaskResult_Null"),               //Null
+                0 => GetStringResource("TaskResult_OK"),                    //The operation completed successfully
+                0x41300 => GetStringResource("TaskResult_ReadyToRun"),      //Task is ready to run at its next scheduled time
+                0x41301 => GetStringResource("TaskResult_Running"),         //The task is currently running
+                0x41302 => GetStringResource("TaskResult_Disabled"),        //The task has been disabled
+                0x41303 => GetStringResource("TaskResult_NotYetRun"),       //The task has not yet run
+                0x41306 => GetStringResource("TaskResult_Terminated"),      //The last run of the task was terminated by the user
+                0x80070002 => GetStringResource("TaskResult_FileNotFound"), //File not found
+                _ => GetStringResource("TaskResult_NonZero"),               //Other non-zero
+            };
         }
     }
 
