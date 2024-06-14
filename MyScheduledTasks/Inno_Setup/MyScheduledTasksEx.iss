@@ -13,11 +13,11 @@
 ;----------------------------------------------------------------------
 #include "D:\Temp\PubSetup.Temp.iss"
 
-#define BaseDir              "D:\Visual Studio\Source\Prod\MyScheduledTasks\MyScheduledTasks"
+#define BaseDir              "V:\Source\Repos\MyScheduledTasks\MyScheduledTasks"
 #define MySourceDir          BaseDir + PublishFolder
 #define MySetupIcon          BaseDir + "\Images\MST.ico"
 #define MyOutputDir          "D:\InnoSetup\Output"
-#define MyLargeImage         "D:\InnoSetup\Images\WizardImage.bmp"
+#define MyLargeImage         "D:\InnoSetup\Images\WizardImageMST.bmp"
 #define MySmallImage         "D:\InnoSetup\Images\WizardSmallImage.bmp"
 
 #define MyAppID              "{C55AC0AD-527B-45DD-ABCF-AC7F4E405A46}"
@@ -90,6 +90,7 @@ SetupIconFile={#MySetupIcon}
 SetupLogging=yes
 SolidCompression=no
 SourceDir={#MySourceDir}
+RestartApplications=False
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
