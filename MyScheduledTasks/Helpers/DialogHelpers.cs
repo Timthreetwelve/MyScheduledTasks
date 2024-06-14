@@ -8,7 +8,7 @@ internal static class DialogHelpers
     /// <summary>
     /// Shows the Import Tasks dialog.
     /// </summary>
-    internal static async void ShowImportTaskDialog()
+    internal static async System.Threading.Tasks.Task ShowImportTaskDialog()
     {
         MainWindowUIHelpers.MainWindowNotAllowedPointer();
         ImportTaskDialog importDialog = new();
@@ -21,7 +21,7 @@ internal static class DialogHelpers
     /// <summary>
     /// Shows the Delete Tasks dialog.
     /// </summary>
-    internal static async void ShowDeleteTasksDialog(DataGrid grid)
+    internal static async System.Threading.Tasks.Task ShowDeleteTasksDialog(DataGrid grid)
     {
         MainWindowUIHelpers.MainWindowNotAllowedPointer();
         DeleteTasksDialog deleteDialog = new(grid);
