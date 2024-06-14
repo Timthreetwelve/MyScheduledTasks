@@ -10,10 +10,10 @@ internal static class DialogHelpers
     /// </summary>
     internal static async System.Threading.Tasks.Task ShowImportTaskDialog()
     {
-        MainWindowUIHelpers.MainWindowNotAllowedPointer();
+        MainWindowHelpers.MainWindowNotAllowedPointer();
         ImportTaskDialog importDialog = new();
         _ = await DialogHost.Show(importDialog, "MainDialogHost");
-        MainWindowUIHelpers.MainWindowNormalPointer();
+        MainWindowHelpers.MainWindowNormalPointer();
     }
     #endregion Import dialog
 
@@ -23,10 +23,10 @@ internal static class DialogHelpers
     /// </summary>
     internal static async System.Threading.Tasks.Task ShowDeleteTasksDialog(DataGrid grid)
     {
-        MainWindowUIHelpers.MainWindowNotAllowedPointer();
+        MainWindowHelpers.MainWindowNotAllowedPointer();
         DeleteTasksDialog deleteDialog = new(grid);
         _ = await DialogHost.Show(deleteDialog, "MainDialogHost");
-        MainWindowUIHelpers.MainWindowNormalPointer();
+        MainWindowHelpers.MainWindowNormalPointer();
     }
     #endregion Delete dialog
 
@@ -37,10 +37,10 @@ internal static class DialogHelpers
     /// <param name="task">task to edit note property</param>
     internal static async System.Threading.Tasks.Task ShowEditNoteDialog(ScheduledTask task)
     {
-        MainWindowUIHelpers.MainWindowNotAllowedPointer();
+        MainWindowHelpers.MainWindowNotAllowedPointer();
         EditNote en = new(task);
         _ = await DialogHost.Show(en, "MainDialogHost");
-        MainWindowUIHelpers.MainWindowNormalPointer();
+        MainWindowHelpers.MainWindowNormalPointer();
     }
     #endregion Edit note dialog
 }
