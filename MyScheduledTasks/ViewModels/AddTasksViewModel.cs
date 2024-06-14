@@ -4,6 +4,10 @@ namespace MyScheduledTasks.ViewModels;
 
 internal partial class AddTasksViewModel
 {
+    #region Private field
+    private static int _itemsAdded;
+    #endregion Private field
+
     #region Add selected items to TaskList
     /// <summary>
     /// Add all selected items
@@ -13,18 +17,15 @@ internal partial class AddTasksViewModel
     {
         if (grid.SelectedItems.Count > 0)
         {
-            int itemsAdded = 0;
+            _itemsAdded = 0;
             foreach (AllTasks item in grid.SelectedItems)
             {
-                if (AddToMyTasks(item))
-                {
-                    itemsAdded++;
-                }
+                AddToMyTasks(item);
             }
-            if (itemsAdded > 0)
+            if (_itemsAdded > 0)
             {
-                _log.Info($"{itemsAdded} task(s) added");
-                string msg = string.Format(GetStringResource("AddTasks_TasksAdded"), itemsAdded);
+                _log.Info($"{_itemsAdded} task(s) added");
+                string msg = string.Format(GetStringResource("AddTasks_TasksAdded"), _itemsAdded);
                 SnackbarMsg.QueueMessage(msg, 3000);
                 TaskFileHelpers.WriteTasksToFile(true);
             }
@@ -71,6 +72,7 @@ internal partial class AddTasksViewModel
         MyTasks.MyTasksCollection.Add(newTask);
 
         _log.Info($"Added: \"{task.Path}\"");
+        _itemsAdded++;
         return true;
     }
     #endregion Add a single item
