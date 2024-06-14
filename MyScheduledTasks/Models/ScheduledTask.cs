@@ -141,7 +141,7 @@ public partial class ScheduledTask : ObservableObject
 
     public bool HighestPrivileges => TaskRunLevel != 0;
 
-    public DateTime? LastRun => LastRunRaw == null || LastRunRaw == DateTime.MinValue || LastRunRaw == new DateTime(1999, 11, 30) ? null : LastRunRaw;
+    public DateTime? LastRun => LastRunRaw == null || LastRunRaw == DateTime.MinValue || LastRunRaw == new DateTime(1999, 11, 30, 0, 0, 0, DateTimeKind.Local) ? null : LastRunRaw;
 
     public DateTime? NextRun => NextRunRaw == DateTime.MinValue ? null : NextRunRaw;
 
