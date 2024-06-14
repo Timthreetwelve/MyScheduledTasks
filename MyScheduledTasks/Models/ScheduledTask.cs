@@ -61,7 +61,7 @@ public partial class ScheduledTask : ObservableObject
 
             return scheduledTask;
         }
-        return null;
+        return null!;
     }
     #endregion Build a ScheduledTask object
 
@@ -83,7 +83,7 @@ public partial class ScheduledTask : ObservableObject
     private DateTime? _nextRunRaw;
 
     [ObservableProperty]
-    private string _priority;
+    private string? _priority;
 
     [ObservableProperty]
     private bool _startASAP;
@@ -92,34 +92,34 @@ public partial class ScheduledTask : ObservableObject
     private bool _startOnAC;
 
     [ObservableProperty]
-    private string _taskAccount;
+    private string? _taskAccount;
 
     [ObservableProperty]
-    private string _taskActions;
+    private string? _taskActions;
 
     [ObservableProperty]
-    private string _taskAuthor;
+    private string? _taskAuthor;
 
     [ObservableProperty]
     private DateTime? _taskCreatedRaw;
 
     [ObservableProperty]
-    private string _taskDescription;
+    private string? _taskDescription;
 
     [ObservableProperty]
-    private string _taskFolder;
+    private string? _taskFolder;
 
     [ObservableProperty]
-    private string _timeLimit;
+    private string? _timeLimit;
 
     [ObservableProperty]
     private int _taskMissedRuns;
 
     [ObservableProperty]
-    private string _taskName;
+    private string? _taskName;
 
     [ObservableProperty]
-    private string _taskPath;
+    private string? _taskPath;
 
     [ObservableProperty]
     private uint? _taskResult;
@@ -131,10 +131,10 @@ public partial class ScheduledTask : ObservableObject
     private bool _taskRunLoggedOn;
 
     [ObservableProperty]
-    private string _taskStatus;
+    private string? _taskStatus;
 
     [ObservableProperty]
-    private string _taskTriggers;
+    private string? _taskTriggers;
 
     [ObservableProperty]
     private bool _wakeToRun;
@@ -168,10 +168,10 @@ public partial class ScheduledTask : ObservableObject
         }
     }
 
-    private string _taskNote;
+    private string? _taskNote;
     public string TaskNote
     {
-        get => _taskNote;
+        get => _taskNote!;
         set
         {
             _taskNote = value;

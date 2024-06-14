@@ -22,7 +22,7 @@ internal static class TaskFileHelpers
     #endregion JSON serializer options
 
     #region MainWindow Instance
-    private static readonly MainWindow _mainWindow = Application.Current.MainWindow as MainWindow;
+    private static readonly MainWindow? _mainWindow = Application.Current.MainWindow as MainWindow;
     #endregion MainWindow Instance
 
     #region Read the tasks JSON file
@@ -40,7 +40,7 @@ internal static class TaskFileHelpers
         try
         {
             string json = File.ReadAllText(TasksFile);
-            MyTasks.MyTasksCollection = JsonSerializer.Deserialize<ObservableCollection<MyTasks>>(json);
+            MyTasks.MyTasksCollection = JsonSerializer.Deserialize<ObservableCollection<MyTasks>>(json)!;
             _log.Info($"Read {MyTasks.MyTasksCollection.Count} items from {TasksFile} ");
         }
         // Can't really do much if the file is not readable
@@ -54,7 +54,7 @@ internal static class TaskFileHelpers
                                 ButtonType.Ok,
                                 true,
                                 true,
-                                null,
+                                null!,
                                 true).ShowDialog();
 
             // Quit via Environment.Exit so that normal shutdown processing doesn't run
@@ -82,7 +82,7 @@ internal static class TaskFileHelpers
                                 ButtonType.Ok,
                                 true,
                                 true,
-                                null,
+                                null!,
                                 true).ShowDialog();
 
             // Quit via Environment.Exit so that normal shutdown processing doesn't run
@@ -102,7 +102,7 @@ internal static class TaskFileHelpers
         {
             string tasks = JsonSerializer.Serialize(MyTasks.MyTasksCollection, _options);
             File.WriteAllText(TasksFile, tasks);
-            _log.Info($"Saving {MyTasks.MyTasksCollection.Count} tasks to {TasksFile} ");
+            _log.Info($"Saving {MyTasks.MyTasksCollection!.Count} tasks to {TasksFile} ");
             if (!quiet)
             {
                 SnackbarMsg.QueueMessage(GetStringResource("MsgText_FileSaved"), 3000);
@@ -119,7 +119,7 @@ internal static class TaskFileHelpers
                                 ButtonType.Ok,
                                 true,
                                 true,
-                                _mainWindow,
+                                _mainWindow!,
                                 true).ShowDialog();
         }
     }
@@ -138,13 +138,13 @@ internal static class TaskFileHelpers
                                    ButtonType.YesNo,
                                    true,
                                    true,
-                                   _mainWindow,
+                                   _mainWindow!,
                                    false)
                                    .ShowDialog();
 
             if (MDCustMsgBox.CustResult == CustResultType.Yes)
             {
-                _mainWindow.NavigationListBox.SelectedValue = NavigationViewModel.FindNavPage(NavPage.AddTasks);
+                _mainWindow!.NavigationListBox.SelectedValue = NavigationViewModel.FindNavPage(NavPage.AddTasks);
             }
         }
     }

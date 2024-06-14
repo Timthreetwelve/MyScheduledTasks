@@ -40,6 +40,6 @@ public partial class MyTasks : ObservableObject
     #endregion Properties
 
     #region Observable collection
-    public static ObservableCollection<MyTasks> MyTasksCollection { get; set; }
+    public static ObservableCollection<MyTasks>? MyTasksCollection { get; set; }
     #endregion Observable collection
 }

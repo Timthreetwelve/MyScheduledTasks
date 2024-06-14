@@ -4,9 +4,9 @@ namespace MyScheduledTasks.Models;
 
 internal static class StatusBarItems
 {
-    public static string SbLeft { get; set; }
+    public static string? SbLeft { get; set; }
 
-    public static string SbRight { get; set; }
+    public static string? SbRight { get; set; }
 
-    public static string SbSelected { get; set; }
+    public static string? SbSelected { get; set; }
 }

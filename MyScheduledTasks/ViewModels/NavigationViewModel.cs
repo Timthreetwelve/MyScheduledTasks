@@ -10,25 +10,25 @@ internal partial class NavigationViewModel : ObservableObject
         if (CurrentViewModel == null)
         {
             NavigationItem main = FindNavPage(NavPage.Main);
-            CurrentViewModel = Activator.CreateInstance((Type)main.ViewModelType);
+            CurrentViewModel = Activator.CreateInstance((Type)main.ViewModelType!);
             PageTitle = main.PageTitle;
         }
     }
     #endregion Constructor
 
     #region MainWindow Instance
-    private static readonly MainWindow _mainWindow = Application.Current.MainWindow as MainWindow;
+    private static readonly MainWindow? _mainWindow = Application.Current.MainWindow as MainWindow;
     #endregion MainWindow Instance
 
     #region Properties
     [ObservableProperty]
-    private object _currentViewModel;
+    private object? _currentViewModel;
 
     [ObservableProperty]
-    private string _pageTitle;
+    private string? _pageTitle;
 
     [ObservableProperty]
-    private static NavigationItem _navItem;
+    private static NavigationItem? _navItem;
     #endregion Properties
 
     #region List of navigation items
@@ -76,7 +76,7 @@ internal partial class NavigationViewModel : ObservableObject
     #region Navigation Methods
     internal static NavigationItem FindNavPage(NavPage page)
     {
-        return NavigationViewModelTypes.Find(x => x.NavPage == page);
+        return NavigationViewModelTypes.Find(x => x.NavPage == page)!;
     }
     #endregion Navigation Methods
 
@@ -141,8 +141,8 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void ToggleDetails()
     {
-        UserSettings.Setting.ShowDetails = !UserSettings.Setting.ShowDetails;
-        MainPage.Instance.detailsRow.Height = !UserSettings.Setting.ShowDetails
+        UserSettings.Setting!.ShowDetails = !UserSettings.Setting.ShowDetails;
+        MainPage.Instance!.detailsRow.Height = !UserSettings.Setting.ShowDetails
             ? new GridLength(1)
             : new GridLength(UserSettings.Setting.DetailsHeight);
     }
@@ -152,7 +152,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void RemoveSort()
     {
-        MainPage.Instance.ClearColumnSort();
+        MainPage.Instance!.ClearColumnSort();
     }
     #endregion Remove column sort
 
@@ -201,9 +201,9 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static async System.Threading.Tasks.Task EditNote()
     {
-        DataGrid grid = MainPage.Instance.DataGridTasks;
-        ScheduledTask row = grid.SelectedItem as ScheduledTask;
-        await DialogHelpers.ShowEditNoteDialog(row);
+        DataGrid grid = MainPage.Instance!.DataGridTasks;
+        ScheduledTask? row = grid.SelectedItem as ScheduledTask;
+        await DialogHelpers.ShowEditNoteDialog(row!);
         System.Threading.Tasks.Task.Delay(100).Wait();
         grid.Items.Refresh();
     }
@@ -213,7 +213,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void AddTasks()
     {
-        _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.AddTasks);
+        _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.AddTasks);
     }
     #endregion Add tasks
 
@@ -221,7 +221,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void RemoveTasks()
     {
-        TaskHelpers.RemoveTasks(MainPage.Instance.DataGridTasks);
+        TaskHelpers.RemoveTasks(MainPage.Instance!.DataGridTasks);
     }
     #endregion Remove tasks
 
@@ -237,7 +237,7 @@ internal partial class NavigationViewModel : ObservableObject
                             ButtonType.YesNo,
                             false,
                             true,
-                            _mainWindow,
+                            _mainWindow!,
                             false);
         _ = mbox.ShowDialog();
 
@@ -288,7 +288,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void RefreshGrid()
     {
-        int index = MainPage.Instance.DataGridTasks.SelectedIndex;
+        int index = MainPage.Instance!.DataGridTasks.SelectedIndex;
         MainWindowUIHelpers.MainWindowWaitPointer();
         MainViewModel.LoadData();
         MainWindowUIHelpers.MainWindowNormalPointer();
@@ -300,7 +300,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void ExportTasks()
     {
-        TaskHelpers.ExportTask(MainPage.Instance.DataGridTasks);
+        TaskHelpers.ExportTask(MainPage.Instance!.DataGridTasks);
     }
     #endregion Export
 
@@ -328,7 +328,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void EnableTasks()
     {
-        TaskHelpers.EnableTask(MainPage.Instance.DataGridTasks);
+        TaskHelpers.EnableTask(MainPage.Instance!.DataGridTasks);
         RefreshGrid();
     }
     #endregion Enable Tasks
@@ -337,7 +337,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void DisableTasks()
     {
-        TaskHelpers.DisableTask(MainPage.Instance.DataGridTasks);
+        TaskHelpers.DisableTask(MainPage.Instance!.DataGridTasks);
         RefreshGrid();
     }
     #endregion Disable Tasks
@@ -346,13 +346,13 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void ShowDeleteTasks()
     {
-        _ = DialogHelpers.ShowDeleteTasksDialog(MainPage.Instance.DataGridTasks);
+        _ = DialogHelpers.ShowDeleteTasksDialog(MainPage.Instance!.DataGridTasks);
     }
 
     [RelayCommand]
     private static void DeleteTasks()
     {
-        TaskHelpers.DeleteTasks(MainPage.Instance.DataGridTasks);
+        TaskHelpers.DeleteTasks(MainPage.Instance!.DataGridTasks);
     }
     #endregion
 
@@ -360,7 +360,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void RunTasks()
     {
-        TaskHelpers.RunTask(MainPage.Instance.DataGridTasks);
+        TaskHelpers.RunTask(MainPage.Instance!.DataGridTasks);
         System.Threading.Tasks.Task.Delay(100).Wait();
         RefreshGrid();
     }
@@ -370,11 +370,11 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void ChooseColumns()
     {
-        _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
-        TempSettings.Setting.AppExpanderOpen = false;
-        TempSettings.Setting.ColumnsExpanderOpen = true;
-        TempSettings.Setting.LangExpanderOpen = false;
-        TempSettings.Setting.UIExpanderOpen = false;
+        _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
+        TempSettings.Setting!.AppExpanderOpen = false;
+        TempSettings.Setting!.ColumnsExpanderOpen = true;
+        TempSettings.Setting!.LangExpanderOpen = false;
+        TempSettings.Setting!.UIExpanderOpen = false;
     }
     #endregion Open Choose Columns in Settings
 
@@ -390,7 +390,7 @@ internal partial class NavigationViewModel : ObservableObject
         {
             case Key.F1:
                 {
-                    _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.About);
+                    _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.About);
                     break;
                 }
             case Key.F5:
@@ -400,13 +400,13 @@ internal partial class NavigationViewModel : ObservableObject
                 {
                     if (CurrentViewModel is MainViewModel)
                     {
-                        MainPage.Instance.DataGridTasks.SelectedIndex = -1;
+                        MainPage.Instance!.DataGridTasks.SelectedIndex = -1;
                         Keyboard.ClearFocus();
                         e.Handled = true;
                     }
                     if (CurrentViewModel is AddTasksViewModel)
                     {
-                        Views.AddTasks.Instance.AllTasksGrid.SelectedIndex = -1;
+                        Views.AddTasks.Instance!.AllTasksGrid.SelectedIndex = -1;
                         e.Handled = true;
                     }
                     if ((CurrentViewModel is SettingsViewModel) || (CurrentViewModel is AboutViewModel))
@@ -426,20 +426,20 @@ internal partial class NavigationViewModel : ObservableObject
             {
                 case Key.OemComma:
                     {
-                        _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
+                        _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
                         break;
                     }
                 case Key.D:
                     {
-                        UserSettings.Setting.ShowDetails = !UserSettings.Setting.ShowDetails;
-                        MainPage.Instance.detailsRow.Height = !UserSettings.Setting.ShowDetails
+                        UserSettings.Setting!.ShowDetails = !UserSettings.Setting.ShowDetails;
+                        MainPage.Instance!.detailsRow.Height = !UserSettings.Setting.ShowDetails
                             ? new GridLength(1)
                             : new GridLength(UserSettings.Setting.DetailsHeight);
                         break;
                     }
                 case Key.L:
                     {
-                        TaskHelpers.ListMyTasks(MainPage.Instance.DataGridTasks);
+                        TaskHelpers.ListMyTasks(MainPage.Instance!.DataGridTasks);
                         break;
                     }
                 case Key.R:
@@ -454,14 +454,14 @@ internal partial class NavigationViewModel : ObservableObject
                     }
                 case Key.T:
                     {
-                        _mainWindow.NavigationListBox.SelectedValue = FindNavPage(NavPage.Main);
+                        _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.Main);
                         break;
                     }
                 case Key.Add:
                 case Key.OemPlus:
                     {
                         MainWindowUIHelpers.EverythingLarger();
-                        string size = EnumDescConverter.GetEnumDescription(UserSettings.Setting.UISize);
+                        string size = EnumDescConverter.GetEnumDescription(UserSettings.Setting!.UISize);
                         string message = string.Format(GetStringResource("MsgText_UISizeSet"), size);
                         SnackbarMsg.ClearAndQueueMessage(message, 2000);
                         break;
@@ -470,7 +470,7 @@ internal partial class NavigationViewModel : ObservableObject
                 case Key.OemMinus:
                     {
                         MainWindowUIHelpers.EverythingSmaller();
-                        string size = EnumDescConverter.GetEnumDescription(UserSettings.Setting.UISize);
+                        string size = EnumDescConverter.GetEnumDescription(UserSettings.Setting!.UISize);
                         string message = string.Format(GetStringResource("MsgText_UISizeSet"), size);
                         SnackbarMsg.ClearAndQueueMessage(message, 2000);
                         break;
@@ -484,7 +484,7 @@ internal partial class NavigationViewModel : ObservableObject
         {
             if (e.Key == Key.T)
             {
-                switch (UserSettings.Setting.UITheme)
+                switch (UserSettings.Setting!.UITheme)
                 {
                     case ThemeType.Light:
                         UserSettings.Setting.UITheme = ThemeType.Dark;
@@ -505,7 +505,7 @@ internal partial class NavigationViewModel : ObservableObject
             }
             if (e.Key == Key.C)
             {
-                if (UserSettings.Setting.PrimaryColor >= AccentColor.White)
+                if (UserSettings.Setting!.PrimaryColor >= AccentColor.White)
                 {
                     UserSettings.Setting.PrimaryColor = AccentColor.Red;
                 }
@@ -527,7 +527,7 @@ internal partial class NavigationViewModel : ObservableObject
             }
             if (e.Key == Key.S)
             {
-                TextFileViewer.ViewTextFile(ConfigHelpers.SettingsFileName);
+                TextFileViewer.ViewTextFile(ConfigHelpers.SettingsFileName!);
             }
         }
         #endregion Keys with Ctrl and Shift
@@ -544,14 +544,14 @@ internal partial class NavigationViewModel : ObservableObject
         if (e.OriginalSource is TextBlock text)
         {
             // Skip the navigation menu
-            ListBox lb = MainWindowUIHelpers.FindParent<ListBox>(text);
+            ListBox lb = MainWindowHelpers.FindParent<ListBox>(text);
             if (lb?.Name == "NavigationListBox")
             {
                 return;
             }
 
             // Skip the DataGrid of tasks since it has a context menu
-            DataGrid dg = MainWindowUIHelpers.FindParent<DataGrid>(text);
+            DataGrid dg = MainWindowHelpers.FindParent<DataGrid>(text);
             if (dg?.Name == "DataGridTasks")
             {
                 return;

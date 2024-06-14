@@ -22,7 +22,7 @@ public partial class ImportTaskDialog : UserControl
         bool? result = dlgOpen.ShowDialog();
         if (result == true)
         {
-            TempSettings.Setting.ImportXMLFile = dlgOpen.FileName;
+            TempSettings.Setting!.ImportXMLFile = dlgOpen.FileName;
         }
     }
 }

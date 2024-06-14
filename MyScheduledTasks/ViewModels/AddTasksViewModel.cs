@@ -43,7 +43,7 @@ internal partial class AddTasksViewModel
     /// <returns>True if the task was added. Otherwise returns false.</returns>
     internal static bool AddToMyTasks(AllTasks item)
     {
-        Task task = GetTaskInfo(item.TaskPath);
+        Task task = GetTaskInfo(item.TaskPath!);
         if (task == null)
         {
             string msg = string.Format(GetStringResource("AddTasks_NotFound"), item.TaskName);
@@ -53,23 +53,23 @@ internal partial class AddTasksViewModel
                     ButtonType.Ok,
                     false,
                     true,
-                    null,
+                    null!,
                     true).ShowDialog();
             return false;
         }
         else if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
         {
-            int pos = ScheduledTask.TaskList.IndexOf(ScheduledTask.TaskList.FirstOrDefault(x => x.TaskPath == task.Path));
+            int pos = ScheduledTask.TaskList.IndexOf(ScheduledTask.TaskList.FirstOrDefault(x => x.TaskPath == task.Path)!);
             _log.Warn($"{task.Path} is already present in the list in position {pos + 1}");
             string msg = string.Format(GetStringResource("AddTasks_TaskAlreadyAdded"), task.Path);
             SnackbarMsg.QueueMessage(msg, 3000);
             return false;
         }
-        ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, null);
+        ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, null!);
         ScheduledTask.TaskList.Add(schedTask);
 
         MyTasks newTask = new(task.Path, false, string.Empty);
-        MyTasks.MyTasksCollection.Add(newTask);
+        MyTasks.MyTasksCollection!.Add(newTask);
 
         _log.Info($"Added: \"{task.Path}\"");
         _itemsAdded++;
@@ -84,7 +84,7 @@ internal partial class AddTasksViewModel
     /// <param name="grid">Name of the DataGrid</param>
     internal static void DetermineSource(DataGrid grid)
     {
-        if (UserSettings.Setting.HideMicrosoftFolder)
+        if (UserSettings.Setting!.HideMicrosoftFolder)
         {
             grid.ItemsSource = AllTasks.Non_MS_TasksCollection;
         }
@@ -124,12 +124,12 @@ internal partial class AddTasksViewModel
     #endregion Relay commands
 
     #region Static property and change event handler for filter text
-    public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+    public static event EventHandler<PropertyChangedEventArgs>? StaticPropertyChanged;
 
-    private static string _filterText;
+    private static string? _filterText;
     public static string FilterText
     {
-        get => _filterText;
+        get => _filterText!;
         set
         {
             if (_filterText != value)

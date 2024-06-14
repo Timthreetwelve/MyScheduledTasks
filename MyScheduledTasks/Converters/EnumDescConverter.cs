@@ -6,12 +6,12 @@ namespace MyScheduledTasks.Converters;
 /// </summary>
 internal class EnumDescConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         Enum myEnum = (Enum)value;
         if (myEnum == null)
         {
-            return null;
+            return null!;
         }
         string description = GetEnumDescription(myEnum);
         if (!string.IsNullOrEmpty(description))
@@ -27,13 +27,13 @@ internal class EnumDescConverter : IValueConverter
         {
             return string.Empty;
         }
-        FieldInfo field = enumObj.GetType().GetField(enumObj.ToString());
-        object[] attrArray = field.GetCustomAttributes(false);
+        FieldInfo? field = enumObj.GetType().GetField(enumObj.ToString());
+        object[] attrArray = field!.GetCustomAttributes(false);
 
         if (attrArray.Length > 0)
         {
-            DescriptionAttribute attribute = attrArray[0] as DescriptionAttribute;
-            return attribute.Description;
+            DescriptionAttribute? attribute = attrArray[0] as DescriptionAttribute;
+            return attribute!.Description;
         }
         else
         {

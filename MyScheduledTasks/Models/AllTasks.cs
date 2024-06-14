@@ -8,11 +8,11 @@ internal partial class AllTasks : ObservableObject
     public static ObservableCollection<AllTasks> Non_MS_TasksCollection { get; set; } = [];
 
     [ObservableProperty]
-    private string _taskPath;
+    private string? _taskPath;
 
     [ObservableProperty]
-    private string _taskName;
+    private string? _taskName;
 
     [ObservableProperty]
-    private string _taskFolder;
+    private string? _taskFolder;
 }

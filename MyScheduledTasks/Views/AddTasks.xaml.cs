@@ -4,7 +4,7 @@ namespace MyScheduledTasks.Views;
 
 public partial class AddTasks : UserControl
 {
-    public static AddTasks Instance { get; private set; }
+    public static AddTasks? Instance { get; private set; }
 
     public AddTasks()
     {
@@ -13,7 +13,7 @@ public partial class AddTasks : UserControl
         Instance = this;
 
         AddTasksViewModel.HideTasks(AllTasksGrid);
-        AddTasksViewModel.StaticPropertyChanged += AddTasksViewModel_StaticPropertyChanged;
+        AddTasksViewModel.StaticPropertyChanged += AddTasksViewModel_StaticPropertyChanged!;
     }
 
     private void AddTasksViewModel_StaticPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -36,16 +36,16 @@ public partial class AddTasks : UserControl
             filterText = filterText[1..].TrimStart(' ');
             AllTasksGrid.Items.Filter = o =>
             {
-                AllTasks tasks = o as AllTasks;
-                return !tasks.TaskName.Contains(filterText, StringComparison.CurrentCultureIgnoreCase);
+                AllTasks? tasks = o as AllTasks;
+                return !tasks!.TaskName!.Contains(filterText, StringComparison.CurrentCultureIgnoreCase);
             };
         }
         else
         {
             AllTasksGrid.Items.Filter = o =>
             {
-                AllTasks tasks = o as AllTasks;
-                return tasks.TaskName.Contains(filterText, StringComparison.CurrentCultureIgnoreCase);
+                AllTasks? tasks = o as AllTasks;
+                return tasks!.TaskName!.Contains(filterText!, StringComparison.CurrentCultureIgnoreCase);
             };
         }
 

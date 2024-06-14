@@ -23,7 +23,7 @@ internal static class MainWindowHelpers
     #endregion Startup
 
     #region MainWindow Instance
-    private static readonly MainWindow _mainWindow = Application.Current.MainWindow as MainWindow;
+    private static readonly MainWindow? _mainWindow = Application.Current.MainWindow as MainWindow;
     #endregion MainWindow Instance
 
     #region StopWatch
@@ -37,14 +37,35 @@ internal static class MainWindowHelpers
     public static void SetWindowPosition()
     {
         Window mainWindow = Application.Current.MainWindow;
-        mainWindow.Height = UserSettings.Setting.WindowHeight;
-        mainWindow.Left = UserSettings.Setting.WindowLeft;
-        mainWindow.Top = UserSettings.Setting.WindowTop;
-        mainWindow.Width = UserSettings.Setting.WindowWidth;
+        mainWindow.Height = UserSettings.Setting!.WindowHeight;
+        mainWindow.Left = UserSettings.Setting!.WindowLeft;
+        mainWindow.Top = UserSettings.Setting!.WindowTop;
+        mainWindow.Width = UserSettings.Setting!.WindowWidth;
 
         if (UserSettings.Setting.StartCentered)
         {
             mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        }
+
+        // The following will ensure that the window appears on screen
+        if (mainWindow.Top < SystemParameters.VirtualScreenTop)
+        {
+            mainWindow.Top = SystemParameters.VirtualScreenTop;
+        }
+
+        if (mainWindow.Left < SystemParameters.VirtualScreenLeft)
+        {
+            mainWindow.Left = SystemParameters.VirtualScreenLeft;
+        }
+
+        if (mainWindow.Left + mainWindow.Width > SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth)
+        {
+            mainWindow.Left = SystemParameters.VirtualScreenWidth + SystemParameters.VirtualScreenLeft - mainWindow.Width;
+        }
+
+        if (mainWindow.Top + mainWindow.Height > SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight)
+        {
+            mainWindow.Top = SystemParameters.VirtualScreenHeight + SystemParameters.VirtualScreenTop - mainWindow.Height;
         }
     }
 
@@ -54,26 +75,12 @@ internal static class MainWindowHelpers
     public static void SaveWindowPosition()
     {
         Window mainWindow = Application.Current.MainWindow;
-        UserSettings.Setting.WindowHeight = Math.Floor(mainWindow.Height);
-        UserSettings.Setting.WindowLeft = Math.Floor(mainWindow.Left);
-        UserSettings.Setting.WindowTop = Math.Floor(mainWindow.Top);
-        UserSettings.Setting.WindowWidth = Math.Floor(mainWindow.Width);
+        UserSettings.Setting!.WindowHeight = Math.Floor(mainWindow.Height);
+        UserSettings.Setting!.WindowLeft = Math.Floor(mainWindow.Left);
+        UserSettings.Setting!.WindowTop = Math.Floor(mainWindow.Top);
+        UserSettings.Setting!.WindowWidth = Math.Floor(mainWindow.Width);
     }
     #endregion Set and Save MainWindow position and size
-
-    #region Get property value
-    /// <summary>
-    /// Gets the value of the property
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    /// <returns>An object containing the value of the property</returns>
-    public static object GetPropertyValue(object sender, PropertyChangedEventArgs e)
-    {
-        PropertyInfo prop = sender.GetType().GetProperty(e.PropertyName);
-        return prop?.GetValue(sender, null);
-    }
-    #endregion Get property value
 
     #region Window Title
     /// <summary>
@@ -98,14 +105,14 @@ internal static class MainWindowHelpers
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
         // Settings change events
-        UserSettings.Setting.PropertyChanged += SettingChange.UserSettingChanged;
-        TempSettings.Setting.PropertyChanged += SettingChange.TempSettingChanged;
+        UserSettings.Setting!.PropertyChanged += SettingChange.UserSettingChanged!;
+        TempSettings.Setting!.PropertyChanged += SettingChange.TempSettingChanged!;
 
         // Window closing event
-        _mainWindow.Closing += MainWindow_Closing;
+        _mainWindow!.Closing += MainWindow_Closing!;
 
         // Window content rendered event
-        _mainWindow.ContentRendered += ContentRendered;
+        _mainWindow.ContentRendered += ContentRendered!;
     }
     #endregion Event handlers
 
@@ -125,7 +132,11 @@ internal static class MainWindowHelpers
         }
 
         // Clear any remaining messages
-        _mainWindow.SnackBar1.MessageQueue.Clear();
+        Snackbar snackbar = FindChild<Snackbar>(Application.Current.MainWindow, "SnackBar1");
+        if (snackbar is not null)
+        {
+            snackbar.MessageQueue!.Clear();
+        }
 
         // Stop the _stopwatch and record elapsed time
         _stopwatch.Stop();
@@ -220,7 +231,7 @@ internal static class MainWindowHelpers
         {
             _log.Debug("Argument \"hide\" specified. Scheduled tasks will be checked but window will only be shown if needed.");
             // hide the window
-            _mainWindow.Visibility = Visibility.Hidden;
+            _mainWindow!.Visibility = Visibility.Hidden;
             bool showMainWindow = false;
 
             // Only write so log file when the window is hidden
@@ -237,7 +248,7 @@ internal static class MainWindowHelpers
             if (showMainWindow)
             {
                 _mainWindow.Visibility = Visibility.Visible;
-                if (UserSettings.Setting.Sound)
+                if (UserSettings.Setting!.Sound)
                 {
                     SystemSounds.Beep.Play();
                 }
@@ -250,4 +261,75 @@ internal static class MainWindowHelpers
         }
     }
     #endregion Process command line options
+
+    #region Find a child of a control
+    /// <summary>
+    /// Finds a Child of a given item in the visual tree.
+    /// </summary>
+    /// <param name="parent">A direct parent of the queried item.</param>
+    /// <typeparam name="T">The type of the queried item.</typeparam>
+    /// <param name="childName">x:Name or Name of child. </param>
+    /// <returns>The first child item that matches the submitted type parameter.</returns>
+    public static T FindChild<T>(DependencyObject parent, string childName)
+       where T : DependencyObject
+    {
+        // Confirm parent and childName are valid. 
+        if (parent == null)
+            return null!;
+
+        T foundChild = null!;
+
+        int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+        for (int i = 0; i < childrenCount; i++)
+        {
+            DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+
+            // If the child is not of the request child type child
+            if (child is not T)
+            {
+                // recursively drill down the tree
+                foundChild = FindChild<T>(child, childName);
+
+                // If the child is found, break so we do not overwrite the found child. 
+                if (foundChild != null)
+                    break;
+            }
+            else if (!string.IsNullOrEmpty(childName))
+            {
+                // If the child's name is set for search
+                if (child is FrameworkElement frameworkElement && frameworkElement.Name == childName)
+                {
+                    // if the child's name is of the request name
+                    foundChild = (T)child;
+                    break;
+                }
+            }
+            else
+            {
+                // child element found.
+                foundChild = (T)child;
+                break;
+            }
+        }
+        return foundChild!;
+    }
+    #endregion Find a child of a control
+
+    #region Find the parent of a control
+    public static T FindParent<T>(DependencyObject child) where T : DependencyObject
+    {
+        //get parent item
+        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+        //we've reached the end of the tree
+        if (parentObject == null)
+            return null!;
+
+        //check if the parent matches the type we're looking for
+        if (parentObject is T parent)
+            return parent;
+        else
+            return FindParent<T>(parentObject);
+    }
+    #endregion Find the parent of a control
 }

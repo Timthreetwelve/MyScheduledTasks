@@ -5,7 +5,7 @@ namespace MyScheduledTasks.Views;
 public partial class MainPage : UserControl
 {
     #region MainPage Instance
-    public static MainPage Instance { get; private set; }
+    public static MainPage? Instance { get; private set; }
     #endregion MainPage Instance
 
     #region Constructor
@@ -20,7 +20,7 @@ public partial class MainPage : UserControl
         NameScope.SetNameScope(DGContextMenu, NameScope.GetNameScope(this));
 
         // Details pane size
-        detailsRow.Height = !UserSettings.Setting.ShowDetails
+        detailsRow.Height = !UserSettings.Setting!.ShowDetails
             ? new GridLength(1)
             : new GridLength(UserSettings.Setting.DetailsHeight);
     }
@@ -45,7 +45,7 @@ public partial class MainPage : UserControl
     #region GridSplitter drag completed
     private void GridSplitter_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
     {
-        UserSettings.Setting.DetailsHeight = detailsRow.Height.Value;
+        UserSettings.Setting!.DetailsHeight = detailsRow.Height.Value;
     }
     #endregion GridSplitter drag completed
 

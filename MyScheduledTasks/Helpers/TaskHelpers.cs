@@ -5,7 +5,7 @@ namespace MyScheduledTasks.Helpers;
 internal static class TaskHelpers
 {
     #region MainWindow Instance
-    private static readonly MainWindow _mainWindow = Application.Current.MainWindow as MainWindow;
+    private static readonly MainWindow? _mainWindow = Application.Current.MainWindow as MainWindow;
     #endregion MainWindow Instance
 
     #region Get all tasks from Windows Task Scheduler
@@ -53,7 +53,7 @@ internal static class TaskHelpers
             _log.Debug($"TaskList: {item.TaskPath} {item.IsChecked} {item.TaskNote}");
         }
         _log.Debug("---------------------------------------------------------------");
-        foreach (MyTasks item in MyTasks.MyTasksCollection)
+        foreach (MyTasks item in MyTasks.MyTasksCollection!)
         {
             _log.Debug($"MyTasks: {item.TaskPath} {item.Alert} {item.TaskNote}");
         }
@@ -82,9 +82,9 @@ internal static class TaskHelpers
         {
             for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
             {
-                ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
-                _ = ScheduledTask.TaskList.Remove(task);
-                _log.Info($"Removed: \"{task.TaskName}\"");
+                ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
+                _ = ScheduledTask.TaskList.Remove(task!);
+                _log.Info($"Removed: \"{task!.TaskName}\"");
                 SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {task.TaskName}", 2000);
             }
         }
@@ -93,9 +93,9 @@ internal static class TaskHelpers
             int count = grid.SelectedItems.Count;
             for (int i = count - 1; i >= 0; i--)
             {
-                ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
-                _ = ScheduledTask.TaskList.Remove(task);
-                _log.Info($"Removed: \"{task.TaskPath}\"");
+                ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
+                _ = ScheduledTask.TaskList.Remove(task!);
+                _log.Info($"Removed: \"{task!.TaskPath}\"");
             }
             SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {count} {GetStringResource("MsgText_Tasks")}", 2000);
         }
@@ -111,7 +111,7 @@ internal static class TaskHelpers
     /// </summary>
     public static void UpdateMyTasksCollection()
     {
-        MyTasks.MyTasksCollection.Clear();
+        MyTasks.MyTasksCollection!.Clear();
         for (int i = 0; i < ScheduledTask.TaskList.Count; i++)
         {
             ScheduledTask item = ScheduledTask.TaskList[i];
@@ -139,9 +139,9 @@ internal static class TaskHelpers
 
         for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
         {
-            ScheduledTask row = grid.SelectedItems[i] as ScheduledTask;
+            ScheduledTask? row = grid.SelectedItems[i] as ScheduledTask;
             using TaskService ts = TaskService.Instance;
-            Task task = ts.GetTask(row.TaskPath);
+            using Task? task = ts.GetTask(row!.TaskPath);
 
             if (task != null)
             {
@@ -179,9 +179,9 @@ internal static class TaskHelpers
 
         for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
         {
-            ScheduledTask row = grid.SelectedItems[i] as ScheduledTask;
-            using TaskService ts = TaskService.Instance;
-            Task task = ts.GetTask(row.TaskPath);
+            ScheduledTask? row = grid.SelectedItems[i] as ScheduledTask;
+            using TaskService? ts = TaskService.Instance;
+            using Task? task = ts.GetTask(row!.TaskPath);
 
             if (task != null)
             {
@@ -220,9 +220,9 @@ internal static class TaskHelpers
 
         for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
         {
-            ScheduledTask row = grid.SelectedItems[i] as ScheduledTask;
+            ScheduledTask? row = grid.SelectedItems[i] as ScheduledTask;
             using TaskService ts = TaskService.Instance;
-            Task task = ts.GetTask(row.TaskPath);
+            using Task? task = ts.GetTask(row!.TaskPath);
 
             if (task != null)
             {
@@ -261,9 +261,9 @@ internal static class TaskHelpers
 
         for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
         {
-            ScheduledTask row = grid.SelectedItems[i] as ScheduledTask;
+            ScheduledTask? row = grid.SelectedItems[i] as ScheduledTask;
             using TaskService ts = TaskService.Instance;
-            Task task = ts.GetTask(row.TaskPath);
+            using Task? task = ts.GetTask(row!.TaskPath);
 
             if (task != null)
             {
@@ -304,7 +304,7 @@ internal static class TaskHelpers
     /// </summary>
     internal static void ImportTasks()
     {
-        if (TempSettings.Setting.ImportXMLFile.Contains('\"'))
+        if (TempSettings.Setting!.ImportXMLFile!.Contains('\"'))
         {
             TempSettings.Setting.ImportXMLFile = TempSettings.Setting.ImportXMLFile.Trim('\"');
         }
@@ -316,7 +316,7 @@ internal static class TaskHelpers
                 ButtonType.Ok,
                 false,
                 true,
-                _mainWindow,
+                _mainWindow!,
                 true);
             _ = mbox.ShowDialog();
             return;
@@ -329,7 +329,7 @@ internal static class TaskHelpers
                 ButtonType.Ok,
                 false,
                 true,
-                _mainWindow,
+                _mainWindow!,
                 true);
             _ = mbox.ShowDialog();
             return;
@@ -347,7 +347,7 @@ internal static class TaskHelpers
                 ButtonType.Ok,
                 false,
                 true,
-                _mainWindow,
+                _mainWindow!,
                 true);
             _ = mbox.ShowDialog();
             return;
@@ -378,7 +378,7 @@ internal static class TaskHelpers
                     ButtonType.Ok,
                     false,
                     true,
-                    _mainWindow,
+                    _mainWindow!,
                     false);
             _ = mbox.ShowDialog();
 
@@ -399,7 +399,7 @@ internal static class TaskHelpers
                     ButtonType.Ok,
                     false,
                     true,
-                    _mainWindow,
+                    _mainWindow!,
                     true);
             _ = mbox.ShowDialog();
         }
@@ -415,7 +415,7 @@ internal static class TaskHelpers
         ButtonType.Ok,
         false,
         true,
-        _mainWindow,
+        _mainWindow!,
         false);
         _ = mbox.ShowDialog();
     }
@@ -437,11 +437,11 @@ internal static class TaskHelpers
         bool deleted = false;
         for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
         {
-            ScheduledTask task = grid.SelectedItems[i] as ScheduledTask;
+            ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
             try
             {
                 using TaskService ts = TaskService.Instance;
-                Task taskToDelete = ts.GetTask(task.TaskPath);
+                Task taskToDelete = ts.GetTask(task!.TaskPath);
 
                 ts.RootFolder.DeleteTask(taskToDelete.Path, true);
                 deleted = true;
@@ -454,7 +454,7 @@ internal static class TaskHelpers
             catch (Exception ex)
             {
                 SystemSounds.Beep.Play();
-                string msg = string.Format(GetStringResource("MsgText_DeleteError"), task.TaskPath);
+                string msg = string.Format(GetStringResource("MsgText_DeleteError"), task!.TaskPath);
                 SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                 _log.Error(ex, $"Error attempting to delete {task.TaskPath}");
                 MDCustMsgBox mbox = new($"{msg} {GetStringResource("MsgText_SeeLogFile")}",
@@ -462,7 +462,7 @@ internal static class TaskHelpers
                         ButtonType.Ok,
                         false,
                         true,
-                        _mainWindow,
+                        _mainWindow!,
                         true);
                 _ = mbox.ShowDialog();
             }
@@ -498,7 +498,7 @@ internal static class TaskHelpers
     /// </summary>
     public static void TaskNoteChanged()
     {
-        if (_mainWindow.IsLoaded && !MyTasks.IsDirty)
+        if (_mainWindow!.IsLoaded && !MyTasks.IsDirty)
         {
             MyTasks.IsDirty = true;
         }
@@ -511,7 +511,7 @@ internal static class TaskHelpers
     /// </summary>
     public static void TaskAlertChanged()
     {
-        if (_mainWindow.IsLoaded)
+        if (_mainWindow!.IsLoaded)
         {
             MyTasks.IsDirty = true;
         }
@@ -543,7 +543,7 @@ internal static class TaskHelpers
         {
             return;
         }
-        MyTasks.MyTasksCollection.Clear();
+        MyTasks.MyTasksCollection!.Clear();
         for (int i = 0; i < ScheduledTask.TaskList.Count; i++)
         {
             ScheduledTask item = ScheduledTask.TaskList[i];

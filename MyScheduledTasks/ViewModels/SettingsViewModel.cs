@@ -5,7 +5,7 @@ namespace MyScheduledTasks.ViewModels;
 internal partial class SettingsViewModel : ObservableObject
 {
     #region MainWindow Instance
-    private static readonly MainWindow _mainWindow = Application.Current.MainWindow as MainWindow;
+    private static readonly MainWindow? _mainWindow = Application.Current.MainWindow as MainWindow;
     #endregion MainWindow Instance
 
     [RelayCommand]
@@ -36,7 +36,7 @@ internal partial class SettingsViewModel : ObservableObject
                      ButtonType.Ok,
                      false,
                      true,
-                     _mainWindow,
+                     _mainWindow!,
                      true).ShowDialog();
         }
     }

@@ -20,23 +20,23 @@ public partial class NavigationItem : ObservableObject
     private bool _isRestart;
 
     [ObservableProperty]
-    private string _launchArguments;
+    private string? _launchArguments;
 
     [ObservableProperty]
-    private string _launchFile;
+    private string? _launchFile;
 
     [ObservableProperty]
     private bool _launchShellExecute;
 
     [ObservableProperty]
-    private string _name;
+    private string? _name;
 
     [ObservableProperty]
     private NavPage _navPage;
 
     [ObservableProperty]
-    private string _pageTitle = "Page Title Goes Here";
+    private string? _pageTitle = "Page Title Goes Here";
 
     [ObservableProperty]
-    private object _viewModelType;
+    private object? _viewModelType;
 }

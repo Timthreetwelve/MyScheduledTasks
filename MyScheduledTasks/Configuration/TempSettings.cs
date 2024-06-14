@@ -24,10 +24,10 @@ internal partial class TempSettings : ConfigManager<TempSettings>
     private static bool _importAddToMyTasks = true;
 
     [ObservableProperty]
-    private static string _importXMLFile;
+    private static string? _importXMLFile;
 
     [ObservableProperty]
-    private static string _importTaskName;
+    private static string? _importTaskName;
 
     [ObservableProperty]
     private static bool _importOverwrite;

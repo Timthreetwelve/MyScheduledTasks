@@ -10,13 +10,13 @@ internal partial class MainViewModel : ObservableObject
     /// </summary>
     public static void LoadData()
     {
-        CheckTaskFile(MyTasks.MyTasksCollection);
+        CheckTaskFile(MyTasks.MyTasksCollection!);
 
         MyTasks.IgnoreChanges = true;
 
         int added = 0;
         ScheduledTask.TaskList.Clear();
-        for (int i = 0; i < MyTasks.MyTasksCollection.Count; i++)
+        for (int i = 0; i < MyTasks.MyTasksCollection!.Count; i++)
         {
             MyTasks item = MyTasks.MyTasksCollection[i];
             Task task = TaskInfo.GetTaskInfo(item.TaskPath);
@@ -62,7 +62,7 @@ internal partial class MainViewModel : ObservableObject
             if (string.IsNullOrEmpty(tasks[i].TaskPath))
             {
                 _log.Warn($"Null or empty item found while reading {TaskFileHelpers.TasksFile}. Item will be removed. ");
-                MyTasks.MyTasksCollection.RemoveAt(i);
+                MyTasks.MyTasksCollection!.RemoveAt(i);
                 removed++;
             }
         }

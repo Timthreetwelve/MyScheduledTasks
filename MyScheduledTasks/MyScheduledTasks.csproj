@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Description>My Scheduled Tasks</Description>
     <Copyright>© 2020-$([System.DateTime]::UtcNow.Year) Tim Kennedy</Copyright>
