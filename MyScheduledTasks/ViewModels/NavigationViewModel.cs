@@ -308,7 +308,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void ShowImportTasks()
     {
-        DialogHelpers.ShowImportTaskDialog();
+        _ = DialogHelpers.ShowImportTaskDialog();
     }
 
     [RelayCommand]
@@ -346,7 +346,7 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void ShowDeleteTasks()
     {
-        DialogHelpers.ShowDeleteTasksDialog(MainPage.Instance.DataGridTasks);
+        _ = DialogHelpers.ShowDeleteTasksDialog(MainPage.Instance.DataGridTasks);
     }
 
     [RelayCommand]
