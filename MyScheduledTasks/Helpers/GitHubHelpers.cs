@@ -47,11 +47,6 @@ internal static class GitHubHelpers
             }
 
             Version latestVersion = new(tag);
-            if (latestVersion == null)
-            {
-                CheckFailed();
-                return;
-            }
 
             _log.Debug($"Latest version is {latestVersion} released on {release.PublishedAt.Value.DateTime:f}");
 
