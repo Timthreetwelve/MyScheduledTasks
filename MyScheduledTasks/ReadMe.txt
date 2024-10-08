@@ -250,23 +250,25 @@ My Scheduled Tasks was written by Tim Kennedy.
 
 My Scheduled Tasks uses the following packages:
 
-    * TaskScheduler https://github.com/dahall/taskscheduler
-
-    * Material Design in XAML Toolkit https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit
-
     * Command Line Parser https://github.com/commandlineparser/commandline
-
-    * GongSolutions.WPF.DragDrop https://github.com/punker76/gong-wpf-dragdrop
 
     * Community Toolkit MVVM https://github.com/CommunityToolkit/dotnet
 
-    * NLog https://nlog-project.org/
+    * GongSolutions.WPF.DragDrop https://github.com/punker76/gong-wpf-dragdrop
 
-    * GitVersion https://github.com/GitTools/GitVersion
+    * Material Design in XAML Toolkit https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit
+
+    * NerdBank.GitVersioning https://github.com/dotnet/Nerdbank.GitVersioning
+
+    * NLog https://nlog-project.org/
 
     * OctoKit https://github.com/octokit/octokit.net
 
+    * TaskScheduler https://github.com/dahall/taskscheduler
+
     * Vanara https://github.com/dahall/vanara
+
+The following tools were used during the development of My Scheduled Tasks:
 
     * GitKraken was used for everything Git related. https://www.gitkraken.com/
 
@@ -274,9 +276,7 @@ My Scheduled Tasks uses the following packages:
 
     * Visual Studio Community was used throughout the development of Get My IP. https://visualstudio.microsoft.com/vs/community/
 
-    * XAML Styler is indispensable when working with XAML. https://github.com/Xavalon/XamlStyler
-
-    * And the indispensable PowerToys https://github.com/microsoft/PowerToys
+    * XAML Styler https://github.com/Xavalon/XamlStyler
 
 
 
