@@ -90,8 +90,8 @@ internal static class MainWindowHelpers
     {
         // Set the windows title
         return AppInfo.IsAdmin
-            ? $"{AppInfo.AppProduct}  {AppInfo.AppProductVersion} - ({GetStringResource("MsgText_WindowTitleAdministrator")})"
-            : $"{AppInfo.AppProduct}  {AppInfo.AppProductVersion}";
+            ? $"{AppInfo.AppProduct}  {AppInfo.AppVersion} - ({GetStringResource("MsgText_WindowTitleAdministrator")})"
+            : $"{AppInfo.AppProduct}  {AppInfo.AppVersion}";
     }
     #endregion Window Title
 
@@ -189,7 +189,7 @@ internal static class MainWindowHelpers
         NLogConfig(false);
 
         // Log the version, build date and commit id
-        _log.Info($"{AppInfo.AppName} ({AppInfo.AppProduct}) {AppInfo.AppProductVersion} {GetStringResource("MsgText_ApplicationStarting")}");
+        _log.Info($"{AppInfo.AppName} ({AppInfo.AppProduct}) {AppInfo.AppVersion} {GetStringResource("MsgText_ApplicationStarting")}");
         _log.Info($"{AppInfo.AppName} {AppInfo.AppCopyright}");
         _log.Debug($"{AppInfo.AppName} was started from {AppInfo.AppPath}");
         _log.Debug($"{AppInfo.AppName} Build date: {BuildInfo.BuildDateStringUtc}");
