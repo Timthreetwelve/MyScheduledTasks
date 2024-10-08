@@ -14,7 +14,7 @@
 
         Translation contributed by:  Timthreetwelve and Google Translate
 
-        Date last update:            2024-03-12
+        Date last update:            2024-10-07
 
         ======================================================================
     -->
@@ -55,6 +55,7 @@
     <sys:String x:Key="AddTasks_TasksAdded">{0} tareas agregadas.</sys:String>
     <!--  Button Text  -->
     <sys:String x:Key="Button_Cancel">Cancelar</sys:String>
+    <sys:String x:Key="Button_CheckUpdate">Comprobar actualización</sys:String>
     <sys:String x:Key="Button_Close">Cerrar menú</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">Copia esta página al portapapeles</sys:String>
     <sys:String x:Key="Button_No">No</sys:String>

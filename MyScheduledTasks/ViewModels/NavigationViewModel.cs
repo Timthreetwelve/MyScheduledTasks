@@ -197,6 +197,14 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion Open the application folder
 
+    #region Check for new release
+    [RelayCommand]
+    private static async System.Threading.Tasks.Task CheckReleaseAsync()
+    {
+        await GitHubHelpers.CheckRelease();
+    }
+    #endregion Check for new release
+
     #region Edit Task Note
     [RelayCommand]
     public static async System.Threading.Tasks.Task EditNote()

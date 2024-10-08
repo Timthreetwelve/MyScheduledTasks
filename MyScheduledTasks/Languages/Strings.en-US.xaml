@@ -55,6 +55,7 @@
     <sys:String x:Key="AddTasks_TasksAdded">{0} task(s) added.</sys:String>
     <!--  Button Text  -->
     <sys:String x:Key="Button_Cancel">Cancel</sys:String>
+    <sys:String x:Key="Button_CheckUpdate">Check for Update</sys:String>
     <sys:String x:Key="Button_Close">Close Menu</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">Copy this page to the clipboard</sys:String>
     <sys:String x:Key="Button_No">No</sys:String>

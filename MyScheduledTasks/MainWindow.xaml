@@ -1,21 +1,19 @@
 ﻿<Window x:Class="MyScheduledTasks.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
         xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
         xmlns:convert="clr-namespace:MyScheduledTasks.Converters"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:helpers="clr-namespace:MyScheduledTasks.Helpers"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
+        mc:Ignorable="d"
         Title="{x:Static helpers:AppInfo.AppName}"
-        MinWidth="800"
-        MinHeight="400"
+        MinWidth="800" MinHeight="400"
         Background="{DynamicResource MaterialDesign.Brush.Background}"
-        FontFamily="Segoe UI"
-        FontSize="12"
+        FontFamily="Segoe UI" FontSize="12"
         Style="{StaticResource MaterialDesignWindow}"
         TextElement.FontWeight="Regular"
         TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
@@ -66,8 +64,7 @@
             <!--#endregion-->
 
             <!--#region Title Row-->
-            <Grid Grid.Column="1"
-                  Grid.ColumnSpan="2">
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
                 <!--#region Column definitions for the title row-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -79,20 +76,16 @@
 
                 <!--#region Page title label-->
                 <Label x:Name="PageTitle"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"
-                       Margin="10,0"
-                       HorizontalAlignment="Left"
+                       Grid.Column="0" Grid.ColumnSpan="2"
+                       Margin="10,0" HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Content="{Binding PageTitle}"
-                       FontSize="22"
-                       FontWeight="SemiBold" />
+                       FontSize="22" FontWeight="SemiBold" />
                 <!--#endregion-->
 
                 <!--#region SnackBar-->
                 <materialDesign:Snackbar x:Name="SnackBar1"
-                                         Grid.Row="0"
-                                         Grid.Column="1"
+                                         Grid.Row="0" Grid.Column="1"
                                          Grid.ColumnSpan="2"
                                          HorizontalAlignment="Right"
                                          VerticalAlignment="Top"
@@ -102,8 +95,7 @@
                                          MessageQueue="{materialDesign:MessageQueue}" />
                 <!--#endregion-->
 
-                <Grid Grid.Row="0"
-                      Grid.Column="3">
+                <Grid Grid.Row="0" Grid.Column="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -112,19 +104,16 @@
                     <!--#region Refresh button-->
                     <Button Grid.Column="0"
                             Width="40"
-                            Margin="0"
-                            Padding="0"
+                            Margin="0" Padding="0"
                             HorizontalAlignment="Left"
                             Command="{Binding RefreshGridCommand}"
                             Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
-                            IsDefault="False"
-                            IsTabStop="False"
+                            IsDefault="False" IsTabStop="False"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             ToolTip="{DynamicResource MenuItem_Refresh}"
                             Visibility="{Binding CurrentViewModel,
                                                  Converter={StaticResource RefreshConv}}">
-                        <materialDesign:PackIcon Width="28"
-                                                 Height="28"
+                        <materialDesign:PackIcon Width="28" Height="28"
                                                  Foreground="{Binding ElementName=PageTitle,
                                                                       Path=Foreground}"
                                                  Kind="Refresh" />
@@ -134,23 +123,19 @@
                     <!--#region Button with pop-up box-->
                     <Button Grid.Column="1"
                             Width="40"
-                            Margin="0,0,5,0"
-                            Padding="0"
+                            Margin="0,0,5,0" Padding="0"
                             HorizontalContentAlignment="Stretch"
                             Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
-                            IsDefault="False"
-                            IsTabStop="False"
+                            IsDefault="False" IsTabStop="False"
                             KeyboardNavigation.TabNavigation="None"
                             Style="{StaticResource MaterialDesignFlatButton}">
-                        <materialDesign:PopupBox Padding="0"
-                                                 HorizontalAlignment="Right"
+                        <materialDesign:PopupBox Padding="0" HorizontalAlignment="Right"
                                                  Focusable="False"
                                                  PlacementMode="LeftAndAlignTopEdges"
                                                  Style="{DynamicResource MaterialDesignPopupBox}"
                                                  ToolTip="{DynamicResource Button_ThreeDotToolTip}">
                             <materialDesign:PopupBox.ToggleContent>
-                                <materialDesign:PackIcon Width="40"
-                                                         Height="28"
+                                <materialDesign:PackIcon Width="40" Height="28"
                                                          Foreground="{Binding ElementName=PageTitle,
                                                                               Path=Foreground}"
                                                          Kind="DotsHorizontal" />
@@ -175,8 +160,7 @@
                                                 Command="{Binding OpenAppFolderCommand}"
                                                 Content="{DynamicResource Button_OpenFolder}"
                                                 ToolTip="{DynamicResource Button_OpenFolderToolTip}" />
-                                        <Separator Margin="0"
-                                                   Padding="1"
+                                        <Separator Margin="0" Padding="1"
                                                    Background="{DynamicResource MaterialDesignDivider}" />
                                         <Button Height="35"
                                                 Padding="15,1,15,22"
@@ -188,8 +172,12 @@
                                                 Command="{Binding ViewReadMeFileCommand}"
                                                 Content="{DynamicResource About_DocumentationText}"
                                                 ToolTip="{DynamicResource About_DocumentationToolTip}" />
-                                        <Separator Margin="0"
-                                                   Padding="1"
+                                        <Button Height="35"
+                                                Padding="15,1,15,22"
+                                                Command="{Binding CheckReleaseCommand}"
+                                                Content="{DynamicResource Button_CheckUpdate}"
+                                                ToolTip="{DynamicResource About_UpdateToolTip}" />
+                                        <Separator Margin="0" Padding="1"
                                                    Background="{DynamicResource MaterialDesignDivider}" />
                                         <Button Height="35"
                                                 Padding="15,1,15,22"
@@ -206,8 +194,7 @@
 
             <!--#region Navigation Listbox-->
             <ListBox x:Name="NavigationListBox"
-                     Grid.Row="0"
-                     Grid.RowSpan="2"
+                     Grid.Row="0" Grid.RowSpan="2"
                      Grid.Column="0"
                      MinWidth="160"
                      Margin="5,5,5,0"
@@ -221,20 +208,18 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Border Style="{StaticResource NavItemIndicator}" />
-                            <materialDesign:PackIcon Width="auto"
-                                                     Height="auto"
+                            <materialDesign:PackIcon Width="auto" Height="auto"
                                                      VerticalAlignment="Center"
                                                      Kind="{Binding IconKind}" />
-                            <TextBlock Margin="15,0"
-                                       VerticalAlignment="Center"
+                            <TextBlock Margin="15,0" VerticalAlignment="Center"
                                        FontSize="14"
                                        Text="{Binding Name}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 <ListBox.ItemContainerStyle>
-                    <Style BasedOn="{StaticResource MaterialDesignListBoxItem}"
-                           TargetType="ListBoxItem">
+                    <Style TargetType="ListBoxItem"
+                           BasedOn="{StaticResource MaterialDesignListBoxItem}">
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
@@ -257,8 +242,7 @@
             <!--#endregion-->
 
             <!--#region Content control for pages-->
-            <Grid Grid.Row="1"
-                  Grid.Column="1"
+            <Grid Grid.Row="1" Grid.Column="1"
                   Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
                 <ContentControl Content="{Binding CurrentViewModel}" />
             </Grid>
