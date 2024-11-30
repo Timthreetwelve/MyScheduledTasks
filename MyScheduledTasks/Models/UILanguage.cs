@@ -52,14 +52,16 @@ internal partial class UILanguage : ObservableObject
     /// </summary>
     private static List<UILanguage> LanguageList { get; } =
     [
-        new UILanguage {Language = "English",   LanguageCode = "en-US", LanguageNative = "English",    Contributor = "Timthreetwelve", Note="Default"},
-        new UILanguage {Language = "English",   LanguageCode = "en-GB", LanguageNative = "English",    Contributor = "Timthreetwelve"},
-        new UILanguage {Language = "Spanish",   LanguageCode = "es-ES", LanguageNative = "Español",    Contributor = "Timthreetwelve & Google Translate"},
+        new () {Language = "English",  LanguageCode = "en-US", LanguageNative = "English",  Contributor = "Timthreetwelve", Note="Default"},
+        new () {Language = "English",  LanguageCode = "en-GB", LanguageNative = "English",  Contributor = "Timthreetwelve"},
+        new () {Language = "Spanish",  LanguageCode = "es-ES", LanguageNative = "Español",  Contributor = "Timthreetwelve & Google Translate"},
+        new () {Language = "Korean",   LanguageCode = "ko-KR", LanguageNative = "한국어",    Contributor = "VenusGirl (비너스걸)"},
+        new () {Language = "Italian",  LanguageCode = "it-IT", LanguageNative = "Italiano", Contributor = "bovirus"},
     ];
 
     /// <summary>
     /// List of defined languages ordered by LanguageNative.
     /// </summary>
-    public static List<UILanguage> DefinedLanguages => [.. LanguageList.OrderBy(x => x.LanguageNative)];
+    public static List<UILanguage> DefinedLanguages => [.. LanguageList.OrderBy(x => x.LanguageCode)];
     #endregion List of languages
 }
