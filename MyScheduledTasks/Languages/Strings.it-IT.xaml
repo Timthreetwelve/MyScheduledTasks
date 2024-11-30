@@ -1,0 +1,330 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--
+        BEFORE UPDATING, refer to the "Contribute a Translation" topic in the Wiki:
+        
+        https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Contribute-a-Translation
+        
+        ======================================================================
+        
+        Application name:            My Scheduled Tasks
+        
+        Language name:               iItalian
+        
+        Translation contributed by:  bovirus
+        
+        Date last update:            30.11.2024
+        
+        ======================================================================
+    -->
+
+    <!--  About Page  -->
+    <sys:String x:Key="About_BuildDate">Data build</sys:String>
+    <sys:String x:Key="About_CommitID">ID commit</sys:String>
+    <sys:String x:Key="About_CommitIDToolTip">ID commit totale:</sys:String>
+    <sys:String x:Key="About_Contribute">Contribuisce alla traduzione</sys:String>
+    <sys:String x:Key="About_ContributeToolTip">Come contribuire con una traduzione</sys:String>
+    <sys:String x:Key="About_Copyright">Copyright</sys:String>
+    <sys:String x:Key="About_CreatedBy">Creato da</sys:String>
+    <sys:String x:Key="About_CreatedByToolTip">Guarda gli altri lavori di Tim su https://github.com/Timthreetwelve</sys:String>
+    <sys:String x:Key="About_Description">Tieni traccia delle attività pianificate che ti interessano.</sys:String>
+    <sys:String x:Key="About_Documentation">Documentazione</sys:String>
+    <sys:String x:Key="About_DocumentationText">Apri il file ReadMe</sys:String>
+    <sys:String x:Key="About_DocumentationToolTip">Visualizza il file ReadMe</sys:String>
+    <sys:String x:Key="About_GitHubToolTip">Visita la pagina My Scheduled Tasks su GitHub</sys:String>
+    <sys:String x:Key="About_License">Licenza</sys:String>
+    <sys:String x:Key="About_LicenseText">Questo progetto è concesso in licenza secondo i termini della licenza MIT.</sys:String>
+    <sys:String x:Key="About_LicenseToolTip">Visualizza il documento della licenza</sys:String>
+    <sys:String x:Key="About_Translations">Traduzioni</sys:String>
+    <sys:String x:Key="About_Update">Aggiorna My Scheduled Tasks</sys:String>
+    <sys:String x:Key="About_UpdateText">Controlla disponibilità aggiornamenti di My Scheduled Tasks</sys:String>
+    <sys:String x:Key="About_UpdateToolTip">Controlla GitHub per gli aggiornamenti</sys:String>
+    <sys:String x:Key="About_Version">Versione</sys:String>
+    <!--  Add Tasks Page  -->
+    <sys:String x:Key="AddTasks_Add">Aggiungi attività</sys:String>
+    <sys:String x:Key="AddTasks_DGHeader_TaskFolder">Cartella</sys:String>
+    <sys:String x:Key="AddTasks_DGHeader_TaskName">Nome attività</sys:String>
+    <sys:String x:Key="AddTasks_Error">Aggiunta attività</sys:String>
+    <sys:String x:Key="AddTasks_FilterHint">Filtra l'elenco</sys:String>
+    <sys:String x:Key="AddTasks_HideMicrosoft">Nascondi cartella Microsoft fodler</sys:String>
+    <sys:String x:Key="AddTasks_HideMicrosoftTooltip">Seleziona per nascondere tutte le voci nel file \Microsoft folder</sys:String>
+    <sys:String x:Key="AddTasks_NotFound">L'attività pianificata "{0}" non è stata trovata.</sys:String>
+    <sys:String x:Key="AddTasks_Refresh">Aggiorna attività</sys:String>
+    <sys:String x:Key="AddTasks_TaskAlreadyAdded">{0} è già stato aggiunta.</sys:String>
+    <sys:String x:Key="AddTasks_TasksAdded">{0} attività aggiunta/e.</sys:String>
+    <!--  Button Text  -->
+    <sys:String x:Key="Button_Cancel">Annulla</sys:String>
+    <sys:String x:Key="Button_CheckUpdate">Controlla aggiornamenti</sys:String>
+    <sys:String x:Key="Button_Close">Chiudi menu</sys:String>
+    <sys:String x:Key="Button_CopyToClipboardToolTip">Copia questa pagina negli appunti</sys:String>
+    <sys:String x:Key="Button_No">No</sys:String>
+    <sys:String x:Key="Button_OK">OK</sys:String>
+    <sys:String x:Key="Button_OpenAppFolder">Apri cartella App</sys:String>
+    <sys:String x:Key="Button_OpenFolder">Apri cartella App</sys:String>
+    <sys:String x:Key="Button_OpenFolderToolTip">Apri la cartella Le mie attività pianificate in Esplora file</sys:String>
+    <sys:String x:Key="Button_OpenLogFile">Visualizza file registro</sys:String>
+    <sys:String x:Key="Button_OpenLogFileToolTip">Apri il file registro nell'applicazione predefinita.</sys:String>
+    <sys:String x:Key="Button_OpenResultCodes">Riferimento codici risultato</sys:String>
+    <sys:String x:Key="Button_OpenResultCodesTooltip">Apri il file codici risultato comuni.</sys:String>
+    <sys:String x:Key="Button_OpenTasksFile">Apri il file attività</sys:String>
+    <sys:String x:Key="Button_OpenTasksFileTooltip">Apri il file attività nell'applicazione predefinita.</sys:String>
+    <sys:String x:Key="Button_ThreeDotToolTip">Azioni aggiuntive</sys:String>
+    <sys:String x:Key="Button_Yes">Sì</sys:String>
+    <!--  Delete Tasks  -->
+    <sys:String x:Key="DeleteTask_Caption">Elimina attività dall'Utilità di pianificazione di Windows</sys:String>
+    <sys:String x:Key="DeleteTask_Delete">Elimina</sys:String>
+    <sys:String x:Key="DeleteTask_FolderColumn">Cartella</sys:String>
+    <sys:String x:Key="DeleteTask_Heading">Le seguenti attività verranno eliminate dall'Utilità di pianificazione di Windows</sys:String>
+    <sys:String x:Key="DeleteTask_NameColumn">Nome</sys:String>
+    <sys:String x:Key="DeleteTask_WarningLine1">Avviso: l'eliminazione delle attività non può essere annullata.</sys:String>
+    <sys:String x:Key="DeleteTask_WarningLine2">Ti consigliamo prima dell'eliminazione di esportare l'elenco attività.</sys:String>
+    <!--  Details Pane  -->
+    <sys:String x:Key="Details_Account">Account:</sys:String>
+    <sys:String x:Key="Details_Actions">Azioni:</sys:String>
+    <sys:String x:Key="Details_Author">Autore:</sys:String>
+    <sys:String x:Key="Details_Created">Creata:</sys:String>
+    <sys:String x:Key="Details_Description">Descrizione:</sys:String>
+    <sys:String x:Key="Details_Enabled">Abilitata:</sys:String>
+    <sys:String x:Key="Details_FallbackText">Seleziona un'attività nella griglia in alto per visualizzare i dettagli qui</sys:String>
+    <sys:String x:Key="Details_Folder">Cartella:</sys:String>
+    <sys:String x:Key="Details_LastResult">Ultimo risultato:</sys:String>
+    <sys:String x:Key="Details_LastRun">Ultima esecuzione:</sys:String>
+    <sys:String x:Key="Details_Name">Nome:</sys:String>
+    <sys:String x:Key="Details_NextRun">Prossima esecuzione:</sys:String>
+    <sys:String x:Key="Details_Notes">Notes</sys:String>
+    <sys:String x:Key="Details_Priority">Priorità:</sys:String>
+    <sys:String x:Key="Details_Privileges">Esegui con i massimi privilegi:</sys:String>
+    <sys:String x:Key="Details_RunOnlyLoggedOn">Esegui solo quando l'utente è connesso:</sys:String>
+    <sys:String x:Key="Details_StartAsapIfMissed">Esegui al più presto se persa:</sys:String>
+    <sys:String x:Key="Details_StartOnDemand">Esegui su richiesta:</sys:String>
+    <sys:String x:Key="Details_StartOnlyOnAcPower">Esegui solo se collegato all'alimentazione CA:</sys:String>
+    <sys:String x:Key="Details_Status">Stato:</sys:String>
+    <sys:String x:Key="Details_TimeLimit">Limite di tempo:</sys:String>
+    <sys:String x:Key="Details_Triggers">Trigger:</sys:String>
+    <sys:String x:Key="Details_WakeToRun">Per eseguire riprendi da standby:</sys:String>
+    <!--  DataGrid Column Headers  -->
+    <sys:String x:Key="GridColumn_Folder">Cartella</sys:String>
+    <sys:String x:Key="GridColumn_LastRun">Ultima esecuzione</sys:String>
+    <sys:String x:Key="GridColumn_NextRun">Prossima esecuzione</sys:String>
+    <sys:String x:Key="GridColumn_Notes">Note</sys:String>
+    <sys:String x:Key="GridColumn_Result">Risultato</sys:String>
+    <sys:String x:Key="GridColumn_ResultTooltip">Risultato: {0}</sys:String>
+    <sys:String x:Key="GridColumn_Status">Stato</sys:String>
+    <sys:String x:Key="GridColumn_TaskName">Nome attività</sys:String>
+    <!--  Import  Task  -->
+    <sys:String x:Key="ImportTask_AddToMyTasks">Aggiungi a Le mie attività dopo l'importazione</sys:String>
+    <sys:String x:Key="ImportTask_Caution">Poiché è stato deselezionato "Esegui solo quando l'utente è connesso", ti consigliamo dopo aver importato questa attività di accedere all'Utilità di pianificazione di Windows e verificare la sezione 'Opzioni di sicurezza' nella scheda 'Generale'.</sys:String>
+    <sys:String x:Key="ImportTask_FileNotFound">File non trovato.</sys:String>
+    <sys:String x:Key="ImportTask_FilePickerTitle">Cerca file</sys:String>
+    <sys:String x:Key="ImportTask_FilePickerTooltip">Cerca file</sys:String>
+    <sys:String x:Key="ImportTask_Heading">Importa un'attività da un file XML</sys:String>
+    <sys:String x:Key="ImportTask_Import">Importa</sys:String>
+    <sys:String x:Key="ImportTask_ImportError">Errore durante l'importazione dell'attività.</sys:String>
+    <sys:String x:Key="ImportTask_ImportErrorBlank">Il nome dell'attività non può essere vuoto.</sys:String>
+    <sys:String x:Key="ImportTask_ImportErrorExists">Esiste già un'attività con questo nome</sys:String>
+    <sys:String x:Key="ImportTask_ImportErrorHeader">Errore di importazione</sys:String>
+    <sys:String x:Key="ImportTask_ImportSuccess">è stato correttamente importata.</sys:String>
+    <sys:String x:Key="ImportTask_ImportSuccessHeader">Completato</sys:String>
+    <sys:String x:Key="ImportTask_Overwrite">Sovrascrivi l'attività esistente con lo stesso nome</sys:String>
+    <sys:String x:Key="ImportTask_ResetDate">Reimposta data e ora di creazione alla data e ora attuali</sys:String>
+    <sys:String x:Key="ImportTask_RunLoggedOn">Esegui solo quando l'utente è connesso</sys:String>
+    <sys:String x:Key="ImportTask_TaskName">Nome attività (inclusa cartella): deve essere univoco:</sys:String>
+    <sys:String x:Key="ImportTask_TaskNameHint">es: \Cartella personale\MiaAttività</sys:String>
+    <sys:String x:Key="ImportTask_XMLPath">Percorso file XML</sys:String>
+    <sys:String x:Key="ImportTask_XMLPathHint">es; C:\users\&lt;user&gt;\Desktop\MiaAttività.xml</sys:String>
+    <!--  Menu Items  -->
+    <sys:String x:Key="Menu_Advanced">_Avanzate</sys:String>
+    <sys:String x:Key="Menu_File">_File</sys:String>
+    <sys:String x:Key="Menu_OpenScheduler">_Utilità di pianificazione</sys:String>
+    <sys:String x:Key="Menu_Tasks">_Mie attività</sys:String>
+    <sys:String x:Key="Menu_View">_Visualizza</sys:String>
+    <sys:String x:Key="MenuItem_AddTasks">Aggiungi attività</sys:String>
+    <sys:String x:Key="MenuItem_ChooseColumns">Seleziona colonne...</sys:String>
+    <sys:String x:Key="MenuItem_CopyToClipboard">Copia la griglia negli appunti</sys:String>
+    <sys:String x:Key="MenuItem_DeleteTasks">Elimina selezionate...</sys:String>
+    <sys:String x:Key="MenuItem_DisableTasks">Disabilita selezionate</sys:String>
+    <sys:String x:Key="MenuItem_EditTaskNote">Modifica nota attività...</sys:String>
+    <sys:String x:Key="MenuItem_EnableTasks">Abilita selezionate</sys:String>
+    <sys:String x:Key="MenuItem_Exit">Esci</sys:String>
+    <sys:String x:Key="MenuItem_ExportTasks">Esporta selezionate...</sys:String>
+    <sys:String x:Key="MenuItem_ImportTask">Importa attività...</sys:String>
+    <sys:String x:Key="MenuItem_Larger">Visualizzazione ampia</sys:String>
+    <sys:String x:Key="MenuItem_Refresh">Aggiorna</sys:String>
+    <sys:String x:Key="MenuItem_RemoveSort">Rimuovi ordinamento colonne</sys:String>
+    <sys:String x:Key="MenuItem_RemoveTasks">Rimuovi selezionate</sys:String>
+    <sys:String x:Key="MenuItem_RestartAdmin">Riavvia come amministratore</sys:String>
+    <sys:String x:Key="MenuItem_RunTasks">Esegui selezionate</sys:String>
+    <sys:String x:Key="MenuItem_Save">Salva file elenco attività</sys:String>
+    <sys:String x:Key="MenuItem_Smaller">Vista ridotta</sys:String>
+    <sys:String x:Key="MenuItem_ToggleDetails">Attiva/disattiva pannello dettagli</sys:String>
+    <sys:String x:Key="MenuShortcut_AltF4">Alt + F4</sys:String>
+    <sys:String x:Key="MenuShortcut_CtrlD">Ctrl + D</sys:String>
+    <sys:String x:Key="MenuShortcut_CtrlMinus">Ctrl + Meno</sys:String>
+    <sys:String x:Key="MenuShortcut_CtrlPlus">Ctrl + Più</sys:String>
+    <sys:String x:Key="MenuShortcut_CtrlR">Ctrl + R</sys:String>
+    <sys:String x:Key="MenuShortcut_CtrlS">Ctrl + S</sys:String>
+    <sys:String x:Key="MenuShortcut_F5">F5</sys:String>
+    <!--  Text found in messages (log, message box, status bar, details area, etc.)  -->
+    <sys:String x:Key="MsgText_ApplicationShutdown">è in fase di chiusura</sys:String>
+    <sys:String x:Key="MsgText_ApplicationStarting">è in fase di avvio</sys:String>
+    <sys:String x:Key="MsgText_AppUpdateCheckFailed">Verifica aggiornamenti non riuscita. Per ulteriori info consulta il registro.</sys:String>
+    <sys:String x:Key="MsgText_AppUpdateChecking">Controllo aggiornamenti.</sys:String>
+    <sys:String x:Key="MsgText_AppUpdateCloseApp">Selezionando "Sì" verrà chiuso My Scheuduled Tasks.</sys:String>
+    <sys:String x:Key="MsgText_AppUpdateGoToRelease">Vuoi andare alla pagina delle versioni?</sys:String>
+    <sys:String x:Key="MsgText_AppUpdateNewerFound">È disponibile una nuova versione ({0}).</sys:String>
+    <sys:String x:Key="MsgText_AppUpdateNoneFound">Il programma è aggiornato - non è stata trovata alcuna versione più recente.</sys:String>
+    <sys:String x:Key="MsgText_ColumnSortCleared">L'ordinamento delle colonne è stato cancellato</sys:String>
+    <sys:String x:Key="MsgText_CopiedToClipboardItem">L'elemento è stato copiato negli appunti</sys:String>
+    <sys:String x:Key="MsgText_Deleted">Eliminata {0}.</sys:String>
+    <sys:String x:Key="MsgText_DeleteError">Errore durante il tentativo di eliminazione di {0}.</sys:String>
+    <sys:String x:Key="MsgText_DeleteNoneSelected">Non è stato selezionata nessuna attività da eliminare.</sys:String>
+    <sys:String x:Key="MsgText_Disabled">Disabilitata {0}.</sys:String>
+    <sys:String x:Key="MsgText_DisabledError">Errore durante il tentativo di disabilitazione di {0}.</sys:String>
+    <sys:String x:Key="MsgText_DisableNoneSelected">Non è stato selezionata nessuna attività da disabilitare.</sys:String>
+    <sys:String x:Key="MsgText_ElapsedTime">Tempo trascorso</sys:String>
+    <sys:String x:Key="MsgText_Enabled">Abilitata {0}.</sys:String>
+    <sys:String x:Key="MsgText_EnableError">Errore durante il tentativo di abilitazione di {0}.</sys:String>
+    <sys:String x:Key="MsgText_EnableNoneSelected">Non è stato selezionata nessuna attività da abilitare.</sys:String>
+    <sys:String x:Key="MsgText_ErrorCaption">ERRORE</sys:String>
+    <sys:String x:Key="MsgText_ErrorCreatingFile">Errore durante la creazione di {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorEmptyTaskList">L'elenco delle attività è vuoto. Vuoi aggiungere l'attività adesso?</sys:String>
+    <sys:String x:Key="MsgText_ErrorEmptyTaskListCaption">AGGIUNGI ATTIVITA'?</sys:String>
+    <sys:String x:Key="MsgText_ErrorFatal">Errore fatale. My Scheduled Tasks verrà chiuso.</sys:String>
+    <sys:String x:Key="MsgText_ErrorGeneral">Si è verificato un errore.</sys:String>
+    <sys:String x:Key="MsgText_ErrorOpeningFile">Errore durante l'apertura di {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorReadingFile">Errore durante la lettura di {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorSavingFile">Errore durante il salvataggio di {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorTaskNull">Non è stata restituita alcuna informazione per questa attività. L'attività potrebbe non esistere più. Controlla l'Utilità di pianificazione di Windows.</sys:String>
+    <sys:String x:Key="MsgText_Exported">Esportata {0}.</sys:String>
+    <sys:String x:Key="MsgText_ExportError">Errore durante il tentativo di esportazione {0}.</sys:String>
+    <sys:String x:Key="MsgText_ExportNoneSelected">Non è stato selezionata nessuna attività da esportare.</sys:String>
+    <sys:String x:Key="MsgText_FileSaved">Il file delle attività è stato salvato.</sys:String>
+    <sys:String x:Key="MsgText_FilterOneRowShown">1 colonna visualizzata</sys:String>
+    <sys:String x:Key="MsgText_FilterRowsShown">{0} colonne visualizzate</sys:String>
+    <sys:String x:Key="MsgText_NoInformationFound">Nessuna informazione trovata per</sys:String>
+    <sys:String x:Key="MsgText_NotAvailable">Non disponibile</sys:String>
+    <sys:String x:Key="MsgText_NullItemFound">Trovato elemento null durante la lettura dell'elenco attività.</sys:String>
+    <sys:String x:Key="MsgText_Opening">Apertura</sys:String>
+    <sys:String x:Key="MsgText_OpeningLogFile">Apertura del file registro</sys:String>
+    <sys:String x:Key="MsgText_OpeningReadMeFile">Apertura del file ReadMe</sys:String>
+    <sys:String x:Key="MsgText_Removed">Rimossa</sys:String>
+    <sys:String x:Key="MsgText_RunError">Errore durante il tentativo di esecuzione di {0}.</sys:String>
+    <sys:String x:Key="MsgText_Running">Esecuzione</sys:String>
+    <sys:String x:Key="MsgText_RunNoneSelected">Non è stato selezionata nessuna attività da eseguire.</sys:String>
+    <sys:String x:Key="MsgText_SeeLogFile">Per ulteriori info consulta il file registro .</sys:String>
+    <sys:String x:Key="MsgText_TaskNote">Nota attività</sys:String>
+    <sys:String x:Key="MsgText_Tasks">Attività</sys:String>
+    <sys:String x:Key="MsgText_Translated">tradotto</sys:String>
+    <sys:String x:Key="MsgText_UIColorSet">Colore evdienziazione impostato su {0}</sys:String>
+    <sys:String x:Key="MsgText_UISizeSet">Dimensioni impostate a {0}</sys:String>
+    <sys:String x:Key="MsgText_UIThemeSet">Tema impostato a {0}</sys:String>
+    <sys:String x:Key="MsgText_WindowTitleAdministrator">Amministratore</sys:String>
+    <!--  Navigation Items and Titles  -->
+    <sys:String x:Key="NavItem_About">Info programma</sys:String>
+    <sys:String x:Key="NavItem_AddTasks">Aggiungi attività</sys:String>
+    <sys:String x:Key="NavItem_Exit">Esci</sys:String>
+    <sys:String x:Key="NavItem_Main">Visualizza attività</sys:String>
+    <sys:String x:Key="NavItem_Settings">Impostazioni</sys:String>
+    <sys:String x:Key="NavTitle_About">Info su My Scheduled Tasks</sys:String>
+    <sys:String x:Key="NavTitle_AddTasks">Aggiungi attività a My Scheduled Tasks</sys:String>
+    <sys:String x:Key="NavTitle_Main">My Scheduled Tasks</sys:String>
+    <sys:String x:Key="NavTitle_Settings">Impostazioni</sys:String>
+    <!--  Enums for Combo Boxes on the Settings Page  -->
+    <sys:String x:Key="SettingsEnum_AccentColor_Amber">Ambra</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Black">Nero</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Blue">Blu</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_BlueGray">Blu Grigio</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Brown">Marrone</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Cyan">Ciano</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_DeepOrange">Arancio intenso</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_DeepPurple">Viola intenso</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Gray">Grigio</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Green">Verde</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Indigo">Indaco</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_LightBlue">Azzurro</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_LightGreen">Verde chiaro</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Lime">Lime</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Orange">Arancio</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Pink">Rosa</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Purple">Viola</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Red">Rosso</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Teal">Verde acqua</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_White">Bianco</sys:String>
+    <sys:String x:Key="SettingsEnum_AccentColor_Yellow">Giallo</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_About">Info</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_AddTasks">Aggiungi attività</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_DriveInfo">Info unità</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_Environment">Environment</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_GraphicsInfo">Info scheda grafica</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_HardwareInfo">Info hardware</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_History">Cronologia</sys:String>
+    <sys:String x:Key="SettingsEnum_Navigation_Settings">Impostazioni</sys:String>
+    <sys:String x:Key="SettingsEnum_Size_Default">100%</sys:String>
+    <sys:String x:Key="SettingsEnum_Size_Large">105%</sys:String>
+    <sys:String x:Key="SettingsEnum_Size_Larger">110%</sys:String>
+    <sys:String x:Key="SettingsEnum_Size_Largest">120%</sys:String>
+    <sys:String x:Key="SettingsEnum_Size_Small">95%</sys:String>
+    <sys:String x:Key="SettingsEnum_Size_Smaller">90%</sys:String>
+    <sys:String x:Key="SettingsEnum_Size_Smallest">80%</sys:String>
+    <sys:String x:Key="SettingsEnum_Spacing_Comfortable">Comoda</sys:String>
+    <sys:String x:Key="SettingsEnum_Spacing_Compact">Compatta</sys:String>
+    <sys:String x:Key="SettingsEnum_Spacing_Wide">Largo</sys:String>
+    <sys:String x:Key="SettingsEnum_Theme_Dark">Material scuro</sys:String>
+    <sys:String x:Key="SettingsEnum_Theme_Darker">Scuro</sys:String>
+    <sys:String x:Key="SettingsEnum_Theme_Light">Chiaro</sys:String>
+    <sys:String x:Key="SettingsEnum_Theme_System">Sistema</sys:String>
+    <!--  Settings Page Items  -->
+    <sys:String x:Key="SettingsItem_AccentColor">Colore evidenziazione</sys:String>
+    <sys:String x:Key="SettingsItem_AlertSound">Riproduci suono avviso</sys:String>
+    <sys:String x:Key="SettingsItem_AnnotateRoot">Aggiungi notazione [cartella principale] alla cartella principale</sys:String>
+    <sys:String x:Key="SettingsItem_ChangingLanguageWarning">La modifica della lingua causerà il riavvio dell'applicazione!</sys:String>
+    <sys:String x:Key="SettingsItem_EnableLanguageTesting">Abilita test lingua UI</sys:String>
+    <sys:String x:Key="SettingsItem_IncludeDebug">Includi nel file registro messaggi livello debug</sys:String>
+    <sys:String x:Key="SettingsItem_KeepOnTop">Mantieni My Scheduled Tasks sopra alle altre finestre</sys:String>
+    <sys:String x:Key="SettingsItem_Language">Lingua UI</sys:String>
+    <sys:String x:Key="SettingsItem_Root">cartella principale</sys:String>
+    <sys:String x:Key="SettingsItem_RowHeight">Altezza riga</sys:String>
+    <sys:String x:Key="SettingsItem_SaveTasksOnExit">Salva elenco attività all'uscita</sys:String>
+    <sys:String x:Key="SettingsItem_ShowAdvancedMenu">Visualizza menu avanzato</sys:String>
+    <sys:String x:Key="SettingsItem_ShowAlertColumn">Visualizza colonna avvisi</sys:String>
+    <sys:String x:Key="SettingsItem_ShowDetails">Visualizza pannello dettagli</sys:String>
+    <sys:String x:Key="SettingsItem_ShowExit">Visualizza Esci nella barra di navigazione</sys:String>
+    <sys:String x:Key="SettingsItem_ShowFolderColumn">Visualizza colonna Cartella</sys:String>
+    <sys:String x:Key="SettingsItem_ShowLastRunColumn">Visualizza colonna Ultima esecuzione</sys:String>
+    <sys:String x:Key="SettingsItem_ShowNextRunColumn">Visualizza colonna Prossima esecuzione</sys:String>
+    <sys:String x:Key="SettingsItem_ShowNoteColumn">Visualizza colonna Nota</sys:String>
+    <sys:String x:Key="SettingsItem_ShowStatusColumn">Visualizza colonna Stato</sys:String>
+    <sys:String x:Key="SettingsItem_StartCentered">Avvia con la finestra centrata sullo schermo</sys:String>
+    <sys:String x:Key="SettingsItem_Theme">Tema</sys:String>
+    <sys:String x:Key="SettingsItem_UISize">Dimensioni UI</sys:String>
+    <sys:String x:Key="SettingsItem_UseOSLanguageCheckBox">Usa lingua di visualizzazione di Windows</sys:String>
+    <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine1">Quando questa opzione è selezionata, la lingua specificata nelle impostazioni di Windows</sys:String>
+    <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine2">verrà usata se è disponibile una traduzione, altrimenti verrà usata la lingua inglese (en-US).</sys:String>
+    <!--  Settings Page Expander Headings and Sub Headings  -->
+    <sys:String x:Key="SettingsSection_AppSettings">Impostazioni applicazione</sys:String>
+    <sys:String x:Key="SettingsSection_Columns">Seleziona colonne griglia</sys:String>
+    <sys:String x:Key="SettingsSection_Language">Lingua UI</sys:String>
+    <sys:String x:Key="SettingsSection_UISettings">Impostazioni UI</sys:String>
+    <sys:String x:Key="SettingsSubHead_AppSettings">Visualizza pannello dettagli, visualizza menu avanzato, annota la cartella principale e altro ancora</sys:String>
+    <sys:String x:Key="SettingsSubHead_Columns">Scegli quali colonne visualizzare nel file griglia My Scheduled Tasks</sys:String>
+    <sys:String x:Key="SettingsSubHead_Language">Impostazioni e test lingua UI</sys:String>
+    <sys:String x:Key="SettingsSubHead_UISettings">Tema, colore evidenziazione, dimensione UI, altezza riga, posizione iniziale e altro ancora</sys:String>
+    <!--  Status Bar  -->
+    <sys:String x:Key="StatusBar_Items">{0} elementi</sys:String>
+    <sys:String x:Key="StatusBar_Selected">{0} selezionati</sys:String>
+    <!--  Task Privileges  -->
+    <sys:String x:Key="TaskPrivileges_Lowest">Privilegi minimi</sys:String>
+    <sys:String x:Key="TaskPrivileges_Highest">Privilegi massimi</sys:String>
+    <!--  Task Result Short  -->
+    <sys:String x:Key="TaskResult_Disabled">DIS</sys:String>
+    <sys:String x:Key="TaskResult_FileNotFound">FNT</sys:String>
+    <sys:String x:Key="TaskResult_NonZero">NZ</sys:String>
+    <sys:String x:Key="TaskResult_NotYetRun">NAE</sys:String>
+    <sys:String x:Key="TaskResult_Null">No info</sys:String>
+    <sys:String x:Key="TaskResult_OK">OK</sys:String>
+    <sys:String x:Key="TaskResult_ReadyToRun">PPE</sys:String>
+    <sys:String x:Key="TaskResult_Running">ESE</sys:String>
+    <sys:String x:Key="TaskResult_Terminated">TRM</sys:String>
+
+</ResourceDictionary>
