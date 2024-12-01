@@ -25,9 +25,12 @@
 
 ### My Scheduled Tasks is an application that lets you keep track of the tasks in Windows Task Scheduler that <ins>you</ins> care about.
 
-### My Scheduled Task is now Multilingual!
+#### My Scheduled Task is now Multilingual!
+Please see [Contribute a Translation](https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Contribute-a-Translation) topic in the Wiki if you would like to contribute a translation.
+You will also find a topic on [Testing a Language File](https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Testing-a-Language-File) in the wiki. 
 
 #### My Scheduled Tasks runs on .NET 8
+Self-contained versions are available if .NET 8 isn't installed. Portable versions are also available. See the [releases page](https://github.com/Timthreetwelve/MyScheduledTasks/releases).
 
 #### Features
 
@@ -44,5 +47,5 @@
 * Optionally run My Scheduled Tasks as a scheduled task and get notification of tasks that have a non-zero result code.
 * Choose which columns are visible.
 
-#### Screenshot (Sneak peek at version 0.6)
+#### Screenshot
 ![Screenshot](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/Images/MyScheduledTasks_v6.png)
