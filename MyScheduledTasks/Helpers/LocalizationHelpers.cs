@@ -44,15 +44,4 @@ internal static class LocalizationHelpers
         Application.Current.Shutdown();
     }
     #endregion Save settings and restart (after language change)
-
-    #region Return the language index
-    /// <summary>
-    /// Gets the index of the selected language.
-    /// </summary>
-    /// <returns>The index as int.</returns>
-    public static int GetLanguageIndex()
-    {
-        return UILanguage.DefinedLanguages.FindIndex(x => x.LanguageCode == UserSettings.Setting!.UILanguage);
-    }
-    #endregion Return the language index
 }

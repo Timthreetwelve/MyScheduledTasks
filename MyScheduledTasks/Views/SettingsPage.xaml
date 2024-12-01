@@ -24,7 +24,6 @@
         <convert:BooleanInverter x:Key="boolInverter" />
         <convert:EnumDescConverter x:Key="descConv" />
         <convert:EnumBindingSource x:Key="EnumBindingSource" />
-        <convert:LanguageConverter x:Key="langConverter" />
     </UserControl.Resources>
     <!--#endregion-->
 
@@ -533,10 +532,9 @@
                                                           Source={x:Static config:UserSettings.Setting},
                                                           Converter={StaticResource boolInverter}}"
                                       ItemsSource="{Binding DefinedLanguages}"
-                                      Loaded="CbxLanguage_Loaded"
-                                      SelectedItem="{Binding Path=UILanguage,
-                                                             Source={x:Static config:UserSettings.Setting},
-                                                             Converter={StaticResource langConverter}}"
+                                      SelectedValue="{Binding Path=UILanguage,
+                                                             Source={x:Static config:UserSettings.Setting}}"
+                                      SelectedValuePath="LanguageCode"
                                       Style="{StaticResource MaterialDesignComboBox}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
