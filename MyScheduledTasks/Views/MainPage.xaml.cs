@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Views;
 
@@ -52,7 +52,7 @@ public partial class MainPage : UserControl
     #region DataGrid row drag & drop
     private void DataGridTasksDrop(object sender, DragEventArgs e)
     {
-        if (e.Source == DataGridTasks)
+        if (Equals(e.Source, DataGridTasks))
         {
             _ = System.Threading.Tasks.Task.Run(TaskHelpers.UpdateMyTasksAfterDrop);
         }
