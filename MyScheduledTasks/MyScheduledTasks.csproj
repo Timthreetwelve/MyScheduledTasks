@@ -17,7 +17,14 @@
     <ApplicationIcon>Images\MST.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-
+  
+  <!-- Analyzers -->
+  <PropertyGroup>
+    <AnalysisMode>Recommended</AnalysisMode>
+    <AnalysisLevel>8.0</AnalysisLevel>
+  </PropertyGroup>
+  
+  <!-- Images -->
   <ItemGroup>
     <Content Include="Images\MST.ico" />
     <Resource Include="Images\InvertedMST.png" />
