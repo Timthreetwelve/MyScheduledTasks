@@ -1,11 +1,10 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 // Like it says on the tin, this is a global using file
 
 global using System;
 global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
-global using System.Collections.Specialized;
 global using System.ComponentModel;
 global using System.Diagnostics;
 global using System.Globalization;
@@ -13,10 +12,10 @@ global using System.IO;
 global using System.Linq;
 global using System.Media;
 global using System.Reflection;
-global using System.Runtime.CompilerServices;
 global using System.Runtime.InteropServices;
 global using System.Runtime.Versioning;
 global using System.Security.Principal;
+global using System.Text;
 global using System.Text.Json;
 global using System.Threading;
 global using System.Windows;
