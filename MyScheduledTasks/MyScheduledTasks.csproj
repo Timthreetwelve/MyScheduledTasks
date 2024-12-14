@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>MyScheduledTasks</AssemblyName>
@@ -15,6 +15,10 @@
     <Product>My Scheduled Tasks</Product>
     <NeutralLanguage>en-US</NeutralLanguage>
     <ApplicationIcon>Images\MST.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <!-- Manifest - Run app elevated -->
+  <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   
@@ -31,6 +35,7 @@
     <Resource Include="Images\MST.png" />
   </ItemGroup>
 
+  <!-- Packages -->
   <ItemGroup>
     <PackageReference Include="CommandLineArgumentsParser" Version="3.0.23" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
@@ -38,14 +43,12 @@
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
     <PackageReference Include="NLog" Version="5.3.4" />
     <PackageReference Include="Octokit" Version="13.0.1" />
-    <PackageReference Include="Nerdbank.GitVersioning" Condition="!Exists('packages.config')">
-      <PrivateAssets>all</PrivateAssets>
-      <Version>3.6.146</Version>
-    </PackageReference>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.6.146" PrivateAssets="all" />
     <PackageReference Include="TaskScheduler" Version="2.11.0" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="4.0.4" />
   </ItemGroup>
 
+  <!-- Files top copy to output folder -->
   <ItemGroup>
     <None Update="LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
