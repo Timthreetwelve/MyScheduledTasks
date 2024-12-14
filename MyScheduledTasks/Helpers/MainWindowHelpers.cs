@@ -129,7 +129,7 @@ internal static class MainWindowHelpers
         }
 
         // Clear any remaining messages
-        Snackbar snackbar = FindChild<Snackbar>(Application.Current.MainWindow, "SnackBar1");
+        Snackbar snackbar = _mainWindow!.SnackBar1;
         if (snackbar is not null)
         {
             snackbar.MessageQueue!.Clear();
