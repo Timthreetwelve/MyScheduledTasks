@@ -5,23 +5,19 @@
                     xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
                     xmlns:views="clr-namespace:MyScheduledTasks.Views">
 
-    <DataTemplate x:Name="settingsViewTemplate"
-                  DataType="{x:Type viewmodels:SettingsViewModel}">
+    <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
         <views:SettingsPage DataContext="{Binding}" />
     </DataTemplate>
 
-    <DataTemplate x:Name="addTasksTemplate"
-                  DataType="{x:Type viewmodels:AddTasksViewModel}">
+    <DataTemplate DataType="{x:Type viewmodels:AddTasksViewModel}">
         <views:AddTasks DataContext="{Binding}" />
     </DataTemplate>
 
-    <DataTemplate x:Name="mainViewTemplate"
-                  DataType="{x:Type viewmodels:MainViewModel}">
+    <DataTemplate DataType="{x:Type viewmodels:MainViewModel}">
         <views:MainPage DataContext="{Binding}" />
     </DataTemplate>
 
-    <DataTemplate x:Name="aboutViewTemplate"
-                  DataType="{x:Type viewmodels:AboutViewModel}">
+    <DataTemplate DataType="{x:Type viewmodels:AboutViewModel}">
         <views:AboutPage DataContext="{Binding}" />
     </DataTemplate>
 
