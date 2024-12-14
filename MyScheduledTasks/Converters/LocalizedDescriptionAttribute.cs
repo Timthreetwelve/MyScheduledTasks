@@ -11,8 +11,6 @@ namespace MyScheduledTasks.Converters;
 /// <seealso cref="System.ComponentModel.DescriptionAttribute" />
 internal sealed class LocalizedDescriptionAttribute(string resourceKey) : DescriptionAttribute
 {
-    readonly string _resourceKey = resourceKey;
-
     public override string Description
     {
         get
@@ -20,19 +18,14 @@ internal sealed class LocalizedDescriptionAttribute(string resourceKey) : Descri
             object description;
             try
             {
-                description = Application.Current.TryFindResource(_resourceKey);
+                description = Application.Current.TryFindResource(resourceKey);
             }
             catch (Exception)
             {
-                return $"{_resourceKey} value is null";
+                return $"{resourceKey} value is null";
             }
 
-            if (description is null)
-            {
-                return $"{_resourceKey} resource not found";
-            }
-
-            return description.ToString()!;
+            return description is null ? $"{resourceKey} resource not found" : description.ToString()!;
         }
     }
 }
