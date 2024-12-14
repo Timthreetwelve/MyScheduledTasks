@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks;
 /// <summary>
@@ -36,6 +36,7 @@ public partial class App : Application
     /// Number of language strings in the default resource dictionary
     /// </summary>
     public static int DefaultLanguageStrings { get; set; }
+
     /// <summary>
     /// Command line arguments
     /// </summary>
@@ -57,6 +58,9 @@ public partial class App : Application
 
         // Initialize settings here so that saved language can be accessed below.
         ConfigHelpers.InitializeSettings();
+
+        // Set NLog configuration
+        NLogConfig(false);
 
         // Log startup messages
         MainWindowHelpers.LogStartup();
@@ -156,7 +160,8 @@ public partial class App : Application
                 catch (Exception ex)
                 {
                     _log.Error(ex, $"Error loading test language file {TestLanguageFile}");
-                    string msg = string.Format($"{GetStringResource("MsgText_Error_TestLanguage")}\n\n{ex.Message}\n\n{ex.InnerException}");
+                    string msg = string.Format(CultureInfo.CurrentCulture,
+                                               $"{GetStringResource("MsgText_Error_TestLanguage")}\n\n{ex.Message}\n\n{ex.InnerException}");
                     MessageBox.Show(msg,
                         "My Scheduled Tasks ERROR",
                         MessageBoxButton.OK,
