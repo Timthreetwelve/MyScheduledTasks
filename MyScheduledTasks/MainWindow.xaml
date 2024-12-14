@@ -1,4 +1,4 @@
-<Window x:Class="MyScheduledTasks.MainWindow"
+﻿<Window x:Class="MyScheduledTasks.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
@@ -27,7 +27,6 @@
         <viewmodels:NavigationViewModel />
     </Window.DataContext>
     <Window.Resources>
-        <config:UserSettings x:Key="config" />
         <convert:SelectedItemConverter x:Key="SelItemConv" />
         <convert:RefreshVisibilityConverter x:Key="RefreshConv" />
     </Window.Resources>
@@ -37,10 +36,6 @@
     <bh:Interaction.Triggers>
         <bh:EventTrigger EventName="KeyDown">
             <bh:InvokeCommandAction Command="{Binding KeyDownCommand}"
-                                    PassEventArgsToCommand="True" />
-        </bh:EventTrigger>
-        <bh:EventTrigger EventName="MouseRightButtonUp">
-            <bh:InvokeCommandAction Command="{Binding RightMouseUpCommand}"
                                     PassEventArgsToCommand="True" />
         </bh:EventTrigger>
     </bh:Interaction.Triggers>
@@ -64,7 +59,7 @@
             <!--#endregion-->
 
             <!--#region Title Row-->
-            <Grid Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid Grid.Column="1">
                 <!--#region Column definitions for the title row-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -244,7 +239,16 @@
             <!--#region Content control for pages-->
             <Grid Grid.Row="1" Grid.Column="1"
                   Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
-                <ContentControl Content="{Binding CurrentViewModel}" />
+                <Border BorderBrush="{DynamicResource MaterialDesign.Brush.TextBox.HoverBackground}"
+                        BorderThickness="1.5,1,0,0">
+                    <ContentControl Content="{Binding CurrentViewModel}" />
+                    <bh:Interaction.Triggers>
+                        <bh:EventTrigger EventName="MouseRightButtonUp">
+                            <bh:InvokeCommandAction Command="{Binding RightMouseUpCommand}"
+                                                    PassEventArgsToCommand="True" />
+                        </bh:EventTrigger>
+                    </bh:Interaction.Triggers>
+                </Border>
             </Grid>
             <!--#endregion-->
         </Grid>
