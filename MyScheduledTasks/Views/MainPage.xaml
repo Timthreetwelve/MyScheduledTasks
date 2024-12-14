@@ -20,7 +20,6 @@
     <!--#region Resources & DataContext-->
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolVisConverter" />
-        <convert:BooleanInverter x:Key="BoolInverter" />
         <convert:SpacingConverter x:Key="Spacing" />
         <convert:RootConverter x:Key="RootConverter" />
         <convert:MenuItemEnabledConverter x:Key="EnabledConverter" />

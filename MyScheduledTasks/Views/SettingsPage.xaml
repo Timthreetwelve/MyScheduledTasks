@@ -20,7 +20,6 @@
 
     <UserControl.Resources>
         <convert:BooleanInverter x:Key="boolInverter" />
-        <convert:EnumBindingSource x:Key="EnumBindingSource" />
     </UserControl.Resources>
     <!--#endregion-->
 
@@ -386,7 +385,7 @@
                 <Expander x:Name="LangExpander"
                           Grid.Row="6"
                           materialDesign:ExpanderAssist.HorizontalHeaderPadding="10"
-                          IsExpanded="{Binding Setting.LangExpanderOpen,
+                          IsExpanded="{Binding LangExpanderOpen,
                                                Source={x:Static config:TempSettings.Setting}}">
                     <Expander.Header>
                         <Grid>
