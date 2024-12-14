@@ -5,7 +5,7 @@ namespace MyScheduledTasks.Models;
 /// <summary>
 /// Class for language properties.
 /// </summary>
-internal partial class UILanguage : ObservableObject
+public partial class UILanguage : ObservableObject
 {
     #region Properties
     [ObservableProperty]

@@ -54,7 +54,15 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <!--#endregion-->
 
+    <!--#region Right align cell text-->
+    <Style TargetType="DataGridCell"
+           x:Key="AlignRight"
+           BasedOn="{StaticResource {x:Type DataGridCell}}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
     <!--#endregion-->
 
     <!--#region Style for DataGrid results column cells -->

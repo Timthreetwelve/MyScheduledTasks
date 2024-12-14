@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="MyScheduledTasks.Views.AboutPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
              xmlns:convert="clr-namespace:MyScheduledTasks.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:global="clr-namespace:System.Globalization;assembly=mscorlib"
@@ -12,6 +13,7 @@
              xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance Type=viewmodels:AboutViewModel}"
              FontFamily="Segoe UI" FontSize="14"
              TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
 
@@ -216,21 +218,27 @@
 
                 <DataGrid Grid.Row="12" Grid.Column="2"
                           HorizontalAlignment="Left"
-                          materialDesign:DataGridAssist.CellPadding="3,3,5,3"
+                          materialDesign:DataGridAssist.CellPadding="{Binding RowSpacing,
+                                                                                          Source={x:Static config:UserSettings.Setting},
+                                                                                          Converter={StaticResource Spacing}}"
                           AutoGenerateColumns="False"
                           Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
                           BorderThickness="1"
                           CellStyle="{StaticResource DGCellStyle}"
                           HeadersVisibility="None"
                           IsReadOnly="True"
-                          ItemsSource="{x:Static models:UILanguage.DefinedLanguages}">
+                          ItemsSource="{Binding AnnotatedLanguageList,
+                                                            Mode=OneWay}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding LanguageNative}"
                                             MinWidth="110" />
                         <DataGridTextColumn Binding="{Binding LanguageCode}"
                                             MinWidth="90" />
                         <DataGridTextColumn Binding="{Binding Contributor}"
-                                            MinWidth="185" />
+                                            MinWidth="100" />
+                        <DataGridTextColumn Binding="{Binding Note}"
+                                            MinWidth="90"
+                                            CellStyle="{StaticResource AlignRight}" />
                     </DataGrid.Columns>
                 </DataGrid>
 
