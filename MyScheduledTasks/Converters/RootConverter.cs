@@ -5,7 +5,7 @@ namespace MyScheduledTasks.Converters;
 /// <summary>
 /// Converter to annotate root folder
 /// </summary>
-internal class RootConverter : IValueConverter
+internal sealed class RootConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

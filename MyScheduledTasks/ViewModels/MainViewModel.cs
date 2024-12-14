@@ -2,7 +2,7 @@
 
 namespace MyScheduledTasks.ViewModels;
 
-internal partial class MainViewModel : ObservableObject
+internal sealed partial class MainViewModel : ObservableObject
 {
     #region Load the task list
     /// <summary>

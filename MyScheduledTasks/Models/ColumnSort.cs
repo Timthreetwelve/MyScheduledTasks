@@ -2,7 +2,7 @@
 
 namespace MyScheduledTasks.Models;
 
-internal class ColumnSort
+internal sealed class ColumnSort
 {
     public string? Header { get; set; }
 

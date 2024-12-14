@@ -5,7 +5,7 @@ namespace MyScheduledTasks.Converters;
 /// This converter is used to enable/disable menu items
 /// depending on the number of items selected in the DataGrid
 /// </summary>
-internal class MenuItemEnabledConverter : IValueConverter
+internal sealed class MenuItemEnabledConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

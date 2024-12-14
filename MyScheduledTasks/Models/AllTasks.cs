@@ -2,7 +2,7 @@
 
 namespace MyScheduledTasks.Models;
 
-internal partial class AllTasks : ObservableObject
+internal sealed partial class AllTasks : ObservableObject
 {
     public static ObservableCollection<AllTasks> All_TasksCollection { get; set; } = [];
     public static ObservableCollection<AllTasks> Non_MS_TasksCollection { get; set; } = [];

@@ -5,7 +5,7 @@ namespace MyScheduledTasks.Converters;
 /// <summary>
 /// Show refresh button only on main page.
 /// </summary>
-internal class RefreshVisibilityConverter : IValueConverter
+internal sealed class RefreshVisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

@@ -5,7 +5,7 @@ namespace MyScheduledTasks.Converters;
 /// <summary>
 /// Converter that changes Spacing to Thickness
 /// </summary>
-internal class SpacingConverter : IValueConverter
+internal sealed class SpacingConverter : IValueConverter
 {
     public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

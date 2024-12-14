@@ -5,7 +5,7 @@ namespace MyScheduledTasks.Converters;
 /// <summary>
 /// Inverts a boolean value. True becomes False, False becomes True.
 /// </summary>
-public class BooleanInverter : IValueConverter
+public sealed class BooleanInverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

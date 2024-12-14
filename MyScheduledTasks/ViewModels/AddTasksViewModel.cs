@@ -2,7 +2,7 @@
 
 namespace MyScheduledTasks.ViewModels;
 
-internal partial class AddTasksViewModel
+internal sealed partial class AddTasksViewModel
 {
     #region Private field
     private static int _itemsAdded;
