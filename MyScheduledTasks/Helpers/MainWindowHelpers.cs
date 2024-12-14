@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -208,26 +208,20 @@ internal static class MainWindowHelpers
     #region Process command line options
     private static void ProcessCommandLine()
     {
-        // Since this is not a console app, get the command line args
-        string[] args = Environment.GetCommandLineArgs();
+        CommandLineHelpers.ProcessCommandLine();
 
-        // Parser settings
-        Parser parser = new(s =>
+        if (CommandLineHelpers.CommandLineParserError is not null)
         {
-            s.CaseSensitive = false;
-            s.IgnoreUnknownArguments = true;
-        });
+            _log.Warn(CommandLineHelpers.CommandLineParserError);
+        }
 
-        // parses the command line. result object will hold the arguments
-        ParserResult<CmdLineOptions> result = parser.ParseArguments<CmdLineOptions>(args);
-
-        if (result?.Value.Administrator == true)
+        if (CommandLineHelpers.Administrator)
         {
             _log.Debug("Command line argument \"administrator\" was specified. Restarting as Administrator.");
             NavigationViewModel.RestartAsAdmin();
         }
 
-        if (result?.Value.Hide == true)
+        if (CommandLineHelpers.Hide)
         {
             _log.Debug("Argument \"hide\" specified. Scheduled tasks will be checked but window will only be shown if needed.");
             // hide the window
