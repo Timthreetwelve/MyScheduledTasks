@@ -37,4 +37,7 @@ internal partial class TempSettings : ConfigManager<TempSettings>
 
     [ObservableProperty]
     private static bool _importResetCreationDate = true;
+
+    [ObservableProperty]
+    private static bool _backupExpanderOpen;
 }
