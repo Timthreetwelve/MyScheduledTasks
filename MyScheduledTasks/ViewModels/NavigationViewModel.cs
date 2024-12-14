@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -568,4 +568,30 @@ internal partial class NavigationViewModel : ObservableObject
     }
     #endregion Right mouse button
 
+    #region Show snack bar message for UI changes
+    private static void ShowUIChangeMessage(string messageType)
+    {
+        CompositeFormat? composite = null;
+        string messageVar = string.Empty;
+
+        switch (messageType)
+        {
+            case "size":
+                composite = MsgTextUISizeSet;
+                messageVar = EnumHelpers.GetEnumDescription(UserSettings.Setting!.UISize);
+                break;
+            case "theme":
+                composite = MsgTextUIThemeSet;
+                messageVar = EnumHelpers.GetEnumDescription(UserSettings.Setting!.UITheme);
+                break;
+            case "color":
+                composite = MsgTextUIColorSet;
+                messageVar = EnumHelpers.GetEnumDescription(UserSettings.Setting!.PrimaryColor);
+                break;
+        }
+
+        string message = string.Format(CultureInfo.InvariantCulture, composite!, messageVar);
+        SnackbarMsg.ClearAndQueueMessage(message, 2000);
+    }
+    #endregion Show snack bar message for UI changes
 }
