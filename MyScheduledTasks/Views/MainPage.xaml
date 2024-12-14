@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MyScheduledTasks.Views.MainPage"
+<UserControl x:Class="MyScheduledTasks.Views.MainPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -38,7 +38,7 @@
                 <RowDefinition Height="*"
                                MinHeight="110" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition x:Name="detailsRow"
+                <RowDefinition x:Name="DetailsRow"
                                Height="550" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
@@ -209,13 +209,13 @@
                                             Mode=TwoWay}"
                       ScrollViewer.CanContentScroll="False"
                       SelectedIndex="0">
-                <!--#region Datagrid Columns-->
+                <!--#region DataGrid Columns-->
                 <DataGrid.Columns>
                     <DataGridTemplateColumn CanUserSort="True"
                                             CellStyle="{StaticResource Input}"
                                             DisplayIndex="0"
                                             Header="&#x26A0;"
-                                            HeaderStyle="{StaticResource headerCenter}"
+                                            HeaderStyle="{StaticResource HeaderCenter}"
                                             SortMemberPath="IsChecked"
                                             Visibility="{Binding ShowAlertCol,
                                                                  Source={x:Static config:UserSettings.Setting},
@@ -333,9 +333,9 @@
                 </DataGrid.Columns>
                 <!--#endregion-->
 
-                <!--#region Datagrid context menu-->
-                <DataGrid.ContextMenu>
-                    <ContextMenu x:Name="DGContextMenu">
+                <!--#region DataGrid context menu-->
+                <DataGrid.ContextMenu >
+                    <ContextMenu x:Name="DgContextMenu">
                         <ContextMenu.DataContext>
                             <viewmodels:NavigationViewModel />
                         </ContextMenu.DataContext>

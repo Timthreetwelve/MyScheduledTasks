@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
@@ -138,7 +138,7 @@
     <!--#endregion-->
 
     <!--#region Style to center DataGrid column headers -->
-    <Style x:Key="headerCenter"
+    <Style x:Key="HeaderCenter"
            BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
            TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -146,7 +146,7 @@
     <!--#endregion-->
 
     <!--#region Style for DataGrid column headers-->
-    <Style x:Key="DGColumnHeader"
+    <Style x:Key="DgColumnHeader"
            BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
            TargetType="DataGridColumnHeader">
         <Setter Property="FontSize" Value="14" />

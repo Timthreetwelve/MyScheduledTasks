@@ -223,7 +223,7 @@
                           AutoGenerateColumns="False"
                           Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
                           BorderThickness="1"
-                          CellStyle="{StaticResource DGCellStyle}"
+                          CellStyle="{StaticResource DgCellStyle}"
                           HeadersVisibility="None"
                           IsReadOnly="True"
                           ItemsSource="{Binding AnnotatedLanguageList,

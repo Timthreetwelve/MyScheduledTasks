@@ -83,7 +83,7 @@
                               CanUserAddRows="False"
                               CanUserSortColumns="False"
                               CellStyle="{StaticResource DisplayOnly}"
-                              ColumnHeaderStyle="{StaticResource DGColumnHeader}"
+                              ColumnHeaderStyle="{StaticResource DgColumnHeader}"
                               HeadersVisibility="Column"
                               IsReadOnly="True"
                               ItemsSource="{Binding TasksGrid.SelectedItems}"

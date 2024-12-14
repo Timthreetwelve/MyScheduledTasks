@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Views;
 
@@ -17,10 +17,10 @@ public partial class MainPage : UserControl
 
         // The following fixes binding ElementName in the Context Menu.
         // Credit: https://stackoverflow.com/a/1066009
-        NameScope.SetNameScope(DGContextMenu, NameScope.GetNameScope(this));
+        NameScope.SetNameScope(DgContextMenu, NameScope.GetNameScope(this));
 
         // Details pane size
-        detailsRow.Height = !UserSettings.Setting!.ShowDetails
+        DetailsRow.Height = !UserSettings.Setting!.ShowDetails
             ? new GridLength(1)
             : new GridLength(UserSettings.Setting.DetailsHeight);
     }
@@ -45,7 +45,7 @@ public partial class MainPage : UserControl
     #region GridSplitter drag completed
     private void GridSplitter_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
     {
-        UserSettings.Setting!.DetailsHeight = detailsRow.Height.Value;
+        UserSettings.Setting!.DetailsHeight = DetailsRow.Height.Value;
     }
     #endregion GridSplitter drag completed
 

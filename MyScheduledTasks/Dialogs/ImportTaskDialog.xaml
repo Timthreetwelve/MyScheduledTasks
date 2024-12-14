@@ -93,7 +93,7 @@
                             <ColumnDefinition Width="35" />
 
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="tbxFileName"
+                        <TextBox x:Name="TbxFileName"
                                  Grid.Column="0"
                                  Height="auto"
                                  MinWidth="300"
@@ -133,7 +133,7 @@
                     <TextBlock Grid.Row="3"
                                Margin="10,10,10,4"
                                Text="{DynamicResource ImportTask_TaskName}" />
-                    <TextBox x:Name="tbxTaskName"
+                    <TextBox x:Name="TbxTaskName"
                              Grid.Row="4"
                              Width="auto"
                              Height="auto"
@@ -192,11 +192,11 @@
                                        TargetType="Button">
                                     <Setter Property="IsEnabled" Value="True" />
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ElementName=tbxFileName, Path=Text.Length, Mode=OneWay}"
+                                        <DataTrigger Binding="{Binding ElementName=TbxFileName, Path=Text.Length, Mode=OneWay}"
                                                      Value="0">
                                             <Setter Property="IsEnabled" Value="False" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=tbxTaskName, Path=Text.Length, Mode=OneWay}"
+                                        <DataTrigger Binding="{Binding ElementName=TbxTaskName, Path=Text.Length, Mode=OneWay}"
                                                      Value="0">
                                             <Setter Property="IsEnabled" Value="False" />
                                         </DataTrigger>

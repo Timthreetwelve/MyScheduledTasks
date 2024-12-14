@@ -142,7 +142,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
     public static void ToggleDetails()
     {
         UserSettings.Setting!.ShowDetails = !UserSettings.Setting.ShowDetails;
-        MainPage.Instance!.detailsRow.Height = !UserSettings.Setting.ShowDetails
+        MainPage.Instance!.DetailsRow.Height = !UserSettings.Setting.ShowDetails
             ? new GridLength(1)
             : new GridLength(UserSettings.Setting.DetailsHeight);
     }
@@ -435,7 +435,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
                     break;
                 case Key.D:
                     UserSettings.Setting!.ShowDetails = !UserSettings.Setting.ShowDetails;
-                    MainPage.Instance!.detailsRow.Height = !UserSettings.Setting.ShowDetails
+                    MainPage.Instance!.DetailsRow.Height = !UserSettings.Setting.ShowDetails
                         ? new GridLength(1)
                         : new GridLength(UserSettings.Setting.DetailsHeight);
                     e.Handled = true;
