@@ -50,7 +50,7 @@ public partial class MainPage : UserControl
     #endregion GridSplitter drag completed
 
     #region DataGrid row drag & drop
-    public void DataGridTasksDrop(object sender, DragEventArgs e)
+    private void DataGridTasksDrop(object sender, DragEventArgs e)
     {
         if (e.Source == DataGridTasks)
         {
