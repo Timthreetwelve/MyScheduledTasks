@@ -548,26 +548,22 @@ internal partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void RightMouseUp(MouseButtonEventArgs e)
     {
-        if (e.OriginalSource is TextBlock text)
+        if (e.OriginalSource is not TextBlock text)
         {
-            // Skip the navigation menu
-            ListBox lb = MainWindowHelpers.FindParent<ListBox>(text);
-            if (lb?.Name == "NavigationListBox")
-            {
-                return;
-            }
+            return;
+        }
 
-            // Skip the DataGrid of tasks since it has a context menu
-            DataGrid dg = MainWindowHelpers.FindParent<DataGrid>(text);
-            if (dg?.Name == "DataGridTasks")
-            {
-                return;
-            }
+        // Skip the DataGrid of tasks since it has a context menu
+        DataGrid dg = MainWindowHelpers.FindParent<DataGrid>(text);
+        if (dg?.Name == "DataGridTasks")
+        {
+            return;
+        }
 
-            if (ClipboardHelper.CopyTextToClipboard(text.Text))
-            {
-                SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_CopiedToClipboardItem"));
-            }
+        if (ClipboardHelper.CopyTextToClipboard(text.Text))
+        {
+            SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_CopiedToClipboardItem"));
+            _log.Debug($"{text.Text.Length} bytes copied to the clipboard");
         }
     }
     #endregion Right mouse button
