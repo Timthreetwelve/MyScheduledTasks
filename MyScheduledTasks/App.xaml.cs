@@ -36,6 +36,10 @@ public partial class App : Application
     /// Number of language strings in the default resource dictionary
     /// </summary>
     public static int DefaultLanguageStrings { get; set; }
+    /// <summary>
+    /// Command line arguments
+    /// </summary>
+    internal static string[] Args { get; private set; } = [];
     #endregion Properties
 
     /// <summary>
@@ -48,6 +52,8 @@ public partial class App : Application
         // Unhandled exception handler
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
+        // Command line arguments
+        Args = e.Args;
 
         // Initialize settings here so that saved language can be accessed below.
         ConfigHelpers.InitializeSettings();
