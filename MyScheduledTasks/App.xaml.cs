@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks;
 /// <summary>
@@ -44,6 +44,10 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        // Unhandled exception handler
+        AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
 
         // Initialize settings here so that saved language can be accessed below.
         ConfigHelpers.InitializeSettings();
@@ -155,4 +159,32 @@ public partial class App : Application
             }
         }
     }
+
+    #region Unhandled Exception Handler
+    /// <summary>
+    /// Handles any exceptions that weren't caught by a try-catch statement.
+    /// </summary>
+    /// <remarks>
+    /// This uses default message box.
+    /// </remarks>
+    internal static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs args)
+    {
+        _log.Error("Unhandled Exception");
+        Exception e = (Exception)args.ExceptionObject;
+        _log.Error(e.Message);
+        if (e.InnerException != null)
+        {
+            _log.Error(e.InnerException.ToString());
+        }
+        _log.Error(e.StackTrace);
+
+        string msg = string.Format(CultureInfo.CurrentCulture,
+                                   $"{GetStringResource("MsgText_ErrorGeneral")}\n{e.Message}\n{GetStringResource("MsgText_SeeLogFile")}");
+        _ = MessageBox.Show(msg,
+            GetStringResource("MsgText_ErrorCaption"),
+            MessageBoxButton.OK,
+            MessageBoxImage.Error);
+    }
+
+    #endregion Unhandled Exception Handler
 }

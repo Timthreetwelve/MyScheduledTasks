@@ -101,9 +101,6 @@ internal static class MainWindowHelpers
     /// </summary>
     internal static void EventHandlers()
     {
-        // Unhandled exception handler
-        AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
         // Settings change events
         UserSettings.Setting!.PropertyChanged += SettingChange.UserSettingChanged!;
         TempSettings.Setting!.PropertyChanged += SettingChange.TempSettingChanged!;
@@ -151,33 +148,6 @@ internal static class MainWindowHelpers
         ConfigHelpers.SaveSettings();
     }
     #endregion Window Events
-
-    #region Unhandled Exception Handler
-    /// <summary>
-    /// Handles any exceptions that weren't caught by a try-catch statement.
-    /// </summary>
-    /// <remarks>
-    /// This uses default message box.
-    /// </remarks>
-    internal static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs args)
-    {
-        _log.Error("Unhandled Exception");
-        Exception e = (Exception)args.ExceptionObject;
-        _log.Error(e.Message);
-        if (e.InnerException != null)
-        {
-            _log.Error(e.InnerException.ToString());
-        }
-        _log.Error(e.StackTrace);
-
-        string msg = string.Format($"{GetStringResource("MsgText_ErrorGeneral")}\n{e.Message}\n{GetStringResource("MsgText_SeeLogFile")}");
-        _ = MessageBox.Show(msg,
-            GetStringResource("MsgText_ErrorCaption"),
-            MessageBoxButton.OK,
-            MessageBoxImage.Error);
-    }
-
-    #endregion Unhandled Exception Handler
 
     #region Write startup messages to the log
     /// <summary>
