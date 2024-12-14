@@ -35,8 +35,6 @@ public partial class MyTasks : ObservableObject
     }
 
     public static bool IgnoreChanges { get; set; }
-
-    public static bool SortIsDirty { get; set; }
     #endregion Properties
 
     #region Observable collection
