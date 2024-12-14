@@ -443,8 +443,7 @@
 
                         <StackPanel Grid.Row="0" Grid.Column="1"
                                     Orientation="Horizontal">
-                            <CheckBox Grid.Row="0" Grid.Column="1"
-                                      Padding="10,0"
+                            <CheckBox Padding="10,0"
                                       VerticalContentAlignment="Center"
                                       Content="{DynamicResource SettingsItem_UseOSLanguageCheckBox}"
                                       IsChecked="{Binding UseOSLanguage,
@@ -547,8 +546,7 @@
                             <StackPanel.DataContext>
                                 <viewmodels:SettingsViewModel />
                             </StackPanel.DataContext>
-                            <CheckBox Grid.Row="0" Grid.Column="1"
-                                      Padding="10,0"
+                            <CheckBox Padding="10,0"
                                       VerticalContentAlignment="Center"
                                       Content="{DynamicResource SettingsItem_EnableLanguageTesting}"
                                       IsChecked="{Binding LanguageTesting,

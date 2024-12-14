@@ -122,7 +122,6 @@
                            TargetType="ScrollBar" />
                 </ScrollViewer.Resources>
                 <TextBlock x:Name="txtMessage"
-                           Grid.Row="0"
                            Margin="5"
                            HorizontalAlignment="Center"
                            FontSize="16"
