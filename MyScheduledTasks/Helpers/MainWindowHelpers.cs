@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -246,7 +246,7 @@ internal static class MainWindowHelpers
 
         if (mode == ThemeType.System)
         {
-            mode = GetSystemTheme().Equals("light") ? ThemeType.Light : ThemeType.Darker;
+            mode = GetSystemTheme().Equals("light", StringComparison.OrdinalIgnoreCase) ? ThemeType.Light : ThemeType.Darker;
         }
 
         switch (mode)
