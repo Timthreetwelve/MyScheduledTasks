@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -391,39 +391,36 @@ internal partial class NavigationViewModel : ObservableObject
     /// Keyboard events
     /// </summary>
     [RelayCommand]
-    public void KeyDown(KeyEventArgs e)
+    private void KeyDown(KeyEventArgs e)
     {
         #region Keys without modifiers
         switch (e.Key)
         {
             case Key.F1:
-                {
-                    _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.About);
-                    break;
-                }
+                _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.About);
+                e.Handled = true;
+                break;
             case Key.F5:
                 RefreshGrid();
+                e.Handled = true;
                 break;
             case Key.Escape:
+                switch (CurrentViewModel)
                 {
-                    if (CurrentViewModel is MainViewModel)
-                    {
+                    case MainViewModel:
                         MainPage.Instance!.DataGridTasks.SelectedIndex = -1;
                         Keyboard.ClearFocus();
                         e.Handled = true;
-                    }
-                    if (CurrentViewModel is AddTasksViewModel)
-                    {
+                        break;
+                    case AddTasksViewModel:
                         Views.AddTasks.Instance!.AllTasksGrid.SelectedIndex = -1;
                         e.Handled = true;
-                    }
-                    if ((CurrentViewModel is SettingsViewModel) || (CurrentViewModel is AboutViewModel))
-                    {
+                        break;
+                    default:
                         e.Handled = true;
-                    }
-
-                    break;
+                        break;
                 }
+                break;
         }
         #endregion Keys without modifiers
 
@@ -433,54 +430,46 @@ internal partial class NavigationViewModel : ObservableObject
             switch (e.Key)
             {
                 case Key.OemComma:
-                    {
-                        _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
-                        break;
-                    }
+                    _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
+                    e.Handled = true;
+                    break;
                 case Key.D:
-                    {
-                        UserSettings.Setting!.ShowDetails = !UserSettings.Setting.ShowDetails;
-                        MainPage.Instance!.detailsRow.Height = !UserSettings.Setting.ShowDetails
-                            ? new GridLength(1)
-                            : new GridLength(UserSettings.Setting.DetailsHeight);
-                        break;
-                    }
+                    UserSettings.Setting!.ShowDetails = !UserSettings.Setting.ShowDetails;
+                    MainPage.Instance!.detailsRow.Height = !UserSettings.Setting.ShowDetails
+                        ? new GridLength(1)
+                        : new GridLength(UserSettings.Setting.DetailsHeight);
+                    e.Handled = true;
+                    break;
                 case Key.L:
-                    {
-                        TaskHelpers.ListMyTasks(MainPage.Instance!.DataGridTasks);
-                        break;
-                    }
+                    TaskHelpers.ListMyTasks(MainPage.Instance!.DataGridTasks);
+                    e.Handled = true;
+                    break;
                 case Key.R:
-                    {
-                        RemoveSort();
-                        break;
-                    }
+                    RemoveSort();
+                    e.Handled = true;
+                    break;
                 case Key.S:
-                    {
-                        SaveTasks();
-                        break;
-                    }
+                    SaveTasks();
+                    e.Handled = true;
+                    break;
                 case Key.T:
-                    {
-                        _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.Main);
-                        break;
-                    }
+                    _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.Main);
+                    e.Handled = true;
+                    break;
                 case Key.Add:
                 case Key.OemPlus:
                     {
                         MainWindowHelpers.EverythingLarger();
-                        string size = EnumDescConverter.GetEnumDescription(UserSettings.Setting!.UISize);
-                        string message = string.Format(GetStringResource("MsgText_UISizeSet"), size);
-                        SnackbarMsg.ClearAndQueueMessage(message, 2000);
+                        ShowUIChangeMessage("size");
+                        e.Handled = true;
                         break;
                     }
                 case Key.Subtract:
                 case Key.OemMinus:
                     {
                         MainWindowHelpers.EverythingSmaller();
-                        string size = EnumDescConverter.GetEnumDescription(UserSettings.Setting!.UISize);
-                        string message = string.Format(GetStringResource("MsgText_UISizeSet"), size);
-                        SnackbarMsg.ClearAndQueueMessage(message, 2000);
+                        ShowUIChangeMessage("size");
+                        e.Handled = true;
                         break;
                     }
             }
@@ -490,52 +479,62 @@ internal partial class NavigationViewModel : ObservableObject
         #region Keys with Ctrl and Shift
         if (e.KeyboardDevice.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
         {
-            if (e.Key == Key.T)
+            switch (e.Key)
             {
-                switch (UserSettings.Setting!.UITheme)
-                {
-                    case ThemeType.Light:
-                        UserSettings.Setting.UITheme = ThemeType.Dark;
+                case Key.C:
+                    {
+                        if (UserSettings.Setting!.PrimaryColor >= AccentColor.White)
+                        {
+                            UserSettings.Setting.PrimaryColor = AccentColor.Red;
+                        }
+                        else
+                        {
+                            UserSettings.Setting.PrimaryColor++;
+                        }
+                        ShowUIChangeMessage("color");
+                        e.Handled = true;
                         break;
-                    case ThemeType.Dark:
-                        UserSettings.Setting.UITheme = ThemeType.Darker;
+                    }
+                case Key.F:
+                    {
+                        using Process p = new();
+                        p.StartInfo.FileName = AppInfo.AppDirectory;
+                        p.StartInfo.UseShellExecute = true;
+                        p.StartInfo.ErrorDialog = false;
+                        _ = p.Start();
+                        e.Handled = true;
                         break;
-                    case ThemeType.Darker:
-                        UserSettings.Setting.UITheme = ThemeType.System;
+                    }
+                case Key.K:
+                    CompareLanguageDictionaries();
+                    ViewLogFile();
+                    e.Handled = true;
+                    break;
+                case Key.S:
+                    TextFileViewer.ViewTextFile(ConfigHelpers.SettingsFileName!);
+                    e.Handled = true;
+                    break;
+                case Key.T:
+                    {
+                        switch (UserSettings.Setting!.UITheme)
+                        {
+                            case ThemeType.Light:
+                                UserSettings.Setting.UITheme = ThemeType.Dark;
+                                break;
+                            case ThemeType.Dark:
+                                UserSettings.Setting.UITheme = ThemeType.Darker;
+                                break;
+                            case ThemeType.Darker:
+                                UserSettings.Setting.UITheme = ThemeType.System;
+                                break;
+                            case ThemeType.System:
+                                UserSettings.Setting.UITheme = ThemeType.Light;
+                                break;
+                        }
+                        ShowUIChangeMessage("theme");
+                        e.Handled = true;
                         break;
-                    case ThemeType.System:
-                        UserSettings.Setting.UITheme = ThemeType.Light;
-                        break;
-                }
-                string theme = EnumDescConverter.GetEnumDescription(UserSettings.Setting.UITheme);
-                string message = string.Format(GetStringResource("MsgText_UIThemeSet"), theme);
-                SnackbarMsg.ClearAndQueueMessage(message, 2000);
-            }
-            if (e.Key == Key.C)
-            {
-                if (UserSettings.Setting!.PrimaryColor >= AccentColor.White)
-                {
-                    UserSettings.Setting.PrimaryColor = AccentColor.Red;
-                }
-                else
-                {
-                    UserSettings.Setting.PrimaryColor++;
-                }
-                string color = EnumDescConverter.GetEnumDescription(UserSettings.Setting.PrimaryColor);
-                string message = string.Format(GetStringResource("MsgText_UIColorSet"), color);
-                SnackbarMsg.ClearAndQueueMessage(message, 2000);
-            }
-            if (e.Key == Key.F)
-            {
-                using Process p = new();
-                p.StartInfo.FileName = AppInfo.AppDirectory;
-                p.StartInfo.UseShellExecute = true;
-                p.StartInfo.ErrorDialog = false;
-                _ = p.Start();
-            }
-            if (e.Key == Key.S)
-            {
-                TextFileViewer.ViewTextFile(ConfigHelpers.SettingsFileName!);
+                    }
             }
         }
         #endregion Keys with Ctrl and Shift
@@ -572,4 +571,5 @@ internal partial class NavigationViewModel : ObservableObject
         }
     }
     #endregion Right mouse button
+
 }
