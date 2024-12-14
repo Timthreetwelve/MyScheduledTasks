@@ -152,7 +152,7 @@ public partial class App : Application
                     _log.Error(ex, $"Error loading test language file {TestLanguageFile}");
                     string msg = string.Format($"{GetStringResource("MsgText_Error_TestLanguage")}\n\n{ex.Message}\n\n{ex.InnerException}");
                     MessageBox.Show(msg,
-                        "Get My IP ERROR",
+                        "My Scheduled Tasks ERROR",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                 }
