@@ -166,7 +166,7 @@ internal static class MainWindowHelpers
         _log.Debug($"{AppInfo.AppName} Commit ID: {BuildInfo.CommitIDString}");
         if (AppInfo.IsAdmin)
         {
-            _log.Debug($"{AppInfo.AppName} is running as Administrator");
+            _log.Info($"{AppInfo.AppName} is running as Administrator");
         }
 
         // Log the .NET version and OS platform
