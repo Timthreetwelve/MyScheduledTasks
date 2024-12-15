@@ -27,7 +27,7 @@ internal static class GitHubHelpers
         try
         {
             SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_AppUpdateChecking"));
-            Release release = await GetLatestReleaseAsync(AppConstString.RepoOwner, AppConstString.RepoName);
+            Release? release = await GetLatestReleaseAsync(AppConstString.RepoOwner, AppConstString.RepoName);
             if (release == null)
             {
                 CheckFailed();
