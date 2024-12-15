@@ -32,8 +32,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
     #endregion Properties
 
     #region List of navigation items
-    public static List<NavigationItem> NavigationViewModelTypes { get; set; } = new List<NavigationItem>
-        (
+    public static List<NavigationItem> NavigationViewModelTypes { get; set; } =
             [
                 new() {
                     Name=GetStringResource("NavItem_Main"),
@@ -69,8 +68,8 @@ internal sealed partial class NavigationViewModel : ObservableObject
                     IconKind=PackIconKind.ExitToApp,
                     IsExit=true
                 }
-            ]
-        );
+            ];
+
     #endregion List of navigation items
 
     #region Navigation Methods
