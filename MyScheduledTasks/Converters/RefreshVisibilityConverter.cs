@@ -7,12 +7,12 @@ namespace MyScheduledTasks.Converters;
 /// </summary>
 internal sealed class RefreshVisibilityConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return value is MainViewModel ? Visibility.Visible : (object)Visibility.Collapsed;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return Binding.DoNothing;
     }

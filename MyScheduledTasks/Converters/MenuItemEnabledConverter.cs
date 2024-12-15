@@ -7,7 +7,7 @@ namespace MyScheduledTasks.Converters;
 /// </summary>
 internal sealed class MenuItemEnabledConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is int selected && parameter is string desired)
         {
@@ -21,7 +21,7 @@ internal sealed class MenuItemEnabledConverter : IValueConverter
         return true;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return Binding.DoNothing;
     }
