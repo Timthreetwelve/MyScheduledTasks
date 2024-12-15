@@ -39,9 +39,9 @@ internal static class MainWindowHelpers
     {
         Window mainWindow = Application.Current.MainWindow;
         mainWindow.Height = UserSettings.Setting!.WindowHeight;
-        mainWindow.Left = UserSettings.Setting!.WindowLeft;
-        mainWindow.Top = UserSettings.Setting!.WindowTop;
-        mainWindow.Width = UserSettings.Setting!.WindowWidth;
+        mainWindow.Left = UserSettings.Setting.WindowLeft;
+        mainWindow.Top = UserSettings.Setting.WindowTop;
+        mainWindow.Width = UserSettings.Setting.WindowWidth;
 
         if (UserSettings.Setting.StartCentered)
         {
@@ -77,9 +77,9 @@ internal static class MainWindowHelpers
     {
         Window mainWindow = Application.Current.MainWindow;
         UserSettings.Setting!.WindowHeight = Math.Floor(mainWindow.Height);
-        UserSettings.Setting!.WindowLeft = Math.Floor(mainWindow.Left);
-        UserSettings.Setting!.WindowTop = Math.Floor(mainWindow.Top);
-        UserSettings.Setting!.WindowWidth = Math.Floor(mainWindow.Width);
+        UserSettings.Setting.WindowLeft = Math.Floor(mainWindow.Left);
+        UserSettings.Setting.WindowTop = Math.Floor(mainWindow.Top);
+        UserSettings.Setting.WindowWidth = Math.Floor(mainWindow.Width);
     }
     #endregion Set and Save MainWindow position and size
 

@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -378,9 +378,9 @@ internal sealed partial class NavigationViewModel : ObservableObject
     {
         _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
         TempSettings.Setting!.AppExpanderOpen = false;
-        TempSettings.Setting!.ColumnsExpanderOpen = true;
-        TempSettings.Setting!.LangExpanderOpen = false;
-        TempSettings.Setting!.UIExpanderOpen = false;
+        TempSettings.Setting.ColumnsExpanderOpen = true;
+        TempSettings.Setting.LangExpanderOpen = false;
+        TempSettings.Setting.UIExpanderOpen = false;
     }
     #endregion Open Choose Columns in Settings
 
