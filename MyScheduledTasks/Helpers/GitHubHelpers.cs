@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 // Leave the Octokit using statement here. It's a problem in GlobalUsings.cs
 using Octokit;
@@ -101,7 +101,7 @@ internal static class GitHubHelpers
     /// <param name="repoOwner">The repository owner.</param>
     /// <param name="repoName">Name of the repository.</param>
     /// <returns>Release object</returns>
-    private static async Task<Release?> GetLatestReleaseAsync(string repoOwner, string repoName)
+    private static async System.Threading.Tasks.Task<Release?> GetLatestReleaseAsync(string repoOwner, string repoName)
     {
         try
         {
