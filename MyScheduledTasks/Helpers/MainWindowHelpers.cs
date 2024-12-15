@@ -428,20 +428,22 @@ internal static class MainWindowHelpers
     #endregion Change mouse pointer
 
     #region Find the parent of a control
+    /// <summary>
+    /// Finds the Parent of the given item in the visual tree.
+    /// </summary>
+    /// <typeparam name="T">The type of the queried item.</typeparam>
+    /// <param name="child">x:Name or Name of child.</param>
+    /// <returns>The parent object.</returns>
     public static T FindParent<T>(DependencyObject child) where T : DependencyObject
     {
-        //get parent item
-        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+        DependencyObject parentObject = VisualTreeHelper.GetParent(child)!;
 
-        //we've reached the end of the tree
-        if (parentObject == null)
-            return null!;
-
-        //check if the parent matches the type we're looking for
-        if (parentObject is T parent)
-            return parent;
-        else
-            return FindParent<T>(parentObject);
+        return parentObject switch
+        {
+            null => null!,
+            T parent => parent,
+            _ => FindParent<T>(parentObject)
+        };
     }
     #endregion Find the parent of a control
 
