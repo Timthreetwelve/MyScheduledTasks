@@ -82,7 +82,7 @@ internal sealed partial class AddTasksViewModel
     /// Determine source of add tasks list
     /// </summary>
     /// <param name="grid">Name of the DataGrid</param>
-    internal static void DetermineSource(DataGrid grid)
+    private static void DetermineSource(DataGrid grid)
     {
         if (UserSettings.Setting!.HideMicrosoftFolder)
         {
@@ -96,7 +96,8 @@ internal sealed partial class AddTasksViewModel
     #endregion Include or exclude Microsoft tasks
 
     #region Get info for a task
-    public static Task GetTaskInfo(string name)
+
+    private static Task GetTaskInfo(string name)
     {
         using TaskService ts = new();
         return ts.GetTask(name);
@@ -111,13 +112,13 @@ internal sealed partial class AddTasksViewModel
     }
 
     [RelayCommand]
-    public static void RefreshTasks()
+    private static void RefreshTasks()
     {
         TaskHelpers.GetAllTasks();
     }
 
     [RelayCommand]
-    public static void AddTasks(DataGrid grid)
+    private static void AddTasks(DataGrid grid)
     {
         AddSelectedItems(grid);
     }

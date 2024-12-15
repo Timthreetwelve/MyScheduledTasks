@@ -109,7 +109,7 @@ internal static class TaskHelpers
     /// <summary>
     /// Update MyTasks from TaskList
     /// </summary>
-    public static void UpdateMyTasksCollection()
+    private static void UpdateMyTasksCollection()
     {
         MyTasks.MyTasksCollection!.Clear();
         for (int i = 0; i < ScheduledTask.TaskList.Count; i++)
@@ -483,7 +483,7 @@ internal static class TaskHelpers
     /// </summary>
     /// <param name="taskPath">Task name including any folder name</param>
     /// <returns><see langword="true"/> if the task exists</returns>
-    public static bool CheckTaskExists(string taskPath)
+    private static bool CheckTaskExists(string taskPath)
     {
         TaskService ts = TaskService.Instance;
         Task task = ts.GetTask(taskPath);

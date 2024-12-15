@@ -82,7 +82,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Navigate Command
     [RelayCommand]
-    internal void Navigate(object param)
+    private void Navigate(object param)
     {
         if (param is NavigationItem item)
         {
@@ -115,7 +115,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region View readme file
     [RelayCommand]
-    public static void ViewReadMeFile()
+    private static void ViewReadMeFile()
     {
         TextFileViewer.ViewTextFile(Path.Combine(AppInfo.AppDirectory, "readme.txt"));
     }
@@ -123,7 +123,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region View tasks file
     [RelayCommand]
-    public static void OpenTasksFile()
+    private static void OpenTasksFile()
     {
         TextFileViewer.ViewTextFile(TaskFileHelpers.TasksFile);
     }
@@ -131,7 +131,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region View result codes file
     [RelayCommand]
-    public static void ViewResultCodes()
+    private static void ViewResultCodes()
     {
         TextFileViewer.ViewTextFile(Path.Combine(AppInfo.AppDirectory, "CommonCompletionCodes.txt"));
     }
@@ -139,7 +139,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Toggle details
     [RelayCommand]
-    public static void ToggleDetails()
+    private static void ToggleDetails()
     {
         UserSettings.Setting!.ShowDetails = !UserSettings.Setting.ShowDetails;
         MainPage.Instance!.DetailsRow.Height = !UserSettings.Setting.ShowDetails
@@ -150,7 +150,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Remove column sort
     [RelayCommand]
-    public static void RemoveSort()
+    private static void RemoveSort()
     {
         MainPage.Instance!.ClearColumnSort();
     }
@@ -158,7 +158,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Application Shutdown
     [RelayCommand]
-    public static void Exit()
+    private static void Exit()
     {
         Application.Current.Shutdown();
     }
@@ -166,7 +166,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Open Task Scheduler
     [RelayCommand]
-    public static void OpenTScheduler()
+    private static void OpenTScheduler()
     {
         try
         {
@@ -187,7 +187,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Open the application folder
     [RelayCommand]
-    public static void OpenAppFolder()
+    private static void OpenAppFolder()
     {
         using Process process = new();
         process.StartInfo.UseShellExecute = false;
@@ -207,7 +207,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Edit Task Note
     [RelayCommand]
-    public static async System.Threading.Tasks.Task EditNote()
+    private static async System.Threading.Tasks.Task EditNote()
     {
         DataGrid grid = MainPage.Instance!.DataGridTasks;
         ScheduledTask? row = grid.SelectedItem as ScheduledTask;
@@ -219,7 +219,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Add tasks
     [RelayCommand]
-    public static void AddTasks()
+    private static void AddTasks()
     {
         _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.AddTasks);
     }
@@ -227,7 +227,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Remove tasks
     [RelayCommand]
-    public static void RemoveTasks()
+    private static void RemoveTasks()
     {
         TaskHelpers.RemoveTasks(MainPage.Instance!.DataGridTasks);
     }
@@ -238,7 +238,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
     /// Confirm restart
     /// </summary>
     [RelayCommand]
-    public static void QueryRestartAsAdmin()
+    private static void QueryRestartAsAdmin()
     {
         MDCustMsgBox mbox = new("Restart as Administrator?",
                             "Restart with Elevated Permissions?",
@@ -272,7 +272,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Save task file
     [RelayCommand]
-    public static void SaveTasks()
+    private static void SaveTasks()
     {
         TaskFileHelpers.WriteTasksToFile();
     }
@@ -280,13 +280,13 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region UI Smaller and Larger
     [RelayCommand]
-    public static void UILarger()
+    private static void UILarger()
     {
         MainWindowHelpers.EverythingLarger();
     }
 
     [RelayCommand]
-    public static void UISmaller()
+    private static void UISmaller()
     {
         MainWindowHelpers.EverythingSmaller();
     }
@@ -294,7 +294,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Refresh
     [RelayCommand]
-    public static void RefreshGrid()
+    private static void RefreshGrid()
     {
         int index = MainPage.Instance!.DataGridTasks.SelectedIndex;
         MainWindowHelpers.MainWindowWaitPointer();
@@ -306,7 +306,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Export
     [RelayCommand]
-    public static void ExportTasks()
+    private static void ExportTasks()
     {
         TaskHelpers.ExportTask(MainPage.Instance!.DataGridTasks);
     }
@@ -314,13 +314,13 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Import tasks
     [RelayCommand]
-    public static void ShowImportTasks()
+    private static void ShowImportTasks()
     {
         _ = DialogHelpers.ShowImportTaskDialog();
     }
 
     [RelayCommand]
-    public static void ImportTask()
+    private static void ImportTask()
     {
         TaskHelpers.ImportTasks();
     }
@@ -334,7 +334,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Enable Tasks
     [RelayCommand]
-    public static void EnableTasks()
+    private static void EnableTasks()
     {
         TaskHelpers.EnableTask(MainPage.Instance!.DataGridTasks);
         RefreshGrid();
@@ -343,7 +343,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Disable Tasks
     [RelayCommand]
-    public static void DisableTasks()
+    private static void DisableTasks()
     {
         TaskHelpers.DisableTask(MainPage.Instance!.DataGridTasks);
         RefreshGrid();
@@ -352,7 +352,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Delete Tasks
     [RelayCommand]
-    public static void ShowDeleteTasks()
+    private static void ShowDeleteTasks()
     {
         _ = DialogHelpers.ShowDeleteTasksDialog(MainPage.Instance!.DataGridTasks);
     }
@@ -366,7 +366,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Run Tasks
     [RelayCommand]
-    public static void RunTasks()
+    private static void RunTasks()
     {
         TaskHelpers.RunTask(MainPage.Instance!.DataGridTasks);
         System.Threading.Tasks.Task.Delay(100).Wait();
@@ -376,7 +376,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
     #region Open Choose Columns in Settings
     [RelayCommand]
-    public static void ChooseColumns()
+    private static void ChooseColumns()
     {
         _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.Settings);
         TempSettings.Setting!.AppExpanderOpen = false;
@@ -546,7 +546,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
     /// Copy (nearly) any text in a TextBlock to the clipboard on right mouse button up.
     /// </summary>
     [RelayCommand]
-    public static void RightMouseUp(MouseButtonEventArgs e)
+    private static void RightMouseUp(MouseButtonEventArgs e)
     {
         if (e.OriginalSource is not TextBlock text)
         {

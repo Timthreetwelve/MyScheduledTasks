@@ -8,8 +8,9 @@ namespace MyScheduledTasks.Configuration;
 internal static class ConfigHelpers
 {
     #region Properties & fields
-    public static string? SettingsFileName { get; set; }
-    public static readonly JsonSerializerOptions _options = new()
+    public static string? SettingsFileName { get; private set; }
+
+    private static readonly JsonSerializerOptions _options = new()
     {
         WriteIndented = true
     };
@@ -46,7 +47,7 @@ internal static class ConfigHelpers
     /// Read settings from JSON file.
     /// </summary>
     /// <returns>UserSettings</returns>
-    public static UserSettings ReadConfiguration()
+    private static UserSettings ReadConfiguration()
     {
         try
         {

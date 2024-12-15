@@ -25,7 +25,7 @@ public partial class AddTasks : UserControl
     /// <summary>
     /// Filters the grid.
     /// </summary>
-    public void FilterTheGrid(string filterText)
+    private void FilterTheGrid(string filterText)
     {
         if (string.IsNullOrEmpty(filterText))
         {
