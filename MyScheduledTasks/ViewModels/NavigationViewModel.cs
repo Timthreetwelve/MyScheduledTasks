@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -245,8 +245,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
                             ButtonType.YesNo,
                             false,
                             true,
-                            _mainWindow!,
-                            false);
+                            _mainWindow!);
         _ = mbox.ShowDialog();
 
         if (MDCustMsgBox.CustResult == CustResultType.Yes)
