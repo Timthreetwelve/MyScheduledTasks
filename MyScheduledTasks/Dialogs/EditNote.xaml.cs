@@ -13,7 +13,7 @@ public partial class EditNote : UserControl
 
         DataContext = task;
 
-        Loaded += (sender, args) =>
+        Loaded += (_, _) =>
         {
             NoteTextBox.CaretIndex = NoteTextBox.Text.Length;
             NoteTextBox.ScrollToEnd();
@@ -31,7 +31,7 @@ public partial class EditNote : UserControl
             // https://stackoverflow.com/a/13289118
             TextBox tBox = (TextBox)sender;
             DependencyProperty prop = TextBox.TextProperty;
-            BindingExpression binding = BindingOperations.GetBindingExpression(tBox, prop);
+            BindingExpression? binding = BindingOperations.GetBindingExpression(tBox, prop);
             binding?.UpdateSource();
         }
     }
