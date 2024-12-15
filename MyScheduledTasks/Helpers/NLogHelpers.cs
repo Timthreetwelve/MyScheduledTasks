@@ -78,14 +78,7 @@ internal static class NLogHelpers
         string myName = AppInfo.AppName;
         string today = DateTime.Now.ToString("yyyyMMdd");
         string filename;
-        if (Debugger.IsAttached)
-        {
-            filename = $"{myName}.{today}.debug.log";
-        }
-        else
-        {
-            filename = $"{myName}.{today}.log";
-        }
+        filename = Debugger.IsAttached ? $"{myName}.{today}.debug.log" : $"{myName}.{today}.log";
 
         // combine temp folder with filename
         string tempDir = Path.GetTempPath();
@@ -105,14 +98,8 @@ internal static class NLogHelpers
         LoggingRule rule = config.FindRuleByName("LogToFile");
         if (rule != null)
         {
-            if (debug)
-            {
-                rule.SetLoggingLevels(LogLevel.Debug, LogLevel.Fatal);
-            }
-            else
-            {
-                rule.SetLoggingLevels(LogLevel.Info, LogLevel.Fatal);
-            }
+            LogLevel level = debug ? LogLevel.Debug : LogLevel.Info;
+            rule.SetLoggingLevels(level, LogLevel.Fatal);
             LogManager.ReconfigExistingLoggers();
         }
     }

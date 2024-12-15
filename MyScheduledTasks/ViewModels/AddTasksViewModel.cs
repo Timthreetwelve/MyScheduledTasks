@@ -84,14 +84,7 @@ internal sealed partial class AddTasksViewModel
     /// <param name="grid">Name of the DataGrid</param>
     private static void DetermineSource(DataGrid grid)
     {
-        if (UserSettings.Setting!.HideMicrosoftFolder)
-        {
-            grid.ItemsSource = AllTasks.Non_MS_TasksCollection;
-        }
-        else
-        {
-            grid.ItemsSource = AllTasks.All_TasksCollection;
-        }
+        grid.ItemsSource = UserSettings.Setting!.HideMicrosoftFolder ? AllTasks.Non_MS_TasksCollection : AllTasks.All_TasksCollection;
     }
     #endregion Include or exclude Microsoft tasks
 
