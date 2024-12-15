@@ -48,7 +48,7 @@ internal static class GitHubHelpers
 
             Version latestVersion = new(tag);
 
-            _log.Debug($"Latest version is {latestVersion} released on {release.PublishedAt!.Value.DateTime:f}");
+            _log.Debug($"Latest version is {latestVersion} released on {release.PublishedAt!.Value.UtcDateTime} UTC");
 
             if (latestVersion <= AppInfo.AppVersionVer)
             {
