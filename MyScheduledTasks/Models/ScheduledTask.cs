@@ -50,12 +50,12 @@ public partial class ScheduledTask : ObservableObject
 
             if (task.Definition.Triggers.Count > 1)
             {
-                IEnumerable<string> triggers = task.Definition.Triggers.Select(t => t.ToString());
+                IEnumerable<string> triggers = task.Definition.Triggers.Select(t => t.ToString(CultureInfo.InvariantCulture));
                 scheduledTask.TaskTriggers = string.Join(Environment.NewLine, triggers).TrimEnd(Environment.NewLine.ToCharArray());
             }
             if (task.Definition.Actions.Count > 1)
             {
-                IEnumerable<string> actions = task.Definition.Actions.Select(a => a.ToString());
+                IEnumerable<string> actions = task.Definition.Actions.Select(a => a.ToString(CultureInfo.InvariantCulture));
                 scheduledTask.TaskActions = string.Join(Environment.NewLine, actions).TrimEnd(Environment.NewLine.ToCharArray());
             }
 
