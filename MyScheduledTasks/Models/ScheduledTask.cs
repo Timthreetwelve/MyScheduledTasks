@@ -11,7 +11,7 @@ public partial class ScheduledTask : ObservableObject
     /// <param name="task">TaskScheduler task</param>
     /// <param name="myTask">Task from list of tasks to check</param>
     /// <returns>ScheduledTask object</returns>
-    public static ScheduledTask BuildScheduledTask(Task? task, MyTasks myTask)
+    public static ScheduledTask BuildScheduledTask(Task? task, MyTasks? myTask)
     {
         if (task != null)
         {

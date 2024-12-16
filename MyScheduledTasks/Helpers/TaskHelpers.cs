@@ -141,7 +141,7 @@ internal static class TaskHelpers
         {
             ScheduledTask? row = grid.SelectedItems[i] as ScheduledTask;
             using TaskService ts = TaskService.Instance;
-            using Task? task = ts.GetTask(row!.TaskPath);
+            using Task? task = ts.GetTask(row!.TaskPath!);
 
             if (task != null)
             {
@@ -181,7 +181,7 @@ internal static class TaskHelpers
         {
             ScheduledTask? row = grid.SelectedItems[i] as ScheduledTask;
             using TaskService? ts = TaskService.Instance;
-            using Task? task = ts.GetTask(row!.TaskPath);
+            using Task? task = ts.GetTask(row!.TaskPath!);
 
             if (task != null)
             {
@@ -222,7 +222,7 @@ internal static class TaskHelpers
         {
             ScheduledTask? row = grid.SelectedItems[i] as ScheduledTask;
             using TaskService ts = TaskService.Instance;
-            using Task? task = ts.GetTask(row!.TaskPath);
+            using Task? task = ts.GetTask(row!.TaskPath!);
 
             if (task != null)
             {
@@ -263,7 +263,7 @@ internal static class TaskHelpers
         {
             ScheduledTask? row = grid.SelectedItems[i] as ScheduledTask;
             using TaskService ts = TaskService.Instance;
-            using Task? task = ts.GetTask(row!.TaskPath);
+            using Task? task = ts.GetTask(row!.TaskPath!);
 
             if (task != null)
             {
@@ -439,7 +439,7 @@ internal static class TaskHelpers
             try
             {
                 using TaskService ts = TaskService.Instance;
-                Task taskToDelete = ts.GetTask(task!.TaskPath);
+                Task taskToDelete = ts.GetTask(task!.TaskPath!);
 
                 ts.RootFolder.DeleteTask(taskToDelete.Path);
                 deleted = true;

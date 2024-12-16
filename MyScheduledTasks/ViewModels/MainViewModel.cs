@@ -18,7 +18,7 @@ internal sealed partial class MainViewModel : ObservableObject
         ScheduledTask.TaskList.Clear();
         for (int i = 0; i < MyTasks.MyTasksCollection!.Count; i++)
         {
-            MyTasks item = MyTasks.MyTasksCollection[i];
+            MyTasks? item = MyTasks.MyTasksCollection[i];
             Task? task = TaskInfo.GetTaskInfo(item.TaskPath);
             if (task is not null)
             {

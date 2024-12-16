@@ -553,7 +553,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
 
         // Skip the DataGrid of tasks since it has a context menu
         DataGrid dg = MainWindowHelpers.FindParent<DataGrid>(text);
-        if (dg?.Name == "DataGridTasks")
+        if (dg.Name == "DataGridTasks")
         {
             return;
         }

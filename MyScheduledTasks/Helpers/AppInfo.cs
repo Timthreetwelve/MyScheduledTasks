@@ -65,7 +65,7 @@ public static class AppInfo
     /// <summary>
     /// Returns the app's full name (name, version, culture, etc.)
     /// </summary>
-    public static string AppFullName => Assembly.GetEntryAssembly()!.GetName().FullName ?? "missing";
+    public static string AppFullName => Assembly.GetEntryAssembly()!.GetName().FullName;
 
     /// <summary>
     /// Returns the Company Name from the Assembly info
@@ -95,7 +95,7 @@ public static class AppInfo
     /// <summary>
     /// Returns the File Name from the Assembly info
     /// </summary>
-    public static string AppFileName => FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly()!.Location).FileName ?? "missing";
+    public static string AppFileName => FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly()!.Location).FileName;
 
     /// <summary>
     /// Combines the product name with the title version.
@@ -103,12 +103,12 @@ public static class AppInfo
     /// <value>
     /// String in the format: AppName - 0.0.1
     /// </value>
-    public static string? ToolTipVersion => $"{AppProduct} - {TitleVersion}";
+    public static string ToolTipVersion => $"{AppProduct} - {TitleVersion}";
 
     /// <summary>
     /// Returns the Process Name
     /// </summary>
-    public static string? AppProcessName => Process.GetCurrentProcess().ProcessName;
+    public static string AppProcessName => Process.GetCurrentProcess().ProcessName;
 
     /// <summary>
     /// Returns the Process ID as Int
@@ -128,7 +128,7 @@ public static class AppInfo
     /// <summary>
     /// The CLR version
     /// </summary>
-    public static string? CLRVersion => Environment.Version.ToString();
+    public static string CLRVersion => Environment.Version.ToString();
 
     /// <summary>
     /// True if running as administrator

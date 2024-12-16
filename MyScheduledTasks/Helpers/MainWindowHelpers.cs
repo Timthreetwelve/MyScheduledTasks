@@ -37,7 +37,7 @@ internal static class MainWindowHelpers
     /// </summary>
     private static void SetWindowPosition()
     {
-        Window mainWindow = Application.Current.MainWindow;
+        Window mainWindow = Application.Current.MainWindow!;
         mainWindow.Height = UserSettings.Setting!.WindowHeight;
         mainWindow.Left = UserSettings.Setting.WindowLeft;
         mainWindow.Top = UserSettings.Setting.WindowTop;
@@ -75,7 +75,7 @@ internal static class MainWindowHelpers
     /// </summary>
     private static void SaveWindowPosition()
     {
-        Window mainWindow = Application.Current.MainWindow;
+        Window mainWindow = Application.Current.MainWindow!;
         UserSettings.Setting!.WindowHeight = Math.Floor(mainWindow.Height);
         UserSettings.Setting.WindowLeft = Math.Floor(mainWindow.Left);
         UserSettings.Setting.WindowTop = Math.Floor(mainWindow.Top);
