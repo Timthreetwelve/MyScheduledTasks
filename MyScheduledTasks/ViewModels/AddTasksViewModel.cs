@@ -27,7 +27,7 @@ internal sealed partial class AddTasksViewModel
                 _log.Info($"{_itemsAdded} task(s) added");
                 string msg = string.Format(CultureInfo.CurrentCulture, AddTasksTasksAdded,_itemsAdded);
                 SnackbarMsg.QueueMessage(msg, 3000);
-                TaskFileHelpers.WriteTasksToFile(true);
+                TaskFileHelpers.WriteTasksToFile();
             }
 
             grid.UnselectAll();

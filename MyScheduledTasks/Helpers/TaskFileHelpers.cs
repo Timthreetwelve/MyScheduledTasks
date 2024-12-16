@@ -138,8 +138,7 @@ internal static class TaskFileHelpers
                                    ButtonType.YesNo,
                                    true,
                                    true,
-                                   _mainWindow!,
-                                   false)
+                                   _mainWindow!)
                                    .ShowDialog();
 
             if (MDCustMsgBox.CustResult == CustResultType.Yes)

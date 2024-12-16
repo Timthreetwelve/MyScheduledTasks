@@ -101,7 +101,7 @@ internal static class TaskHelpers
         }
 
         UpdateMyTasksCollection();
-        TaskFileHelpers.WriteTasksToFile(true);
+        TaskFileHelpers.WriteTasksToFile();
     }
     #endregion Remove tasks
 
@@ -378,8 +378,7 @@ internal static class TaskHelpers
                     ButtonType.Ok,
                     false,
                     true,
-                    _mainWindow!,
-                    false);
+                    _mainWindow!);
             _ = mbox.ShowDialog();
 
             if (TempSettings.Setting.ImportAddToMyTasks)
@@ -415,8 +414,7 @@ internal static class TaskHelpers
         ButtonType.Ok,
         false,
         true,
-        _mainWindow!,
-        false);
+        _mainWindow!);
         _ = mbox.ShowDialog();
     }
     #endregion Import a task
@@ -443,7 +441,7 @@ internal static class TaskHelpers
                 using TaskService ts = TaskService.Instance;
                 Task taskToDelete = ts.GetTask(task!.TaskPath);
 
-                ts.RootFolder.DeleteTask(taskToDelete.Path, true);
+                ts.RootFolder.DeleteTask(taskToDelete.Path);
                 deleted = true;
                 string msg = string.Format(CultureInfo.InvariantCulture, MsgTextDeleted, task.TaskPath);
                 SnackbarMsg.QueueMessage(msg, 2000);
