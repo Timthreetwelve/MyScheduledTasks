@@ -31,7 +31,7 @@ public partial class AddTasks : UserControl
         {
             AllTasksGrid.Items.Filter = _ => true;
         }
-        else if (filterText.StartsWith('!') == true)
+        else if (filterText.StartsWith('!'))
         {
             filterText = filterText[1..].TrimStart(' ');
             AllTasksGrid.Items.Filter = o =>
