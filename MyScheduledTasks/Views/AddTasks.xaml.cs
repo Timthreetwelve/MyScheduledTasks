@@ -31,7 +31,7 @@ public partial class AddTasks : UserControl
         {
             AllTasksGrid.Items.Filter = _ => true;
         }
-        else if (filterText?.StartsWith('!') == true)
+        else if (filterText.StartsWith('!') == true)
         {
             filterText = filterText[1..].TrimStart(' ');
             AllTasksGrid.Items.Filter = o =>
@@ -45,7 +45,7 @@ public partial class AddTasks : UserControl
             AllTasksGrid.Items.Filter = o =>
             {
                 AllTasks? tasks = o as AllTasks;
-                return tasks!.TaskName!.Contains(filterText!, StringComparison.CurrentCultureIgnoreCase);
+                return tasks!.TaskName!.Contains(filterText, StringComparison.CurrentCultureIgnoreCase);
             };
         }
 
@@ -55,8 +55,8 @@ public partial class AddTasks : UserControl
         }
         else
         {
-            SnackbarMsg.ClearAndQueueMessage(string.Format(
-                GetStringResource("MsgText_FilterRowsShown"), AllTasksGrid.Items.Count), 2000);
+            SnackbarMsg.ClearAndQueueMessage(
+                string.Format(CultureInfo.InvariantCulture, MsgTextFilterRowsShown, AllTasksGrid.Items.Count), 2000);
         }
     }
     #endregion Filter the datagrid

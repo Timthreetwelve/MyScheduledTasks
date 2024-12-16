@@ -25,7 +25,7 @@ internal sealed partial class AddTasksViewModel
             if (_itemsAdded > 0)
             {
                 _log.Info($"{_itemsAdded} task(s) added");
-                string msg = string.Format(GetStringResource("AddTasks_TasksAdded"), _itemsAdded);
+                string msg = string.Format(CultureInfo.CurrentCulture, AddTasksTasksAdded,_itemsAdded);
                 SnackbarMsg.QueueMessage(msg, 3000);
                 TaskFileHelpers.WriteTasksToFile(true);
             }
@@ -46,7 +46,7 @@ internal sealed partial class AddTasksViewModel
         Task? task = GetTaskInfo(item.TaskPath!);
         if (task == null)
         {
-            string msg = string.Format(GetStringResource("AddTasks_NotFound"), item.TaskName);
+            string msg = string.Format(CultureInfo.InvariantCulture, AddTasksNotFound, item.TaskName);
             _log.Error($"The Scheduled Task \"{item.TaskPath}\" was not found.");
             _ = new MDCustMsgBox(msg,
                     GetStringResource("AddTasks_Error"),
@@ -61,7 +61,7 @@ internal sealed partial class AddTasksViewModel
         {
             int pos = ScheduledTask.TaskList.IndexOf(ScheduledTask.TaskList.FirstOrDefault(x => x.TaskPath == task.Path)!);
             _log.Warn($"{task.Path} is already present in the list in position {pos + 1}");
-            string msg = string.Format(GetStringResource("AddTasks_TaskAlreadyAdded"), task.Path);
+            string msg = string.Format(CultureInfo.InvariantCulture, AddTasksTaskAlreadyAdded, task.Path);
             SnackbarMsg.QueueMessage(msg, 3000);
             return false;
         }

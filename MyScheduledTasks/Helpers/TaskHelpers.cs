@@ -154,7 +154,7 @@ internal static class TaskHelpers
                 catch (Exception ex)
                 {
                     SystemSounds.Beep.Play();
-                    string msg = string.Format(GetStringResource("MsgText_RunError"), task.Name);
+                    string msg = string.Format(CultureInfo.InvariantCulture, MsgTextRunError, task.Name);
                     SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                     _log.Error(ex, $"Error attempting to run {task.Name}");
                 }
@@ -188,14 +188,14 @@ internal static class TaskHelpers
                 try
                 {
                     task.Enabled = false;
-                    string msg = string.Format(GetStringResource("MsgText_Disabled"), task.Name);
+                    string msg = string.Format(CultureInfo.InvariantCulture, MsgTextDisabled, task.Name);
                     SnackbarMsg.QueueMessage(msg, 2000);
                     _log.Info($"Disabled: \"{task.Path}\"");
                 }
                 catch (Exception ex)
                 {
                     SystemSounds.Beep.Play();
-                    string msg = string.Format(GetStringResource("MsgText_DisabledError"), task.Name);
+                    string msg = string.Format(CultureInfo.InvariantCulture, MsgTextDisabledError, task.Name);
                     SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                     _log.Error(ex, $"Error attempting to disable {task.Name}");
                 }
@@ -229,14 +229,14 @@ internal static class TaskHelpers
                 try
                 {
                     task.Enabled = true;
-                    string msg = string.Format(GetStringResource("MsgText_Enabled"), task.Name);
+                    string msg = string.Format(CultureInfo.InvariantCulture, MsgTextEnabled, task.Name);
                     SnackbarMsg.QueueMessage(msg, 2000);
                     _log.Info($"Enabled: \"{task.Path}\"");
                 }
                 catch (Exception ex)
                 {
                     SystemSounds.Beep.Play();
-                    string msg = string.Format(GetStringResource("MsgText_EnableError"), task.Name);
+                    string msg = string.Format(CultureInfo.InvariantCulture, MsgTextEnableError, task.Name);
                     SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                     _log.Error(ex, $"Error attempting to enable {task.Name}");
                 }
@@ -280,7 +280,7 @@ internal static class TaskHelpers
                     if (result == true)
                     {
                         task.Export(dialog.FileName);
-                        string msg = string.Format(GetStringResource("MsgText_Exported"), task.Name);
+                        string msg = string.Format(CultureInfo.InvariantCulture, MsgTextExported, task.Name);
                         SnackbarMsg.QueueMessage(msg, 2000);
                         SnackbarMsg.ClearAndQueueMessage($"Exported: {task.Name}");
                         _log.Info($"Exported: \"{task.Path}\"");
@@ -289,7 +289,7 @@ internal static class TaskHelpers
                 catch (Exception ex)
                 {
                     SystemSounds.Beep.Play();
-                    string msg = string.Format(GetStringResource("MsgText_ExportError"), task.Name);
+                    string msg = string.Format(CultureInfo.InvariantCulture, MsgTextExportError, task.Name);
                     SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                     _log.Error(ex, $"Error attempting to export {task.Path}");
                 }
@@ -445,7 +445,7 @@ internal static class TaskHelpers
 
                 ts.RootFolder.DeleteTask(taskToDelete.Path, true);
                 deleted = true;
-                string msg = string.Format(GetStringResource("MsgText_Deleted"), task.TaskPath);
+                string msg = string.Format(CultureInfo.InvariantCulture, MsgTextDeleted, task.TaskPath);
                 SnackbarMsg.QueueMessage(msg, 2000);
                 _log.Info($"Deleted: \"{task.TaskPath}\"");
                 _ = ScheduledTask.TaskList.Remove(task);
@@ -454,7 +454,7 @@ internal static class TaskHelpers
             catch (Exception ex)
             {
                 SystemSounds.Beep.Play();
-                string msg = string.Format(GetStringResource("MsgText_DeleteError"), task!.TaskPath);
+                string msg = string.Format(CultureInfo.InvariantCulture, MsgTextDeleteError, task!.TaskPath);
                 SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                 _log.Error(ex, $"Error attempting to delete {task.TaskPath}");
                 MDCustMsgBox mbox = new($"{msg} {GetStringResource("MsgText_SeeLogFile")}",

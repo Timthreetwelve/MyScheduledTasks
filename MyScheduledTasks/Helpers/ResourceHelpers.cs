@@ -75,8 +75,22 @@ internal static class ResourceHelpers
     #endregion Get composite format for a resource string
 
     #region Composite format properties
+    internal static CompositeFormat AddTasksNotFound { get; } = GetCompositeResource("AddTasks_NotFound");
+    internal static CompositeFormat AddTasksTaskAlreadyAdded { get; } = GetCompositeResource("AddTasks_TaskAlreadyAdded");
+    internal static CompositeFormat AddTasksTasksAdded { get; } = GetCompositeResource("AddTasks_TasksAdded");
     internal static CompositeFormat MsgTextAppUpdateNewerFound { get; } = GetCompositeResource("MsgText_AppUpdateNewerFound");
+    internal static CompositeFormat MsgTextDeleted { get; } = GetCompositeResource("MsgText_Deleted");
+    internal static CompositeFormat MsgTextDeleteError { get; } = GetCompositeResource("MsgText_DeleteError");
+    internal static CompositeFormat MsgTextDisabled { get; } = GetCompositeResource("MsgText_Disabled");
+    internal static CompositeFormat MsgTextDisabledError { get; } = GetCompositeResource("MsgText_DisabledError");
+    internal static CompositeFormat MsgTextEnabled { get; } = GetCompositeResource("MsgText_Enabled");
+    internal static CompositeFormat MsgTextEnableError { get; } = GetCompositeResource("MsgText_EnableError");
     internal static CompositeFormat MsgTextErrorOpeningFile { get; } = GetCompositeResource("MsgText_ErrorOpeningFile");
+    internal static CompositeFormat MsgTextErrorReadingFile { get; } = GetCompositeResource("MsgText_ErrorReadingFile");
+    internal static CompositeFormat MsgTextExported { get; } = GetCompositeResource("MsgText_Exported");
+    internal static CompositeFormat MsgTextExportError { get; } = GetCompositeResource("MsgText_ExportError");
+    internal static CompositeFormat MsgTextFilterRowsShown { get; } = GetCompositeResource("MsgText_FilterRowsShown");
+    internal static CompositeFormat MsgTextRunError { get; } = GetCompositeResource("MsgText_RunError");
     internal static CompositeFormat MsgTextUIColorSet { get; } = GetCompositeResource("MsgText_UIColorSet");
     internal static CompositeFormat MsgTextUISizeSet { get; } = GetCompositeResource("MsgText_UISizeSet");
     internal static CompositeFormat MsgTextUIThemeSet { get; } = GetCompositeResource("MsgText_UIThemeSet");
