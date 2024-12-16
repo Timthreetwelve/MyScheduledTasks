@@ -30,7 +30,7 @@ internal static class TaskHelpers
                 TaskFolder = task.Folder.Path,
             };
             AllTasks.All_TasksCollection.Add(allTasks);
-            if (!task.Folder.Path.StartsWith(@"\Microsoft"))
+            if (!task.Folder.Path.StartsWith(@"\Microsoft", StringComparison.InvariantCulture))
             {
                 AllTasks.Non_MS_TasksCollection.Add(allTasks);
             }
