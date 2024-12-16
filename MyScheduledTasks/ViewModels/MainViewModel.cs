@@ -19,11 +19,11 @@ internal sealed partial class MainViewModel : ObservableObject
         for (int i = 0; i < MyTasks.MyTasksCollection!.Count; i++)
         {
             MyTasks item = MyTasks.MyTasksCollection[i];
-            Task task = TaskInfo.GetTaskInfo(item.TaskPath);
+            Task? task = TaskInfo.GetTaskInfo(item.TaskPath);
             if (task is not null)
             {
-                ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, item);
-                ScheduledTask.TaskList.Add(schedTask);
+                ScheduledTask scheduledTask = ScheduledTask.BuildScheduledTask(task, item);
+                ScheduledTask.TaskList.Add(scheduledTask);
                 _log.Debug($"Added {i + 1,3}: \"{item.TaskPath}\"");
             }
             else

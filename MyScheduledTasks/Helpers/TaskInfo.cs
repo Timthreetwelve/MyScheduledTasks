@@ -10,7 +10,7 @@ internal static class TaskInfo
     /// </summary>
     /// <param name="name">Name (including folder name) of scheduled task</param>
     /// <returns>Scheduled task object as Task</returns>
-    public static Task GetTaskInfo(string name)
+    public static Task? GetTaskInfo(string name)
     {
         using TaskService ts = TaskService.Instance;
 

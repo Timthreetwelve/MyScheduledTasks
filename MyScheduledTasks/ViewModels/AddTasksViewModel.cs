@@ -43,7 +43,7 @@ internal sealed partial class AddTasksViewModel
     /// <returns>True if the task was added. Otherwise returns false.</returns>
     internal static bool AddToMyTasks(AllTasks item)
     {
-        Task task = GetTaskInfo(item.TaskPath!);
+        Task? task = GetTaskInfo(item.TaskPath!);
         if (task == null)
         {
             string msg = string.Format(GetStringResource("AddTasks_NotFound"), item.TaskName);
@@ -90,7 +90,7 @@ internal sealed partial class AddTasksViewModel
 
     #region Get info for a task
 
-    private static Task GetTaskInfo(string name)
+    private static Task? GetTaskInfo(string name)
     {
         using TaskService ts = new();
         return ts.GetTask(name);
