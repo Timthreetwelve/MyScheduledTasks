@@ -47,7 +47,7 @@ internal static class TaskFileHelpers
         catch (Exception ex)
         {
             _log.Fatal(ex, $"Error reading {TasksFile}");
-            string msg = string.Format($"{GetStringResource("MsgText_ErrorReadingFile")}", TasksFile);
+            string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorReadingFile, TasksFile);
             msg += $"\n\n{ex.Message}\n\n{GetStringResource("MsgText_ErrorFatal")}";
             _ = new MDCustMsgBox(msg,
                                 GetStringResource("MsgText_ErrorCaption"),
@@ -75,7 +75,7 @@ internal static class TaskFileHelpers
         catch (Exception ex)
         {
             _log.Fatal(ex, $"Error creating {TasksFile}");
-            string msg = string.Format($"{GetStringResource("MsgText_ErrorCreatingFile")}", TasksFile);
+            string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorCreatingFile, TasksFile);
             msg += $"\n\n{ex.Message}\n\n{GetStringResource("MsgText_ErrorFatal")}";
             _ = new MDCustMsgBox(msg,
                                 GetStringResource("MsgText_ErrorCaption"),
@@ -112,7 +112,7 @@ internal static class TaskFileHelpers
         catch (Exception ex)
         {
             _log.Error(ex, $"Error saving {TasksFile}");
-            string msg = string.Format($"{GetStringResource("MsgText_ErrorSavingFile")}", TasksFile);
+            string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorSavingFile, TasksFile);
             msg += $"\n\n{ex.Message}";
             _ = new MDCustMsgBox(msg,
                                 GetStringResource("MsgText_ErrorCaption"),
