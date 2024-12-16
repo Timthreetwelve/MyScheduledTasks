@@ -49,15 +49,10 @@ public partial class AddTasks : UserControl
             };
         }
 
-        if (AllTasksGrid.Items.Count == 1)
-        {
-            SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_FilterOneRowShown"), 2000);
-        }
-        else
-        {
-            SnackbarMsg.ClearAndQueueMessage(
-                string.Format(CultureInfo.InvariantCulture, MsgTextFilterRowsShown, AllTasksGrid.Items.Count), 2000);
-        }
+        SnackbarMsg.ClearAndQueueMessage(
+            AllTasksGrid.Items.Count == 1
+                ? GetStringResource("MsgText_FilterOneRowShown")
+                : string.Format(CultureInfo.InvariantCulture, MsgTextFilterRowsShown, AllTasksGrid.Items.Count), 2000);
     }
     #endregion Filter the datagrid
 }
