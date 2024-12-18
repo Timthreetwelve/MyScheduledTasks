@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Configuration;
 
@@ -6,9 +6,9 @@ namespace MyScheduledTasks.Configuration;
 public partial class UserSettings : ConfigManager<UserSettings>
 {
     #region Properties
-    [ObservableProperty]
-    private bool _alertSound;
-
+    /// <summary>
+    /// Add text to root folder.
+    /// </summary>
     [ObservableProperty]
     private bool _annotateRoot = true;
 
