@@ -13,7 +13,7 @@ internal static class AppConstString
     /// <value>
     /// The repository owner.
     /// </value>
-    public static string RepoOwner { get; } = "TimThreeTwelve";
+    public static string RepoOwner => "TimThreeTwelve";
 
     /// <summary>
     /// Gets the name of the GitHub repository.
@@ -21,5 +21,5 @@ internal static class AppConstString
     /// <value>
     /// The name of the repository.
     /// </value>
-    public static string RepoName { get; } = "MyScheduledTasks";
+    public static string RepoName => "MyScheduledTasks";
 }
