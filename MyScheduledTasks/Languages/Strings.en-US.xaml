@@ -291,6 +291,7 @@
     <sys:String x:Key="SettingsItem_AlertSound">Play Sound for Alert</sys:String>
     <sys:String x:Key="SettingsItem_AnnotateRoot">Add [root folder] notation to Root Folder</sys:String>
     <sys:String x:Key="SettingsItem_ChangingLanguageWarning">Changing Language will cause application to restart!</sys:String>
+    <sys:String x:Key="SettingsItem_DisplayFont">Display Font</sys:String>
     <sys:String x:Key="SettingsItem_EditSettingsWarning">Any changes made to the settings file while the app is running will be overwritten!</sys:String>
     <sys:String x:Key="SettingsItem_EnableLanguageTesting">Enable language testing</sys:String>
     <sys:String x:Key="SettingsItem_IncludeDebug">Include debug level messages in log file</sys:String>

@@ -204,8 +204,9 @@
                       CanUserDeleteRows="False"
                       CanUserSortColumns="True"
                       Drop="DataGridTasksDrop"
-                      FontSize="14"
-                      HeadersVisibility="Column"
+                      FontFamily="{Binding SelectedFont,
+                                           Source={x:Static config:UserSettings.Setting}}"
+                      FontSize="14" HeadersVisibility="Column"
                       IsReadOnly="False"
                       ItemsSource="{Binding TaskList,
                                             Mode=TwoWay}"
@@ -434,6 +435,8 @@
                 <!--#endregion-->
 
                 <ScrollViewer VerticalAlignment="Top"
+                              FontFamily="{Binding SelectedFont,
+                                                   Source={x:Static config:UserSettings.Setting}}"
                               HorizontalScrollBarVisibility="Disabled"
                               Opacity=".95"
                               VerticalScrollBarVisibility="Auto">

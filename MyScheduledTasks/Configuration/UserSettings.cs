@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Configuration;
 
@@ -59,6 +59,12 @@ public partial class UserSettings : ConfigManager<UserSettings>
     /// </summary>
     [ObservableProperty]
     private Spacing _rowSpacing = Spacing.Comfortable;
+
+    /// <summary>
+    /// Font used in datagrids.
+    /// </summary>
+    [ObservableProperty]
+    private string? _selectedFont = "Segoe UI";
 
     /// <summary>
     /// Show the advanced menu.

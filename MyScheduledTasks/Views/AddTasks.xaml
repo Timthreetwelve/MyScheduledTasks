@@ -89,6 +89,8 @@
                                                                               Converter={StaticResource Spacing}}"
                           AutoGenerateColumns="False"
                           Background="{DynamicResource MaterialDesign.Brush.Background}"
+                          FontFamily="{Binding SelectedFont,
+                                               Source={x:Static config:UserSettings.Setting}}"
                           HeadersVisibility="Column"
                           IsReadOnly="True">
                     <DataGrid.DataContext>
