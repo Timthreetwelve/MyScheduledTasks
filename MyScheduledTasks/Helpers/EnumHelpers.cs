@@ -14,9 +14,7 @@ internal static class EnumHelpers
             DescriptionAttribute? attribute = attrArray[0] as DescriptionAttribute;
             return attribute!.Description;
         }
-        else
-        {
-            return enumObj.ToString();
-        }
+
+        return enumObj.ToString();
     }
 }

@@ -43,11 +43,9 @@ internal static class ResourceHelpers
             {
                 throw new ArgumentException($"Resource not found: {key}");
             }
-            else
-            {
-                _log.Error(ex, $"Resource not found: {key}");
-                return $"Resource not found: {key}";
-            }
+
+            _log.Error(ex, $"Resource not found: {key}");
+            return $"Resource not found: {key}";
         }
 
         if (description is null)
@@ -56,11 +54,9 @@ internal static class ResourceHelpers
             {
                 throw new ArgumentNullException($"Resource not found: {key}");
             }
-            else
-            {
-                _log.Error($"Resource not found: {key}");
-                return $"Resource not found: {key}";
-            }
+
+            _log.Error($"Resource not found: {key}");
+            return $"Resource not found: {key}";
         }
 
         return description.ToString()!;

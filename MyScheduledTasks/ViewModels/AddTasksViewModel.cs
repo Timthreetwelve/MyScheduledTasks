@@ -57,7 +57,8 @@ internal sealed partial class AddTasksViewModel
                     true).ShowDialog();
             return false;
         }
-        else if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
+
+        if (ScheduledTask.TaskList.Any(p => p.TaskPath == task.Path))
         {
             int pos = ScheduledTask.TaskList.IndexOf(ScheduledTask.TaskList.FirstOrDefault(x => x.TaskPath == task.Path)!);
             _log.Warn($"{task.Path} is already present in the list in position {pos + 1}");
