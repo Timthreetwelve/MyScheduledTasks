@@ -414,16 +414,13 @@ internal sealed partial class NavigationViewModel : ObservableObject
                     case MainViewModel:
                         MainPage.Instance!.DataGridTasks.SelectedIndex = -1;
                         Keyboard.ClearFocus();
-                        e.Handled = true;
                         break;
                     case AddTasksViewModel:
                         Views.AddTasks.Instance!.AllTasksGrid.SelectedIndex = -1;
-                        e.Handled = true;
-                        break;
-                    default:
-                        e.Handled = true;
                         break;
                 }
+
+                e.Handled = true;
                 break;
         }
         #endregion Keys without modifiers
