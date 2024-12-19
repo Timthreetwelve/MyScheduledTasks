@@ -1,7 +1,7 @@
-<Window x:Class="MyScheduledTasks.MainWindow"
+﻿<Window x:Class="MyScheduledTasks.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
         xmlns:convert="clr-namespace:MyScheduledTasks.Converters"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -32,12 +32,12 @@
     <!--#endregion-->
 
     <!--#region Interaction Triggers-->
-    <bh:Interaction.Triggers>
-        <bh:EventTrigger EventName="KeyDown">
-            <bh:InvokeCommandAction Command="{Binding KeyDownCommand}"
-                                    PassEventArgsToCommand="True" />
-        </bh:EventTrigger>
-    </bh:Interaction.Triggers>
+    <behaviors:Interaction.Triggers>
+        <behaviors:EventTrigger EventName="KeyDown">
+            <behaviors:InvokeCommandAction Command="{Binding KeyDownCommand}"
+                                           PassEventArgsToCommand="True" />
+        </behaviors:EventTrigger>
+    </behaviors:Interaction.Triggers>
     <!--#endregion-->
 
     <materialDesign:DialogHost CloseOnClickAway="False"
@@ -207,12 +207,6 @@
                                                                                   RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
                     </behaviors:EventTrigger>
                 </behaviors:Interaction.Triggers>
-                    <bh:EventTrigger EventName="SelectionChanged">
-                        <bh:InvokeCommandAction Command="{Binding NavigateCommand}"
-                                                CommandParameter="{Binding Path=SelectedItem,
-                                                                           RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
-                    </bh:EventTrigger>
-                </bh:Interaction.Triggers>
             </ListBox>
             <!--#endregion-->
 
@@ -222,12 +216,12 @@
                 <Border BorderBrush="{DynamicResource MaterialDesign.Brush.TextBox.HoverBackground}"
                         BorderThickness="1.5,1,0,0">
                     <ContentControl Content="{Binding CurrentViewModel}" />
-                    <bh:Interaction.Triggers>
-                        <bh:EventTrigger EventName="MouseRightButtonUp">
-                            <bh:InvokeCommandAction Command="{Binding RightMouseUpCommand}"
-                                                    PassEventArgsToCommand="True" />
-                        </bh:EventTrigger>
-                    </bh:Interaction.Triggers>
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="MouseRightButtonUp">
+                            <behaviors:InvokeCommandAction Command="{Binding RightMouseUpCommand}"
+                                                       PassEventArgsToCommand="True" />
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
                 </Border>
             </Grid>
             <!--#endregion-->
