@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -20,7 +20,7 @@ internal sealed partial class MainViewModel : ObservableObject
         ScheduledTask.TaskList.Clear();
         for (int i = 0; i < MyTasks.MyTasksCollection!.Count; i++)
         {
-            MyTasks? item = MyTasks.MyTasksCollection[i];
+            MyTasks item = MyTasks.MyTasksCollection[i];
             Task? task = TaskInfo.GetTaskInfo(item.TaskPath);
             if (task is not null)
             {
