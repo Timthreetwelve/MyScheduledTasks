@@ -244,7 +244,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
                             ButtonType.YesNo,
                             false,
                             true,
-                            _mainWindow!);
+                            _mainWindow);
         _ = mbox.ShowDialog();
 
         if (MDCustMsgBox.CustResult == CustResultType.Yes)

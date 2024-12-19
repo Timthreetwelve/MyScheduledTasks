@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -47,22 +47,22 @@ internal static class TaskHelpers
     /// <param name="grid">The name of DataGrid</param>
     internal static void ListMyTasks(DataGrid grid)
     {
-        _log.Debug("---------------------------------------------------------------");
+        _log.Info("------------------- Task List Diagnostic -------------------");
         foreach (ScheduledTask item in ScheduledTask.TaskList)
         {
-            _log.Debug($"TaskList: {item.TaskPath} {item.IsChecked} {item.TaskNote}");
+            _log.Info($"TaskList: {item.TaskPath} {item.IsChecked} {item.TaskNote}");
         }
-        _log.Debug("---------------------------------------------------------------");
+        _log.Info("------------------------------------------------------------");
         foreach (MyTasks item in MyTasks.MyTasksCollection!)
         {
-            _log.Debug($"MyTasks: {item.TaskPath} {item.Alert} {item.TaskNote}");
+            _log.Info($"MyTasks: {item.TaskPath} {item.Alert} {item.TaskNote}");
         }
-        _log.Debug("---------------------------------------------------------------");
+        _log.Info("------------------------------------------------------------");
         foreach (ScheduledTask row in grid.Items)
         {
-            _log.Debug($"DataGrid: {row.TaskPath} {row.IsChecked} {row.TaskNote}");
+            _log.Info($"DataGrid: {row.TaskPath} {row.IsChecked} {row.TaskNote}");
         }
-        _log.Debug("---------------------------------------------------------------");
+        _log.Info("------------------------------------------------------------");
     }
     #endregion List tasks
 
@@ -73,31 +73,34 @@ internal static class TaskHelpers
     /// <param name="grid">The name of the DataGrid</param>
     internal static void RemoveTasks(DataGrid grid)
     {
-        if (grid.SelectedItems.Count == 0)
+        switch (grid.SelectedItems.Count)
         {
-            return;
-        }
+            case 0:
+                return;
+            case <= 3:
+            {
+                for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
+                {
+                    ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
+                    _ = ScheduledTask.TaskList.Remove(task!);
+                    _log.Info($"Removed: \"{task!.TaskName}\"");
+                    SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {task.TaskName}", 2000);
+                }
 
-        if (grid.SelectedItems.Count <= 3)
-        {
-            for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
-            {
-                ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
-                _ = ScheduledTask.TaskList.Remove(task!);
-                _log.Info($"Removed: \"{task!.TaskName}\"");
-                SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {task.TaskName}", 2000);
+                break;
             }
-        }
-        else if (grid.SelectedItems.Count > 3)
-        {
-            int count = grid.SelectedItems.Count;
-            for (int i = count - 1; i >= 0; i--)
+            case > 3:
             {
-                ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
-                _ = ScheduledTask.TaskList.Remove(task!);
-                _log.Info($"Removed: \"{task!.TaskPath}\"");
+                int count = grid.SelectedItems.Count;
+                for (int i = count - 1; i >= 0; i--)
+                {
+                    ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
+                    _ = ScheduledTask.TaskList.Remove(task!);
+                    _log.Info($"Removed: \"{task!.TaskPath}\"");
+                }
+                SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {count} {GetStringResource("MsgText_Tasks")}", 2000);
+                break;
             }
-            SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {count} {GetStringResource("MsgText_Tasks")}", 2000);
         }
 
         UpdateMyTasksCollection();
@@ -316,7 +319,7 @@ internal static class TaskHelpers
                 ButtonType.Ok,
                 false,
                 true,
-                _mainWindow!,
+                _mainWindow,
                 true);
             _ = mbox.ShowDialog();
             return;
@@ -329,7 +332,7 @@ internal static class TaskHelpers
                 ButtonType.Ok,
                 false,
                 true,
-                _mainWindow!,
+                _mainWindow,
                 true);
             _ = mbox.ShowDialog();
             return;
@@ -347,7 +350,7 @@ internal static class TaskHelpers
                 ButtonType.Ok,
                 false,
                 true,
-                _mainWindow!,
+                _mainWindow,
                 true);
             _ = mbox.ShowDialog();
             return;
@@ -378,7 +381,7 @@ internal static class TaskHelpers
                     ButtonType.Ok,
                     false,
                     true,
-                    _mainWindow!);
+                    _mainWindow);
             _ = mbox.ShowDialog();
 
             if (TempSettings.Setting.ImportAddToMyTasks)
@@ -398,7 +401,7 @@ internal static class TaskHelpers
                     ButtonType.Ok,
                     false,
                     true,
-                    _mainWindow!,
+                    _mainWindow,
                     true);
             _ = mbox.ShowDialog();
         }
@@ -414,7 +417,7 @@ internal static class TaskHelpers
         ButtonType.Ok,
         false,
         true,
-        _mainWindow!);
+        _mainWindow);
         _ = mbox.ShowDialog();
     }
     #endregion Import a task

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -37,7 +37,7 @@ internal sealed partial class SettingsViewModel : ObservableObject
                      ButtonType.Ok,
                      false,
                      true,
-                     _mainWindow!,
+                     _mainWindow,
                      true).ShowDialog();
         }
     }
