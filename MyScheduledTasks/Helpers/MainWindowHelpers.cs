@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -434,7 +434,7 @@ internal static class MainWindowHelpers
     /// <typeparam name="T">The type of the queried item.</typeparam>
     /// <param name="child">x:Name or Name of child.</param>
     /// <returns>The parent object.</returns>
-    public static T FindParent<T>(DependencyObject child) where T : DependencyObject
+    public static T FindParent<T>(DependencyObject child) where T : DependencyObject?
     {
         DependencyObject parentObject = VisualTreeHelper.GetParent(child)!;
 
@@ -446,5 +446,4 @@ internal static class MainWindowHelpers
         };
     }
     #endregion Find the parent of a control
-
 }
