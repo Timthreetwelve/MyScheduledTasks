@@ -30,7 +30,7 @@ public static class AppInfo
     /// <summary>
     /// Returns the file version
     /// </summary>
-    public static string AppFileVersion => (Assembly.GetEntryAssembly()!.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version) ?? "missing";
+    public static string AppFileVersion => Assembly.GetEntryAssembly()!.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? "missing";
 
     /// <summary>
     /// Returns the full version number as String

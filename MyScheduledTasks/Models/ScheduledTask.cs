@@ -147,7 +147,7 @@ public partial class ScheduledTask : ObservableObject
 
     public DateTime? TaskCreated => TaskCreatedRaw == DateTime.MinValue ? null : TaskCreatedRaw;
 
-    public string TaskResultHex => (TaskResult == null) ? string.Empty : $"0x{TaskResult:X8}";
+    public string TaskResultHex => TaskResult == null ? string.Empty : $"0x{TaskResult:X8}";
 
     public string TaskResultShort
     {
