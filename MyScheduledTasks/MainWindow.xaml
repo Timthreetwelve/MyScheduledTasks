@@ -27,7 +27,6 @@
         <viewmodels:NavigationViewModel />
     </Window.DataContext>
     <Window.Resources>
-        <convert:SelectedItemConverter x:Key="SelItemConv" />
         <convert:RefreshVisibilityConverter x:Key="RefreshConv" />
     </Window.Resources>
     <!--#endregion-->
