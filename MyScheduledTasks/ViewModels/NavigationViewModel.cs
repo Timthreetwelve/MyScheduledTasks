@@ -445,6 +445,10 @@ internal sealed partial class NavigationViewModel : ObservableObject
                     TaskHelpers.ListMyTasks(MainPage.Instance!.DataGridTasks);
                     e.Handled = true;
                     break;
+                case Key.N:
+                    _mainWindow!.NavigationListBox.SelectedValue = FindNavPage(NavPage.AddTasks);
+                    e.Handled = true;
+                    break;
                 case Key.R:
                     RemoveSort();
                     e.Handled = true;
@@ -509,6 +513,17 @@ internal sealed partial class NavigationViewModel : ObservableObject
                 case Key.K:
                     CompareLanguageDictionaries();
                     ViewLogFile();
+                    e.Handled = true;
+                    break;
+                case Key.R:
+                    if (UserSettings.Setting?.RowSpacing >= Spacing.Wide)
+                    {
+                        UserSettings.Setting.RowSpacing = Spacing.Compact;
+                    }
+                    else
+                    {
+                        UserSettings.Setting!.RowSpacing++;
+                    }
                     e.Handled = true;
                     break;
                 case Key.S:
