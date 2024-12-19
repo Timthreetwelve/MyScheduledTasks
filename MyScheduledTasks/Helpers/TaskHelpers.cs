@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -423,23 +423,22 @@ internal static class TaskHelpers
     /// <summary>
     /// Delete tasks from Windows Task Scheduler, remove it from MyTasks and then save the file.
     /// </summary>
-    /// <param name="grid">Name of the DataGrid</param>
-    internal static void DeleteTasks(DataGrid grid)
+    internal static void DeleteTasks()
     {
-        if (grid.SelectedItems.Count == 0)
+        if (MainViewModel.TasksToDelete.Count == 0)
         {
             SystemSounds.Beep.Play();
             SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_DeleteNoneSelected"), 5000);
             return;
         }
         bool deleted = false;
-        for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
+        for (int i = MainViewModel.TasksToDelete.Count - 1; i >= 0; i--)
         {
-            ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
+            ScheduledTask task = MainViewModel.TasksToDelete[i];
             try
             {
                 using TaskService ts = TaskService.Instance;
-                Task taskToDelete = ts.GetTask(task!.TaskPath!);
+                Task taskToDelete = ts.GetTask(task.TaskPath!);
 
                 ts.RootFolder.DeleteTask(taskToDelete.Path);
                 deleted = true;
@@ -452,7 +451,7 @@ internal static class TaskHelpers
             catch (Exception ex)
             {
                 SystemSounds.Beep.Play();
-                string msg = string.Format(CultureInfo.InvariantCulture, MsgTextDeleteError, task!.TaskPath);
+                string msg = string.Format(CultureInfo.InvariantCulture, MsgTextDeleteError, task.TaskPath);
                 SnackbarMsg.ClearAndQueueMessage($"{msg} {GetStringResource("MsgText_SeeLogFile")}", 5000);
                 _log.Error(ex, $"Error attempting to delete {task.TaskPath}");
                 MDCustMsgBox mbox = new($"{msg} {GetStringResource("MsgText_SeeLogFile")}",
@@ -460,13 +459,14 @@ internal static class TaskHelpers
                         ButtonType.Ok,
                         false,
                         true,
-                        _mainWindow!,
+                        _mainWindow,
                         true);
                 _ = mbox.ShowDialog();
             }
         }
 
         DialogHost.Close("MainDialogHost");
+        MainViewModel.TasksToDelete.Clear();
         if (deleted)
         {
             UpdateMyTasksCollection();

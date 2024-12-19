@@ -21,10 +21,10 @@ internal static class DialogHelpers
     /// <summary>
     /// Shows the Delete Tasks dialog.
     /// </summary>
-    internal static async System.Threading.Tasks.Task ShowDeleteTasksDialog(DataGrid grid)
+    internal static async System.Threading.Tasks.Task ShowDeleteTasksDialog()
     {
         MainWindowHelpers.MainWindowNotAllowedPointer();
-        DeleteTasksDialog deleteDialog = new(grid);
+        DeleteTasksDialog deleteDialog = new();
         _ = await DialogHost.Show(deleteDialog, "MainDialogHost");
         MainWindowHelpers.MainWindowNormalPointer();
     }

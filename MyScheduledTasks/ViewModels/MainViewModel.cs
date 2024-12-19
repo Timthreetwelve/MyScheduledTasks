@@ -1,9 +1,11 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
 internal sealed partial class MainViewModel : ObservableObject
 {
+    public static List<ScheduledTask> TasksToDelete { get; } = [];
+
     #region Load the task list
     /// <summary>
     /// Load the task list from MyTasksCollection

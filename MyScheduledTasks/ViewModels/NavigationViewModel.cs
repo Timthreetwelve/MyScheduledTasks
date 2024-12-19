@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.ViewModels;
 
@@ -352,13 +352,19 @@ internal sealed partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     private static void ShowDeleteTasks()
     {
-        _ = DialogHelpers.ShowDeleteTasksDialog(MainPage.Instance!.DataGridTasks);
+        MainViewModel.TasksToDelete.Clear();
+        for (int i = 0; i < MainPage.Instance!.DataGridTasks.SelectedItems.Count; i++)
+        {
+            ScheduledTask? task = MainPage.Instance.DataGridTasks.SelectedItems[i] as ScheduledTask;
+            MainViewModel.TasksToDelete.Add(task!);
+        }
+        _ = DialogHelpers.ShowDeleteTasksDialog();
     }
 
     [RelayCommand]
     private static void DeleteTasks()
     {
-        TaskHelpers.DeleteTasks(MainPage.Instance!.DataGridTasks);
+        TaskHelpers.DeleteTasks();
     }
     #endregion
 
