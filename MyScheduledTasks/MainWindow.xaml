@@ -1,4 +1,4 @@
-﻿<Window x:Class="MyScheduledTasks.MainWindow"
+<Window x:Class="MyScheduledTasks.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
@@ -195,38 +195,19 @@
                      Margin="5,5,5,0"
                      HorizontalContentAlignment="Stretch"
                      d:ItemsSource="{d:SampleData ItemCount=5}"
+                     ItemContainerStyle="{StaticResource NavShowExit}"
+                     ItemTemplate="{StaticResource NavItem}"
                      ItemsSource="{Binding NavigationViewModelTypes,
                                            Mode=TwoWay}"
                      SelectedIndex="0"
                      Style="{StaticResource MaterialDesignNavigationListBox}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Border Style="{StaticResource NavItemIndicator}" />
-                            <materialDesign:PackIcon Width="auto" Height="auto"
-                                                     VerticalAlignment="Center"
-                                                     Kind="{Binding IconKind}" />
-                            <TextBlock Margin="15,0" VerticalAlignment="Center"
-                                       FontSize="14"
-                                       Text="{Binding Name}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem"
-                           BasedOn="{StaticResource MaterialDesignListBoxItem}">
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsExit}" Value="True" />
-                                    <Condition Binding="{Binding Source={x:Static config:UserSettings.Setting}, Path=ShowExitInNav}" Value="False" />
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-                <bh:Interaction.Triggers>
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="SelectionChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding NavigateCommand}"
+                                                       CommandParameter="{Binding Path=SelectedItem,
+                                                                                  RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
                     <bh:EventTrigger EventName="SelectionChanged">
                         <bh:InvokeCommandAction Command="{Binding NavigateCommand}"
                                                 CommandParameter="{Binding Path=SelectedItem,

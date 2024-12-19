@@ -1,5 +1,9 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
 
     <!--#region Navigation Item Style-->
     <Style TargetType="TextBlock"
@@ -32,4 +36,21 @@
         </Style.Triggers>
     </Style>
     <!--#endregion-->
+
+    <!--#region DataTemplate for the Navigation Items-->
+    <DataTemplate x:Key="NavItem">
+        <StackPanel Orientation="Horizontal">
+            <Border Style="{StaticResource NavItemIndicator}" />
+            <materialDesign:PackIcon Width="auto" Height="auto"
+                                     VerticalAlignment="Center"
+                                     d:DataContext="{d:DesignInstance}"
+                                     Kind="{Binding IconKind}" />
+            <TextBlock Margin="15,0" VerticalAlignment="Center"
+                       d:DataContext="{d:DesignInstance}"
+                       FontSize="14"
+                       Text="{Binding Name}" />
+        </StackPanel>
+    </DataTemplate>
+    <!--#endregion-->
+
 </ResourceDictionary>
