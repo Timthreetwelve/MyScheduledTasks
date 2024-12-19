@@ -1,4 +1,4 @@
-// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -385,10 +385,10 @@ internal static class MainWindowHelpers
     private static void ApplyUISettings()
     {
         // Put version number in window title
-        _mainWindow!.Title = MainWindowHelpers.WindowTitleVersionAdmin();
+        _mainWindow!.Title = WindowTitleVersionAdmin();
 
         // Window position
-        MainWindowHelpers.SetWindowPosition();
+        SetWindowPosition();
 
         // Light or dark theme
         SetBaseTheme(UserSettings.Setting!.UITheme);

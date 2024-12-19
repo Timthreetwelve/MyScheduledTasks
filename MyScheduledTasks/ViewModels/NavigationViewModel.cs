@@ -108,7 +108,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
     [RelayCommand]
     public static void ViewLogFile()
     {
-        TextFileViewer.ViewTextFile(NLogHelpers.GetLogfileName());
+        TextFileViewer.ViewTextFile(GetLogfileName());
     }
     #endregion View log file
 
