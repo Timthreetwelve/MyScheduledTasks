@@ -138,7 +138,7 @@ internal static class MainWindowHelpers
 
         // Stop the _stopwatch and record elapsed time
         _stopwatch.Stop();
-        _log.Info($"{AppInfo.AppName} {GetStringResource("MsgText_ApplicationShutdown")}.  " +
+        _log.Info($"{AppInfo.AppName} ({AppInfo.AppProduct}) {GetStringResource("MsgText_ApplicationShutdown")}.  " +
                          $"{GetStringResource("MsgText_ElapsedTime")}: {_stopwatch.Elapsed:h\\:mm\\:ss\\.ff}");
 
         // Shut down NLog
