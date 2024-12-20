@@ -14,7 +14,7 @@
         
         Translation contributed by:  VenusGirl (비너스걸)
         
-        Date last update:            2024/11/25
+        Date last update:            2024/12/20
         
         ======================================================================
     -->
@@ -58,6 +58,12 @@
     <sys:String x:Key="Button_CheckUpdate">업데이트 확인</sys:String>
     <sys:String x:Key="Button_Close">메뉴 닫기</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">클립보드로 이 페이지 복사</sys:String>
+    <sys:String x:Key="Button_ExportSettings">설정 내보내기</sys:String>
+    <sys:String x:Key="Button_ExportSettingsToolTip">현재 설정을 파일로 내보냅니다.</sys:String>
+    <sys:String x:Key="Button_ImportSettings">설정 가져오기</sys:String>
+    <sys:String x:Key="Button_ImportSettingsToolTip">파일에서 설정을 가져옵니다.</sys:String>
+    <sys:String x:Key="Button_ListSettings">설정 목록</sys:String>
+    <sys:String x:Key="Button_ListSettingsTooltip">로그 파일에 설정을 나열 (쓰기)합니다.</sys:String>
     <sys:String x:Key="Button_No">아니오</sys:String>
     <sys:String x:Key="Button_OK">확인</sys:String>
     <sys:String x:Key="Button_OpenAppFolder">앱 폴더 열기</sys:String>
@@ -67,6 +73,8 @@
     <sys:String x:Key="Button_OpenLogFileToolTip">기본 응용프로그램에서 로그 파일을 엽니다.</sys:String>
     <sys:String x:Key="Button_OpenResultCodes">결과 코드 참조</sys:String>
     <sys:String x:Key="Button_OpenResultCodesTooltip">공통 결과 코드 파일을 엽니다.</sys:String>
+    <sys:String x:Key="Button_OpenSettings">설정 열기</sys:String>
+    <sys:String x:Key="Button_OpenSettingsToolTip">설정 파일을 엽니다..</sys:String>
     <sys:String x:Key="Button_OpenTasksFile">작업 파일 열기</sys:String>
     <sys:String x:Key="Button_OpenTasksFileTooltip">기본 응용 프로그램에서 작업 파일을 엽니다.</sys:String>
     <sys:String x:Key="Button_ThreeDotToolTip">추가 작업</sys:String>
@@ -190,11 +198,14 @@
     <sys:String x:Key="MsgText_ErrorCreatingFile">{0} 생성 중 오류 발생</sys:String>
     <sys:String x:Key="MsgText_ErrorEmptyTaskList">작업 목록이 비어 있습니다. 지금 작업을 추가하시겠습니까?</sys:String>
     <sys:String x:Key="MsgText_ErrorEmptyTaskListCaption">작업을 추가하시겠습니까?</sys:String>
+    <sys:String x:Key="MsgText_ErrorExportingSettings">설정 파일을 내보내는 동안 오류가 발생했습니다.</sys:String>
     <sys:String x:Key="MsgText_ErrorFatal">치명적인 오류입니다. 예약된 작업이 닫힙니다.</sys:String>
     <sys:String x:Key="MsgText_ErrorGeneral">오류가 발생했습니다.</sys:String>
+    <sys:String x:Key="MsgText_ErrorImportingSettings">설정 파일을 가져오는 동안 오류가 발생했습니다.</sys:String>
     <sys:String x:Key="MsgText_ErrorOpeningFile">{0}을(를) 여는 중에[ 오류가 발생했습니다</sys:String>
     <sys:String x:Key="MsgText_ErrorReadingFile">{0}을(를) 읽는 중에 오류가 발생했습니다</sys:String>
     <sys:String x:Key="MsgText_ErrorSavingFile">{0}을(를) 저장 중에 오류가 발생했습니다</sys:String>
+    <sys:String x:Key="MsgText_ErrorSavingSettings">설정 파일을 저장하는 동안 오류가 발생했습니다.</sys:String>
     <sys:String x:Key="MsgText_ErrorTaskNull">이 작업에 대한 정보가 반환되지 않았습니다. 작업이 더 이상 존재하지 않을 수 있습니다. Windows 작업 스케줄러를 확인하세요.</sys:String>
     <sys:String x:Key="MsgText_Exported">{0}을 내보냈습니다.</sys:String>
     <sys:String x:Key="MsgText_ExportError">{0}을(를) 내보내는 중에 오류가 발생했습니다.</sys:String>
@@ -202,6 +213,7 @@
     <sys:String x:Key="MsgText_FileSaved">작업 파일이 저장되었습니다.</sys:String>
     <sys:String x:Key="MsgText_FilterOneRowShown">1행 표시</sys:String>
     <sys:String x:Key="MsgText_FilterRowsShown">{0}행 표시</sys:String>
+    <sys:String x:Key="MsgText_ImportSettingsRestart">가져온 설정을 사용하려면 My Scheduled Tasks를 다시 시작해 주세요.</sys:String>
     <sys:String x:Key="MsgText_NoInformationFound">에 대한 정보를 찾을 수 없습니다.</sys:String>
     <sys:String x:Key="MsgText_NotAvailable">사용할 수 없음</sys:String>
     <sys:String x:Key="MsgText_NullItemFound">작업 목록을 읽는 동안 null 항목이 발견되었습니다.</sys:String>
@@ -279,6 +291,8 @@
     <sys:String x:Key="SettingsItem_AlertSound">알림 사운드 재생</sys:String>
     <sys:String x:Key="SettingsItem_AnnotateRoot">루트 폴더에 [루트 폴더] 표기 추가</sys:String>
     <sys:String x:Key="SettingsItem_ChangingLanguageWarning">언어를 변경하면 응용 프로그램이 다시 시작됩니다!</sys:String>
+    <sys:String x:Key="SettingsItem_DisplayFont">디스플레이 글꼴</sys:String>
+    <sys:String x:Key="SettingsItem_EditSettingsWarning">앱이 실행되는 동안 설정 파일이 변경되면 덮어쓰기됩니다!</sys:String>
     <sys:String x:Key="SettingsItem_EnableLanguageTesting">언어 테스트 사용</sys:String>
     <sys:String x:Key="SettingsItem_IncludeDebug">로그 파일에 디버그 수준 메시지 포함</sys:String>
     <sys:String x:Key="SettingsItem_KeepOnTop">My Scheduled Tasks를 다른 창 위에 유지</sys:String>
@@ -297,6 +311,8 @@
     <sys:String x:Key="SettingsItem_ShowStatusColumn">상태 열 표시</sys:String>
     <sys:String x:Key="SettingsItem_StartCentered">화면 중앙에 있는 창으로 시작</sys:String>
     <sys:String x:Key="SettingsItem_Theme">테마</sys:String>
+    <sys:String x:Key="SettingsItem_TranslationToolTipLine1">기본값 (en-US)과 비교하여 현재 언어의 문자열 수를 나타냅니다.</sys:String>
+    <sys:String x:Key="SettingsItem_TranslationToolTipLine2">Ctrl+Shift+K를 눌러 언어 파일을 비교합니다. 결과는 로그 파일에 기록됩니다.</sys:String>
     <sys:String x:Key="SettingsItem_UISize">UI 크기</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageCheckBox">Windows 표시 언어 사용</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine1">이 옵션을 선택하면 번역을 사용할 수 있는 경우 Windows 설정에 지정된</sys:String>
@@ -305,10 +321,12 @@
     <sys:String x:Key="SettingsSection_AppSettings">응용 프로그램 설정</sys:String>
     <sys:String x:Key="SettingsSection_Columns">표 열 설정</sys:String>
     <sys:String x:Key="SettingsSection_Language">언어</sys:String>
+    <sys:String x:Key="SettingsSection_SettingsFile">설정 파일</sys:String>
     <sys:String x:Key="SettingsSection_UISettings">UI 설정</sys:String>
     <sys:String x:Key="SettingsSubHead_AppSettings">세부 정보 창 표시, 고급 메뉴 표시, 루트 폴더에 주석 달기 등</sys:String>
     <sys:String x:Key="SettingsSubHead_Columns">My Scheduled Tasks 표에 표시할 열을 선택</sys:String>
     <sys:String x:Key="SettingsSubHead_Language">언어 설정 및 테스트</sys:String>
+    <sys:String x:Key="SettingsSubHead_SettingsFile">가져오기, 내보내기, 열기 및 응용 프로그램 목록  설정</sys:String>
     <sys:String x:Key="SettingsSubHead_UISettings">테마, 강조 색상, UI 크기, 행 높이, 시작 위치 등</sys:String>
     <!--  Status Bar  -->
     <sys:String x:Key="StatusBar_Items">{0}개 항목</sys:String>
@@ -326,5 +344,30 @@
     <sys:String x:Key="TaskResult_ReadyToRun">RDY</sys:String>
     <sys:String x:Key="TaskResult_Running">RUN</sys:String>
     <sys:String x:Key="TaskResult_Terminated">TRM</sys:String>
+
+    <!-- Begin changes on 2024/12/19 @ 03:30 UTC -->
+    <!-- A | Button_ExportSettings -->
+    <!-- A | Button_ExportSettingsToolTip -->
+    <!-- A | Button_ImportSettings -->
+    <!-- A | Button_ImportSettingsToolTip -->
+    <!-- A | Button_ListSettings -->
+    <!-- A | Button_ListSettingsTooltip -->
+    <!-- A | Button_OpenSettings -->
+    <!-- A | Button_OpenSettingsToolTip -->
+    <!-- A | MsgText_Error_ExportingSettings -->
+    <!-- A | MsgText_Error_ImportingSettings -->
+    <!-- A | MsgText_Error_SavingSettings -->
+    <!-- A | MsgText_ImportSettingsRestart -->
+    <!-- A | SettingsItem_DisplayFont -->
+    <!-- A | SettingsItem_EditSettingsWarning -->
+    <!-- A | SettingsItem_TranslationToolTipLine1 -->
+    <!-- A | SettingsItem_TranslationToolTipLine2 -->
+    <!-- A | SettingsSection_SettingsFile -->
+    <!-- A | SettingsSubHead_SettingsFile -->
+    <!-- End changes on 2024/12/19 @ 03:30 UTC -->
+
+    <!-- Begin changes on 2024/12/20 @ 03:00 UTC -->
+    <!-- A | MsgText_ErrorReadingSettings -->
+    <!-- End changes on 2024/12/20 @ 03:00 UTC -->
 
 </ResourceDictionary>
