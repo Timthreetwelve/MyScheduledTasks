@@ -14,7 +14,7 @@
         
         Translation contributed by:  bovirus
         
-        Date last update:            30.11.2024
+        Date last update:            20.12.2024
         
         ======================================================================
     -->
@@ -58,6 +58,12 @@
     <sys:String x:Key="Button_CheckUpdate">Controlla aggiornamenti</sys:String>
     <sys:String x:Key="Button_Close">Chiudi menu</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">Copia questa pagina negli appunti</sys:String>
+    <sys:String x:Key="Button_ExportSettings">Esportazione impostazioni</sys:String>
+    <sys:String x:Key="Button_ExportSettingsToolTip">Esporta impostazioni correnti in un file.</sys:String>
+    <sys:String x:Key="Button_ImportSettings">Importa impostazioni</sys:String>
+    <sys:String x:Key="Button_ImportSettingsToolTip">Importa impostazioni da un file.</sys:String>
+    <sys:String x:Key="Button_ListSettings">Impostazioni elenco</sys:String>
+    <sys:String x:Key="Button_ListSettingsTooltip">Elenca (scrivi) le impostazioni nel file registro.</sys:String>
     <sys:String x:Key="Button_No">No</sys:String>
     <sys:String x:Key="Button_OK">OK</sys:String>
     <sys:String x:Key="Button_OpenAppFolder">Apri cartella App</sys:String>
@@ -67,6 +73,8 @@
     <sys:String x:Key="Button_OpenLogFileToolTip">Apri il file registro nell'applicazione predefinita.</sys:String>
     <sys:String x:Key="Button_OpenResultCodes">Riferimento codici risultato</sys:String>
     <sys:String x:Key="Button_OpenResultCodesTooltip">Apri il file codici risultato comuni.</sys:String>
+    <sys:String x:Key="Button_OpenSettings">Apri impostazioni</sys:String>
+    <sys:String x:Key="Button_OpenSettingsToolTip">Apri il file Impostazioni.</sys:String>
     <sys:String x:Key="Button_OpenTasksFile">Apri il file attività</sys:String>
     <sys:String x:Key="Button_OpenTasksFileTooltip">Apri il file attività nell'applicazione predefinita.</sys:String>
     <sys:String x:Key="Button_ThreeDotToolTip">Azioni aggiuntive</sys:String>
@@ -190,11 +198,15 @@
     <sys:String x:Key="MsgText_ErrorCreatingFile">Errore durante la creazione di {0}</sys:String>
     <sys:String x:Key="MsgText_ErrorEmptyTaskList">L'elenco delle attività è vuoto. Vuoi aggiungere l'attività adesso?</sys:String>
     <sys:String x:Key="MsgText_ErrorEmptyTaskListCaption">AGGIUNGI ATTIVITA'?</sys:String>
+    <sys:String x:Key="MsgText_ErrorExportingSettings">Errore durante l'esportazione del file delle impostazioni.</sys:String>
     <sys:String x:Key="MsgText_ErrorFatal">Errore fatale. My Scheduled Tasks verrà chiuso.</sys:String>
+    <sys:String x:Key="MsgText_ErrorImportingSettings">Errore durante l'importazione del file delle impostazioni.</sys:String>
     <sys:String x:Key="MsgText_ErrorGeneral">Si è verificato un errore.</sys:String>
     <sys:String x:Key="MsgText_ErrorOpeningFile">Errore durante l'apertura di {0}</sys:String>
     <sys:String x:Key="MsgText_ErrorReadingFile">Errore durante la lettura di {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorReadingSettings">Errore durante la lettura del file impostazioni.</sys:String>
     <sys:String x:Key="MsgText_ErrorSavingFile">Errore durante il salvataggio di {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorSavingSettings">Errore durante il salvataggio del file impostazioni.</sys:String>
     <sys:String x:Key="MsgText_ErrorTaskNull">Non è stata restituita alcuna informazione per questa attività. L'attività potrebbe non esistere più. Controlla l'Utilità di pianificazione di Windows.</sys:String>
     <sys:String x:Key="MsgText_Exported">Esportata {0}.</sys:String>
     <sys:String x:Key="MsgText_ExportError">Errore durante il tentativo di esportazione {0}.</sys:String>
@@ -202,6 +214,7 @@
     <sys:String x:Key="MsgText_FileSaved">Il file delle attività è stato salvato.</sys:String>
     <sys:String x:Key="MsgText_FilterOneRowShown">1 colonna visualizzata</sys:String>
     <sys:String x:Key="MsgText_FilterRowsShown">{0} colonne visualizzate</sys:String>
+    <sys:String x:Key="MsgText_ImportSettingsRestart">Per usare le nuove impostazioni importate riavvia My Scheduled Tasks.</sys:String>
     <sys:String x:Key="MsgText_NoInformationFound">Nessuna informazione trovata per</sys:String>
     <sys:String x:Key="MsgText_NotAvailable">Non disponibile</sys:String>
     <sys:String x:Key="MsgText_NullItemFound">Trovato elemento null durante la lettura dell'elenco attività.</sys:String>
@@ -279,6 +292,8 @@
     <sys:String x:Key="SettingsItem_AlertSound">Riproduci suono avviso</sys:String>
     <sys:String x:Key="SettingsItem_AnnotateRoot">Aggiungi notazione [cartella principale] alla cartella principale</sys:String>
     <sys:String x:Key="SettingsItem_ChangingLanguageWarning">La modifica della lingua causerà il riavvio dell'applicazione!</sys:String>
+    <sys:String x:Key="SettingsItem_DisplayFont">Font visualizzazione</sys:String>
+    <sys:String x:Key="SettingsItem_EditSettingsWarning">Qualsiasi modifica apportata al file delle impostazioni mentre l'app è in esecuzione verrà sovrascritta!</sys:String>
     <sys:String x:Key="SettingsItem_EnableLanguageTesting">Abilita test lingua UI</sys:String>
     <sys:String x:Key="SettingsItem_IncludeDebug">Includi nel file registro messaggi livello debug</sys:String>
     <sys:String x:Key="SettingsItem_KeepOnTop">Mantieni My Scheduled Tasks sopra alle altre finestre</sys:String>
@@ -297,6 +312,8 @@
     <sys:String x:Key="SettingsItem_ShowStatusColumn">Visualizza colonna Stato</sys:String>
     <sys:String x:Key="SettingsItem_StartCentered">Avvia con la finestra centrata sullo schermo</sys:String>
     <sys:String x:Key="SettingsItem_Theme">Tema</sys:String>
+    <sys:String x:Key="SettingsItem_TranslationToolTipLine1">Rappresenta il numero di stringhe nella lingua attuale rispetto a quella predefinita (en-US).</sys:String>
+    <sys:String x:Key="SettingsItem_TranslationToolTipLine2">Premi Ctrl+Maiusc+K per confrontare i file lingua. I risultati vengono scritti nel file registro.</sys:String>
     <sys:String x:Key="SettingsItem_UISize">Dimensioni UI</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageCheckBox">Usa lingua di visualizzazione di Windows</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine1">Quando questa opzione è selezionata, la lingua specificata nelle impostazioni di Windows</sys:String>
@@ -305,10 +322,12 @@
     <sys:String x:Key="SettingsSection_AppSettings">Impostazioni applicazione</sys:String>
     <sys:String x:Key="SettingsSection_Columns">Seleziona colonne griglia</sys:String>
     <sys:String x:Key="SettingsSection_Language">Lingua UI</sys:String>
+    <sys:String x:Key="SettingsSection_SettingsFile">File impostazioni</sys:String>
     <sys:String x:Key="SettingsSection_UISettings">Impostazioni UI</sys:String>
     <sys:String x:Key="SettingsSubHead_AppSettings">Visualizza pannello dettagli, visualizza menu avanzato, annota la cartella principale e altro ancora</sys:String>
     <sys:String x:Key="SettingsSubHead_Columns">Scegli quali colonne visualizzare nel file griglia My Scheduled Tasks</sys:String>
     <sys:String x:Key="SettingsSubHead_Language">Impostazioni e test lingua UI</sys:String>
+    <sys:String x:Key="SettingsSubHead_SettingsFile">Impostazioni applicazione importazione, esportazione, apertura, ed elenco</sys:String>
     <sys:String x:Key="SettingsSubHead_UISettings">Tema, colore evidenziazione, dimensione UI, altezza riga, posizione iniziale e altro ancora</sys:String>
     <!--  Status Bar  -->
     <sys:String x:Key="StatusBar_Items">{0} elementi</sys:String>
@@ -326,5 +345,30 @@
     <sys:String x:Key="TaskResult_ReadyToRun">PPE</sys:String>
     <sys:String x:Key="TaskResult_Running">ESE</sys:String>
     <sys:String x:Key="TaskResult_Terminated">TRM</sys:String>
+
+    <!-- Begin changes on 2024/12/19 @ 03:30 UTC -->
+    <!-- A | Button_ExportSettings -->
+    <!-- A | Button_ExportSettingsToolTip -->
+    <!-- A | Button_ImportSettings -->
+    <!-- A | Button_ImportSettingsToolTip -->
+    <!-- A | Button_ListSettings -->
+    <!-- A | Button_ListSettingsTooltip -->
+    <!-- A | Button_OpenSettings -->
+    <!-- A | Button_OpenSettingsToolTip -->
+    <!-- A | MsgText_Error_ExportingSettings -->
+    <!-- A | MsgText_Error_ImportingSettings -->
+    <!-- A | MsgText_Error_SavingSettings -->
+    <!-- A | MsgText_ImportSettingsRestart -->
+    <!-- A | SettingsItem_DisplayFont -->
+    <!-- A | SettingsItem_EditSettingsWarning -->
+    <!-- A | SettingsItem_TranslationToolTipLine1 -->
+    <!-- A | SettingsItem_TranslationToolTipLine2 -->
+    <!-- A | SettingsSection_SettingsFile -->
+    <!-- A | SettingsSubHead_SettingsFile -->
+    <!-- End changes on 2024/12/19 @ 03:30 UTC -->
+
+    <!-- Begin changes on 2024/12/20 @ 03:00 UTC -->
+    <!-- A | MsgText_ErrorReadingSettings -->
+    <!-- End changes on 2024/12/20 @ 03:00 UTC -->
 
 </ResourceDictionary>
