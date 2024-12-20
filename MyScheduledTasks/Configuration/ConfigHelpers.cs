@@ -55,8 +55,8 @@ internal static class ConfigHelpers
         }
         catch (Exception ex)
         {
-            _ = MessageBox.Show($"Error reading settings file.\n{ex.Message}",
-                     "Error",
+            _ = MessageBox.Show($"{GetStringResource("MsgText_ErrorReadingSettings")}\n{ex.Message}",
+                     GetStringResource("MsgText_ErrorCaption"),
                      MessageBoxButton.OK,
                      MessageBoxImage.Error);
             return new UserSettings();
@@ -148,7 +148,7 @@ internal static class ConfigHelpers
                 ButtonType.Ok,
                 false,
                 true,
-                _mainWindow!).ShowDialog();
+                _mainWindow).ShowDialog();
             }
         }
         catch (Exception ex)

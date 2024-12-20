@@ -204,6 +204,7 @@
     <sys:String x:Key="MsgText_ErrorImportingSettings">Error importing settings file.</sys:String>
     <sys:String x:Key="MsgText_ErrorOpeningFile">Error opening {0}</sys:String>
     <sys:String x:Key="MsgText_ErrorReadingFile">Error reading {0}</sys:String>
+    <sys:String x:Key="MsgText_ErrorReadingSettings">Error reading settings file.</sys:String>
     <sys:String x:Key="MsgText_ErrorSavingFile">Error saving {0}</sys:String>
     <sys:String x:Key="MsgText_ErrorSavingSettings">Error saving settings file.</sys:String>
     <sys:String x:Key="MsgText_ErrorTaskNull">No information for this task was returned. The task may no longer exist. Check Windows Task Scheduler.</sys:String>
@@ -365,5 +366,9 @@
     <!-- A | SettingsSection_SettingsFile -->
     <!-- A | SettingsSubHead_SettingsFile -->
     <!-- End changes on 2024/12/19 @ 03:30 UTC -->
+    
+    <!-- Begin changes on 2024/12/20 @ 03:00 UTC -->
+    <!-- A | MsgText_ErrorReadingSettings -->
+    <!-- End changes on 2024/12/20 @ 03:00 UTC -->
 
 </ResourceDictionary>
