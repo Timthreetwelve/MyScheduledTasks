@@ -387,7 +387,6 @@
                           Height="4"
                           Margin="5,8"
                           HorizontalAlignment="Stretch"
-                          Background="Gray"
                           DragCompleted="GridSplitter_DragCompleted"
                           IsTabStop="False" Opacity=".2"
                           ResizeBehavior="BasedOnAlignment"

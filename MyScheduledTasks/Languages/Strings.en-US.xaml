@@ -284,6 +284,7 @@
     <sys:String x:Key="SettingsEnum_Spacing_Compact">Compact</sys:String>
     <sys:String x:Key="SettingsEnum_Spacing_Wide">Wide</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Dark">Material Dark</sys:String>
+    <sys:String x:Key="SettingsEnum_Theme_DarkBlue">Midnight Blue</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Darker">Darker</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Light">Light</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_System">System</sys:String>
@@ -370,5 +371,9 @@
     <!-- Begin changes on 2024/12/20 @ 03:00 UTC -->
     <!-- A | MsgText_ErrorReadingSettings -->
     <!-- End changes on 2024/12/20 @ 03:00 UTC -->
+    
+    <!-- Begin changes on 2024/12/26 @ 20:00 UTC -->
+    <!-- A | MsgText_ErrorReadingSettings -->
+    <!-- End changes on 2024/12/26 @ 20:00 UTC -->
 
 </ResourceDictionary>
