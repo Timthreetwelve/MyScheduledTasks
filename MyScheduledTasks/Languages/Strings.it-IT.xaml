@@ -14,7 +14,7 @@
         
         Translation contributed by:  bovirus
         
-        Date last update:            20.12.2024
+        Date last update:            27.12.2024
         
         ======================================================================
     -->
@@ -23,7 +23,7 @@
     <sys:String x:Key="About_BuildDate">Data build</sys:String>
     <sys:String x:Key="About_CommitID">ID commit</sys:String>
     <sys:String x:Key="About_CommitIDToolTip">ID commit totale:</sys:String>
-    <sys:String x:Key="About_Contribute">Contribuisce alla traduzione</sys:String>
+    <sys:String x:Key="About_Contribute">Contribuisci alla traduzione</sys:String>
     <sys:String x:Key="About_ContributeToolTip">Come contribuire con una traduzione</sys:String>
     <sys:String x:Key="About_Copyright">Copyright</sys:String>
     <sys:String x:Key="About_CreatedBy">Creato da</sys:String>
@@ -38,7 +38,7 @@
     <sys:String x:Key="About_LicenseToolTip">Visualizza il documento della licenza</sys:String>
     <sys:String x:Key="About_Translations">Traduzioni</sys:String>
     <sys:String x:Key="About_Update">Aggiorna My Scheduled Tasks</sys:String>
-    <sys:String x:Key="About_UpdateText">Controlla disponibilità aggiornamenti di My Scheduled Tasks</sys:String>
+    <sys:String x:Key="About_UpdateText">Controlla disponibilità aggiornamenti My Scheduled Tasks</sys:String>
     <sys:String x:Key="About_UpdateToolTip">Controlla GitHub per gli aggiornamenti</sys:String>
     <sys:String x:Key="About_Version">Versione</sys:String>
     <!--  Add Tasks Page  -->
@@ -58,8 +58,8 @@
     <sys:String x:Key="Button_CheckUpdate">Controlla aggiornamenti</sys:String>
     <sys:String x:Key="Button_Close">Chiudi menu</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">Copia questa pagina negli appunti</sys:String>
-    <sys:String x:Key="Button_ExportSettings">Esportazione impostazioni</sys:String>
-    <sys:String x:Key="Button_ExportSettingsToolTip">Esporta impostazioni correnti in un file.</sys:String>
+    <sys:String x:Key="Button_ExportSettings">Esporta impostazioni</sys:String>
+    <sys:String x:Key="Button_ExportSettingsToolTip">Esporta impostazioni attuali in un file.</sys:String>
     <sys:String x:Key="Button_ImportSettings">Importa impostazioni</sys:String>
     <sys:String x:Key="Button_ImportSettingsToolTip">Importa impostazioni da un file.</sys:String>
     <sys:String x:Key="Button_ListSettings">Impostazioni elenco</sys:String>
@@ -200,8 +200,8 @@
     <sys:String x:Key="MsgText_ErrorEmptyTaskListCaption">AGGIUNGI ATTIVITA'?</sys:String>
     <sys:String x:Key="MsgText_ErrorExportingSettings">Errore durante l'esportazione del file delle impostazioni.</sys:String>
     <sys:String x:Key="MsgText_ErrorFatal">Errore fatale. My Scheduled Tasks verrà chiuso.</sys:String>
-    <sys:String x:Key="MsgText_ErrorImportingSettings">Errore durante l'importazione del file delle impostazioni.</sys:String>
     <sys:String x:Key="MsgText_ErrorGeneral">Si è verificato un errore.</sys:String>
+    <sys:String x:Key="MsgText_ErrorImportingSettings">Errore durante l'importazione del file delle impostazioni.</sys:String>
     <sys:String x:Key="MsgText_ErrorOpeningFile">Errore durante l'apertura di {0}</sys:String>
     <sys:String x:Key="MsgText_ErrorReadingFile">Errore durante la lettura di {0}</sys:String>
     <sys:String x:Key="MsgText_ErrorReadingSettings">Errore durante la lettura del file impostazioni.</sys:String>
@@ -284,6 +284,7 @@
     <sys:String x:Key="SettingsEnum_Spacing_Compact">Compatta</sys:String>
     <sys:String x:Key="SettingsEnum_Spacing_Wide">Largo</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Dark">Material scuro</sys:String>
+    <sys:String x:Key="SettingsEnum_Theme_DarkBlue">Blu notte</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Darker">Scuro</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Light">Chiaro</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_System">Sistema</sys:String>
@@ -370,5 +371,9 @@
     <!-- Begin changes on 2024/12/20 @ 03:00 UTC -->
     <!-- A | MsgText_ErrorReadingSettings -->
     <!-- End changes on 2024/12/20 @ 03:00 UTC -->
+
+    <!-- Begin changes on 2024/12/26 @ 20:00 UTC -->
+    <!-- A | MSettingsEnum_Theme_DarkBlue -->
+    <!-- End changes on 2024/12/26 @ 20:00 UTC -->
 
 </ResourceDictionary>
