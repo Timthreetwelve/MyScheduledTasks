@@ -57,6 +57,7 @@ public partial class UILanguage : ObservableObject
         new () {Language = "Spanish",  LanguageCode = "es-ES", LanguageNative = "Español",  Contributor = "Timthreetwelve & Google Translate"},
         new () {Language = "Korean",   LanguageCode = "ko-KR", LanguageNative = "한국어",    Contributor = "VenusGirl (비너스걸)"},
         new () {Language = "Italian",  LanguageCode = "it-IT", LanguageNative = "Italiano", Contributor = "bovirus"},
+        new () {Language = "Dutch",    LanguageCode = "nl-NL", LanguageNative = "Nederlands", Contributor = "CMTRiX"},
     ];
 
     /// <summary>
