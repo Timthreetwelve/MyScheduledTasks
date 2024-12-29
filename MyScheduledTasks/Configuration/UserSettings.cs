@@ -19,7 +19,7 @@ public partial class UserSettings : ConfigManager<UserSettings>
     private double _detailsHeight = 520;
 
     /// <summary>
-    ///  Used to determine if Debug level messages are included in the application log.
+    ///  Used to determine used to determine scaling of dialogs.
     /// </summary>
     [ObservableProperty]
     private static double _dialogScale = 1;
