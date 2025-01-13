@@ -45,7 +45,7 @@
     <PackageReference Include="Octokit" Version="14.0.0" />
     <PackageReference Include="Nerdbank.GitVersioning" Condition="!Exists('packages.config')">
       <PrivateAssets>all</PrivateAssets>
-      <Version>3.7.112</Version>
+      <Version>3.7.115</Version>
     </PackageReference>
     <PackageReference Include="TaskScheduler" Version="2.11.0" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="4.0.4" />
