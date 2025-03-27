@@ -2,6 +2,7 @@
 
 // Leave the Octokit using statement here. It's a problem in GlobalUsings.cs
 using Octokit;
+using System.Threading.Tasks;
 
 namespace MyScheduledTasks.Helpers;
 
@@ -13,6 +14,11 @@ internal static class GitHubHelpers
     #region MainWindow Instance
     private static readonly MainWindow? _mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
     #endregion MainWindow Instance
+
+    /// <summary>
+    /// The application version from GitHub.
+    /// </summary>
+    public static Version? GitHubVersion { get; private set; }
 
     #region Check for newer release
     /// <summary>
@@ -27,30 +33,24 @@ internal static class GitHubHelpers
         try
         {
             SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_AppUpdateChecking"));
-            Release? release = await GetLatestReleaseAsync(AppConstString.RepoOwner, AppConstString.RepoName);
-            if (release == null)
+            Release release = await GetLatestReleaseAsync(AppConstString.RepoOwner, AppConstString.RepoName);
+            if (release.TagName == null)
             {
                 CheckFailed();
                 return;
             }
-
             string tag = release.TagName;
-            if (string.IsNullOrEmpty(tag))
-            {
-                CheckFailed();
-                return;
-            }
 
             if (tag.StartsWith("v", StringComparison.InvariantCultureIgnoreCase))
             {
                 tag = tag.ToLower(CultureInfo.InvariantCulture).TrimStart('v');
             }
 
-            Version latestVersion = new(tag);
+            GitHubVersion = new(tag);
 
-            _log.Debug($"Latest version is {latestVersion} released on {release.PublishedAt!.Value.UtcDateTime} UTC");
+            _log.Debug($"Latest version is {GitHubVersion} released on {release.PublishedAt!.Value.UtcDateTime} UTC");
 
-            if (latestVersion <= AppInfo.AppVersionVer)
+            if (GitHubVersion <= AppInfo.AppVersionVer)
             {
                 string msg = GetStringResource("MsgText_AppUpdateNoneFound");
                 _log.Debug("No newer releases were found.");
@@ -59,12 +59,12 @@ internal static class GitHubHelpers
                     ButtonType.Ok,
                     false,
                     true,
-                    _mainWindow!).ShowDialog();
+                    _mainWindow).ShowDialog();
             }
             else
             {
-                _log.Debug($"A newer release ({latestVersion}) has been found.");
-                string msg = string.Format(CultureInfo.InvariantCulture, MsgTextAppUpdateNewerFound, latestVersion);
+                _log.Debug($"A newer release ({GitHubVersion}) has been found.");
+                string msg = string.Format(CultureInfo.InvariantCulture, MsgTextAppUpdateNewerFound, GitHubVersion);
                 _ = new MDCustMsgBox($"{msg}\n\n" +
                                             $"{GetStringResource("MsgText_AppUpdateGoToRelease")}\n\n" +
                                             $"{GetStringResource("MsgText_AppUpdateCloseApp")}",
@@ -72,7 +72,7 @@ internal static class GitHubHelpers
                     ButtonType.YesNo,
                     false,
                     true,
-                    _mainWindow!).ShowDialog();
+                    _mainWindow).ShowDialog();
 
                 if (MDCustMsgBox.CustResult == CustResultType.Yes)
                 {
@@ -94,6 +94,50 @@ internal static class GitHubHelpers
     }
     #endregion Check for newer release
 
+    #region Check for new release async
+    /// <summary>
+    /// Checks to see if a newer release is available asynchronously.
+    /// </summary>
+    /// <returns>True if a newer release is available, otherwise false.</returns>
+    public static async Task<bool> CheckForNewReleaseAsync()
+    {
+        try
+        {
+            Release release = await GetLatestReleaseAsync(AppConstString.RepoOwner, AppConstString.RepoName);
+            if (release.TagName == null)
+            {
+                return false;
+            }
+
+            string tag = release.TagName.Trim();
+            if (string.IsNullOrEmpty(tag))
+            {
+                return false;
+            }
+
+            if (tag.StartsWith("v", StringComparison.InvariantCultureIgnoreCase))
+            {
+                tag = tag[1..]; // Remove the leading 'v'
+            }
+
+            if (!Version.TryParse(tag, out var version))
+            {
+                _log.Error($"Failed to parse version tag: {tag}");
+                return false;
+            }
+
+            GitHubVersion = version;
+            _log.Debug($"Latest version is {GitHubVersion} released on {release.PublishedAt!.Value.UtcDateTime} UTC");
+            return GitHubVersion > AppInfo.AppVersionVer;
+        }
+        catch (Exception ex)
+        {
+            _log.Error(ex, "Error encountered while checking GitHub for latest release.");
+            return false;
+        }
+    }
+    #endregion Check for new release async
+
     #region Get latest release
     /// <summary>
     /// Gets the latest release.
@@ -101,19 +145,18 @@ internal static class GitHubHelpers
     /// <param name="repoOwner">The repository owner.</param>
     /// <param name="repoName">Name of the repository.</param>
     /// <returns>Release object</returns>
-    private static async System.Threading.Tasks.Task<Release?> GetLatestReleaseAsync(string repoOwner, string repoName)
+    private static async Task<Release> GetLatestReleaseAsync(string repoOwner, string repoName)
     {
         try
         {
             GitHubClient client = new(new ProductHeaderValue(repoName));
             _log.Debug("Checking GitHub for latest release.");
-
             return await client.Repository.Release.GetLatest(repoOwner, repoName);
         }
         catch (Exception ex)
         {
             _log.Error(ex, "Get latest release from GitHub failed.");
-            return null!;
+            return new();
         }
     }
     #endregion Get latest release
@@ -129,7 +172,7 @@ internal static class GitHubHelpers
             ButtonType.Ok,
             false,
             true,
-            _mainWindow!,
+            _mainWindow,
             true).ShowDialog();
     }
     #endregion Check failed message

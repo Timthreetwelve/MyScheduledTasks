@@ -38,6 +38,8 @@
     <sys:String x:Key="About_LicenseToolTip">View the license document</sys:String>
     <sys:String x:Key="About_Translations">Translations</sys:String>
     <sys:String x:Key="About_Update">Update My Scheduled Tasks</sys:String>
+    <sys:String x:Key="About_UpdateFound">A newer release is available</sys:String>
+    <sys:String x:Key="About_UpdateFoundTooltip">Click to go to GitHub release page</sys:String>
     <sys:String x:Key="About_UpdateText">Check for new release of My Scheduled Tasks</sys:String>
     <sys:String x:Key="About_UpdateToolTip">Check GitHub for a newer release</sys:String>
     <sys:String x:Key="About_Version">Version</sys:String>
@@ -292,6 +294,7 @@
     <sys:String x:Key="SettingsItem_AccentColor">Accent Color</sys:String>
     <sys:String x:Key="SettingsItem_AlertSound">Play Sound for Alert</sys:String>
     <sys:String x:Key="SettingsItem_AnnotateRoot">Add [root folder] notation to Root Folder</sys:String>
+    <sys:String x:Key="SettingsItem_AutoUpdateCheck">Automatically check for newer version when About page is opened</sys:String>
     <sys:String x:Key="SettingsItem_ChangingLanguageWarning">Changing Language will cause application to restart!</sys:String>
     <sys:String x:Key="SettingsItem_DisplayFont">Display Font</sys:String>
     <sys:String x:Key="SettingsItem_EditSettingsWarning">Any changes made to the settings file while the app is running will be overwritten!</sys:String>

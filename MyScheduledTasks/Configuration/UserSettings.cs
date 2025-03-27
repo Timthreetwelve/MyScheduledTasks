@@ -13,6 +13,12 @@ public partial class UserSettings : ConfigManager<UserSettings>
     private bool _annotateRoot = true;
 
     /// <summary>
+    /// Check for updates automatically when About page is opened.
+    /// </summary>
+    [ObservableProperty]
+    private bool _autoCheckForUpdates = true;
+
+    /// <summary>
     /// Height of the details pane.
     /// </summary>
     [ObservableProperty]

@@ -16,13 +16,10 @@
              FontFamily="Segoe UI" FontSize="14"
              TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
 
-    <!--#region DataContext & Resources-->
-    <UserControl.DataContext>
-        <viewmodels:AboutViewModel />
-    </UserControl.DataContext>
-
+    <!--#region Resources-->
     <UserControl.Resources>
         <convert:SpacingConverter x:Key="Spacing" />
+        <convert:InvertibleBooleanToVisibilityConverter x:Key="InvertibleVisibilityConverter" />
     </UserControl.Resources>
     <!--#endregion-->
 
@@ -50,7 +47,6 @@
                     <RowDefinition Height="auto" MinHeight="26" />
                     <RowDefinition Height="auto" MinHeight="26" />
                     <RowDefinition Height="auto" MinHeight="26" />
-
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -60,9 +56,10 @@
                 <!--#region Logo-->
                 <Image Grid.Row="0" Grid.RowSpan="2"
                        Grid.Column="2"
+                       Panel.ZIndex="1"
                        Width="50"
                        HorizontalAlignment="Right"
-                       VerticalAlignment="Top" Panel.ZIndex="1">
+                       VerticalAlignment="Top">
                     <Image.Style>
                         <Style TargetType="{x:Type Image}">
                             <Setter Property="Source" Value="\Images\MST.png" />
@@ -184,7 +181,24 @@
                 <!--#region Check for new release-->
                 <TextBlock Grid.Row="9" Grid.Column="0"
                            Text="{DynamicResource About_Update}" />
-                <TextBlock Grid.Row="9" Grid.Column="2">
+                <TextBlock Grid.Row="9" Grid.Column="2"
+                           Visibility="{Binding NewReleaseAvailable,
+                                                Source={x:Static config:TempSettings.Setting},
+                                                Converter={StaticResource InvertibleVisibilityConverter},
+                                                ConverterParameter=Normal}">
+                    <Hyperlink Command="{Binding CheckReleaseCommand}"
+                               Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                               ToolTip="{DynamicResource About_UpdateFoundTooltip}"
+                               ToolTipService.Placement="Top">
+                        <TextBlock Text="{DynamicResource About_UpdateFound}"
+                                   TextWrapping="Wrap" />
+                    </Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Row="9" Grid.Column="2"
+                           Visibility="{Binding NewReleaseAvailable,
+                                                Source={x:Static config:TempSettings.Setting},
+                                                Converter={StaticResource InvertibleVisibilityConverter},
+                                                ConverterParameter=Inverted}">
                     <Hyperlink Command="{Binding CheckReleaseCommand}"
                                Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                                ToolTip="{DynamicResource About_UpdateToolTip}"

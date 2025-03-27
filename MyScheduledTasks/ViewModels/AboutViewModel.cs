@@ -1,9 +1,17 @@
 ﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
+using System.Threading.Tasks;
+
 namespace MyScheduledTasks.ViewModels;
 
-public partial class AboutViewModel
+public partial class AboutViewModel : ObservableObject
 {
+    [ObservableProperty]
+    private bool _isNewReleaseAvailable;
+
+    [ObservableProperty]
+    private bool _releaseCheckDone;
+
     #region Constructor
     public AboutViewModel()
     {
@@ -11,8 +19,22 @@ public partial class AboutViewModel
         {
             AddNote();
         }
+        _ = CheckForNewReleaseOnLoadAsync();
     }
     #endregion Constructor
+
+    private static async Task<bool> CheckForNewReleaseOnLoadAsync()
+    {
+        if (TempSettings.Setting!.CheckedForNewRelease && UserSettings.Setting!.AutoCheckForUpdates)
+        {
+            return true;
+        }
+        TempSettings.Setting.CheckedForNewRelease = true;
+        TempSettings.Setting.NewReleaseAvailable = await GitHubHelpers.CheckForNewReleaseAsync();
+        TempSettings.Setting.GitHubRelease = GitHubHelpers.GitHubVersion?.ToString() ?? string.Empty;
+        Debug.WriteLine($"IsNewReleaseAvailable: {TempSettings.Setting.NewReleaseAvailable}, NewReleaseVersion: {TempSettings.Setting.GitHubRelease}"); // For testing
+        return true;
+    }
 
     #region Relay Commands
     [RelayCommand]

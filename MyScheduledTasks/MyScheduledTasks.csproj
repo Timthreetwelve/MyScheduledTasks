@@ -15,6 +15,7 @@
     <Product>My Scheduled Tasks</Product>
     <NeutralLanguage>en-US</NeutralLanguage>
     <ApplicationIcon>Images\MST.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <!-- Manifest - Run app elevated -->
@@ -75,6 +76,9 @@
       <Name>-assemblyName $(AssemblyName)</Name>
     </PropertyGroup>
     <Exec Command="pwsh -NoProfile $(PowerShellScript) $(Name)" />
+  </Target>
+  <Target Name="BuildInfo2" AfterTargets="BuildInfo">
+    <Message Importance="high" Text="Completed GenBuildInfo for $(AssemblyName)." />
   </Target>
 
   <!-- Build complete message -->
