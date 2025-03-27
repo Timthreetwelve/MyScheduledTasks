@@ -111,6 +111,18 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 [InstallDelete]
 Type: filesandordirs; Name: "{group}"
 Type: files; Name: "{app}\Nlog.config"
+Type: files; Name: "{app}\CommandLine.dll"
+Type: filesandordirs; Name: "{app}\de"
+Type: filesandordirs; Name: "{app}\es"
+Type: filesandordirs; Name: "{app}\fr"
+Type: filesandordirs; Name: "{app}\it"
+Type: filesandordirs; Name: "{app}\ja"
+Type: filesandordirs; Name: "{app}\pl"
+Type: filesandordirs; Name: "{app}\ru"
+Type: filesandordirs; Name: "{app}\sv"
+Type: filesandordirs; Name: "{app}\tr"
+Type: filesandordirs; Name: "{app}\zh-CN"
+Type: filesandordirs; Name: "{app}\zh-Hant"
 
 [Registry]
 Root: HKCU; Subkey: "Software\{#MyCompanyName}"; Flags: uninsdeletekeyifempty
