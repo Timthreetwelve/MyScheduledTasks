@@ -28,6 +28,15 @@
     <AnalysisMode>Recommended</AnalysisMode>
     <AnalysisLevel>8.0</AnalysisLevel>
   </PropertyGroup>
+
+  <!-- Disable satellite assemblies except those specified -->
+  <PropertyGroup>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <SatelliteResourceLanguages>es</SatelliteResourceLanguages>
+    <SatelliteResourceLanguages>it</SatelliteResourceLanguages>
+    <SatelliteResourceLanguages>ko</SatelliteResourceLanguages>
+    <SatelliteResourceLanguages>nl</SatelliteResourceLanguages>
+  </PropertyGroup>
   
   <!-- Images -->
   <ItemGroup>
@@ -88,7 +97,7 @@
   
   <!-- Remove obj folder after Clean -->
   <Target Name="SpicNSpan" AfterTargets="AfterClean">
-      <Message Importance="high" Text="obj folder deleted." />
+      <Message Importance="high" Text="The obj folder has been deleted." />
       <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
   </Target>
 
