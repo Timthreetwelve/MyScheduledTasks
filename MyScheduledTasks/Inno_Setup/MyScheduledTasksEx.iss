@@ -111,6 +111,8 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 [InstallDelete]
 Type: filesandordirs; Name: "{group}"
 Type: files; Name: "{app}\Nlog.config"
+Type: files; Name: "{app}\fr\Vanara.Core.resources.dll"
+Type: files; Name: "{app}\CommandLine.dll"
 
 [Registry]
 Root: HKCU; Subkey: "Software\{#MyCompanyName}"; Flags: uninsdeletekeyifempty
