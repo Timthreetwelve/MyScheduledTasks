@@ -17,6 +17,7 @@
                 <!--  Styles  -->
                 <ResourceDictionary Source="Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="Styles/DataGridStyles.xaml" />
+                <ResourceDictionary Source="Styles/ExpanderStyles.xaml" />
                 <ResourceDictionary Source="Styles/ListBoxStyles.xaml" />
                 <ResourceDictionary Source="Styles/MenuStyles.xaml" />
                 <ResourceDictionary Source="Styles/NavigationStyles.xaml" />
