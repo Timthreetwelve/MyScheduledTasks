@@ -57,7 +57,7 @@
       <PrivateAssets>all</PrivateAssets>
       <Version>3.7.115</Version>
     </PackageReference>
-    <PackageReference Include="TaskScheduler" Version="2.11.0" />
+    <PackageReference Include="TaskScheduler" Version="2.12.1" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="4.0.4" />
   </ItemGroup>
 
