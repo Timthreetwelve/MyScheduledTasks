@@ -9,9 +9,10 @@
              xmlns:viewModels="clr-namespace:MyScheduledTasks.ViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
+             FontSize="{Binding SelectedFontSize,
+                                Source={x:Static config:UserSettings.Setting}}"
              KeyDown="UserControl_KeyDown"
              TextElement.FontFamily="Segoe UI"
-             TextElement.FontSize="14"
              TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto">
@@ -25,6 +26,7 @@
                                          Source={x:Static config:UserSettings.Setting}}" />
         <convert:SpacingConverter x:Key="Spacing" />
         <convert:RootConverter x:Key="RootConverter" />
+        <convert:FontSizeConverter x:Key="FontSizeConverter" />
     </UserControl.Resources>
     <!--#endregion-->
 
@@ -48,7 +50,11 @@
                                           SnapsToDevicePixels="True">
                     <TextBlock Margin="10,2"
                                HorizontalAlignment="Center"
-                               FontSize="18" FontWeight="SemiBold"
+                               FontSize="{Binding SelectedFontSize,
+                                                  Source={x:Static config:UserSettings.Setting},
+                                                  Converter={StaticResource FontSizeConverter},
+                                                  ConverterParameter=4}"
+                               FontWeight="SemiBold"
                                Text="{DynamicResource DeleteTask_Caption}" />
                 </materialDesign:ColorZone>
                 <!--#endregion-->
@@ -84,6 +90,8 @@
                               CanUserSortColumns="False"
                               CellStyle="{StaticResource DisplayOnly}"
                               ColumnHeaderStyle="{StaticResource DgColumnHeader}"
+                              FontSize="{Binding SelectedFontSize,
+                                                 Source={x:Static config:UserSettings.Setting}}"
                               HeadersVisibility="Column"
                               IsReadOnly="True"
                               ItemsSource="{Binding Source={x:Static viewModels:MainViewModel.TasksToDelete}}"
@@ -110,16 +118,24 @@
                         <Button Margin="10"
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
                                 Content="{DynamicResource Button_Cancel}"
-                                FontSize="15" IsDefault="True"
+                                IsDefault="True"
                                 Style="{StaticResource PlainOutlinedButton}" />
                     </StackPanel>
                     <TextBlock Grid.Row="4"
                                HorizontalAlignment="Center"
-                               FontSize="15" Foreground="Crimson"
+                               FontSize="{Binding SelectedFontSize,
+                                                  Source={x:Static config:UserSettings.Setting},
+                                                  Converter={StaticResource FontSizeConverter},
+                                                  ConverterParameter=1}"
+                               Foreground="Crimson"
                                Text="{DynamicResource DeleteTask_WarningLine1}" />
                     <TextBlock Grid.Row="5"
                                HorizontalAlignment="Center"
-                               FontSize="15" Foreground="Crimson"
+                               FontSize="{Binding SelectedFontSize,
+                                                  Source={x:Static config:UserSettings.Setting},
+                                                  Converter={StaticResource FontSizeConverter},
+                                                  ConverterParameter=1}"
+                               Foreground="Crimson"
                                Text="{DynamicResource DeleteTask_WarningLine2}" />
                 </Grid>
             </Grid>

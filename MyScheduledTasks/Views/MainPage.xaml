@@ -12,7 +12,8 @@
              xmlns:viewmodels="clr-namespace:MyScheduledTasks.ViewModels"
              mc:Ignorable="d"
              FontFamily="Segoe UI"
-             TextElement.FontSize="13"
+             FontSize="{Binding SelectedFontSize,
+                                            Source={x:Static config:UserSettings.Setting}}"
              TextElement.FontWeight="Regular"
              TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
              TextOptions.TextFormattingMode="Ideal"
@@ -49,7 +50,9 @@
                       materialDesign:MenuAssist.TopLevelMenuItemHeight="30"
                       BorderBrush="{DynamicResource MaterialDesignDivider}"
                       BorderThickness="0,0,1,1"
-                      FontFamily="Segoe UI" FontSize="14">
+                      FontFamily="Segoe UI"
+                      FontSize="{Binding SelectedFontSize,
+                                         Source={x:Static config:UserSettings.Setting}}">
                     <Menu.DataContext>
                         <viewmodels:NavigationViewModel />
                     </Menu.DataContext>
@@ -155,7 +158,7 @@
                        Margin="0,0,0,5" Padding="8,0"
                        HorizontalAlignment="Right"
                        Background="Transparent"
-                       FontFamily="Segoe UI" FontSize="14"
+                       FontFamily="Segoe UI"
                        Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
                 <StatusBarItem Content="{Binding Items.Count,
                                                  ElementName=DataGridTasks,
@@ -201,7 +204,9 @@
                       Drop="DataGridTasksDrop"
                       FontFamily="{Binding SelectedFont,
                                            Source={x:Static config:UserSettings.Setting}}"
-                      FontSize="14" HeadersVisibility="Column"
+                      FontSize="{Binding SelectedFontSize,
+                                            Source={x:Static config:UserSettings.Setting}}"
+                      HeadersVisibility="Column"
                       IsReadOnly="False"
                       ItemsSource="{Binding TaskList,
                                             Mode=TwoWay}"

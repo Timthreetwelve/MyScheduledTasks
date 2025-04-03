@@ -87,6 +87,7 @@ internal static class ResourceHelpers
     internal static CompositeFormat MsgTextErrorSavingFile { get; } = GetCompositeResource("MsgText_ErrorSavingFile");
     internal static CompositeFormat MsgTextExported { get; } = GetCompositeResource("MsgText_Exported");
     internal static CompositeFormat MsgTextExportError { get; } = GetCompositeResource("MsgText_ExportError");
+    internal static CompositeFormat MsgTextFontSizeSet { get; } = GetCompositeResource("MsgText_FontSizeSet");
     internal static CompositeFormat MsgTextFilterRowsShown { get; } = GetCompositeResource("MsgText_FilterRowsShown");
     internal static CompositeFormat MsgTextRunError { get; } = GetCompositeResource("MsgText_RunError");
     internal static CompositeFormat MsgTextUIColorSet { get; } = GetCompositeResource("MsgText_UIColorSet");

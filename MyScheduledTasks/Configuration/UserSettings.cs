@@ -73,6 +73,13 @@ public partial class UserSettings : ConfigManager<UserSettings>
     private string? _selectedFont = "Segoe UI";
 
     /// <summary>
+    /// Font size used throughout the application.
+    /// Defaults to 14 which was the original size.
+    /// </summary>
+    [ObservableProperty]
+    private double _selectedFontSize = 14;
+
+    /// <summary>
     /// Show the advanced menu.
     /// </summary>
     [ObservableProperty]

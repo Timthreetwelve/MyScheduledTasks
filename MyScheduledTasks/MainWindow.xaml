@@ -13,8 +13,10 @@
         Title="{x:Static helpers:AppInfo.AppName}"
         MinWidth="800" MinHeight="400"
         Background="{DynamicResource MaterialDesign.Brush.Background}"
-        FontFamily="Segoe UI" FontSize="12"
+        FontFamily="Segoe UI"
         Style="{StaticResource MaterialDesignWindow}"
+        TextElement.FontSize="{Binding SelectedFontSize,
+                                       Source={x:Static config:UserSettings.Setting}}"
         TextElement.FontWeight="Regular"
         TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
         TextOptions.TextFormattingMode="Ideal"
@@ -28,6 +30,7 @@
     </Window.DataContext>
     <Window.Resources>
         <convert:RefreshVisibilityConverter x:Key="RefreshConv" />
+        <convert:FontSizeConverter x:Key="FontSizeConverter" />
     </Window.Resources>
     <!--#endregion-->
 
@@ -74,7 +77,11 @@
                        Margin="10,0" HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Content="{Binding PageTitle}"
-                       FontSize="22" FontWeight="SemiBold" />
+                       FontSize="{Binding SelectedFontSize,
+                                          Source={x:Static config:UserSettings.Setting},
+                                          Converter={StaticResource FontSizeConverter},
+                                          ConverterParameter=10}"
+                       FontWeight="SemiBold" />
                 <!--#endregion-->
 
                 <!--#region SnackBar-->
@@ -219,7 +226,7 @@
                     <behaviors:Interaction.Triggers>
                         <behaviors:EventTrigger EventName="MouseRightButtonUp">
                             <behaviors:InvokeCommandAction Command="{Binding RightMouseUpCommand}"
-                                                       PassEventArgsToCommand="True" />
+                                                           PassEventArgsToCommand="True" />
                         </behaviors:EventTrigger>
                     </behaviors:Interaction.Triggers>
                 </Border>

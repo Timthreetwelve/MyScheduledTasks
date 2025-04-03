@@ -1,9 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:config="clr-namespace:MyScheduledTasks.Configuration"
+                    xmlns:convert="clr-namespace:MyScheduledTasks.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
+
+    <convert:FontSizeConverter x:Key="FontSizeConverter" />
 
     <!--#region Navigation Item Style-->
     <Style TargetType="TextBlock"
@@ -47,8 +51,20 @@
                                      Kind="{Binding IconKind}" />
             <TextBlock Margin="15,0" VerticalAlignment="Center"
                        d:DataContext="{d:DesignInstance}"
-                       FontSize="14"
-                       Text="{Binding Name}" />
+                       Text="{Binding Name}" >
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize">
+                            <Setter.Value>
+                                <Binding Converter="{StaticResource FontSizeConverter}"
+                         ConverterParameter="2"
+                         Path="SelectedFontSize"
+                         Source="{x:Static config:UserSettings.Setting}" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </StackPanel>
     </DataTemplate>
     <!--#endregion-->

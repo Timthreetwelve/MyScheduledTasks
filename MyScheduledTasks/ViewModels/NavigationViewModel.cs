@@ -554,6 +554,22 @@ internal sealed partial class NavigationViewModel : ObservableObject
                         e.Handled = true;
                         break;
                     }
+                case Key.Add:
+                case Key.OemPlus:
+                    if (UserSettings.Setting!.SelectedFontSize < 24)
+                    {
+                        UserSettings.Setting.SelectedFontSize++;
+                    }
+                    ShowUIChangeMessage("fontSize");
+                    break;
+                case Key.Subtract:
+                case Key.OemMinus:
+                    if (UserSettings.Setting!.SelectedFontSize > 8)
+                    {
+                        UserSettings.Setting.SelectedFontSize--;
+                    }
+                    ShowUIChangeMessage("fontSize");
+                    break;
             }
         }
         #endregion Keys with Ctrl and Shift
@@ -618,6 +634,10 @@ internal sealed partial class NavigationViewModel : ObservableObject
             case "color":
                 composite = MsgTextUIColorSet;
                 messageVar = EnumHelpers.GetEnumDescription(UserSettings.Setting!.PrimaryColor);
+                break;
+            case "fontSize":
+                composite = MsgTextFontSizeSet;
+                messageVar = UserSettings.Setting!.SelectedFontSize.ToString(CultureInfo.CurrentCulture);
                 break;
         }
 

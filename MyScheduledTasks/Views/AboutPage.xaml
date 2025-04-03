@@ -13,7 +13,9 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=viewmodels:AboutViewModel}"
-             FontFamily="Segoe UI" FontSize="14"
+             FontFamily="Segoe UI"
+             TextElement.FontSize="{Binding SelectedFontSize,
+                                            Source={x:Static config:UserSettings.Setting}}"
              TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
 
     <!--#region Resources-->

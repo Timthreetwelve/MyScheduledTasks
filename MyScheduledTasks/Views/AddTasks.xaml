@@ -12,7 +12,8 @@
              d:DesignHeight="450" d:DesignWidth="800"
              Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
              FontFamily="Segoe UI"
-             TextElement.FontSize="14"
+             TextElement.FontSize="{Binding SelectedFontSize,
+                                            Source={x:Static config:UserSettings.Setting}}"
              TextElement.FontWeight="Regular"
              TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
              TextOptions.TextFormattingMode="Ideal"
@@ -50,21 +51,22 @@
                 </Grid.ColumnDefinitions>
                 <!--#endregion-->
                 <TextBox Grid.Column="0"
-                         Margin="10,10,20,0" Padding="10,5"
+                         Margin="10,10,20,0" Padding="10,0"
                          HorizontalAlignment="Stretch"
                          VerticalContentAlignment="Center"
                          materialDesign:HintAssist.Hint="{DynamicResource AddTasks_FilterHint}"
                          materialDesign:HintAssist.IsFloating="False"
                          materialDesign:TextFieldAssist.HasClearButton="True"
-                         FontSize="14"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
                          Text="{Binding FilterText,
                                         UpdateSourceTrigger=PropertyChanged}" />
 
                 <CheckBox Grid.Column="1"
-                          Margin="0,10,15,0"
+                          Margin="0,10,0,0"
+                          Padding="10,0"
                           HorizontalAlignment="Right"
-                          VerticalAlignment="Center"
+                          Focusable="False"
+
                           Command="{Binding HideTasksCommand}"
                           CommandParameter="{Binding ElementName=AllTasksGrid}"
                           Content="{DynamicResource AddTasks_HideMicrosoft}"
@@ -88,6 +90,8 @@
                           Background="{DynamicResource MaterialDesign.Brush.Background}"
                           FontFamily="{Binding SelectedFont,
                                                Source={x:Static config:UserSettings.Setting}}"
+                          FontSize="{Binding SelectedFontSize,
+                                            Source={x:Static config:UserSettings.Setting}}"
                           HeadersVisibility="Column"
                           IsReadOnly="True">
                     <DataGrid.DataContext>
@@ -137,7 +141,7 @@
                 <StatusBar Height="28"
                            Margin="0" HorizontalAlignment="Left"
                            Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
-                           FontFamily="Segoe UI" FontSize="14"
+                           FontFamily="Segoe UI"
                            Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
                     <StatusBarItem Content="{Binding Items.Count,
                                                      ElementName=AllTasksGrid,

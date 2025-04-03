@@ -1,10 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:config="clr-namespace:MyScheduledTasks.Configuration">
 
     <!--#region Cell style-->
-    <Style x:Key="DisplayOnly"
-           BasedOn="{StaticResource {x:Type DataGridCell}}"
-           TargetType="DataGridCell">
+    <Style TargetType="DataGridCell"
+           x:Key="DisplayOnly"
+           BasedOn="{StaticResource {x:Type DataGridCell}}">
         <Setter Property="Focusable" Value="False" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
@@ -19,9 +20,9 @@
     <!--#endregion-->
 
     <!--#region Style for DataGrid input cells-->
-    <Style x:Key="Input"
-           BasedOn="{StaticResource {x:Type DataGridCell}}"
-           TargetType="DataGridCell">
+    <Style TargetType="DataGridCell"
+           x:Key="Input"
+           BasedOn="{StaticResource {x:Type DataGridCell}}">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="BorderBrush" Value="Transparent" />
@@ -31,18 +32,18 @@
     <!--#endregion-->
 
     <!--#region Style for DataGrid cells-->
-    <Style x:Key="DgCellStyle"
-           BasedOn="{StaticResource {x:Type DataGridCell}}"
-           TargetType="DataGridCell">
+    <Style TargetType="DataGridCell"
+           x:Key="DgCellStyle"
+           BasedOn="{StaticResource {x:Type DataGridCell}}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="IsHitTestVisible" Value="False" />
     </Style>
     <!--#endregion-->
 
-    <!--#region Style for DataGrid rows -->
-    <Style x:Key="DisplayOnlyRows"
-           BasedOn="{StaticResource {x:Type DataGridRow}}"
-           TargetType="DataGridRow">
+    <!--#region Style for DataGrid rows-->
+    <Style TargetType="DataGridRow"
+           x:Key="DisplayOnlyRows"
+           BasedOn="{StaticResource {x:Type DataGridRow}}">
         <Setter Property="Focusable" Value="False" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
@@ -64,10 +65,10 @@
     </Style>
     <!--#endregion-->
 
-    <!--#region Style for DataGrid results column cells -->
-    <Style x:Key="ResultCell"
-           BasedOn="{StaticResource MaterialDesignDataGridCell}"
-           TargetType="DataGridCell">
+    <!--#region Style for DataGrid results column cells-->
+    <Style TargetType="DataGridCell"
+           x:Key="ResultCell"
+           BasedOn="{StaticResource MaterialDesignDataGridCell}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Margin" Value="1,0,0,0" />
         <Setter Property="TextBlock.TextAlignment" Value="Left" />
@@ -108,10 +109,10 @@
     </Style>
     <!--#endregion-->
 
-    <!--#region Style for DataGrid status column cells -->
-    <Style x:Key="StatusCell"
-           BasedOn="{StaticResource MaterialDesignDataGridCell}"
-           TargetType="DataGridCell">
+    <!--#region Style for DataGrid status column cells-->
+    <Style TargetType="DataGridCell"
+           x:Key="StatusCell"
+           BasedOn="{StaticResource MaterialDesignDataGridCell}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Margin" Value="1,0,0,0" />
         <Setter Property="TextBlock.TextAlignment" Value="Left" />
@@ -136,19 +137,24 @@
     </Style>
     <!--#endregion-->
 
-    <!--#region Style to center DataGrid column headers -->
-    <Style x:Key="HeaderCenter"
-           BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
-           TargetType="DataGridColumnHeader">
+    <!--#region Style to center DataGrid column headers-->
+    <Style TargetType="DataGridColumnHeader"
+           x:Key="HeaderCenter"
+           BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
     <!--#endregion-->
 
     <!--#region Style for DataGrid column headers-->
-    <Style x:Key="DgColumnHeader"
-           BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
-           TargetType="DataGridColumnHeader">
-        <Setter Property="FontSize" Value="14" />
+    <Style TargetType="DataGridColumnHeader"
+           x:Key="DgColumnHeader"
+           BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <Binding Path="SelectedFontSize"
+                         Source="{x:Static config:UserSettings.Setting}" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="FontWeight" Value="Regular" />
         <Setter Property="Foreground" Value="{DynamicResource materialDesignBody}" />
         <Setter Property="Opacity" Value="0.8" />
