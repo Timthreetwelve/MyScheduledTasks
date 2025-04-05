@@ -78,29 +78,29 @@ internal static class TaskHelpers
             case 0:
                 return;
             case <= 3:
-            {
-                for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
                 {
-                    ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
-                    _ = ScheduledTask.TaskList.Remove(task!);
-                    _log.Info($"Removed: \"{task!.TaskName}\"");
-                    SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {task.TaskName}", 2000);
-                }
+                    for (int i = grid.SelectedItems.Count - 1; i >= 0; i--)
+                    {
+                        ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
+                        _ = ScheduledTask.TaskList.Remove(task!);
+                        _log.Info($"Removed: \"{task!.TaskName}\"");
+                        SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {task.TaskName}", 2000);
+                    }
 
-                break;
-            }
-            case > 3:
-            {
-                int count = grid.SelectedItems.Count;
-                for (int i = count - 1; i >= 0; i--)
-                {
-                    ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
-                    _ = ScheduledTask.TaskList.Remove(task!);
-                    _log.Info($"Removed: \"{task!.TaskPath}\"");
+                    break;
                 }
-                SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {count} {GetStringResource("MsgText_Tasks")}", 2000);
-                break;
-            }
+            case > 3:
+                {
+                    int count = grid.SelectedItems.Count;
+                    for (int i = count - 1; i >= 0; i--)
+                    {
+                        ScheduledTask? task = grid.SelectedItems[i] as ScheduledTask;
+                        _ = ScheduledTask.TaskList.Remove(task!);
+                        _log.Info($"Removed: \"{task!.TaskPath}\"");
+                    }
+                    SnackbarMsg.QueueMessage($"{GetStringResource("MsgText_Removed")} {count} {GetStringResource("MsgText_Tasks")}", 2000);
+                    break;
+                }
         }
 
         UpdateMyTasksCollection();

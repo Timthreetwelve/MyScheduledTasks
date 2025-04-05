@@ -25,7 +25,7 @@ internal sealed partial class AddTasksViewModel
             if (_itemsAdded > 0)
             {
                 _log.Info($"{_itemsAdded} task(s) added");
-                string msg = string.Format(CultureInfo.CurrentCulture, AddTasksTasksAdded,_itemsAdded);
+                string msg = string.Format(CultureInfo.CurrentCulture, AddTasksTasksAdded, _itemsAdded);
                 SnackbarMsg.QueueMessage(msg, 3000);
                 TaskFileHelpers.WriteTasksToFile();
             }
@@ -53,7 +53,7 @@ internal sealed partial class AddTasksViewModel
                     ButtonType.Ok,
                     false,
                     true,
-                    null!,
+                    null,
                     true).ShowDialog();
             return false;
         }
@@ -66,7 +66,7 @@ internal sealed partial class AddTasksViewModel
             SnackbarMsg.QueueMessage(msg, 3000);
             return false;
         }
-        ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, null!);
+        ScheduledTask schedTask = ScheduledTask.BuildScheduledTask(task, null);
         ScheduledTask.TaskList.Add(schedTask);
 
         MyTasks newTask = new(task.Path, false, string.Empty);

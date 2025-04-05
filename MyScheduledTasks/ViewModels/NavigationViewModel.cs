@@ -34,39 +34,43 @@ internal sealed partial class NavigationViewModel : ObservableObject
     #region List of navigation items
     public static List<NavigationItem> NavigationViewModelTypes { get; set; } =
             [
-                new() {
-                    Name=GetStringResource("NavItem_Main"),
-                    NavPage = NavPage.Main,
-                    ViewModelType= typeof(MainViewModel),
-                    IconKind=PackIconKind.CheckboxOutline,
-                    PageTitle=GetStringResource("NavTitle_Main")
-                },
-                new ()
+                new()
                 {
-                    Name=GetStringResource("NavItem_AddTasks"),
+                    Name = GetStringResource("NavItem_Main"),
+                    NavPage = NavPage.Main,
+                    ViewModelType = typeof(MainViewModel),
+                    IconKind = PackIconKind.CheckboxOutline,
+                    PageTitle = GetStringResource("NavTitle_Main")
+                },
+                new()
+                {
+                    Name = GetStringResource("NavItem_AddTasks"),
                     NavPage = NavPage.AddTasks,
-                    ViewModelType= typeof(AddTasksViewModel),
-                    IconKind=PackIconKind.AddCircleOutline,
+                    ViewModelType = typeof(AddTasksViewModel),
+                    IconKind = PackIconKind.AddCircleOutline,
                     PageTitle = GetStringResource("NavTitle_AddTasks")
                 },
-                new() {
+                new()
+                {
                     Name = GetStringResource("NavItem_Settings"),
-                    NavPage=NavPage.Settings,
-                    ViewModelType= typeof(SettingsViewModel),
-                    IconKind=PackIconKind.SettingsOutline,
+                    NavPage = NavPage.Settings,
+                    ViewModelType = typeof(SettingsViewModel),
+                    IconKind = PackIconKind.SettingsOutline,
                     PageTitle = GetStringResource("NavTitle_Settings")
                 },
-                new() {
+                new()
+                {
                     Name = GetStringResource("NavItem_About"),
-                    NavPage=NavPage.About,
-                    ViewModelType= typeof(AboutViewModel),
-                    IconKind=PackIconKind.AboutCircleOutline,
+                    NavPage = NavPage.About,
+                    ViewModelType = typeof(AboutViewModel),
+                    IconKind = PackIconKind.AboutCircleOutline,
                     PageTitle = GetStringResource("NavTitle_About")
                 },
-                new() {
+                new()
+                {
                     Name = GetStringResource("NavItem_Exit"),
-                    IconKind=PackIconKind.ExitToApp,
-                    IsExit=true
+                    IconKind = PackIconKind.ExitToApp,
+                    IsExit = true
                 }
             ];
 
