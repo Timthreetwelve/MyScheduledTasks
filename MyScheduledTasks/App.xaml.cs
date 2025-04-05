@@ -6,34 +6,14 @@ public partial class App : Application
 {
     #region Properties
     /// <summary>
-    /// Number of language strings in a resource dictionary
-    /// </summary>
-    public static int LanguageStrings { get; private set; }
-
-    /// <summary>
     /// Number of language strings in the test resource dictionary
     /// </summary>
     private static int TestLanguageStrings { get; set; }
 
     /// <summary>
-    /// Uri of the resource dictionary
-    /// </summary>
-    private static string? LanguageFile { get; set; }
-
-    /// <summary>
     /// Uri of the test resource dictionary
     /// </summary>
     private static string? TestLanguageFile { get; set; }
-
-    /// <summary>
-    /// Culture at startup
-    /// </summary>
-    private static CultureInfo? StartupCulture { get; set; }
-
-    /// <summary>
-    /// UI Culture at startup
-    /// </summary>
-    private static CultureInfo? StartupUICulture { get; set; }
 
     /// <summary>
     /// Number of language strings in the default resource dictionary
@@ -46,7 +26,7 @@ public partial class App : Application
     internal static string[] Args { get; private set; } = [];
     #endregion Properties
 
-    #region On Startup
+    #region On Startup event
     /// <summary>
     /// Override the Startup Event.
     /// </summary>
@@ -69,129 +49,126 @@ public partial class App : Application
         // Log startup messages
         MainWindowHelpers.LogStartup();
 
-        // Get culture info at startup
-        StartupCulture = CultureInfo.CurrentCulture;
-        StartupUICulture = CultureInfo.CurrentUICulture;
-        _log.Debug($"Startup culture: {StartupCulture.Name}  UI: {StartupUICulture.Name}");
-
+        // Set the UI language
         SetLanguage();
 
+        // Enable language testing if requested.
         CheckLanguageTesting();
     }
-    #endregion On Startup
+    #endregion On Startup event
 
     #region Set the UI language
     /// <summary>
     /// Set the UI language.
     /// </summary>
+    /// <remarks>
+    /// Strings.en-US.xaml is loaded in App.xaml as the fallback language.
+    /// Consequently there is no need to explicitly load it in case of an error.
+    /// </remarks>
     private void SetLanguage()
     {
+        // Get the number of strings in the default language file
+        DefaultLanguageStrings = GetTotalDefaultLanguageCount();
+
         // Resource dictionary for language
-        ResourceDictionary resDict = [];
+        ResourceDictionary LanguageDictionary = [];
 
-        // Get culture info at startup
-        StartupCulture = CultureInfo.CurrentCulture;
-        StartupUICulture = CultureInfo.CurrentUICulture;
-        _log.Debug($"Startup culture: {StartupCulture.Name}  UI: {StartupUICulture.Name}");
+        // Log culture info at startup
+        _log.Debug($"Startup culture: {LocalizationHelpers.GetCurrentCulture()}  UI: {LocalizationHelpers.GetCurrentUICulture()}");
 
-        try
+        // Get the current UI language
+        string currentLanguage = Thread.CurrentThread.CurrentUICulture.Name;
+
+        // Check the UseOSLanguage setting. If true try to use the language. Do not change current culture. 
+        if (LocalizationHelpers.CheckUseOsLanguage(currentLanguage))
         {
-            DefaultLanguageStrings = GetTotalDefaultLanguageCount();
-
-            string currentLanguage = Thread.CurrentThread.CurrentCulture.Name;
-
-            // If option to use OS language is true, and it exists in the list of defined languages, use it but do not change current culture.
-            if (UserSettings.Setting!.UseOSLanguage &&
-                UILanguage.DefinedLanguages.Exists(x => x.LanguageCode == currentLanguage))
+            if (currentLanguage == "en-US")
             {
-                resDict.Source = new Uri($"Languages/Strings.{currentLanguage}.xaml", UriKind.RelativeOrAbsolute);
+                LocalizationHelpers.LanguageStrings = DefaultLanguageStrings;
+                _log.Debug("Use OS Language option is true. Language is en-US. No need to load language file.");
+                return;
             }
-            // If option to use OS language is true, and language is not defined, use en-US but do not change current culture.
-            else if (UserSettings.Setting.UseOSLanguage &&
-                     !UILanguage.DefinedLanguages.Exists(x => x.LanguageCode == currentLanguage))
+            try
             {
-                resDict.Source = new Uri("Languages/Strings.en-US.xaml", UriKind.RelativeOrAbsolute);
+                LanguageDictionary.Source = new Uri($"Languages/Strings.{currentLanguage}.xaml", UriKind.RelativeOrAbsolute);
+                Resources.MergedDictionaries.Add(LanguageDictionary);
+                _log.Debug($"Use OS Language option is true. Language {currentLanguage} loaded.");
             }
-            // If a language is defined in settings, and it exists in the list of defined languages, set the current culture and language to it.
-            else if (!UserSettings.Setting.UseOSLanguage &&
-                     !string.IsNullOrEmpty(UserSettings.Setting.UILanguage) &&
-                     UILanguage.DefinedLanguages.Exists(x => x.LanguageCode == UserSettings.Setting.UILanguage))
+            catch (Exception ex)
             {
+                LanguageDictionary.Source = new Uri("Languages/Strings.en-US.xaml", UriKind.RelativeOrAbsolute);
+                _log.Warn(ex, $"Language {currentLanguage} could not be located. Defaulting to en-US");
+            }
+            LocalizationHelpers.ApplyLanguageSettings(LanguageDictionary);
+            return;
+        }
+
+        // If a language is defined in settings, and it exists in the list of defined languages, set the current culture and language to it.
+        if (!string.IsNullOrEmpty(UserSettings.Setting!.UILanguage) &&
+            UILanguage.DefinedLanguages.Exists(x => x.LanguageCode == UserSettings.Setting.UILanguage))
+        {
+            try
+            {
+                LanguageDictionary.Source = new Uri($"Languages/Strings.{UserSettings.Setting.UILanguage}.xaml", UriKind.RelativeOrAbsolute);
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(UserSettings.Setting.UILanguage);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(UserSettings.Setting.UILanguage);
-                resDict.Source = new Uri($"Languages/Strings.{UserSettings.Setting.UILanguage}.xaml", UriKind.RelativeOrAbsolute);
+                Resources.MergedDictionaries.Add(LanguageDictionary);
             }
-            else
+            catch (Exception ex)
             {
-                resDict.Source = new Uri("Languages/Strings.en-US.xaml", UriKind.RelativeOrAbsolute);
-                UserSettings.Setting.UILanguage = "en-US";
+                LanguageDictionary.Source = new Uri("Languages/Strings.en-US.xaml", UriKind.RelativeOrAbsolute);
+                _log.Warn(ex, $"Error using language \"{UserSettings.Setting.UILanguage}\". Defaulting to en-US");
             }
-            _log.Debug($"Current culture: {LocalizationHelpers.GetCurrentCulture()}  UI: {LocalizationHelpers.GetCurrentUICulture()}");
+            LocalizationHelpers.ApplyLanguageSettings(LanguageDictionary);
+            return;
+        }
 
-            // If resource dictionary is not null add it and set the properties to the appropriate values.
-            // Otherwise, it will default to Languages/Strings.en-US.xaml as defined in App.xaml.
-            if (resDict.Source != null)
-            {
-                Resources.MergedDictionaries.Add(resDict);
-                LanguageStrings = resDict.Count;
-                LanguageFile = resDict.Source.OriginalString;
-                _log.Debug($"{LanguageStrings} strings loaded from {LanguageFile}");
-            }
-            else
-            {
-                LanguageStrings = resDict.Count;
-                LanguageFile = "defaulted";
-                _log.Warn($"Language has defaulted to en-US. {LanguageStrings} string loaded.");
-            }
-        }
-        // If the above fails, set culture and language to en-US.
-        catch (Exception)
-        {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-            resDict.Source = new Uri("Languages/Strings.en-US.xaml", UriKind.RelativeOrAbsolute);
-        }
+        // If language is not found in settings, or the language is not defined in UILanguage.DefinedLanguages, use en-US.
+        // Strings.en-US.xaml is loaded in App.xaml therefore there is no need to explicitly load it here.
+        LanguageDictionary.Source = new Uri("Languages/Strings.en-US.xaml", UriKind.RelativeOrAbsolute);
+        UserSettings.Setting.UILanguage = "en-US";
+        ConfigHelpers.SaveSettings();
+        _log.Warn("Language defaulting to en-US");
+        LocalizationHelpers.ApplyLanguageSettings(LanguageDictionary);
     }
     #endregion Set the UI language
 
     #region Language testing
-    /// <summary>
-    /// Check for a test language file and load it if it exists.
-    /// </summary>
     private void CheckLanguageTesting()
     {
-        if (!UserSettings.Setting!.LanguageTesting)
+        if (UserSettings.Setting!.LanguageTesting)
         {
-            return;
-        }
-        _log.Info("Language testing enabled");
-        ResourceDictionary testDict = [];
-        string testLanguageFile = Path.Combine(AppInfo.AppDirectory, "Strings.test.xaml");
-        if (!File.Exists(testLanguageFile))
-        {
-            return;
-        }
-        try
-        {
-            testDict.Source = new Uri(testLanguageFile, UriKind.RelativeOrAbsolute);
-            if (testDict.Source == null)
+            _log.Info("Language testing enabled");
+            ResourceDictionary testDict = [];
+            string testLanguageFile = Path.Combine(AppInfo.AppDirectory, "Strings.test.xaml");
+            if (File.Exists(testLanguageFile))
             {
-                return;
+                try
+                {
+                    testDict.Source = new Uri(testLanguageFile, UriKind.RelativeOrAbsolute);
+                    if (testDict.Source != null)
+                    {
+                        Resources.MergedDictionaries.Add(testDict);
+                        TestLanguageStrings = testDict.Count;
+                        TestLanguageFile = testDict.Source.OriginalString;
+                        _log.Debug($"{TestLanguageStrings} strings loaded from {TestLanguageFile}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _log.Error(ex, $"Error loading test language file {TestLanguageFile}");
+                    string msg = string.Format(CultureInfo.CurrentCulture,
+                                               $"{GetStringResource("MsgText_Error_TestLanguage")}\n\n{ex.Message}\n\n{ex.InnerException}");
+                    _ = MessageBox.Show(msg,
+                        GetStringResource("MsgText_ErrorCaption"),
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
             }
-            Resources.MergedDictionaries.Add(testDict);
-            TestLanguageStrings = testDict.Count;
-            TestLanguageFile = testDict.Source.OriginalString;
-            _log.Debug($"{TestLanguageStrings} strings loaded from {TestLanguageFile}");
-        }
-        catch (Exception ex)
-        {
-            _log.Error(ex, $"Error loading test language file {testLanguageFile}");
-            string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorReadingFile, testLanguageFile);
-            msg += $"\n\n{ex.Message}";
-            _ = MessageBox.Show(msg,
-                $"{AppInfo.AppName} - {GetStringResource("MsgText_ErrorCaption")}",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+            else
+            {
+                _log.Error($"Error loading test language file {TestLanguageFile}. File not found.");
+            }
         }
     }
     #endregion Language testing

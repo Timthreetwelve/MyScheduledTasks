@@ -210,6 +210,7 @@
     <sys:String x:Key="MsgText_ErrorSavingFile">Error saving {0}</sys:String>
     <sys:String x:Key="MsgText_ErrorSavingSettings">Error saving settings file.</sys:String>
     <sys:String x:Key="MsgText_ErrorTaskNull">No information for this task was returned. The task may no longer exist. Check Windows Task Scheduler.</sys:String>
+    <sys:String x:Key="MsgText_Error_TestLanguage">There is a problem with the language file.</sys:String>
     <sys:String x:Key="MsgText_Exported">Exported {0}.</sys:String>
     <sys:String x:Key="MsgText_ExportError">Error attempting to export {0}.</sys:String>
     <sys:String x:Key="MsgText_ExportNoneSelected">Nothing selected to export.</sys:String>
