@@ -14,7 +14,7 @@
         
         Translation contributed by:  Timthreetwelve
         
-        Date last update:            2024/12/18
+        Date last update:            2025/04/06
         
         ======================================================================
     -->
@@ -59,6 +59,7 @@
     <sys:String x:Key="Button_Cancel">Cancel</sys:String>
     <sys:String x:Key="Button_CheckUpdate">Check for Update</sys:String>
     <sys:String x:Key="Button_Close">Close Menu</sys:String>
+    <sys:String x:Key="Button_CompareLanguageToolTip">Click to compare current language to the default (en-US). Results are written to the log file.</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">Copy this page to the clipboard</sys:String>
     <sys:String x:Key="Button_ExportSettings">Export Settings</sys:String>
     <sys:String x:Key="Button_ExportSettingsToolTip">Export current settings to a file.</sys:String>
@@ -379,7 +380,17 @@
     <!-- End changes on 2024/12/20 @ 03:00 UTC -->
     
     <!-- Begin changes on 2024/12/26 @ 20:00 UTC -->
-    <!-- A | MSettingsEnum_Theme_DarkBlue -->
+    <!-- A | SettingsEnum_Theme_DarkBlue -->
     <!-- End changes on 2024/12/26 @ 20:00 UTC -->
+
+    <!-- Begin changes on 2025/04/06 @ 14:15 UTC -->
+    <!-- A | About_UpdateFound -->
+    <!-- A | About_UpdateFoundTooltip -->
+    <!-- A | Button_CompareLanguageToolTip -->
+    <!-- A | MsgText_Error_TestLanguage -->
+    <!-- A | MsgText_FontSizeSet -->
+    <!-- A | SettingsItem_AutoUpdateCheck -->
+    <!-- A | SettingsItem_DisplayFontSize  -->
+    <!-- End changes on 2025/04/06 @ 14:15 UTC -->
 
 </ResourceDictionary>

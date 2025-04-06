@@ -490,7 +490,17 @@
                                     </TextBlock>
                                 </StackPanel.ToolTip>
                             </StackPanel>
-
+                            <Grid Grid.Column="5">
+                                <Grid.DataContext>
+                                    <viewmodels:SettingsViewModel />
+                                </Grid.DataContext>
+                                <Button Margin="10,0" HorizontalAlignment="Left"
+                                        Command="{Binding CompareLanguageKeysCommand}"
+                                        Style="{StaticResource CheckButton}"
+                                        ToolTip="{DynamicResource Button_CompareLanguageToolTip}"
+                                        ToolTipService.InitialShowDelay="300"
+                                        ToolTipService.Placement="Top" />
+                            </Grid>
                         </Grid>
 
                         <Label Grid.Row="2" Grid.Column="1"
