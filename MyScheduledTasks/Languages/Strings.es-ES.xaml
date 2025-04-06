@@ -38,6 +38,8 @@
     <sys:String x:Key="About_LicenseToolTip">Ver el documento de licencia</sys:String>
     <sys:String x:Key="About_Translations">Traducciones</sys:String>
     <sys:String x:Key="About_Update">Actualizar My Scheduled Tasks</sys:String>
+    <sys:String x:Key="About_UpdateFound">Hay una versión más nueva disponible</sys:String>
+    <sys:String x:Key="About_UpdateFoundTooltip">Haga clic para ir a la página de lanzamiento de GitHub</sys:String>
     <sys:String x:Key="About_UpdateText">Busque una nueva versión de Mis tareas programadas</sys:String>
     <sys:String x:Key="About_UpdateToolTip">Consulte GitHub para obtener una versión más reciente</sys:String>
     <sys:String x:Key="About_Version">Versión</sys:String>
@@ -57,6 +59,7 @@
     <sys:String x:Key="Button_Cancel">Cancelar</sys:String>
     <sys:String x:Key="Button_CheckUpdate">Comprobar actualización</sys:String>
     <sys:String x:Key="Button_Close">Cerrar menú</sys:String>
+    <sys:String x:Key="Button_CompareLanguageToolTip">Haga clic para comparar el lenguaje actual con el predeterminado (EN-US). Los resultados se escriben en el archivo de registro.</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">Copia esta página al portapapeles</sys:String>
     <sys:String x:Key="Button_ExportSettings">Configuración de exportación</sys:String>
     <sys:String x:Key="Button_ExportSettingsToolTip">Exportar la configuración actual a un archivo.</sys:String>
@@ -195,6 +198,7 @@
     <sys:String x:Key="MsgText_Enabled">Habilitado {0}.</sys:String>
     <sys:String x:Key="MsgText_EnableError">Error al intentar habilitar {0}.</sys:String>
     <sys:String x:Key="MsgText_EnableNoneSelected">No hay nada seleccionado para habilitar.</sys:String>
+    <sys:String x:Key="MsgText_Error_TestLanguage">Hay un problema con el archivo de idioma.</sys:String>
     <sys:String x:Key="MsgText_ErrorCaption">ERROR</sys:String>
     <sys:String x:Key="MsgText_ErrorCreatingFile">Error al crear {0}</sys:String>
     <sys:String x:Key="MsgText_ErrorEmptyTaskList">La lista de tareas está vacía.</sys:String>
@@ -215,7 +219,8 @@
     <sys:String x:Key="MsgText_FileSaved">El archivo de tareas se ha guardado.</sys:String>
     <sys:String x:Key="MsgText_FilterOneRowShown">1 fila visualizada</sys:String>
     <sys:String x:Key="MsgText_FilterRowsShown">{0} filas visualizadas</sys:String>
-    <sys:String x:Key="MsgText_ImportSettingsRestart">Reinicie TimVer para usar la configuración importada.</sys:String>
+    <sys:String x:Key="MsgText_FontSizeSet">Tamaño de fuente establecido en {0}</sys:String>
+    <sys:String x:Key="MsgText_ImportSettingsRestart">Reinicie My Scheduled Tasks para usar la configuración importada.</sys:String>
     <sys:String x:Key="MsgText_NoInformationFound">No se encontró información para</sys:String>
     <sys:String x:Key="MsgText_NotAvailable">No disponible</sys:String>
     <sys:String x:Key="MsgText_NullItemFound">Elemento nulo encontrado al leer la lista de tareas.</sys:String>
@@ -293,8 +298,10 @@
     <sys:String x:Key="SettingsItem_AccentColor">Acentuar el color</sys:String>
     <sys:String x:Key="SettingsItem_AlertSound">Reproducir sonido para alerta</sys:String>
     <sys:String x:Key="SettingsItem_AnnotateRoot">Agregue la notación [carpeta raíz] a la carpeta raíz</sys:String>
+    <sys:String x:Key="SettingsItem_AutoUpdateCheck">Buscar automáticamente una versión más nueva al abrir la página Acerca de</sys:String>
     <sys:String x:Key="SettingsItem_ChangingLanguageWarning">¡Cambiar el idioma hará que la aplicación se reinicie!</sys:String>
     <sys:String x:Key="SettingsItem_DisplayFont">Fuente de visualización</sys:String>
+    <sys:String x:Key="SettingsItem_DisplayFontSize">Tamaño de fuente</sys:String>
     <sys:String x:Key="SettingsItem_EditSettingsWarning">¡Cualquier cambio realizado en el archivo de configuración mientras se ejecuta la aplicación se sobrescribirá!</sys:String>
     <sys:String x:Key="SettingsItem_EnableLanguageTesting">Habilitar pruebas de idioma</sys:String>
     <sys:String x:Key="SettingsItem_IncludeDebug">Incluir mensajes de nivel de depuración en el archivo de registro</sys:String>
