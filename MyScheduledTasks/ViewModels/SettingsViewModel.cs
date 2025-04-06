@@ -93,7 +93,7 @@ internal sealed partial class SettingsViewModel : ObservableObject
     private static void CompareLanguageKeys()
     {
         CompareLanguageDictionaries();
-        TextFileViewer.ViewTextFile(GetLogfileName()!);
+        TextFileViewer.ViewTextFile(GetLogfileName());
     }
     #endregion Compare languages
 }
