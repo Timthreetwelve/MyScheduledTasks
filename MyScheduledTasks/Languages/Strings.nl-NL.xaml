@@ -37,6 +37,8 @@
     <sys:String x:Key="About_LicenseToolTip">Bekijk het licentiedocument</sys:String>
     <sys:String x:Key="About_Translations">Vertalingen</sys:String>
     <sys:String x:Key="About_Update">Update My Scheduled Tasks</sys:String>
+    <sys:String x:Key="About_UpdateFound">Er is een nieuwe versie beschikbaar!</sys:String>
+    <sys:String x:Key="About_UpdateFoundTooltip">Bezoek de GitHub pagina</sys:String>
     <sys:String x:Key="About_UpdateText">Controleer op nieuwe release van My Scheduled Tasks</sys:String>
     <sys:String x:Key="About_UpdateToolTip">Controleer GitHub op een nieuwere release</sys:String>
     <sys:String x:Key="About_Version">Versie</sys:String>
@@ -54,6 +56,7 @@
     <sys:String x:Key="Button_Cancel">Annuleren</sys:String>
     <sys:String x:Key="Button_CheckUpdate">Controleer op update</sys:String>
     <sys:String x:Key="Button_Close">Menu sluiten</sys:String>
+    <sys:String x:Key="Button_CompareLanguageToolTip">Vergelijk het huidige taalbestand met het standaard (en-US) bestand. Resultaten worden geschreven in het logbestand</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">Kopieer deze pagina naar het klembord</sys:String>
     <sys:String x:Key="Button_ExportSettings">Instellingen exporteren</sys:String>
     <sys:String x:Key="Button_ExportSettingsToolTip">Exporteer huidige instellingen naar een bestand.</sys:String>
@@ -185,6 +188,7 @@
     <sys:String x:Key="MsgText_Enabled">{0} ingeschakeld.</sys:String>
     <sys:String x:Key="MsgText_EnableError">Fout bij het inschakelen van {0}.</sys:String>
     <sys:String x:Key="MsgText_EnableNoneSelected">Niets geselecteerd om in te schakelen.</sys:String>
+    <sys:String x:Key="MsgText_Error_TestLanguage">Er is een probleem met het taalbestand</sys:String>
     <sys:String x:Key="MsgText_ErrorCaption">FOUT</sys:String>
     <sys:String x:Key="MsgText_ErrorCreatingFile">Fout bij het maken van {0}</sys:String>
     <sys:String x:Key="MsgText_ErrorEmptyTaskList">De takenlijst is leeg. Wilt u nu taken toevoegen?</sys:String>
@@ -205,6 +209,7 @@
     <sys:String x:Key="MsgText_FileSaved">Het takenbestand is opgeslagen.</sys:String>
     <sys:String x:Key="MsgText_FilterOneRowShown">1 rij weergegeven</sys:String>
     <sys:String x:Key="MsgText_FilterRowsShown">{0} rijen weergegeven</sys:String>
+    <sys:String x:Key="MsgText_FontSizeSet">Font grootte ingesteld op {0}</sys:String>
     <sys:String x:Key="MsgText_ImportSettingsRestart">Start Mijn Geplande Taken opnieuw op om de geïmporteerde instellingen te gebruiken.</sys:String>
     <sys:String x:Key="MsgText_NoInformationFound">Geen informatie gevonden voor</sys:String>
     <sys:String x:Key="MsgText_NotAvailable">Niet beschikbaar</sys:String>
@@ -281,8 +286,10 @@
     <sys:String x:Key="SettingsItem_AccentColor">Accentkleur</sys:String>
     <sys:String x:Key="SettingsItem_AlertSound">Geluid afspelen voor waarschuwing</sys:String>
     <sys:String x:Key="SettingsItem_AnnotateRoot">Voeg [hoofdmap] notatie toe aan hoofdmap</sys:String>
+    <sys:String x:Key="SettingsItem_AutoUpdateCheck">Controleer automatisch op nieuwe versies als de "Over" pagina is geopend</sys:String>
     <sys:String x:Key="SettingsItem_ChangingLanguageWarning">Het wijzigen van de taal zal de applicatie opnieuw opstarten!</sys:String>
     <sys:String x:Key="SettingsItem_DisplayFont">Weergave Lettertype</sys:String>
+    <sys:String x:Key="SettingsItem_DisplayFontSize">Font grootte</sys:String>
     <sys:String x:Key="SettingsItem_EditSettingsWarning">Alle wijzigingen aan het instellingenbestand terwijl de app draait, worden overschreven!</sys:String>
     <sys:String x:Key="SettingsItem_EnableLanguageTesting">Taaltesten inschakelen</sys:String>
     <sys:String x:Key="SettingsItem_IncludeDebug">Voeg debug-niveau berichten toe aan logbestand</sys:String>
