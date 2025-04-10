@@ -3,8 +3,7 @@
   <PropertyGroup>
     <AssemblyName>MyScheduledTasks</AssemblyName>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <WindowsSdkPackageVersion>10.0.19041.41</WindowsSdkPackageVersion>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -81,8 +80,6 @@
       <Name>-assemblyName $(AssemblyName)</Name>
     </PropertyGroup>
     <Exec Command="pwsh -NoProfile $(PowerShellScript) $(Name)" />
-  </Target>
-  <Target Name="BuildInfo2" AfterTargets="BuildInfo">
     <Message Importance="high" Text="Completed GenBuildInfo for $(AssemblyName)." />
   </Target>
 
