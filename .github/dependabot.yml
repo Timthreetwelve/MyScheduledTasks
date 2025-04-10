@@ -8,7 +8,6 @@ updates:
   - package-ecosystem: "nuget" # See documentation for possible values
     directory: "/MyScheduledTasks" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
     open-pull-requests-limit: 5
-    ignore:
-      - dependency-name: "GitVersion.MsBuild"
+
