@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!--
@@ -14,7 +14,7 @@
         
         Translation contributed by:  VenusGirl (비너스걸)
         
-        Date last update:            2024/12/20
+        Date last update:            2025/07/15
         
         ======================================================================
     -->
@@ -32,12 +32,14 @@
     <sys:String x:Key="About_Documentation">문서</sys:String>
     <sys:String x:Key="About_DocumentationText">ReadMe 파일 열기</sys:String>
     <sys:String x:Key="About_DocumentationToolTip">ReadMe 파일 보기</sys:String>
-    <sys:String x:Key="About_GitHubToolTip"> GitHub의 My Scheduled Tasks 페이지 방문</sys:String>
+    <sys:String x:Key="About_GitHubToolTip">GitHub의 My Scheduled Tasks 페이지 방문</sys:String>
     <sys:String x:Key="About_License">라이선스</sys:String>
     <sys:String x:Key="About_LicenseText">이 프로젝트는 MIT 라이선스 조건에 따라 라이선스가 부여됩니다</sys:String>
     <sys:String x:Key="About_LicenseToolTip">라이선스 문서 보기</sys:String>
     <sys:String x:Key="About_Translations">한국어 번역</sys:String>
     <sys:String x:Key="About_Update">My Scheduled Tasks 업데이트</sys:String>
+    <sys:String x:Key="About_UpdateFound">최신 릴리스를 사용할 수 있습니다</sys:String>
+    <sys:String x:Key="About_UpdateFoundTooltip">GitHub 릴리스 페이지로 이동하려면 클릭하세요</sys:String>
     <sys:String x:Key="About_UpdateText">My Scheduled Tasks의 새 릴리스 확인</sys:String>
     <sys:String x:Key="About_UpdateToolTip">GitHub에서 최신 릴리스 확인</sys:String>
     <sys:String x:Key="About_Version">버전</sys:String>
@@ -57,6 +59,7 @@
     <sys:String x:Key="Button_Cancel">취소</sys:String>
     <sys:String x:Key="Button_CheckUpdate">업데이트 확인</sys:String>
     <sys:String x:Key="Button_Close">메뉴 닫기</sys:String>
+    <sys:String x:Key="Button_CompareLanguageToolTip">현재 언어를 기본 언어 (en-US)와 비교하려면 클릭하세요. 결과는 로그 파일에 기록됩니다.</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">클립보드로 이 페이지 복사</sys:String>
     <sys:String x:Key="Button_ExportSettings">설정 내보내기</sys:String>
     <sys:String x:Key="Button_ExportSettingsToolTip">현재 설정을 파일로 내보냅니다.</sys:String>
@@ -64,7 +67,7 @@
     <sys:String x:Key="Button_ImportSettingsToolTip">파일에서 설정을 가져옵니다.</sys:String>
     <sys:String x:Key="Button_ListSettings">설정 목록</sys:String>
     <sys:String x:Key="Button_ListSettingsTooltip">로그 파일에 설정을 나열 (쓰기)합니다.</sys:String>
-    <sys:String x:Key="Button_No">아니오</sys:String>
+    <sys:String x:Key="Button_No">아니요</sys:String>
     <sys:String x:Key="Button_OK">확인</sys:String>
     <sys:String x:Key="Button_OpenAppFolder">앱 폴더 열기</sys:String>
     <sys:String x:Key="Button_OpenFolder">앱 폴더 열기</sys:String>
@@ -204,15 +207,18 @@
     <sys:String x:Key="MsgText_ErrorImportingSettings">설정 파일을 가져오는 동안 오류가 발생했습니다.</sys:String>
     <sys:String x:Key="MsgText_ErrorOpeningFile">{0}을(를) 여는 중에[ 오류가 발생했습니다</sys:String>
     <sys:String x:Key="MsgText_ErrorReadingFile">{0}을(를) 읽는 중에 오류가 발생했습니다</sys:String>
+    <sys:String x:Key="MsgText_ErrorReadingSettings">설정 파일을 읽는 중 오류가 발생했습니다.</sys:String>
     <sys:String x:Key="MsgText_ErrorSavingFile">{0}을(를) 저장 중에 오류가 발생했습니다</sys:String>
     <sys:String x:Key="MsgText_ErrorSavingSettings">설정 파일을 저장하는 동안 오류가 발생했습니다.</sys:String>
     <sys:String x:Key="MsgText_ErrorTaskNull">이 작업에 대한 정보가 반환되지 않았습니다. 작업이 더 이상 존재하지 않을 수 있습니다. Windows 작업 스케줄러를 확인하세요.</sys:String>
+    <sys:String x:Key="MsgText_Error_TestLanguage">언어 파일에 문제가 있습니다.</sys:String>
     <sys:String x:Key="MsgText_Exported">{0}을 내보냈습니다.</sys:String>
     <sys:String x:Key="MsgText_ExportError">{0}을(를) 내보내는 중에 오류가 발생했습니다.</sys:String>
     <sys:String x:Key="MsgText_ExportNoneSelected">내보내도록 선택한 항목이 없습니다.</sys:String>
     <sys:String x:Key="MsgText_FileSaved">작업 파일이 저장되었습니다.</sys:String>
     <sys:String x:Key="MsgText_FilterOneRowShown">1행 표시</sys:String>
     <sys:String x:Key="MsgText_FilterRowsShown">{0}행 표시</sys:String>
+    <sys:String x:Key="MsgText_FontSizeSet">글꼴 크기를 {0}으로 설정</sys:String>
     <sys:String x:Key="MsgText_ImportSettingsRestart">가져온 설정을 사용하려면 My Scheduled Tasks를 다시 시작해 주세요.</sys:String>
     <sys:String x:Key="MsgText_NoInformationFound">에 대한 정보를 찾을 수 없습니다.</sys:String>
     <sys:String x:Key="MsgText_NotAvailable">사용할 수 없음</sys:String>
@@ -283,6 +289,7 @@
     <sys:String x:Key="SettingsEnum_Spacing_Compact">촘촘한</sys:String>
     <sys:String x:Key="SettingsEnum_Spacing_Wide">와이드</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Dark">어두운 소재</sys:String>
+    <sys:String x:Key="SettingsEnum_Theme_DarkBlue">미드나잇 블루</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Darker">어두운</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Light">밝은</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_System">시스템</sys:String>
@@ -290,8 +297,10 @@
     <sys:String x:Key="SettingsItem_AccentColor">강조 색상</sys:String>
     <sys:String x:Key="SettingsItem_AlertSound">알림 사운드 재생</sys:String>
     <sys:String x:Key="SettingsItem_AnnotateRoot">루트 폴더에 [루트 폴더] 표기 추가</sys:String>
+    <sys:String x:Key="SettingsItem_AutoUpdateCheck">정보 페이지가 열리면 자동으로 최신 버전을 확인합니다</sys:String>
     <sys:String x:Key="SettingsItem_ChangingLanguageWarning">언어를 변경하면 응용 프로그램이 다시 시작됩니다!</sys:String>
     <sys:String x:Key="SettingsItem_DisplayFont">디스플레이 글꼴</sys:String>
+    <sys:String x:Key="SettingsItem_DisplayFontSize">글꼴 크기</sys:String>
     <sys:String x:Key="SettingsItem_EditSettingsWarning">앱이 실행되는 동안 설정 파일이 변경되면 덮어쓰기됩니다!</sys:String>
     <sys:String x:Key="SettingsItem_EnableLanguageTesting">언어 테스트 사용</sys:String>
     <sys:String x:Key="SettingsItem_IncludeDebug">로그 파일에 디버그 수준 메시지 포함</sys:String>
@@ -340,7 +349,7 @@
     <sys:String x:Key="TaskResult_NonZero">NZ</sys:String>
     <sys:String x:Key="TaskResult_NotYetRun">NYR</sys:String>
     <sys:String x:Key="TaskResult_Null">정보 없음</sys:String>
-    <sys:String x:Key="TaskResult_OK">OK</sys:String>
+    <sys:String x:Key="TaskResult_OK">확인</sys:String>
     <sys:String x:Key="TaskResult_ReadyToRun">RDY</sys:String>
     <sys:String x:Key="TaskResult_Running">RUN</sys:String>
     <sys:String x:Key="TaskResult_Terminated">TRM</sys:String>
@@ -365,9 +374,23 @@
     <!-- A | SettingsSection_SettingsFile -->
     <!-- A | SettingsSubHead_SettingsFile -->
     <!-- End changes on 2024/12/19 @ 03:30 UTC -->
-
+    
     <!-- Begin changes on 2024/12/20 @ 03:00 UTC -->
     <!-- A | MsgText_ErrorReadingSettings -->
     <!-- End changes on 2024/12/20 @ 03:00 UTC -->
+    
+    <!-- Begin changes on 2024/12/26 @ 20:00 UTC -->
+    <!-- A | SettingsEnum_Theme_DarkBlue -->
+    <!-- End changes on 2024/12/26 @ 20:00 UTC -->
+
+    <!-- Begin changes on 2025/04/06 @ 14:15 UTC -->
+    <!-- A | About_UpdateFound -->
+    <!-- A | About_UpdateFoundTooltip -->
+    <!-- A | Button_CompareLanguageToolTip -->
+    <!-- A | MsgText_Error_TestLanguage -->
+    <!-- A | MsgText_FontSizeSet -->
+    <!-- A | SettingsItem_AutoUpdateCheck -->
+    <!-- A | SettingsItem_DisplayFontSize  -->
+    <!-- End changes on 2025/04/06 @ 14:15 UTC -->
 
 </ResourceDictionary>
