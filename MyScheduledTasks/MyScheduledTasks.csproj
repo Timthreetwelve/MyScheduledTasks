@@ -46,13 +46,13 @@
     <PackageReference Include="CommandLineArgumentsParser" Version="3.0.23" />
     <PackageReference Include="gong-wpf-dragdrop" Version="4.0.0" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
-    <PackageReference Include="NLog" Version="6.0.1" />
+    <PackageReference Include="NLog" Version="6.0.2" />
     <PackageReference Include="Octokit" Version="14.0.0" />
     <PackageReference Include="Nerdbank.GitVersioning" Condition="!Exists('packages.config')">
       <PrivateAssets>all</PrivateAssets>
       <Version>3.7.115</Version>
     </PackageReference>
-    <PackageReference Include="TaskScheduler" Version="2.12.1" />
+    <PackageReference Include="TaskScheduler" Version="2.12.2" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="4.1.6" />
   </ItemGroup>
 
