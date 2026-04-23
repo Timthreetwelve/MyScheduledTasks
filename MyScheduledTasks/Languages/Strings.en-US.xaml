@@ -331,7 +331,7 @@
     <sys:String x:Key="SettingsSection_Columns">Select Grid Columns</sys:String>
     <sys:String x:Key="SettingsSection_Language">Language</sys:String>
     <sys:String x:Key="SettingsSection_SettingsFile">Settings File</sys:String>
-    <sys:String x:Key="SettingsSection_UISettings">UI Settings</sys:String>
+    <sys:String x:Key="SettingsSection_UISettings">Appearance</sys:String>
     <sys:String x:Key="SettingsSubHead_AppSettings">Show details pane, show advanced menu, annotate root folder and more</sys:String>
     <sys:String x:Key="SettingsSubHead_Columns">Choose which columns are shown in the My Scheduled Tasks grid</sys:String>
     <sys:String x:Key="SettingsSubHead_Language">Language Settings and Testing</sys:String>
@@ -392,5 +392,9 @@
     <!-- A | SettingsItem_AutoUpdateCheck -->
     <!-- A | SettingsItem_DisplayFontSize  -->
     <!-- End changes on 2025/04/06 @ 14:15 UTC -->
+
+    <!-- Begin changes on 2026/04/23 @ 23:55 UTC -->
+    <!-- U | SettingsSection_UISettings  -  Renamed UI Settings to Appearance -->
+    <!-- End changes on 2026/04/23 @ 23:55 UTC -->
 
 </ResourceDictionary>
