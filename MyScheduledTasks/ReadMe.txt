@@ -281,7 +281,7 @@ The following tools were used during the development of My Scheduled Tasks:
 
 
 MIT License
-Copyright (c) 2020 - 2024 Tim Kennedy
+Copyright (c) 2020 - 2026 Tim Kennedy
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction, including
