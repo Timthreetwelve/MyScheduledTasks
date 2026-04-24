@@ -2,7 +2,7 @@
 
 namespace MyScheduledTasks.ViewModels;
 
-internal sealed partial class MainViewModel : ObservableObject
+internal sealed class MainViewModel : ObservableObject
 {
     public static List<ScheduledTask> TasksToDelete { get; } = [];
 
