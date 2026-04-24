@@ -11,14 +11,15 @@
 ;             PublishFolder:    The output folder from MS Build.
 ;                               Varies depending on the type of build.
 ;----------------------------------------------------------------------
-#include "D:\Temp\PubSetup.Temp.iss"
+#define  TempDir             GetEnv("TEMP")
+#define  IncludeFile         TempDir + "\PubSetup.Temp.iss"
+#include IncludeFile
 
 #define BaseDir              "V:\Source\Repos\MyScheduledTasks\MyScheduledTasks"
 #define MySourceDir          BaseDir + PublishFolder
 #define MySetupIcon          BaseDir + "\Images\MST.ico"
-#define MyOutputDir          "D:\InnoSetup\Output"
-#define MyLargeImage         "D:\InnoSetup\Images\WizardImageMST.bmp"
-#define MySmallImage         "D:\InnoSetup\Images\WizardSmallImage.bmp"
+#define MyOutputDir          "V:\InnoSetup\Output"
+#define MyLargeImage         "V:\InnoSetup\Images\WizardImageMST.png"
 
 #define MyAppID              "{C55AC0AD-527B-45DD-ABCF-AC7F4E405A46}"
 #define MyAppName            "My Scheduled Tasks"
@@ -53,44 +54,44 @@ PrivilegesRequired=lowest
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
-
 AppCopyright={#MyCopyright}
 AppPublisherURL={#MyAppSupportURL}
 AppSupportURL={#MyAppSupportURL}
 AppUpdatesURL={#MyAppSupportURL}
+AppPublisher={#MyPublisherName}
 
 VersionInfoDescription={#MyAppName} installer
 VersionInfoProductName={#MyAppName}
 VersionInfoVersion={#MyAppVersion}
 
-UninstallDisplayName={#MyAppName}
+UninstallDisplayName={#MyAppName} {#MyAppVersion}
 UninstallDisplayIcon={app}\{#MyAppExeName}
-AppPublisher={#MyPublisherName}
 
 ShowLanguageDialog=yes
 UsePreviousLanguage=no
-WizardStyle=modern
-WizardSizePercent=100,100
-WizardImageFile={#MyLargeImage}
-WizardSmallImageFile={#MySmallImage}
 
-AllowNoIcons=yes
-Compression=lzma
-DefaultDirName={autopf}\{#MyCompanyName}\{#MyAppName}
-DefaultGroupName={#MyAppName}
+WizardImageFile={#MyLargeImage} 
+WizardImageFileDynamicDark={#MyLargeImage}
+WizardImageStretch=yes
+WizardSizePercent=100,100
+WizardStyle=dynamic includetitlebar
+
 DisableDirPage=yes
 DisableProgramGroupPage=yes
 DisableReadyMemo=no
 DisableStartupPrompt=yes
 DisableWelcomePage=no
+
+AllowNoIcons=yes
+Compression=lzma
+DefaultDirName={autopf}\{#MyCompanyName}\{#MyAppName}
+DefaultGroupName={#MyAppName}
 OutputBaseFilename={#MyInstallerFilename}
 OutputDir={#MyOutputDir}
-;OutputManifestFile={#MyAppName}_{#MyAppVersion}_{#InstallType}_FileList.txt
 SetupIconFile={#MySetupIcon}
 SetupLogging=yes
 SolidCompression=no
 SourceDir={#MySourceDir}
-RestartApplications=False
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
