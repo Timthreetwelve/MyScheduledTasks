@@ -23,13 +23,12 @@ public partial class MyTasks : ObservableObject
     [ObservableProperty]
     private string _taskNote;
 
-    private static bool _isDirty;
     public static bool IsDirty
     {
-        get => _isDirty;
+        get;
         set
         {
-            _isDirty = value;
+            field = value;
             TaskHelpers.IsDirtyChanged();
         }
     }

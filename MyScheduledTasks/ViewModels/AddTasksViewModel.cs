@@ -121,15 +121,14 @@ internal sealed partial class AddTasksViewModel
     #region Static property and change event handler for filter text
     public static event EventHandler<PropertyChangedEventArgs>? StaticPropertyChanged;
 
-    private static string? _filterText;
     public static string FilterText
     {
-        get => _filterText!;
+        get => field!;
         set
         {
-            if (_filterText != value)
+            if (field != value)
             {
-                _filterText = value;
+                field = value;
                 StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(FilterText));
             }
         }

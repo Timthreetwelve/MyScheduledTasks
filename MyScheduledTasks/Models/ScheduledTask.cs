@@ -179,15 +179,14 @@ public partial class ScheduledTask : ObservableObject
         }
     }
 
-    private bool _isChecked;
     public bool IsChecked
     {
-        get => _isChecked;
+        get;
         set
         {
-            if (value != _isChecked)
+            if (value != field)
             {
-                _isChecked = value;
+                field = value;
                 TaskHelpers.TaskAlertChanged();
             }
         }
