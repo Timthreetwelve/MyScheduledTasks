@@ -157,6 +157,7 @@
             <StatusBar Grid.Row="0"
                        Margin="0,0,0,5" Padding="8,0"
                        HorizontalAlignment="Right"
+                       BorderThickness="0"
                        Background="Transparent"
                        FontFamily="Segoe UI"
                        Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">

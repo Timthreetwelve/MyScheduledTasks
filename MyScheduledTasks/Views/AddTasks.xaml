@@ -141,6 +141,7 @@
                 <StatusBar Height="28"
                            Margin="0" HorizontalAlignment="Left"
                            Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
+                           BorderThickness="0"
                            FontFamily="Segoe UI"
                            Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
                     <StatusBarItem Content="{Binding Items.Count,
