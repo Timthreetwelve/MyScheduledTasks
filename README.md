@@ -9,7 +9,7 @@
 <div align="center">
   
 [![GitHub](https://img.shields.io/github/license/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/LICENSE)
-[![NET8win](https://img.shields.io/badge/.NET-8.0--Windows-blueviolet?style=plastic)](https://dotnet.microsoft.com/en-us/download)
+[![NET8win](https://img.shields.io/badge/.NET-10.0--Windows-blueviolet?style=plastic)](https://dotnet.microsoft.com/en-us/download)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date/timthreetwelve/MyScheduledTasks?style=plastic&color=orange)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
 [![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/timthreetwelve/MyScheduledTasks/latest?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
@@ -29,8 +29,8 @@
 Please see [Contribute a Translation](https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Contribute-a-Translation) topic in the Wiki if you would like to contribute a translation.
 You will also find a topic on [Testing a Language File](https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Testing-a-Language-File) in the wiki. 
 
-#### My Scheduled Tasks runs on .NET 8
-Self-contained versions are available if .NET 8 isn't installed. Portable versions are also available. See the [releases page](https://github.com/Timthreetwelve/MyScheduledTasks/releases).
+#### My Scheduled Tasks runs on .NET 10
+Self-contained versions are available if .NET 10 isn't installed. Portable versions are also available. See the [releases page](https://github.com/Timthreetwelve/MyScheduledTasks/releases).
 
 #### Features
 
