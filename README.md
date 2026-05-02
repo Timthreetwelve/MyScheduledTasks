@@ -49,3 +49,12 @@ Self-contained versions are available if .NET 10 isn't installed. Portable versi
 
 #### Screenshot
 ![Screenshot](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/Images/MyScheduledTasks_v6.png)
+
+
+### Contributors
+
+<a href="https://github.com/timthreetwelve/MyScheduledTasks/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=timthreetwelve/MyScheduledTasks" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
