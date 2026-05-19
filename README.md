@@ -8,8 +8,7 @@
 </h1>
 <div align="center">
   
-[![GitHub](https://img.shields.io/github/license/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/LICENSE)
-[![NET8win](https://img.shields.io/badge/.NET-10.0--Windows-blueviolet?style=plastic)](https://dotnet.microsoft.com/en-us/download)
+[![.NET](https://img.shields.io/badge/.NET-10.0--Windows-blueviolet?style=plastic)](https://dotnet.microsoft.com/en-us/download)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date/timthreetwelve/MyScheduledTasks?style=plastic&color=orange)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
 [![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/timthreetwelve/MyScheduledTasks/latest?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
@@ -25,36 +24,39 @@
 
 ### My Scheduled Tasks is an application that lets you keep track of the tasks in Windows Task Scheduler that <ins>you</ins> care about.
 
-#### My Scheduled Task is now Multilingual!
-Please see [Contribute a Translation](https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Contribute-a-Translation) topic in the Wiki if you would like to contribute a translation.
-You will also find a topic on [Testing a Language File](https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Testing-a-Language-File) in the wiki. 
-
-#### My Scheduled Tasks runs on .NET 10
-Self-contained versions are available if .NET 10 isn't installed. Portable versions are also available. See the [releases page](https://github.com/Timthreetwelve/MyScheduledTasks/releases).
-
 #### Features
 
 * See the tasks that you have chosen in one window, no digging around in folders.
 * Easily add scheduled tasks to your list.
 * Optionally hide Microsoft tasks from the Add Tasks list.
 * Easily check the last result of the tasks in your list.
-* Run, Disable, Enable, or Delete individual tasks.
+* Run, Disable, Enable, or Delete individual tasks. (Runs as Administrator.)
 * Export tasks to XML file.
 * Import tasks from XML file.
-* Add a note to individual tasks.
+* Add a note to individual tasks. See examples in screenshot.
 * Select any task to see more details.
 * Optionally hide the details pane.
 * Optionally run My Scheduled Tasks as a scheduled task and get notification of tasks that have a non-zero result code.
 * Choose which columns are visible.
 
+#### My Scheduled Tasks runs on .NET 10
+Self-contained versions are available if .NET 10 isn't installed. Portable versions are also available. See the [releases page](https://github.com/Timthreetwelve/MyScheduledTasks/releases).
+
+#### My Scheduled Task is Multilingual
+Please see [Contribute a Translation](https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Contribute-a-Translation) topic in the Wiki if you would like to contribute a translation.
+You will also find a topic on [Testing a Language File](https://github.com/Timthreetwelve/MyScheduledTasks/wiki/Testing-a-Language-File) in the wiki. 
+
 #### Screenshot
 ![Screenshot](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/Images/MyScheduledTasks_v6.png)
 
-
 ### Contributors
+Many thanks to the contributors!
 
 <a href="https://github.com/timthreetwelve/MyScheduledTasks/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=timthreetwelve/MyScheduledTasks" />
 </a>
 
 Made with [contrib.rocks](https://contrib.rocks).
+
+### License
+[MIT License](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/LICENSE)
