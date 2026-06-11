@@ -18,7 +18,7 @@
 #define BaseDir              "V:\Source\Repos\MyScheduledTasks\MyScheduledTasks"
 #define MySourceDir          BaseDir + PublishFolder
 #define MySetupIcon          BaseDir + "\Images\MST.ico"
-#define MyOutputDir          "V:\InnoSetup\Output"
+#define MyOutputDir          "V:\Releases\Installer"
 #define MyLargeImage         "V:\InnoSetup\Images\WizardImageMST.png"
 
 #define MyAppID              "{C55AC0AD-527B-45DD-ABCF-AC7F4E405A46}"
