@@ -16,6 +16,13 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
+  <!-- Set version and prerelease string (if needed) -->
+  <PropertyGroup>
+    <VersionValidate>true</VersionValidate>
+    <Version>0.9.1</Version>
+    <VersionPrerelease></VersionPrerelease>
+  </PropertyGroup>
+  
   <!-- Manifest - Run app elevated -->
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -47,12 +54,9 @@
     <PackageReference Include="MaterialDesignThemes" Version="5.3.2" />
     <PackageReference Include="NLog" Version="6.1.3" />
     <PackageReference Include="Octokit" Version="14.0.0" />
-    <PackageReference Include="Nerdbank.GitVersioning" Condition="!Exists('packages.config')">
-      <PrivateAssets>all</PrivateAssets>
-      <Version>3.9.50</Version>
-    </PackageReference>
     <PackageReference Include="TaskScheduler" Version="2.12.2" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="5.0.5" />
+    <PackageReference Include="VersionInfoGenerator" Version="3.2.1" PrivateAssets="all"/>
   </ItemGroup>
 
   <!-- Files top copy to output folder -->
@@ -72,7 +76,7 @@
   </ItemGroup>
 
   <!-- Generate BuildInfo.cs-->
-  <Target Name="BuildInfo" AfterTargets="BeforeBuild">
+  <Target Name="BuildInfo" AfterTargets="VersionInfoGenerator_UpdateProperties">
     <Message Importance="high" Text="Beginning GenBuildInfo for $(AssemblyName)." />
     <PropertyGroup>
       <PowerShellScript>-File "$(ProjectDir)PowerShell\GenBuildInfo.ps1"</PowerShellScript>
@@ -84,7 +88,11 @@
 
   <!-- Build complete message -->
   <Target Name="VersionMessage" AfterTargets="AfterBuild">
-    <Message Importance="high" Text="Build complete for $(AssemblyName). Assembly Version is $(AssemblyVersion)." />
+    <Message Importance="high" Text="Build complete for $(AssemblyName)." />
+    <Message Importance="high" Text="Assembly Version is $(AssemblyVersion)" />
+    <Message Importance="high" Text="Version is $(Version)" />
+    <Message Importance="high" Text="Commit is $(GitRevShort)" />
+    <Message Importance="high" Condition="'$(VersionPrerelease)' != ''" Text="Build is Prerelease" />
   </Target>
   
   <!-- Remove obj folder after Clean -->

@@ -258,7 +258,7 @@ My Scheduled Tasks uses the following packages:
 
     * Material Design in XAML Toolkit https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit
 
-    * NerdBank.GitVersioning https://github.com/dotnet/Nerdbank.GitVersioning
+    * VersionInfoGenerator https://github.com/notpeelz/VersionInfoGenerator
 
     * NLog https://nlog-project.org/
 
