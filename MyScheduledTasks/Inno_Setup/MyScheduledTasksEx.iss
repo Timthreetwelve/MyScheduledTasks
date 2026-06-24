@@ -21,7 +21,7 @@
 #include IncludeFile
 
 #define BaseDir              "V:\Source\Repos\MyScheduledTasks\MyScheduledTasks"
-#define MySourceDir          BaseDir + PublishFolder
+#define MySourceDir          PublishFolder
 #define MySetupIcon          BaseDir + "\Images\MST.ico"
 #define MyOutputDir          "V:\Releases\Installer"
 #define MyLargeImage         "V:\InnoSetup\Images\WizardImageMST.png"
