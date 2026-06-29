@@ -400,13 +400,10 @@
     <!-- U | SettingsSection_UISettings  -  Renamed UI Settings to Appearance -->
     <!-- End changes on 2026/04/23 @ 23:55 UTC -->
 
-    <!-- Begin changes on 2026/06/29 @ 00:00 UTC-->
+    <!-- Begin changes on 2026/06/30 @ 19:00 UTC-->
     <!-- A | SettingsEnum_Theme_LightGray  -->
-    <!-- End of changes on 2026/06/29 @ 00:00 UTC-->
-
-    <!-- Begin changes on 2026/06/30 @ 00:00 UTC-->
     <!-- A | SettingsItem_LightModeTheme  -->
     <!-- A | SettingsItem_DarkModeTheme  -->
-    <!-- End of changes on 2026/06/30 @ 00:00 UTC-->
+    <!-- End of changes on 2026/06/30 @ 19:00 UTC-->
 
 </ResourceDictionary>
