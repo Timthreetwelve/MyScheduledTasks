@@ -265,7 +265,7 @@
                                       Width="Auto" MinWidth="200"
                                       Margin="0,3,0,0" Padding="2,0,0,3"
                                       HorizontalAlignment="Left"
-                                      ItemsSource="{Binding Source={convert:EnumBindingSource {x:Type models:ThemeType}}}"
+                                      ItemsSource="{Binding ThemeTypes}"
                                       SelectedItem="{Binding UITheme,
                                                              Source={x:Static config:UserSettings.Setting}}"
                                       Style="{StaticResource MaterialDesignComboBox}" />

@@ -14,7 +14,7 @@
         
         Translation contributed by:  Timthreetwelve
         
-        Date last update:            2025/04/06
+        Date last update:            2026/06/29
         
         ======================================================================
     -->
@@ -292,6 +292,7 @@
     <sys:String x:Key="SettingsEnum_Theme_DarkBlue">Midnight Blue</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Darker">Darker</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Light">Light</sys:String>
+    <sys:String x:Key="SettingsEnum_Theme_LightGray">Pale Graphite</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_System">System</sys:String>
     <!--  Settings Page Items  -->
     <sys:String x:Key="SettingsItem_AccentColor">Accent Color</sys:String>
@@ -396,5 +397,9 @@
     <!-- Begin changes on 2026/04/23 @ 23:55 UTC -->
     <!-- U | SettingsSection_UISettings  -  Renamed UI Settings to Appearance -->
     <!-- End changes on 2026/04/23 @ 23:55 UTC -->
+
+    <!-- Begin changes on 2026/06/29 @ 00:00 UTC-->
+    <!-- A | SettingsEnum_Theme_LightGray  -->
+    <!-- End of changes on 2026/06/29 @ 00:00 UTC-->
 
 </ResourceDictionary>
