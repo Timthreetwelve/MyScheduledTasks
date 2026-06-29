@@ -12,6 +12,8 @@ internal sealed partial class SettingsViewModel : ObservableObject
     public static List<FontFamily>? FontList { get; private set; }
 
     public IEnumerable<ThemeType> ThemeTypes { get; private set; }
+
+    public IEnumerable<ThemeType> SystemThemeTypes { get; private set; }
     #endregion Properties
 
     #region Constructor
@@ -26,6 +28,14 @@ internal sealed partial class SettingsViewModel : ObservableObject
             ThemeType.Darker,
             ThemeType.DarkBlue,
             ThemeType.System,
+        ];
+
+        SystemThemeTypes = [
+            ThemeType.Light,
+            ThemeType.LightGray,
+            ThemeType.Dark,
+            ThemeType.Darker,
+            ThemeType.DarkBlue,
         ];
     }
     #endregion Constructor

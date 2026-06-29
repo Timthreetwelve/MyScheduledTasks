@@ -321,6 +321,8 @@
     <sys:String x:Key="SettingsItem_ShowStatusColumn">Show Status Column</sys:String>
     <sys:String x:Key="SettingsItem_StartCentered">Start with window centered on screen</sys:String>
     <sys:String x:Key="SettingsItem_Theme">Theme</sys:String>
+    <sys:String x:Key="SettingsItem_LightModeTheme">Light Mode Theme</sys:String>
+    <sys:String x:Key="SettingsItem_DarkModeTheme">Dark Mode Theme</sys:String>
     <sys:String x:Key="SettingsItem_TranslationToolTipLine1">Represents the number of strings in the current language compared to the default (en-US).</sys:String>
     <sys:String x:Key="SettingsItem_TranslationToolTipLine2">Press Ctrl+Shift+K to compare language files. Results are written to the log file.</sys:String>
     <sys:String x:Key="SettingsItem_UISize">UI Size</sys:String>
@@ -401,5 +403,10 @@
     <!-- Begin changes on 2026/06/29 @ 00:00 UTC-->
     <!-- A | SettingsEnum_Theme_LightGray  -->
     <!-- End of changes on 2026/06/29 @ 00:00 UTC-->
+
+    <!-- Begin changes on 2026/06/30 @ 00:00 UTC-->
+    <!-- A | SettingsItem_LightModeTheme  -->
+    <!-- A | SettingsItem_DarkModeTheme  -->
+    <!-- End of changes on 2026/06/30 @ 00:00 UTC-->
 
 </ResourceDictionary>
