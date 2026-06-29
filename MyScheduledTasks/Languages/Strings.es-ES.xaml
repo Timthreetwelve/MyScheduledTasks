@@ -293,6 +293,7 @@
     <sys:String x:Key="SettingsEnum_Theme_DarkBlue">Azul Medianoche</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Darker">Más Oscuro</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_Light">Claro</sys:String>
+    <sys:String x:Key="SettingsEnum_Theme_LightGray">Grafito Pálido</sys:String>
     <sys:String x:Key="SettingsEnum_Theme_System">Sistema</sys:String>
     <!--  Settings Page Items  -->
     <sys:String x:Key="SettingsItem_AccentColor">Acentuar el color</sys:String>
@@ -321,6 +322,8 @@
     <sys:String x:Key="SettingsItem_ShowStatusColumn">Mostrar columna de estado</sys:String>
     <sys:String x:Key="SettingsItem_StartCentered">Comience con la ventana centrada en la pantalla</sys:String>
     <sys:String x:Key="SettingsItem_Theme">Tema</sys:String>
+    <sys:String x:Key="SettingsItem_LightModeTheme">Tema de modo claro</sys:String>
+    <sys:String x:Key="SettingsItem_DarkModeTheme">Tema de modo oscuro</sys:String>
     <sys:String x:Key="SettingsItem_TranslationToolTipLine1">Representa el número de cadenas en el idioma actual en comparación con el valor predeterminado (en-US).</sys:String>
     <sys:String x:Key="SettingsItem_TranslationToolTipLine2">Presione Ctrl+Shift+K para comparar archivos de idioma. Los resultados se escriben en el archivo de registro.</sys:String>
     <sys:String x:Key="SettingsItem_UISize">Tamaño de la interfaz de usuario</sys:String>
@@ -379,5 +382,10 @@
     <!-- Begin changes on 2024/12/20 @ 03:00 UTC -->
     <!-- A | MsgText_ErrorReadingSettings -->
     <!-- End changes on 2024/12/20 @ 03:00 UTC -->
+
+    <!-- Begin changes on 2026/06/30 @ 00:00 UTC-->
+    <!-- A | SettingsItem_LightModeTheme  -->
+    <!-- A | SettingsItem_DarkModeTheme  -->
+    <!-- End of changes on 2026/06/30 @ 00:00 UTC-->
 
 </ResourceDictionary>
