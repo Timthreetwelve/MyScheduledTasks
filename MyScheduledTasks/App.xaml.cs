@@ -216,7 +216,9 @@ public partial class App : Application
             }
 
             string msg = string.Format(CultureInfo.CurrentCulture,
-                                       $"MsgText_ErrorGeneral\n{e.Message}\nMsgText_Error_SeeLog");
+                                       $"{GetStringResource("MsgText_ErrorGeneral")}\n" +
+                                       $"{e.Message}\n\n" +
+                                       $"{GetStringResource("MsgText_SeeLogFile")}");
 
             ShowMessageBox(msg);
             _log.Fatal("Application cannot continue.");
@@ -226,7 +228,8 @@ public partial class App : Application
             string t = args.ExceptionObject.GetType().FullName ?? "null";
             _log.Error($"Unhandled exception object is not of type Exception. Type: {t}");
             string msg = string.Format(CultureInfo.CurrentCulture,
-                                       "MsgText_ErrorGeneral\nMsgText_Error_SeeLog");
+                                       $"{GetStringResource("MsgText_ErrorGeneral")}\n\n" +
+                                       $"{GetStringResource("MsgText_SeeLogFile")}");
             ShowMessageBox(msg);
         }
     }
