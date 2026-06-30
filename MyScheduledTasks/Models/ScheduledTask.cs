@@ -70,6 +70,8 @@ public partial class ScheduledTask : ObservableObject
     #endregion Observable collection
 
     #region Properties
+#pragma warning disable MVVMTK0042 // Prefer using [ObservableProperty] on partial properties
+    // Suppressing the MVVMTK0042 warning for this class until such time as it no longer requires Preview features.
     [ObservableProperty]
     private bool _allowDemandStart;
 
@@ -138,6 +140,7 @@ public partial class ScheduledTask : ObservableObject
 
     [ObservableProperty]
     private bool _wakeToRun;
+#pragma warning restore MVVMTK0042 // Prefer using [ObservableProperty] on partial properties
 
     public bool HighestPrivileges => TaskRunLevel != 0;
 
@@ -168,16 +171,15 @@ public partial class ScheduledTask : ObservableObject
         }
     }
 
-    private string? _taskNote;
     public string TaskNote
     {
-        get => _taskNote!;
+        get;
         set
         {
-            _taskNote = value;
+            field = value;
             TaskHelpers.TaskNoteChanged();
         }
-    }
+    } = string.Empty;
 
     public bool IsChecked
     {
