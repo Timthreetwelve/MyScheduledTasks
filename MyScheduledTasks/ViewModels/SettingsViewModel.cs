@@ -21,6 +21,8 @@ internal sealed partial class SettingsViewModel : ObservableObject
     {
         FontList ??= [.. Fonts.SystemFontFamilies.OrderBy(x => x.Source)];
 
+        // List of all themes available in the app. Will appear in settings in the order they are listed here.
+        // System theme is last because it is not a real theme, but rather a setting to use the system theme.
         ThemeTypes = [
             ThemeType.Light,
             ThemeType.LightGray,
@@ -30,14 +32,10 @@ internal sealed partial class SettingsViewModel : ObservableObject
             ThemeType.System,
         ];
 
-        SystemThemeTypes = [
-            ThemeType.Light,
-            ThemeType.LightGray,
-            ThemeType.Dark,
-            ThemeType.Darker,
-            ThemeType.DarkBlue,
-        ];
+        // Used when ThemeType.System is selected. Will display all themes except System theme
+        SystemThemeTypes = ThemeTypes.Where(t => t != ThemeType.System);
     }
+
     #endregion Constructor
 
     #region Open App folder
