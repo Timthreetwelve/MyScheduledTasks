@@ -41,12 +41,12 @@ internal static class TaskFileHelpers
         {
             string json = File.ReadAllText(TasksFile);
             MyTasks.MyTasksCollection = JsonSerializer.Deserialize<ObservableCollection<MyTasks>>(json)!;
-            _log.Info($"Read {MyTasks.MyTasksCollection.Count} items from {TasksFile} ");
+            _log.Info($"Read {MyTasks.MyTasksCollection.Count} items from {PathHelpers.AnonymizePath(TasksFile)} ");
         }
         // Can't really do much if the file is not readable
         catch (Exception ex)
         {
-            _log.Fatal(ex, $"Error reading {TasksFile}");
+            _log.Fatal(ex, $"Error reading {PathHelpers.AnonymizePath(TasksFile)}");
             string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorReadingFile, TasksFile);
             msg += $"\n\n{ex.Message}\n\n{GetStringResource("MsgText_ErrorFatal")}";
             _ = new MDCustMsgBox(msg,
@@ -74,7 +74,7 @@ internal static class TaskFileHelpers
         }
         catch (Exception ex)
         {
-            _log.Fatal(ex, $"Error creating {TasksFile}");
+            _log.Fatal(ex, $"Error creating {PathHelpers.AnonymizePath(TasksFile)}");
             string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorCreatingFile, TasksFile);
             msg += $"\n\n{ex.Message}\n\n{GetStringResource("MsgText_ErrorFatal")}";
             _ = new MDCustMsgBox(msg,
@@ -102,7 +102,7 @@ internal static class TaskFileHelpers
         {
             string tasks = JsonSerializer.Serialize(MyTasks.MyTasksCollection, _options);
             File.WriteAllText(TasksFile, tasks);
-            _log.Info($"Saving {MyTasks.MyTasksCollection!.Count} tasks to {TasksFile} ");
+            _log.Info($"Saving {MyTasks.MyTasksCollection!.Count} tasks to {PathHelpers.AnonymizePath(TasksFile)} ");
             if (!quiet)
             {
                 SnackbarMsg.QueueMessage(GetStringResource("MsgText_FileSaved"), 3000);
@@ -111,7 +111,7 @@ internal static class TaskFileHelpers
         }
         catch (Exception ex)
         {
-            _log.Error(ex, $"Error saving {TasksFile}");
+            _log.Error(ex, $"Error saving {PathHelpers.AnonymizePath(TasksFile)}");
             string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorSavingFile, TasksFile);
             msg += $"\n\n{ex.Message}";
             _ = new MDCustMsgBox(msg,

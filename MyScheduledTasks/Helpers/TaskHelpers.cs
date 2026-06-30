@@ -374,7 +374,7 @@ internal static class TaskHelpers
 
             GetAllTasks();
 
-            _log.Info($"Imported {TempSettings.Setting.ImportXMLFile} to \"{TempSettings.Setting.ImportTaskName}\"");
+            _log.Info($"Imported {PathHelpers.AnonymizePath(TempSettings.Setting.ImportXMLFile)} to \"{TempSettings.Setting.ImportTaskName}\"");
             SnackbarMsg.ClearAndQueueMessage($"{TempSettings.Setting.ImportXMLFile} {GetStringResource("ImportTask_ImportSuccess")}");
             MDCustMsgBox mbox = new($"{TempSettings.Setting.ImportXMLFile} {GetStringResource("ImportTask_ImportSuccess")}",
                     GetStringResource("ImportTask_ImportSuccessHeader"),
@@ -395,7 +395,7 @@ internal static class TaskHelpers
         }
         catch (Exception ex)
         {
-            _log.Error(ex, $"Error Importing {TempSettings.Setting.ImportXMLFile}");
+            _log.Error(ex, $"Error Importing {PathHelpers.AnonymizePath(TempSettings.Setting.ImportXMLFile)}");
             MDCustMsgBox mbox = new($"{GetStringResource("ImportTask_ImportErrorGeneral")}\n\n{ex.Message}",
                     GetStringResource("ImportTask_ImportErrorHeader"),
                     ButtonType.Ok,
