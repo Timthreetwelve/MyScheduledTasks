@@ -27,4 +27,5 @@ internal static class PathHelpers
             return path;
         }
         return $"%USERPROFILE%{path[userProfile.Length..]}";
+    }
 }
