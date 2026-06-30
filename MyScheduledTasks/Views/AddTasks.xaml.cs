@@ -18,7 +18,7 @@ public partial class AddTasks : UserControl
 
     private void AddTasksViewModel_StaticPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-        FilterTheGrid(AddTasksViewModel.FilterText);
+        FilterTheGrid(AddTasksViewModel.FilterText!);
     }
 
     #region Filter the datagrid

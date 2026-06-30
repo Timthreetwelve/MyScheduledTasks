@@ -121,9 +121,9 @@ internal sealed partial class AddTasksViewModel
     #region Static property and change event handler for filter text
     public static event EventHandler<PropertyChangedEventArgs>? StaticPropertyChanged;
 
-    public static string FilterText
+    public static string? FilterText
     {
-        get => field!;
+        get;
         set
         {
             if (field != value)
@@ -132,6 +132,6 @@ internal sealed partial class AddTasksViewModel
                 StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(FilterText));
             }
         }
-    }
+    } = string.Empty;
     #endregion Static property and change event handler for filter text
 }
