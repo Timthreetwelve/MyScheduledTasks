@@ -139,8 +139,8 @@ internal static class ConfigHelpers
 
             if (importFile.ShowDialog() == true)
             {
-                _log.Debug($"Importing settings file from {importFile.FileName}.");
-                ConfigManager<UserSettings>.Setting = JsonSerializer.Deserialize<UserSettings>(File.ReadAllText(PathHelpers.AnonymizePath(importFile.FileName)));
+                _log.Debug($"Importing settings file from {PathHelpers.AnonymizePath(importFile.FileName)}.");
+                ConfigManager<UserSettings>.Setting = JsonSerializer.Deserialize<UserSettings>(File.ReadAllText(importFile.FileName));
                 SaveSettings();
 
                 _ = new MDCustMsgBox($"{GetStringResource("MsgText_ImportSettingsRestart")}",
