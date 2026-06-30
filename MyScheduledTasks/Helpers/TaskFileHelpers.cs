@@ -46,7 +46,7 @@ internal static class TaskFileHelpers
         // Can't really do much if the file is not readable
         catch (Exception ex)
         {
-            _log.Fatal(ex, $"Error reading {PathHelpers.AnonymizePath(TasksFile)}");
+            _log.Fatal($"Error reading {PathHelpers.AnonymizePath(TasksFile)}");
             string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorReadingFile, TasksFile);
             msg += $"\n\n{ex.Message}\n\n{GetStringResource("MsgText_ErrorFatal")}";
             _ = new MDCustMsgBox(msg,
@@ -74,7 +74,7 @@ internal static class TaskFileHelpers
         }
         catch (Exception ex)
         {
-            _log.Fatal(ex, $"Error creating {PathHelpers.AnonymizePath(TasksFile)}");
+            _log.Fatal($"Error creating {PathHelpers.AnonymizePath(TasksFile)}");
             string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorCreatingFile, TasksFile);
             msg += $"\n\n{ex.Message}\n\n{GetStringResource("MsgText_ErrorFatal")}";
             _ = new MDCustMsgBox(msg,
@@ -111,7 +111,7 @@ internal static class TaskFileHelpers
         }
         catch (Exception ex)
         {
-            _log.Error(ex, $"Error saving {PathHelpers.AnonymizePath(TasksFile)}");
+            _log.Error($"Error saving {PathHelpers.AnonymizePath(TasksFile)}");
             string msg = string.Format(CultureInfo.InvariantCulture, MsgTextErrorSavingFile, TasksFile);
             msg += $"\n\n{ex.Message}";
             _ = new MDCustMsgBox(msg,
