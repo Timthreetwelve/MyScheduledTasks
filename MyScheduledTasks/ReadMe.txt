@@ -258,8 +258,6 @@ My Scheduled Tasks uses the following packages:
 
     * Material Design in XAML Toolkit https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit
 
-    * VersionInfoGenerator https://github.com/notpeelz/VersionInfoGenerator
-
     * NLog https://nlog-project.org/
 
     * OctoKit https://github.com/octokit/octokit.net
@@ -268,9 +266,9 @@ My Scheduled Tasks uses the following packages:
 
     * Vanara https://github.com/dahall/vanara
 
-The following tools were used during the development of My Scheduled Tasks:
+    * VersionInfoGenerator https://github.com/notpeelz/VersionInfoGenerator
 
-    * GitKraken was used for everything Git related. https://www.gitkraken.com/
+The following tools were used during the development of My Scheduled Tasks:
 
     * Inno Setup was used to create the installer. https://jrsoftware.org/isinfo.php
 
