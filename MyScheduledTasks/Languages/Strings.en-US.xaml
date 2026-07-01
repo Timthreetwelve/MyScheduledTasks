@@ -59,7 +59,7 @@
     <sys:String x:Key="Button_Cancel">Cancel</sys:String>
     <sys:String x:Key="Button_CheckUpdate">Check for Update</sys:String>
     <sys:String x:Key="Button_Close">Close Menu</sys:String>
-    <sys:String x:Key="Button_CompareLanguageToolTip">Click to compare current language to the default (en-US). Results are written to the log file.</sys:String>
+    <sys:String x:Key="Button_CompareLanguageToolTip" xml:space="preserve">Click to compare current language to the default (en-US).&#x0a;Results are written to the log file.</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">Copy this page to the clipboard</sys:String>
     <sys:String x:Key="Button_ExportSettings">Export Settings</sys:String>
     <sys:String x:Key="Button_ExportSettingsToolTip">Export current settings to a file.</sys:String>
@@ -179,7 +179,7 @@
     <!--  Text found in messages (log, message box, status bar, details area, etc.)  -->
     <sys:String x:Key="MsgText_ApplicationShutdown">is shutting down</sys:String>
     <sys:String x:Key="MsgText_ApplicationStarting">is starting up</sys:String>
-    <sys:String x:Key="MsgText_AppUpdateCheckFailed">Check for update failed. See the log for more information.</sys:String>
+    <sys:String x:Key="MsgText_AppUpdateCheckFailed" xml:space="preserve">Check for update failed.&#x0a;See the log for more information.</sys:String>
     <sys:String x:Key="MsgText_AppUpdateChecking">Checking for update.</sys:String>
     <sys:String x:Key="MsgText_AppUpdateCloseApp">Clicking 'Yes' will close My Scheduled Tasks.</sys:String>
     <sys:String x:Key="MsgText_AppUpdateGoToRelease">Do you want to go to the release page?</sys:String>
@@ -325,7 +325,7 @@
     <sys:String x:Key="SettingsItem_DarkModeTheme">Dark Mode Theme</sys:String>
     <sys:String x:Key="SettingsItem_TranslationToolTipLine1">Represents the number of strings in the current language compared to the default (en-US).</sys:String>
     <sys:String x:Key="SettingsItem_TranslationToolTipLine2">Press Ctrl+Shift+K to compare language files. Results are written to the log file.</sys:String>
-    <sys:String x:Key="SettingsItem_UISize">UI Size</sys:String>
+        <sys:String x:Key="SettingsItem_UISize">UI Size</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageCheckBox">Use Windows display language</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine1">When this option is selected, the language specified in the Windows settings will</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine2">be used if a translation is available, otherwise English (en-US) will be used.</sys:String>
@@ -405,5 +405,10 @@
     <!-- A | SettingsItem_LightModeTheme  -->
     <!-- A | SettingsItem_DarkModeTheme  -->
     <!-- End of changes on 2026/06/30 @ 19:00 UTC-->
+    
+    <!-- Begin changes on 2026/07/01 @ 00:30 UTC -->
+    <!-- U | Button_CompareLanguageToolTip        - Added xml:space="preserve" and line break character &#x0a; -->
+    <!-- U | MsgText_AddToStartupFailed           - Added xml:space="preserve" and line break character &#x0a;  -->
+    <!-- End of changes on 2026/07/01 @ 00:30 UTC -->
 
 </ResourceDictionary>
