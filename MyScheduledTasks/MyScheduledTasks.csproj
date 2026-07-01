@@ -19,7 +19,7 @@
   <!-- Set version and prerelease string (if needed) -->
   <PropertyGroup>
     <VersionValidate>true</VersionValidate>
-    <Version>0.9.1</Version>
+    <Version>0.10.0</Version>
     <VersionPrerelease></VersionPrerelease>
   </PropertyGroup>
   
