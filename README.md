@@ -7,18 +7,19 @@
   My Scheduled Tasks
 </h1>
 <div align="center">
-  
-[![.NET](https://img.shields.io/badge/.NET-10.0--Windows-blueviolet?style=plastic)](https://dotnet.microsoft.com/en-us/download)
+
+[![License](https://img.shields.io/badge/license-MIT-seagreen?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/blob/main/LICENSE.txt)
+[![.NET10 on Windows](https://img.shields.io/badge/.NET-10.0--Windows-blueviolet?style=plastic)](https://dotnet.microsoft.com/en-us/download)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
 [![GitHub Release Date](https://img.shields.io/github/release-date/timthreetwelve/MyScheduledTasks?style=plastic&color=orange)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
 [![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/timthreetwelve/MyScheduledTasks/latest?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
 [![GitHub last commit](https://img.shields.io/github/last-commit/timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
-[![GitHub commits](https://img.shields.io/github/commit-activity/m/timthreetwelve/MyScheduledTasks?style=plastic)](https://github.com/Timthreetwelve/MyScheduledTasks/commits/main)
 [![GitHub Stars](https://img.shields.io/github/stars/timthreetwelve/MyScheduledTasks?style=plastic&color=goldenrod&logo=github)](https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars)
 [![GitHub all releases](https://img.shields.io/github/downloads/Timthreetwelve/MyScheduledTasks/total?style=plastic&label=total%20downloads)](https://github.com/Timthreetwelve/MyScheduledTasks/releases)
 [![GitHub release (by tag)](https://img.shields.io/github/downloads/timthreetwelve/MyScheduledTasks/latest/total?style=plastic&color=2196F3&label=downloads%20latest%20version)](https://github.com/Timthreetwelve/MyScheduledTasks/releases/latest)
 [![GitHub Issues](https://img.shields.io/github/issues/timthreetwelve/MyScheduledTasks?style=plastic&color=orangered)](https://github.com/Timthreetwelve/MyScheduledTasks/issues)
 [![GitHub Issues](https://img.shields.io/github/issues-closed/timthreetwelve/MyScheduledTasks?style=plastic&color=slateblue)](https://github.com/Timthreetwelve/MyScheduledTasks/issues)
+[![Created](https://img.shields.io/badge/created_by-humans-blue?style=plastic)](https://github.com/Timthreetwelve)
 
 </div>
 
