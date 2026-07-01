@@ -36,7 +36,7 @@ internal static class TaskHelpers
             }
         }
         stopwatch.Stop();
-        _log.Debug($"GetAllTasks found {AllTasks.All_TasksCollection.Count}/{AllTasks.Non_MS_TasksCollection.Count} tasks and took {stopwatch.Elapsed.TotalSeconds} seconds.");
+        _log.Debug($"GetAllTasks found {AllTasks.All_TasksCollection.Count} total tasks and took {stopwatch.Elapsed.TotalSeconds:N3} seconds.");
     }
     #endregion Get all tasks from Windows Task Scheduler
 
