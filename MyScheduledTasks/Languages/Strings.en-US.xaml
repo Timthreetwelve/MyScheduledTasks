@@ -408,7 +408,7 @@
     
     <!-- Begin changes on 2026/07/01 @ 00:30 UTC -->
     <!-- U | Button_CompareLanguageToolTip        - Added xml:space="preserve" and line break character &#x0a; -->
-    <!-- U | MsgText_AddToStartupFailed           - Added xml:space="preserve" and line break character &#x0a;  -->
+    <!-- U | SettingsItem_TranslationToolTipLine2 - Added xml:space="preserve" and line break character &#x0a;  -->
     <!-- End of changes on 2026/07/01 @ 00:30 UTC -->
 
 </ResourceDictionary>
