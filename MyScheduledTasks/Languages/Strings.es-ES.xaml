@@ -14,7 +14,7 @@
 
         Translation contributed by:  Timthreetwelve and Google Translate
 
-        Date last update:            2024-12-19
+        Date last update:            2026/06/30
 
         ======================================================================
     -->
@@ -59,7 +59,7 @@
     <sys:String x:Key="Button_Cancel">Cancelar</sys:String>
     <sys:String x:Key="Button_CheckUpdate">Comprobar actualización</sys:String>
     <sys:String x:Key="Button_Close">Cerrar menú</sys:String>
-    <sys:String x:Key="Button_CompareLanguageToolTip">Haga clic para comparar el lenguaje actual con el predeterminado (EN-US). Los resultados se escriben en el archivo de registro.</sys:String>
+    <sys:String x:Key="Button_CompareLanguageToolTip" xml:space="preserve">Haga clic para comparar el lenguaje actual con el predeterminado (EN-US).&#x0a;Los resultados se escriben en el archivo de registro.</sys:String>
     <sys:String x:Key="Button_CopyToClipboardToolTip">Copia esta página al portapapeles</sys:String>
     <sys:String x:Key="Button_ExportSettings">Configuración de exportación</sys:String>
     <sys:String x:Key="Button_ExportSettingsToolTip">Exportar la configuración actual a un archivo.</sys:String>
@@ -180,7 +180,7 @@
     <!--  Text found in messages (log, message box, status bar, details area, etc.)  -->
     <sys:String x:Key="MsgText_ApplicationShutdown">apagando</sys:String>
     <sys:String x:Key="MsgText_ApplicationStarting">esta empezando</sys:String>
-    <sys:String x:Key="MsgText_AppUpdateCheckFailed">Error en comprobar las actualizaciones. Consulte el registro para obtener más información.</sys:String>
+    <sys:String x:Key="MsgText_AppUpdateCheckFailed" xml:space="preserve">Error en comprobar las actualizaciones.&#x0a;Consulte el registro para obtener más información.</sys:String>
     <sys:String x:Key="MsgText_AppUpdateChecking">Comprobación de actualización.</sys:String>
     <sys:String x:Key="MsgText_AppUpdateCloseApp">Al hacer clic en "Sí" se cerrarán Mis tareas programadas.</sys:String>
     <sys:String x:Key="MsgText_AppUpdateGoToRelease">¿Ir a la página de lanzamiento?</sys:String>
@@ -325,7 +325,7 @@
     <sys:String x:Key="SettingsItem_LightModeTheme">Tema de modo claro</sys:String>
     <sys:String x:Key="SettingsItem_DarkModeTheme">Tema de modo oscuro</sys:String>
     <sys:String x:Key="SettingsItem_TranslationToolTipLine1">Representa el número de cadenas en el idioma actual en comparación con el valor predeterminado (en-US).</sys:String>
-    <sys:String x:Key="SettingsItem_TranslationToolTipLine2">Presione Ctrl+Shift+K para comparar archivos de idioma. Los resultados se escriben en el archivo de registro.</sys:String>
+    <sys:String x:Key="SettingsItem_TranslationToolTipLine2" xml:space="preserve">Presione Ctrl+Shift+K para comparar archivos de idioma.&#x0a;Los resultados se escriben en el archivo de registro.</sys:String>
     <sys:String x:Key="SettingsItem_UISize">Tamaño de la interfaz de usuario</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageCheckBox">Usar el idioma de visualización de Windows</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine1">Cuando se selecciona esta opción, el idioma especificado en la configuración de Windows</sys:String>
@@ -388,4 +388,9 @@
     <!-- A | SettingsItem_DarkModeTheme  -->
     <!-- End of changes on 2026/06/30 @ 00:00 UTC-->
 
+    <!-- Begin changes on 2026/07/01 @ 00:30 UTC -->
+    <!-- U | Button_CompareLanguageToolTip        - Added xml:space="preserve" and line break character &#x0a; -->
+    <!-- U | MsgText_AppUpdateCheckFailed         - Added xml:space="preserve" and line break character &#x0a; -->
+    <!-- U | SettingsItem_TranslationToolTipLine2 - Added xml:space="preserve" and line break character &#x0a;  -->
+    <!-- End of changes on 2026/07/01 @ 00:30 UTC -->
 </ResourceDictionary>

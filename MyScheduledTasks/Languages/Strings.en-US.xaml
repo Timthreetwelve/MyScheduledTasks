@@ -14,7 +14,7 @@
         
         Translation contributed by:  Timthreetwelve
         
-        Date last update:            2026/06/29
+        Date last update:            2026/06/30
         
         ======================================================================
     -->
@@ -324,8 +324,8 @@
     <sys:String x:Key="SettingsItem_LightModeTheme">Light Mode Theme</sys:String>
     <sys:String x:Key="SettingsItem_DarkModeTheme">Dark Mode Theme</sys:String>
     <sys:String x:Key="SettingsItem_TranslationToolTipLine1">Represents the number of strings in the current language compared to the default (en-US).</sys:String>
-    <sys:String x:Key="SettingsItem_TranslationToolTipLine2">Press Ctrl+Shift+K to compare language files. Results are written to the log file.</sys:String>
-        <sys:String x:Key="SettingsItem_UISize">UI Size</sys:String>
+    <sys:String x:Key="SettingsItem_TranslationToolTipLine2" xml:space="preserve">Press Ctrl+Shift+K to compare language files.&#x0a;Results are written to the log file.</sys:String>
+    <sys:String x:Key="SettingsItem_UISize">UI Size</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageCheckBox">Use Windows display language</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine1">When this option is selected, the language specified in the Windows settings will</sys:String>
     <sys:String x:Key="SettingsItem_UseOSLanguageToolTipLine2">be used if a translation is available, otherwise English (en-US) will be used.</sys:String>
@@ -408,6 +408,7 @@
     
     <!-- Begin changes on 2026/07/01 @ 00:30 UTC -->
     <!-- U | Button_CompareLanguageToolTip        - Added xml:space="preserve" and line break character &#x0a; -->
+    <!-- U | MsgText_AppUpdateCheckFailed         - Added xml:space="preserve" and line break character &#x0a; -->
     <!-- U | SettingsItem_TranslationToolTipLine2 - Added xml:space="preserve" and line break character &#x0a;  -->
     <!-- End of changes on 2026/07/01 @ 00:30 UTC -->
 
