@@ -14,15 +14,15 @@
 
         Translation contributed by:  Timthreetwelve and Google Translate
 
-        Date last update:            2026/06/30
+        Date last update:            2026/07/07
 
         ======================================================================
     -->
 
     <!--  About Page  -->
-    <sys:String x:Key="About_BuildDate">La fecha de construcción</sys:String>
-    <sys:String x:Key="About_CommitID">ID de confirmación</sys:String>
-    <sys:String x:Key="About_CommitIDToolTip">ID de confirmación completa:</sys:String>
+    <sys:String x:Key="About_BuildDate">La fecha del commit</sys:String>
+    <sys:String x:Key="About_CommitID">ID de commit</sys:String>
+    <sys:String x:Key="About_CommitIDToolTip">ID de commit completo:</sys:String>
     <sys:String x:Key="About_Contribute">Contribuir con una traducción</sys:String>
     <sys:String x:Key="About_ContributeToolTip">Cómo contribuir con una traducción</sys:String>
     <sys:String x:Key="About_Copyright">Copyright</sys:String>
@@ -393,4 +393,8 @@
     <!-- U | MsgText_AppUpdateCheckFailed         - Added xml:space="preserve" and line break character &#x0a; -->
     <!-- U | SettingsItem_TranslationToolTipLine2 - Added xml:space="preserve" and line break character &#x0a;  -->
     <!-- End of changes on 2026/07/01 @ 00:30 UTC -->
+
+    <!-- Begin changes on 2026/07/08 @ 02:00 UTC -->
+    <!-- U | About_BuildDate - Changed 'Build' to 'Commit' -->
+    <!-- End of changes on 2026/07/08 @ 02:00 UTC -->
 </ResourceDictionary>

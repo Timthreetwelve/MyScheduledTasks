@@ -341,4 +341,6 @@ healthchecksdb
 MyScheduledTasks/Properties/launchSettings.json
 
 MyScheduledTasks/.editorconfig
-/MyScheduledTasks/BuildInfo.cs
+
+# override .gitignore_global 
+!MyScheduledTasks/BuildInfo.cs

@@ -14,13 +14,13 @@
         
         Translation contributed by:  Timthreetwelve
         
-        Date last update:            2026/06/30
+        Date last update:            2026/07/07
         
         ======================================================================
     -->
 
     <!--  About Page  -->
-    <sys:String x:Key="About_BuildDate">Build Date</sys:String>
+    <sys:String x:Key="About_BuildDate">Commit Date</sys:String>
     <sys:String x:Key="About_CommitID">Commit ID</sys:String>
     <sys:String x:Key="About_CommitIDToolTip">Full Commit ID:</sys:String>
     <sys:String x:Key="About_Contribute">Contribute a Translation</sys:String>
@@ -411,5 +411,9 @@
     <!-- U | MsgText_AppUpdateCheckFailed         - Added xml:space="preserve" and line break character &#x0a; -->
     <!-- U | SettingsItem_TranslationToolTipLine2 - Added xml:space="preserve" and line break character &#x0a;  -->
     <!-- End of changes on 2026/07/01 @ 00:30 UTC -->
+
+    <!-- Begin changes on 2026/07/08 @ 02:00 UTC -->
+    <!-- U | About_BuildDate - Changed 'Build' to 'Commit' -->
+    <!-- End of changes on 2026/07/08 @ 02:00 UTC -->
 
 </ResourceDictionary>
