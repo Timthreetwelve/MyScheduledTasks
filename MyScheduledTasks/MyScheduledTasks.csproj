@@ -2,17 +2,17 @@
 
   <PropertyGroup>
     <AssemblyName>MyScheduledTasks</AssemblyName>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
+    <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ApplicationIcon>Images\MST.ico</ApplicationIcon>
     <Description>My Scheduled Tasks</Description>
     <Copyright>© 2020-$([System.DateTime]::UtcNow.Year) Tim Kennedy</Copyright>
     <Authors>Tim Kennedy</Authors>
     <Company>T_K</Company>
     <Product>My Scheduled Tasks</Product>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <ApplicationIcon>Images\MST.ico</ApplicationIcon>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
@@ -46,6 +46,14 @@
     <Resource Include="Images\MST.png" />
   </ItemGroup>
 
+  <!-- Files to be copied to the output folder -->
+  <ItemGroup>
+    <Content Include="LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Readme.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Strings.test.xaml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="CommonCompletionCodes.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <!-- Packages -->
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
@@ -57,22 +65,6 @@
     <PackageReference Include="TaskScheduler" Version="2.12.2" />
     <PackageReference Include="Vanara.PInvoke.User32" Version="5.0.5" />
     <PackageReference Include="VersionInfoGenerator" Version="3.2.1" PrivateAssets="all" />
-  </ItemGroup>
-
-  <!-- Files top copy to output folder -->
-  <ItemGroup>
-    <None Update="LICENSE.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Readme.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CommonCompletionCodes.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Strings.test.xaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <!-- Build complete message -->
