@@ -42,12 +42,12 @@ es.ViewReadme=Abrir el archivo Léame
 es.AppIsRunning=se está ejecutando, por favor ciérrelo para continuar con la instalación.
 es.ClearSettings=¿Desea eliminar la configuración y los archivos de datos?%n%nSeleccione 'No' si planea reinstalar.
 
-it.NotSelfContained=Verrà installata la versione standard di %1 versione %2.%n%nQuesta versione richiede che sia già installato .NET 10 Desktop Runtime ed è compatibile con i sistemi 32bit e 64bit.%n%nPrima di continuare l'instalalzione ti consigliamo di chiudere tutte le altre applicazioni.%n%nSeleziona 'Avanti' per continuare o 'Annulla' per uscire dall'installazione.
-it.SelfContainedx86=Verrà installata la versione standalone di %1 versione %2 32 bit.%n%nPrima di continuare l'instalalzione ti consigliamo di chiudere tutte le altre applicazioni.%n%nSelziona 'Avanti' per continuare o 'Annulla' per uscire dall'installazione.
-it.SelfContainedx64=Verrà installata la versione standalone di %1 versione %2 64 bit.%n%nPrima di continuare l'instalalzione ti consigliamo di chiudere tutte le altre applicazioni.%n%nSeleziona 'Avanti' per continuare o 'Annulla' per uscire dall'installazione.
-it.ViewReadme=Visualizza file ReadMe
-it.AppIsRunning=è in esecuzione.%nChiudilo per poter continuare l'installazione.
-it.ClearSettings=Vuoi rimuovere le impostazioni, i file cronologia e le voci del registro?%n%nSeleziona "No" se hai intenzione di reinstallare il programma.
+it.NotSelfContained=Verrà installata la versione standard di %1 versione %2.%n%nQuesta versione richiede che sia già installato .NET 10 Desktop Runtime ed è compatibile con i sistemi 32bit e 64bit.%n%nPrima di continuare l'installazione ti consigliamo di chiudere tutte le altre applicazioni.%n%nPer continuare seleziona 'Avanti' o 'Annulla' per uscire dall'installazione.
+it.SelfContainedx86=Verrà installata la versione standalone di %1 versione %2 32 bit.%n%nPrima di continuare l'installazione ti consigliamo di chiudere tutte le altre applicazioni.%n%nPer continuare selziona 'Avanti' o 'Annulla' per uscire dall'installazione.
+it.SelfContainedx64=Verrà installata la versione standalone di %1 versione %2 64 bit.%n%nPrima di continuare l'installazione ti consigliamo di chiudere tutte le altre applicazioni.%n%nPer continuare seleziona 'Avanti' o 'Annulla' per uscire dall'installazione.
+it.ViewReadme=Visualizza file 'ReadMe'
+it.AppIsRunning=è in esecuzione.%nPer continuare l'installazione chiudi l'applicazione.
+it.ClearSettings=Vuoi rimuovere le impostazioni, i file cronologia e le voci del registro?%n%nSe hai intenzione di reinstallare il programma seleziona 'No'.
 
 nl.NotSelfContained=Hiermee wordt de standaardversie van %1 versie %2 geïnstalleerd.%n%n%nDeze versie vereist een bestaande installatie van .NET 10 Desktop Runtime en is compatibel met zowel x64- als x86-systemen.%n%nHet wordt aanbevolen om alle andere toepassingen te sluiten voordat u doorgaat.%n%nKlik op 'volgende' om door te gaan of op 'annuleren' om de installatie af te sluiten.
 nl.SelfContainedx86=Hiermee wordt de portable x86 (32-bits) versie van %1 versie %2 geïnstalleerd.%n%n%nHet wordt aanbevolen om alle andere toepassingen te sluiten voordat u doorgaat.%n%nKlik op 'volgende' om door te gaan of op 'annuleren' om de installatie af te sluiten.
