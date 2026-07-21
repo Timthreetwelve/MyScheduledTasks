@@ -30,7 +30,6 @@
 #define MyAppName            "My Scheduled Tasks"
 #define MyAppNameNoSpaces    StringChange(MyAppName, " ", "")
 #define MyAppExeName         "MyScheduledTasks.exe"
-;#define MyAppVersion         GetVersionNumbersString(MySourceDir + "\" + MyAppExeName)
 #define MyInstallerFilename  MyAppNameNoSpaces + "_" + MyAppVersion + "_" + InstallType + "_Setup"
 #define MyCompanyName        "T_K"
 #define MyPublisherName      "Tim Kennedy"
@@ -40,7 +39,7 @@
 #define MyDateTimeString     GetDateTimeString('yyyy/mm/dd hh:nn:ss', '/', ':')
 #define MyAppSupportURL      "https://github.com/Timthreetwelve/MyScheduledTasks"
 
-#include "MyScheduledTasksLocalization.iss"
+#include "MyScheduledTasks.localization.iss"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -137,7 +136,7 @@ Root: HKCU; Subkey: "Software\{#MyCompanyName}\{#MyAppName}"; ValueType: String;
 Root: HKCU; Subkey: "Software\{#MyCompanyName}\{#MyAppName}"; ValueType: String; ValueName: "Install Date"; ValueData: "{#MyDateTimeString}"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "Software\{#MyCompanyName}\{#MyAppName}"; ValueType: String; ValueName: "Version"; ValueData: "{#MyAppVersion}"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "Software\{#MyCompanyName}\{#MyAppName}"; ValueType: String; ValueName: "Install Folder"; ValueData: "{autopf}\{#MyCompanyName}\{#MyAppName}"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "Software\{#MyCompanyName}\{#MyAppName}"; ValueType: String; ValueName: "Installer Language"; ValueData:"{language}"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\{#MyCompanyName}\{#MyAppName}"; ValueType: String; ValueName: "Installer Language"; ValueData: "{language}"; Flags: uninsdeletekey
 ; Delete this key from previous installs
 Root: HKCU; Subkey: "Software\{#MyCompanyName}\{#MyAppName}"; ValueType: none; ValueName: "Edition"; Flags: uninsdeletekey deletevalue
 
@@ -186,7 +185,7 @@ begin
   FWbemObjectSet := Unassigned;
   FWMIService := Unassigned;
   FSWbemLocator := Unassigned;
-End;
+end;
 
 // Checks if app Is running, if so, displays message box asking to close running app
 Function InitializeSetup() : Boolean;
@@ -194,18 +193,18 @@ var
   Answer: Integer;
   ThisApp: String;
 begin
-  Result := true;
-  ThisApp := ExpandConstant('{#MyAppExeName}');
-  While IsAppRunning(ThisApp) Do
-    begin
-      Answer := MsgBox(ThisApp + ' ' + CustomMessage('AppIsRunning'), mbError, MB_OKCANCEL);
-      if Answer = IDCANCEL then
-        begin
+    Result := true;
+    ThisApp := ExpandConstant('{#MyAppExeName}');
+    While IsAppRunning(ThisApp) Do
+      begin
+        Answer := MsgBox(ThisApp + ' ' + CustomMessage('AppIsRunning'), mbError, MB_OKCANCEL);
+        if Answer = IDCANCEL Then
+          begin
           Result := false;
-          Exit;
-        End;
-    End;
-End;
+      exit;
+    end;
+  end;
+end;
 
 // Remove all files during uninstall if user says OK
 procedure CurUninstallStepChanged (CurUninstallStep: TUninstallStep);
@@ -214,10 +213,9 @@ var
 begin
   if CurUninstallStep = usPostUninstall then
     begin
-      mres := MsgBox(CustomMessage('ClearSettings'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2)
+      mres := MsgBox(CustomMessage('DeleteConfigFiles'), mbConfirmation, MB_YESNO or MB_DEFBUTTON2);
       if mres = IDYES then
         begin
-          DelTree(ExpandConstant('{app}\*.json'), False, True, False);
           DelTree(ExpandConstant('{app}'), True, True, True);
         end;
     end;
