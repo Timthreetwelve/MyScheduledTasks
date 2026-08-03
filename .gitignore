@@ -338,9 +338,11 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
 MyScheduledTasks/Properties/launchSettings.json
 
 MyScheduledTasks/.editorconfig
 
 # override .gitignore_global 
 !MyScheduledTasks/BuildInfo.cs
+!**/*.pubxml
