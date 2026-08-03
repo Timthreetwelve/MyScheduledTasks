@@ -2,7 +2,7 @@
 
 namespace MyScheduledTasks.Helpers;
 
-    /// <summary>
+/// <summary>
 /// Class to return information about the current application
 /// </summary>
 internal static class AppInfo
