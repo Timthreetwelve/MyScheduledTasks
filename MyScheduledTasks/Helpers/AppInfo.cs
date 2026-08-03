@@ -2,7 +2,7 @@
 
 namespace MyScheduledTasks.Helpers;
 
-/// <summary>
+    /// <summary>
 /// Class to return information about the current application
 /// </summary>
 internal static class AppInfo
@@ -10,7 +10,7 @@ internal static class AppInfo
     /// <summary>
     /// Returns the process architecture e.g. X64, Arm64, etc.
     /// </summary>
-    public static string Architecture => RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant();
+    public static string Architecture => RuntimeInformation.ProcessArchitecture.ToString();
 
     /// <summary>
     /// Returns the Copyright info from the Assembly info
@@ -37,7 +37,7 @@ internal static class AppInfo
     /// </summary>
     public static int AppProcessID => Environment.ProcessId;
 
-        /// <summary>
+    /// <summary>
     /// Returns the Product Name from the Assembly info
     /// </summary>
     public static string AppProduct => FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly()!.Location).ProductName ?? "missing";
@@ -45,7 +45,7 @@ internal static class AppInfo
     /// <summary>
     /// Returns the product version from the Assembly info
     /// </summary>
-    // Don't be fooled by 0 references to this property. It is used in the About window.
+    // Used in About window XAML tooltip: Views/AboutPage.xaml.
     public static string AppProductVersion => FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly()!.Location).ProductVersion ?? "missing";
 
     /// <summary>
