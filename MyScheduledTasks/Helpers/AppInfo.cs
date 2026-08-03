@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
+// Copyright (c) Tim Kennedy. All Rights Reserved. Licensed under the MIT License.
 
 namespace MyScheduledTasks.Helpers;
 
@@ -49,7 +49,7 @@ internal static class AppInfo
     /// </summary>
     public static int AppProcessID => Environment.ProcessId;
 
-        /// <summary>
+    /// <summary>
     /// Returns the Product Name from the Assembly info
     /// </summary>
     public static string AppProduct => FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly()!.Location).ProductName ?? "missing";
@@ -57,7 +57,7 @@ internal static class AppInfo
     /// <summary>
     /// Returns the product version from the Assembly info
     /// </summary>
-    // Don't be fooled by 0 references to this property. It is used in the About window.
+    // Used in About window XAML tooltip: Views/AboutPage.xaml.
     public static string AppProductVersion => FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly()!.Location).ProductVersion ?? "missing";
 
     /// <summary>
