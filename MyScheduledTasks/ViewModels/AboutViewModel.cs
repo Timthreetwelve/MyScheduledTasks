@@ -32,7 +32,6 @@ public partial class AboutViewModel : ObservableObject
         TempSettings.Setting.CheckedForNewRelease = true;
         TempSettings.Setting.NewReleaseAvailable = await GitHubHelpers.CheckForNewReleaseAsync();
         TempSettings.Setting.GitHubRelease = GitHubHelpers.GitHubVersion?.ToString() ?? string.Empty;
-        Debug.WriteLine($"IsNewReleaseAvailable: {TempSettings.Setting.NewReleaseAvailable}, NewReleaseVersion: {TempSettings.Setting.GitHubRelease}"); // For testing
         return true;
     }
 
