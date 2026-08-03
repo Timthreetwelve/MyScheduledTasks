@@ -8,9 +8,21 @@ namespace MyScheduledTasks.Helpers;
 internal static class AppInfo
 {
     /// <summary>
-    /// Returns the process architecture e.g. X64, Arm64, etc.
+    /// Returns the process architecture e.g. x64, Arm64, etc.
     /// </summary>
-    public static string Architecture => RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant();
+    public static string Architecture
+    {
+        get
+        {
+            field = RuntimeInformation.ProcessArchitecture.ToString();
+            return field.ToLowerInvariant() switch
+            {
+                "x64" => "x64",
+                "x86" => "x86",
+                _ => field
+            };
+        }
+    }
 
     /// <summary>
     /// Returns the Copyright info from the Assembly info
