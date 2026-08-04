@@ -264,8 +264,6 @@ My Scheduled Tasks uses the following packages:
 
     * TaskScheduler https://github.com/dahall/taskscheduler
 
-    * Vanara https://github.com/dahall/vanara
-
     * VersionInfoGenerator https://github.com/notpeelz/VersionInfoGenerator
 
 The following tools were used during the development of My Scheduled Tasks:
