@@ -591,7 +591,7 @@ internal sealed partial class NavigationViewModel : ObservableObject
     /// Copy (nearly) any text in a TextBlock to the clipboard on right mouse button up.
     /// </summary>
     [RelayCommand]
-    private static void RightMouseUp(MouseButtonEventArgs e)
+    private static async System.Threading.Tasks.Task RightMouseUp(MouseButtonEventArgs e)
     {
         try
         {
@@ -609,18 +609,20 @@ internal sealed partial class NavigationViewModel : ObservableObject
             }
 
             // Try copy to clipboard
-            if (!ClipboardHelper.CopyTextToClipboard(text.Text))
+            if (!await ClipboardHelper.CopyTextToClipboardAsync(text.Text))
             {
+                SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_CopyToClipboardFail"));
                 return;
             }
 
             // Display snackbar message
             SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_CopiedToClipboardItem"));
-            _log.Debug($"{text.Text.Length} bytes copied to the clipboard");
+            _log.Debug($"{text.Text.Length} characters copied to the clipboard");
         }
         catch (Exception ex)
         {
             _log.Error(ex, $"Right-click event handler failed. {ex.Message}");
+            SnackbarMsg.ClearAndQueueMessage(GetStringResource("MsgText_CopyToClipboardFail"));
         }
     }
     #endregion Right mouse button
