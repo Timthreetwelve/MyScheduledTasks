@@ -163,12 +163,7 @@ internal static class MainWindowHelpers
     #region Process command line options
     private static void ProcessCommandLine()
     {
-        CommandLineHelpers.ProcessCommandLine();
-
-        if (CommandLineHelpers.CommandLineParserError is not null)
-        {
-            _log.Warn(CommandLineHelpers.CommandLineParserError);
-        }
+        CommandLineHelpers.ParseCommandLine();
 
         if (CommandLineHelpers.Administrator)
         {
@@ -178,12 +173,11 @@ internal static class MainWindowHelpers
 
         if (CommandLineHelpers.Hide)
         {
-            _log.Debug("Argument \"hide\" specified. Scheduled tasks will be checked but window will only be shown if needed.");
-            // hide the window
             _mainWindow!.Visibility = Visibility.Hidden;
+            _log.Debug("Argument \"hide\" specified. Scheduled tasks will be checked but window will only be shown if needed.");
             bool showMainWindow = false;
 
-            // Only write so log file when the window is hidden
+            // Loop through the scheduled tasks and check if any of the checked tasks have a non-zero result. If so, show the window.
             foreach (ScheduledTask task in ScheduledTask.TaskList)
             {
                 _log.Debug($"{task.TaskName} result = {task.TaskResultShort}");

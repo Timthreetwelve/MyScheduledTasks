@@ -250,8 +250,6 @@ My Scheduled Tasks was written by Tim Kennedy.
 
 My Scheduled Tasks uses the following packages:
 
-    * Command Line Parser https://github.com/commandlineparser/commandline
-
     * Community Toolkit MVVM https://github.com/CommunityToolkit/dotnet
 
     * GongSolutions.WPF.DragDrop https://github.com/punker76/gong-wpf-dragdrop
