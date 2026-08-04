@@ -187,6 +187,7 @@
     <sys:String x:Key="MsgText_AppUpdateNoneFound">No newer releases were found.</sys:String>
     <sys:String x:Key="MsgText_ColumnSortCleared">Column sort cleared</sys:String>
     <sys:String x:Key="MsgText_CopiedToClipboardItem">Item was copied to the clipboard</sys:String>
+    <sys:String x:Key="MsgText_CopyToClipboardFail">Copy to clipboard failed</sys:String>
     <sys:String x:Key="MsgText_Deleted">Deleted {0}.</sys:String>
     <sys:String x:Key="MsgText_DeleteError">Error attempting to delete {0}.</sys:String>
     <sys:String x:Key="MsgText_DeleteNoneSelected">Nothing selected to delete.</sys:String>
@@ -415,5 +416,9 @@
     <!-- Begin changes on 2026/07/08 @ 02:00 UTC -->
     <!-- U | About_BuildDate - Changed 'Build' to 'Commit' -->
     <!-- End of changes on 2026/07/08 @ 02:00 UTC -->
+
+    <!-- Begin changes on 2026/08/03 @ 23:00 UTC -->
+    <!-- A | MsgText_CopyToClipboardFail -->
+    <!-- End of changes on 2026/08/03 @ 23:00 UTC -->
 
 </ResourceDictionary>
