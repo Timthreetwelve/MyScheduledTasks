@@ -165,6 +165,9 @@ public partial class UserSettings : ConfigManager<UserSettings>
     [ObservableProperty]
     private ThemeType _systemDarkTheme = ThemeType.Darker;
 
+    /// <summary>
+    /// Whether the translator expander is open.
+    /// </summary>
     [ObservableProperty]
     private bool _translatorExpanderOpen = true;
 
