@@ -165,6 +165,9 @@ public partial class UserSettings : ConfigManager<UserSettings>
     [ObservableProperty]
     private ThemeType _systemDarkTheme = ThemeType.Darker;
 
+    [ObservableProperty]
+    private bool _translatorExpanderOpen = true;
+
     /// <summary>
     /// Defined language to use in the UI.
     /// </summary>
