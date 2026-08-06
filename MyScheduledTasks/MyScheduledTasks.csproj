@@ -27,7 +27,7 @@
   <PropertyGroup>
     <VersionValidate>true</VersionValidate>
     <Version>0.11.0</Version>
-    <VersionPrerelease>Beta.1</VersionPrerelease>
+    <VersionPrerelease></VersionPrerelease>
   </PropertyGroup>
   
   <!-- Manifest - Run app elevated -->
