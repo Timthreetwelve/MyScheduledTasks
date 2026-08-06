@@ -1,4 +1,4 @@
-;----------------------------------------------------------------------
+﻿;----------------------------------------------------------------------
 ; Inno Setup Script for My Scheduled Tasks
 ;----------------------------------------------------------------------
 ; The following #include file is created by the PubSetupEx.ps1 script.
@@ -15,6 +15,10 @@
 ;                               GetVersionNumbersString function
 ;                               returns major, minor, build, revision
 ;                               but we want major, minor, build.
+;
+;             MyInfoVersion:    Version string for VersionInfoVersion
+;                               Needed if MyAppVersion is not in the 
+;                               correct format for VersionInfoVersion
 ;----------------------------------------------------------------------
 #define  TempDir             GetEnv("TEMP")
 #define  IncludeFile         TempDir + "\PubSetup.Temp.iss"
@@ -30,7 +34,7 @@
 #define MyAppName            "My Scheduled Tasks"
 #define MyAppNameNoSpaces    StringChange(MyAppName, " ", "")
 #define MyAppExeName         "MyScheduledTasks.exe"
-#define MyInstallerFilename  MyAppNameNoSpaces + "_" + MyAppVersion + "_" + InstallType + "_Setup"
+#define MyInstallerFilename  MyAppNameNoSpaces + "_" + MyAppVersion + InstallType + "_Setup"
 #define MyCompanyName        "T_K"
 #define MyPublisherName      "Tim Kennedy"
 #define StartCopyrightYear   "2020"
@@ -66,7 +70,7 @@ AppPublisher={#MyPublisherName}
 
 VersionInfoDescription={#MyAppName} installer
 VersionInfoProductName={#MyAppName}
-VersionInfoVersion={#MyAppVersion}
+VersionInfoVersion={#MyInfoVersion}
 
 UninstallDisplayName={#MyAppName} {#MyAppVersion}
 UninstallDisplayIcon={app}\{#MyAppExeName}
@@ -128,6 +132,8 @@ Type: filesandordirs; Name: "{app}\sv"
 Type: filesandordirs; Name: "{app}\tr"
 Type: filesandordirs; Name: "{app}\zh-CN"
 Type: filesandordirs; Name: "{app}\zh-Hant"
+Type: files; Name: "{app}\Vanara.*.dll"
+Type: files; Name: "{app}\CommandLineArgumentsParser.dll"
 
 [Registry]
 Root: HKCU; Subkey: "Software\{#MyCompanyName}"; Flags: uninsdeletekeyifempty
