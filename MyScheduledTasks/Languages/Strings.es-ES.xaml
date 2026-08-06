@@ -188,6 +188,7 @@
     <sys:String x:Key="MsgText_AppUpdateNoneFound">No se encontraron versiones más recientes.</sys:String>
     <sys:String x:Key="MsgText_ColumnSortCleared">Ordenación de columnas borrada</sys:String>
     <sys:String x:Key="MsgText_CopiedToClipboardItem">Copiado al portapapeles.</sys:String>
+    <sys:String x:Key="MsgText_CopyToClipboardFail">Error al copiar al portapapeles</sys:String>
     <sys:String x:Key="MsgText_Deleted">Eliminado {0}.</sys:String>
     <sys:String x:Key="MsgText_DeleteError">Error al intentar eliminar {0}.</sys:String>
     <sys:String x:Key="MsgText_DeleteNoneSelected">No hay nada seleccionado para eliminar.</sys:String>
@@ -397,4 +398,8 @@
     <!-- Begin changes on 2026/07/08 @ 02:00 UTC -->
     <!-- U | About_BuildDate - Changed 'Build' to 'Commit' -->
     <!-- End of changes on 2026/07/08 @ 02:00 UTC -->
+
+    <!-- Begin changes on 2026/08/06 @ 00:00 UTC -->
+    <!-- A | MsgText_CopyToClipboardFail  -->
+    <!-- End of changes on 2026/08/06 @ 00:00 UTC -->
 </ResourceDictionary>
