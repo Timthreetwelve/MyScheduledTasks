@@ -13,7 +13,6 @@
     <Company>T_K</Company>
     <Product>My Scheduled Tasks</Product>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <!-- x64 Only-->
